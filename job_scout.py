@@ -40,7 +40,7 @@ import time
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 REPO_DIR = Path(__file__).resolve().parent
@@ -101,7 +101,7 @@ def strip_html(text):
 def greenhouse(c):
     d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs")
     return [dict(id=str(j["id"]), title=j["title"], location=(j.get("location") or {}).get("name", ""),
-                 url=j["absolute_url"]) for j in d.get("jobs", [])]
+                 url=j["absolute_url"], posted=(j.get("first_published") or "")[:10]) for j in d.get("jobs", [])]
 
 
 def lever(c):
@@ -113,15 +113,20 @@ def lever(c):
         for lst in j.get("lists") or []:
             desc += " " + (lst.get("text") or "") + " " + strip_html(lst.get("content", ""))
         desc += " " + (j.get("additionalPlain") or "")
+        posted = ""
+        ms = j.get("createdAt")
+        if isinstance(ms, (int, float)):
+            posted = date.fromtimestamp(ms / 1000).isoformat()
         out.append(dict(id=j["id"], title=j["text"], location=(j.get("categories") or {}).get("location", "") or "",
-                        url=j["hostedUrl"], desc=desc))
+                        url=j["hostedUrl"], desc=desc, posted=posted))
     return out
 
 
 def ashby(c):
     d = http(f"https://api.ashbyhq.com/posting-api/job-board/{c['slug']}")
     return [dict(id=j["id"], title=j["title"], location=j.get("location", "") or "", url=j.get("jobUrl", ""),
-                 desc=j.get("descriptionPlain") or strip_html(j.get("descriptionHtml", ""))) for j in d.get("jobs", [])]
+                 desc=j.get("descriptionPlain") or strip_html(j.get("descriptionHtml", "")),
+                 posted=(j.get("publishedAt") or "")[:10]) for j in d.get("jobs", [])]
 
 
 def smartrecruiters(c):
@@ -133,11 +138,31 @@ def smartrecruiters(c):
             loc = j.get("location") or {}
             out.append(dict(id=j["id"], title=j["name"],
                             location=", ".join(x for x in (loc.get("city"), loc.get("region"), loc.get("country")) if x),
-                            url=f"https://jobs.smartrecruiters.com/{c['slug']}/{j['id']}"))
+                            url=f"https://jobs.smartrecruiters.com/{c['slug']}/{j['id']}",
+                            posted=(j.get("releasedDate") or "")[:10]))
         offset += 100
         if len(rows) < 100:
             break
     return out
+
+
+_RELATIVE_DAYS_RE = re.compile(r"posted\s+(today|yesterday|(\d+)\+?\s*day)", re.I)
+
+
+def _workday_posted(text):
+    """Workday's postedOn is relative text ("Posted 5 Days Ago", "Posted Today", "Posted 30+ Days
+    Ago") not a real date - approximate it as an ISO date so postings can be sorted/filtered by
+    recency. "30+" is a floor, not exact, since Workday caps the display at that bucket."""
+    m = _RELATIVE_DAYS_RE.search(text or "")
+    if not m:
+        return ""
+    if m.group(1).lower() == "today":
+        days = 0
+    elif m.group(1).lower() == "yesterday":
+        days = 1
+    else:
+        days = int(m.group(2))
+    return (date.today() - timedelta(days=days)).isoformat()
 
 
 def workday(c):
@@ -160,7 +185,7 @@ def workday(c):
                     continue
                 seen.add(path)
                 out.append(dict(id=path, title=j["title"], location=j.get("locationsText", "") or "",
-                                url=f"https://{c['host']}/{c['site']}{path}"))
+                                url=f"https://{c['host']}/{c['site']}{path}", posted=_workday_posted(j.get("postedOn"))))
             offset += page
             if len(rows) < page:
                 break
@@ -197,7 +222,8 @@ def oracle(c):
                     continue
                 seen.add(jid)
                 out.append(dict(id=jid, title=j.get("Title", "") or "", location=j.get("PrimaryLocation", "") or "",
-                                url=f"https://{c['host']}/hcmUI/CandidateExperience/en/sites/{c['site']}/job/{jid}"))
+                                url=f"https://{c['host']}/hcmUI/CandidateExperience/en/sites/{c['site']}/job/{jid}",
+                                posted=(j.get("PostedDate") or "")[:10]))
             offset += page
             if len(rows) < page:
                 break
@@ -337,12 +363,16 @@ def cmd_queue(args):
     q = load_json(HOME / "queue.json", [])
     if not args.all:
         q = [e for e in q if e["state"] == "new"]
+    if args.days is not None:
+        cutoff = (date.today() - timedelta(days=args.days)).isoformat()
+        # postings with no parseable date are kept, not dropped - "unknown" isn't the same as "old"
+        q = [e for e in q if not e.get("posted") or e["posted"] >= cutoff]
     if args.json:
         print(json.dumps(q, indent=1))
         return
     for e in sorted(q, key=lambda e: (-len(e["kw_hits"]), e["company"])):
-        print(f"{e['id']}  {e['company']}: {e['role']} ({e['location']}) [{e['state']}, "
-              f"spons {e['sponsorship_status']}, kw {len(e['kw_hits'])}]\n    {e['link']}")
+        print(f"{e['id']}  {e['company']}: {e['role']} ({e['location']}) posted {e.get('posted') or 'unknown'} "
+              f"[{e['state']}, spons {e['sponsorship_status']}, kw {len(e['kw_hits'])}]\n    {e['link']}")
     print(f"{len(q)} queue entr{'y' if len(q) == 1 else 'ies'}.")
 
 
@@ -433,8 +463,9 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, seen, state,
         text = descriptions.get(j["id"], "")
         spons, evidence = classify_sponsorship(text)
         entry = dict(id=eid, company=name, role=j["title"], location=j["location"], link=j["url"],
-                     source="job-scout", first_seen=date.today().isoformat(), sponsorship_status=spons,
-                     sponsorship_evidence=evidence, kw_hits=keyword_hits(j["title"], text, keywords),
+                     posted=j.get("posted") or "", source="job-scout", first_seen=date.today().isoformat(),
+                     sponsorship_status=spons, sponsorship_evidence=evidence,
+                     kw_hits=keyword_hits(j["title"], text, keywords),
                      state="auto_blocked" if spons == "Blocked" else "new", first_run=first_run)
         queue.append(entry)
         queued_ids.add(eid)
@@ -459,6 +490,7 @@ def main():
     ap.add_argument("--queue", action="store_true")
     ap.add_argument("--all", action="store_true", help="with --queue: include every state")
     ap.add_argument("--json", action="store_true", help="with --queue: JSON output")
+    ap.add_argument("--days", type=int, help="with --queue: only postings posted within the last N days")
     ap.add_argument("--mark", nargs=2, metavar=("ID", "STATE"))
     args = ap.parse_args()
     if args.init:
