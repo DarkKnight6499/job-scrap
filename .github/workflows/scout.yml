@@ -1,0 +1,36 @@
+name: job-scout
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: job-scout-run
+  cancel-in-progress: false
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run job_scout
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python job_scout.py
+
+      - name: Commit updated state/queue
+        run: |
+          git config user.name "job-scout-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/state.json data/queue.json
+          git diff --cached --quiet || git commit -m "Update job-scout state [skip ci]"
+          git push
