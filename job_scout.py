@@ -368,10 +368,16 @@ def cmd_queue(args):
         # postings with no parseable date are kept, not dropped - "unknown" isn't the same as "old"
         q = [e for e in q if not e.get("posted") or e["posted"] >= cutoff]
     def sort_key(e):
+        posted = e.get("posted") or ""
         try:
-            ordinal = date.fromisoformat(e.get("posted") or "").toordinal()
+            ordinal = date.fromisoformat(posted).toordinal()
         except ValueError:
-            ordinal = -1  # unknown posting date: sort last, not "recent"
+            # no posted date: rank by when we first saw it instead of letting every undated
+            # posting tie and fall through entirely to the keyword-count tiebreak
+            try:
+                ordinal = date.fromisoformat(e.get("first_seen") or "").toordinal()
+            except ValueError:
+                ordinal = 0
         return (-ordinal, -len(e["kw_hits"]), e["company"])
 
     q = sorted(q, key=sort_key)
@@ -383,51 +389,89 @@ def cmd_queue(args):
         print(f"wrote {len(q)} entries to {args.html}")
         return
     for e in q:
-        print(f"{e['id']}  {e['company']}: {e['role']} ({e['location']}) posted {e.get('posted') or 'unknown'} "
-              f"[{e['state']}, spons {e['sponsorship_status']}, kw {len(e['kw_hits'])}]\n    {e['link']}")
+        print(f"{e['id']}  {e['company']}: {e['role']} ({e['location']}) posted {posted_label(e)} "
+              f"[{e['state']}, spons {e['sponsorship_status']}, kw {', '.join(e['kw_hits']) or 'none'}]\n    {e['link']}")
     print(f"{len(q)} queue entr{'y' if len(q) == 1 else 'ies'}.")
+
+
+def posted_label(e):
+    posted = e.get("posted") or ""
+    if posted == date.today().isoformat():
+        return "today"
+    if posted:
+        return posted
+    first_seen = e.get("first_seen") or ""
+    return f"seen {first_seen[5:]}" if first_seen else "unknown"  # MM-DD, no real posted date to trust
+
+
+# states shown collapsed below the main "new" table, in this order; any other state found (e.g.
+# a custom state from a hand-edit) is appended after these
+_SECONDARY_STATE_ORDER = ["auto_blocked", "applied", "skipped"]
 
 
 def write_queue_html(q, path):
     """Static page, no server: q is already sorted newest-posted-first by cmd_queue. Each row is a
-    plain <a> to the live posting so double-clicking the file and clicking a link is the whole workflow."""
-    rows = []
+    plain <a> to the live posting so double-clicking the file and clicking a link is the whole workflow.
+    "new" postings get their own table up top; everything else (auto_blocked, applied, skipped, ...)
+    is collapsed into <details> sections so a growing history doesn't bury what's actionable today."""
     today = date.today().isoformat()
-    for e in q:
+
+    def row_html(e):
         posted = e.get("posted") or ""
-        posted_label = "today" if posted == today else (posted or "unknown")
         badge = " today" if posted == today else ""
-        rows.append(
+        kw = ", ".join(e["kw_hits"]) if e["kw_hits"] else "—"
+        spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
+        return (
             f'<tr class="{e["state"]}{badge}">'
-            f'<td class="posted">{html.escape(posted_label)}</td>'
+            f'<td class="posted">{html.escape(posted_label(e))}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td><a href="{html.escape(e["link"])}" target="_blank" rel="noopener">{html.escape(e["role"])}</a></td>'
             f'<td>{html.escape(e["location"])}</td>'
-            f'<td>{html.escape(e["sponsorship_status"])}</td>'
-            f'<td>{len(e["kw_hits"])}</td>'
-            f'<td>{html.escape(e["state"])}</td>'
+            f'<td title="{spons_evidence}">{html.escape(e["sponsorship_status"])}</td>'
+            f'<td class="kw">{html.escape(kw)}</td>'
             f'</tr>'
         )
+
+    head = "<tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th><th>Keywords</th></tr>"
+    new_rows = [e for e in q if e["state"] == "new"]
+    by_state = {}
+    for e in q:
+        if e["state"] != "new":
+            by_state.setdefault(e["state"], []).append(e)
+    ordered_states = [s for s in _SECONDARY_STATE_ORDER if s in by_state] + \
+                      [s for s in by_state if s not in _SECONDARY_STATE_ORDER]
+
+    sections = "".join(
+        f'<details><summary>{html.escape(state)} ({len(by_state[state])})</summary>'
+        f'<table><thead>{head}</thead><tbody>{"".join(row_html(e) for e in by_state[state])}</tbody></table>'
+        f'</details>'
+        for state in ordered_states
+    )
+
     page = f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>Job Scout Queue</title>
 <style>
 body {{ font-family: system-ui, sans-serif; margin: 2rem; background: #fafafa; color: #111; }}
 h1 {{ font-size: 1.2rem; }}
-table {{ border-collapse: collapse; width: 100%; }}
+table {{ border-collapse: collapse; width: 100%; margin-bottom: 1rem; }}
 th, td {{ padding: 6px 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 0.9rem; }}
-th {{ position: sticky; top: 0; background: #fafafa; cursor: pointer; }}
+th {{ position: sticky; top: 0; background: #fafafa; }}
 tr.today {{ background: #eaffea; font-weight: 600; }}
-tr.auto_blocked {{ color: #999; }}
 td.posted {{ white-space: nowrap; }}
+td.kw {{ color: #555; font-size: 0.85rem; }}
+details {{ margin-bottom: 0.5rem; }}
+summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 </style></head>
 <body>
-<h1>Job Scout Queue - generated {date.today().isoformat()} - {len(q)} entries</h1>
+<h1>Job Scout Queue - generated {today} - {len(q)} entries</h1>
+<h2>New ({len(new_rows)})</h2>
 <table id="q">
-<thead><tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th><th>Kw</th><th>State</th></tr></thead>
+<thead>{head}</thead>
 <tbody>
-{''.join(rows)}
+{''.join(row_html(e) for e in new_rows)}
 </tbody>
 </table>
+{sections}
 </body></html>"""
     Path(path).write_text(page, encoding="utf-8")
 
