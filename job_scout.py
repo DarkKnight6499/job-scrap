@@ -367,13 +367,69 @@ def cmd_queue(args):
         cutoff = (date.today() - timedelta(days=args.days)).isoformat()
         # postings with no parseable date are kept, not dropped - "unknown" isn't the same as "old"
         q = [e for e in q if not e.get("posted") or e["posted"] >= cutoff]
+    def sort_key(e):
+        try:
+            ordinal = date.fromisoformat(e.get("posted") or "").toordinal()
+        except ValueError:
+            ordinal = -1  # unknown posting date: sort last, not "recent"
+        return (-ordinal, -len(e["kw_hits"]), e["company"])
+
+    q = sorted(q, key=sort_key)
     if args.json:
         print(json.dumps(q, indent=1))
         return
-    for e in sorted(q, key=lambda e: (-len(e["kw_hits"]), e["company"])):
+    if args.html:
+        write_queue_html(q, args.html)
+        print(f"wrote {len(q)} entries to {args.html}")
+        return
+    for e in q:
         print(f"{e['id']}  {e['company']}: {e['role']} ({e['location']}) posted {e.get('posted') or 'unknown'} "
               f"[{e['state']}, spons {e['sponsorship_status']}, kw {len(e['kw_hits'])}]\n    {e['link']}")
     print(f"{len(q)} queue entr{'y' if len(q) == 1 else 'ies'}.")
+
+
+def write_queue_html(q, path):
+    """Static page, no server: q is already sorted newest-posted-first by cmd_queue. Each row is a
+    plain <a> to the live posting so double-clicking the file and clicking a link is the whole workflow."""
+    rows = []
+    today = date.today().isoformat()
+    for e in q:
+        posted = e.get("posted") or ""
+        posted_label = "today" if posted == today else (posted or "unknown")
+        badge = " today" if posted == today else ""
+        rows.append(
+            f'<tr class="{e["state"]}{badge}">'
+            f'<td class="posted">{html.escape(posted_label)}</td>'
+            f'<td>{html.escape(e["company"])}</td>'
+            f'<td><a href="{html.escape(e["link"])}" target="_blank" rel="noopener">{html.escape(e["role"])}</a></td>'
+            f'<td>{html.escape(e["location"])}</td>'
+            f'<td>{html.escape(e["sponsorship_status"])}</td>'
+            f'<td>{len(e["kw_hits"])}</td>'
+            f'<td>{html.escape(e["state"])}</td>'
+            f'</tr>'
+        )
+    page = f"""<!doctype html>
+<html><head><meta charset="utf-8"><title>Job Scout Queue</title>
+<style>
+body {{ font-family: system-ui, sans-serif; margin: 2rem; background: #fafafa; color: #111; }}
+h1 {{ font-size: 1.2rem; }}
+table {{ border-collapse: collapse; width: 100%; }}
+th, td {{ padding: 6px 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 0.9rem; }}
+th {{ position: sticky; top: 0; background: #fafafa; cursor: pointer; }}
+tr.today {{ background: #eaffea; font-weight: 600; }}
+tr.auto_blocked {{ color: #999; }}
+td.posted {{ white-space: nowrap; }}
+</style></head>
+<body>
+<h1>Job Scout Queue - generated {date.today().isoformat()} - {len(q)} entries</h1>
+<table id="q">
+<thead><tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th><th>Kw</th><th>State</th></tr></thead>
+<tbody>
+{''.join(rows)}
+</tbody>
+</table>
+</body></html>"""
+    Path(path).write_text(page, encoding="utf-8")
 
 
 def cmd_mark(args):
@@ -491,6 +547,7 @@ def main():
     ap.add_argument("--all", action="store_true", help="with --queue: include every state")
     ap.add_argument("--json", action="store_true", help="with --queue: JSON output")
     ap.add_argument("--days", type=int, help="with --queue: only postings posted within the last N days")
+    ap.add_argument("--html", metavar="PATH", help="with --queue: write a clickable HTML page instead of stdout")
     ap.add_argument("--mark", nargs=2, metavar=("ID", "STATE"))
     args = ap.parse_args()
     if args.init:
