@@ -181,6 +181,19 @@ def _workday_posted(text):
     return (date.today() - timedelta(days=days)).isoformat()
 
 
+def _workday_detail_posted(info):
+    """Workday's job-DETAIL response (unlike the bulk search listing) usually carries an exact
+    startDate - prefer it over the relative postedOn bucket text, and over the bulk listing's own
+    postedOn (which some tenants, e.g. Ares, omit from the bulk response entirely)."""
+    start = (info.get("startDate") or "")[:10]
+    try:
+        if start and date.fromisoformat(start) <= date.today() + timedelta(days=1):
+            return start
+    except ValueError:
+        pass
+    return _workday_posted(info.get("postedOn"))
+
+
 def workday(c):
     """Unofficial endpoint. Needs host, tenant, site. 'search' is a term or a list of terms; each
     term is queried separately (max_per_term results, default 60) and results are merged by id."""
@@ -275,20 +288,23 @@ def fetch_company(c):
 
 
 def describe(c, job):
-    """Full description text for one job. Lever/Ashby already carry it from the list call."""
+    """Full description text for one job, plus a Workday date refinement (empty string for every
+    other ATS - they already get an exact date from their list call). Lever/Ashby already carry
+    the description from the list call."""
     if job.get("desc"):
-        return job["desc"]
+        return job["desc"], ""
     ats = c["ats"]
     if ats == "greenhouse":
         d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs/{job['id']}")
-        return strip_html(d.get("content", ""))
+        return strip_html(d.get("content", "")), ""
     if ats == "smartrecruiters":
         d = http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings/{job['id']}")
         secs = (d.get("jobAd") or {}).get("sections") or {}
-        return strip_html(" ".join((s or {}).get("text", "") for s in secs.values()))
+        return strip_html(" ".join((s or {}).get("text", "") for s in secs.values())), ""
     if ats == "workday":
         d = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{c['site']}{job['id']}")
-        return strip_html((d.get("jobPostingInfo") or {}).get("jobDescription", ""))
+        info = d.get("jobPostingInfo") or {}
+        return strip_html(info.get("jobDescription", "")), _workday_detail_posted(info)
     if ats == "oracle":
         finder = f"ById;Id={job['id']}"
         url = (f"https://{c['host']}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails?"
@@ -296,11 +312,11 @@ def describe(c, job):
         d = http(url)
         items = d.get("items") or []
         if not items:
-            return ""
+            return "", ""
         it = items[0]
         parts = [it.get(k) for k in ("ExternalDescriptionStr", "ExternalResponsibilitiesStr", "ExternalQualificationsStr")]
-        return strip_html(" ".join(p for p in parts if p))
-    return ""
+        return strip_html(" ".join(p for p in parts if p)), ""
+    return "", ""
 
 
 # ------------------------------------------------------------------ analysis
@@ -550,11 +566,16 @@ def write_queue_html(q, path, updated_at=None):
     "new" postings get their own table up top; every other open state (shortlisted, applied, ...)
     collapses into a <details> section; closed/removed entries (any state) go in one final section so
     a growing history doesn't bury what's actionable today."""
-    today = date.today().isoformat()
     def row_html(e):
         posted = e.get("posted") or ""
         closed = bool(e.get("closed_on"))
-        badge = " today" if posted == today else ""
+        # No relative label ("today", "seen MM-DD") is baked in here: this is a static page with
+        # no server, generated once per scheduled run, so any relative-to-now text written at
+        # generation time goes stale the moment the viewer's clock moves past that instant (e.g.
+        # a posting stays labeled "today" forever if viewed the next day off a page that hasn't
+        # regenerated). The raw ISO date (or the id-only fallbacks below) goes in data-posted /
+        # data-first-seen instead, and the script at the bottom recomputes the relative label and
+        # the "posted today" highlight against the viewer's own current date on every page load.
         kw = ", ".join(e["kw_hits"]) if e["kw_hits"] else "—"
         spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
         exp_years = e.get("experience")
@@ -573,8 +594,10 @@ def write_queue_html(q, path, updated_at=None):
                          f'last live {html.escape(e.get("last_seen_live") or "unknown")}"')
         state_cell = f'<td>{html.escape(e["state"])}</td>' if closed else ""
         exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
+        first_seen = e.get("first_seen") or ""
         return (
-            f'<tr class="{e["state"]}{badge}{" closed" if closed else ""}"{row_title}{exp_data}>'
+            f'<tr class="{e["state"]}{" closed" if closed else ""}"{row_title}{exp_data}'
+            f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}">'
             f'<td class="posted">{html.escape(posted_label(e))}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td>{role_cell}</td>'
@@ -738,6 +761,33 @@ to
   expMax.addEventListener('change', apply);
   apply();
 }})();
+(function() {{
+  // Recomputes "today"/"N days ago"/"seen MM-DD" against the viewer's own current date, every
+  // page load - the server only ever writes the raw ISO date into data-posted/data-first-seen,
+  // never a relative label, so this never goes stale even if the page itself wasn't regenerated
+  // since yesterday.
+  function daysAgo(iso) {{
+    var d = new Date(iso + 'T00:00:00');
+    var now = new Date();
+    var todayLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return Math.round((todayLocal - d) / 86400000);
+  }}
+  document.querySelectorAll('tr[data-posted]').forEach(function(tr) {{
+    var posted = tr.getAttribute('data-posted');
+    var cell = tr.querySelector('td.posted');
+    var label;
+    if (posted) {{
+      var n = daysAgo(posted);
+      label = n <= 0 ? 'today' : n === 1 ? 'yesterday' : n + 'd ago';
+      tr.classList.toggle('today', n <= 0);
+    }} else {{
+      var firstSeen = tr.getAttribute('data-first-seen');
+      label = firstSeen ? 'seen ' + firstSeen.slice(5) : 'unknown';
+      tr.classList.remove('today');
+    }}
+    if (cell) cell.textContent = label;
+  }});
+}})();
 </script>
 </body></html>"""
     Path(path).write_text(page, encoding="utf-8")
@@ -811,7 +861,10 @@ def run(args):
                 for fut in as_completed(futures):
                     j = futures[fut]
                     try:
-                        descriptions[j["id"]] = fut.result()
+                        text, posted = fut.result()
+                        descriptions[j["id"]] = text
+                        if posted:  # refines/replaces the bulk listing's date with the detail page's exact one
+                            j["posted"] = posted
                     except Exception as e:
                         print(f"! {name} description for {j['title']}: {e}", file=sys.stderr)
                         descriptions[j["id"]] = ""
