@@ -46,7 +46,7 @@ import time
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 from pathlib import Path
 
@@ -61,9 +61,15 @@ UA = {"User-Agent": "job-scout/1.0", "Accept": "application/json"}
 QUEUE_STATES = ("new", "shortlisted", "applied", "dismissed", "auto_blocked")
 
 CLOSE_AFTER_MISSES = 2     # consecutive complete-listing runs an id must be absent before we call it closed
-REPOST_WINDOW_DAYS = 180   # a same-fingerprint match older than this is a coincidence, not a repost
+REPOST_WINDOW_DAYS = 270   # a same-fingerprint match older than this (measured from when the prior
+                           # posting actually went quiet, not from when it was first seen - see
+                           # _find_repost_source) is a coincidence, not a repost
 MASS_VANISH_GUARD = 0.5    # if more than this fraction of a company's open entries vanish in one run,
                            # treat it as a broken fetch (bad slug, API change) and skip closing anything
+
+GHOST_MIN_COUNT = 3        # a role posted at least this many times under the same fingerprint...
+GHOST_MIN_SPAN_DAYS = 120  # ...spanning at least this many days looks like an evergreen/ghost req,
+                           # not a normal one-off backfill after someone leaves
 
 BLOCK_PATTERNS = [
     r"(?:will|would|does|do|can|could|is|are)\s+not\s+(?:\w+\s+){0,3}sponsor",
@@ -129,7 +135,11 @@ def lever(c):
         posted = ""
         ms = j.get("createdAt")
         if isinstance(ms, (int, float)):
-            posted = date.fromtimestamp(ms / 1000).isoformat()
+            # createdAt is an absolute UTC timestamp - must convert with an explicit UTC tz, not
+            # date.fromtimestamp()'s local-machine tz, or the same posting gets a different date
+            # depending on whether this ran on the UTC GitHub Actions cron or a local US-Eastern
+            # run (confirmed: a controlled 2026-09-26T02:00 UTC timestamp came out as 09-25 local)
+            posted = datetime.fromtimestamp(ms / 1000, tz=timezone.utc).date().isoformat()
         out.append(dict(id=j["id"], title=j["text"], location=(j.get("categories") or {}).get("location", "") or "",
                         url=j["hostedUrl"], desc=desc, posted=posted))
     return out, True  # single uncapped call: always the full board
@@ -465,6 +475,51 @@ def role_fingerprint(title, location):
     return f"{norm(title)}|{norm(location)}"
 
 
+def _classify_ghosts(queue):
+    """Flags evergreen/repeat-posting ("ghost") lineages: a role classified as "Likely" here has
+    appeared GHOST_MIN_COUNT+ times under the same company+fingerprint, spanning GHOST_MIN_SPAN_DAYS+
+    days, with each appearance starting only after the previous one went quiet (serial, not two
+    genuinely concurrent openings for a common title). Deliberately never asserts the opposite - a
+    role with no repost history yet is "Unclear", not "Clear", the same caution classify_sponsorship
+    uses, since a role just hasn't had the chance to repeat yet doesn't mean it never will.
+
+    This is unwindowed by design (checks the WHOLE queue, not just entries linked via repost_of/
+    REPOST_WINDOW_DAYS) and recomputed queue-wide on every run, not classified once at creation like
+    sponsorship - the signal only exists at the lineage level, and a chain that REPOST_WINDOW_DAYS
+    fails to link (a very long gap between reposts) should still be visible here. It only ever
+    tags entries red for review; nothing gets hidden or removed based on this."""
+    groups = {}
+    for e in queue:
+        key = (e["company"], role_fingerprint(e["role"], e["location"]))
+        groups.setdefault(key, []).append(e)
+
+    for entries in groups.values():
+        for e in entries:
+            e["ghost_status"], e["ghost_evidence"] = "Unclear", ""
+        if len(entries) < GHOST_MIN_COUNT:
+            continue
+        entries.sort(key=lambda e: e.get("first_seen") or "")
+        serial = True
+        for prev, cur in zip(entries, entries[1:]):
+            boundary = prev.get("closed_on") or prev.get("last_seen_live") or prev.get("first_seen") or ""
+            if not boundary or (cur.get("first_seen") or "") < boundary:
+                serial = False
+                break
+        if not serial:
+            continue
+        first_seen, last_seen = entries[0].get("first_seen") or "", entries[-1].get("first_seen") or ""
+        try:
+            span = (date.fromisoformat(last_seen) - date.fromisoformat(first_seen)).days
+        except ValueError:
+            continue
+        if span < GHOST_MIN_SPAN_DAYS:
+            continue
+        evidence = (f"posted {len(entries)}x since {first_seen} (span {span}d), "
+                    f"most recently {last_seen}")
+        for e in entries:
+            e["ghost_status"], e["ghost_evidence"] = "Likely", evidence
+
+
 # --------------------------------------------------------------------- notify
 
 def notify(cfg, entry, dry):
@@ -585,10 +640,12 @@ def write_queue_html(q, path, updated_at=None):
         kw = ", ".join(e["kw_hits"]) if e["kw_hits"] else "—"
         spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
         exp_years = e.get("experience")
-        exp_label = f"{exp_years}+ years" if isinstance(exp_years, int) else "Unclear"
+        exp_label = f"{exp_years}+ years" if isinstance(exp_years, int) else "N/A"
         exp_evidence = html.escape(e.get("experience_evidence") or "")
         salary = e.get("salary") or "Unclear"
         salary_evidence = html.escape(e.get("salary_evidence") or "")
+        spons_label = e["sponsorship_status"] if e["sponsorship_status"] != "Unclear" else "N/A"
+        salary_label = salary if salary != "Unclear" else "N/A"
         role = html.escape(e["role"])
         if e.get("repost_count"):
             role += f' <span class="repost" title="repost of {html.escape(e.get("repost_of") or "?")}">repost x{e["repost_count"]}</span>'
@@ -601,22 +658,31 @@ def write_queue_html(q, path, updated_at=None):
         state_cell = f'<td>{html.escape(e["state"])}</td>' if closed else ""
         exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
         first_seen = e.get("first_seen") or ""
+        # Same "never assert the positive, only flag with evidence" convention as sponsorship: a
+        # role that hasn't shown a repeat-posting pattern is N/A, not "clear" of it, since it just
+        # hasn't had the chance to repeat yet. Tagged red (see tr.ghost in the CSS) but never
+        # hidden or removed from its normal table/section - still fully visible and actionable.
+        is_ghost = e.get("ghost_status") == "Likely"
+        ghost_label = "Likely ghost" if is_ghost else "N/A"
+        ghost_evidence = html.escape(e.get("ghost_evidence") or "no repeat-posting pattern detected")
+        row_class = e["state"] + (" closed" if closed else "") + (" ghost" if is_ghost else "")
         return (
-            f'<tr class="{e["state"]}{" closed" if closed else ""}"{row_title}{exp_data}'
+            f'<tr class="{row_class}"{row_title}{exp_data}'
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}">'
             f'<td class="posted">{html.escape(posted_label(e))}</td>'
+            f'<td title="{ghost_evidence}" class="ghost-cell">{html.escape(ghost_label)}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td>{role_cell}</td>'
             f'<td>{html.escape(e["location"])}</td>'
-            f'<td title="{spons_evidence}">{html.escape(e["sponsorship_status"])}</td>'
+            f'<td title="{spons_evidence}">{html.escape(spons_label)}</td>'
             f'<td title="{exp_evidence}">{html.escape(exp_label)}</td>'
-            f'<td title="{salary_evidence}" class="salary">{html.escape(salary)}</td>'
+            f'<td title="{salary_evidence}" class="salary">{html.escape(salary_label)}</td>'
             f'<td class="kw">{html.escape(kw)}</td>'
             f'{state_cell}'
             f'</tr>'
         )
 
-    head = ("<tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th>"
+    head = ("<tr><th>Posted</th><th>Ghost</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th>"
             "<th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
     closed_head = head.replace("</tr>", "<th>State</th></tr>")
 
@@ -655,9 +721,12 @@ table {{ border-collapse: collapse; width: 100%; margin-bottom: 1rem; }}
 th, td {{ padding: 6px 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 0.9rem; }}
 th {{ position: sticky; top: 0; background: #fafafa; }}
 tr.today {{ background: #eaffea; font-weight: 600; }}
+tr.ghost {{ border-left: 4px solid #c0392b; }}
+tr.ghost td.ghost-cell {{ color: #c0392b; font-weight: 700; }}
 tr.closed {{ color: #999; }}
 tr.closed a, tr.closed {{ text-decoration: line-through; }}
 td.posted {{ white-space: nowrap; }}
+td.ghost-cell {{ white-space: nowrap; color: #999; }}
 td.kw {{ color: #555; font-size: 0.85rem; }}
 td.salary {{ white-space: nowrap; }}
 span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decoration: none; }}
@@ -883,6 +952,7 @@ def run(args):
 
     if args.check:
         return
+    _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
         HOME.mkdir(parents=True, exist_ok=True)
         atomic_json.write(str(HOME / "state.json"), state)
@@ -892,15 +962,24 @@ def run(args):
           f"{counts['closed']} closed, {counts['reopened']} reopened, {counts['reposts']} reposts.")
 
 
-def _find_repost_source(queue, name, fp, live_ids, eid):
+def _find_repost_source(queue, name, fp, live_ids, eid, claimed):
     """A prior queue entry is this job's repost source if: same company, same role fingerprint,
     its own id is no longer in the live listing (so it's not just a second concurrent opening for
-    the same role), and it's recent enough that the match isn't just coincidence."""
+    the same role), not already claimed by another fresh match this same run (two different new
+    postings can share a fingerprint - the second one to process must not steal the first one's
+    source), and it went quiet recently enough that the match isn't just coincidence.
+
+    The recency check is keyed on when the prior posting was last known live (closed_on, falling
+    back to last_seen_live), not on when it was first_seen - a role that stayed posted for months
+    before finally closing has an old first_seen even if it just went quiet last week, and gating
+    on first_seen would wrongly treat that as "too stale to be a repost". This matters most for
+    exactly the long-lived/evergreen postings a repost check should be catching."""
     cutoff = (date.today() - timedelta(days=REPOST_WINDOW_DAYS)).isoformat()
     candidates = [e for e in queue if e["company"] == name and e["id"] != eid
                   and role_fingerprint(e["role"], e["location"]) == fp
                   and e["id"].split(":", 1)[1] not in live_ids
-                  and e.get("first_seen", "") >= cutoff]
+                  and e["id"] not in claimed
+                  and (e.get("closed_on") or e.get("last_seen_live") or e.get("first_seen") or "") >= cutoff]
     return max(candidates, key=lambda e: e.get("first_seen", "")) if candidates else None
 
 
@@ -908,6 +987,9 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
                       keywords, cfg, args, counts):
     live_ids = {jj["id"] for jj in jobs}
     today = date.today().isoformat()
+    claimed = set()  # prior entries already matched to a fresh posting earlier in this same loop -
+                      # without this, two different fresh postings that share a fingerprint could
+                      # both claim the same prior as their repost source
     for j in fresh:
         counts["matched"] += 1
         eid = f"{name}:{j['id']}"
@@ -918,13 +1000,22 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         fp = role_fingerprint(j["title"], j["location"])
         # a capped/paginated listing can't prove a prior id is gone - it may just be outside the
         # window - so only trust absence as repost evidence when this run's listing was complete
-        prior = None if (first_run or not complete) else _find_repost_source(queue, name, fp, live_ids, eid)
+        prior = None if (first_run or not complete) else _find_repost_source(queue, name, fp, live_ids, eid, claimed)
 
         entry_state = "auto_blocked" if spons == "Blocked" else "new"
         repost_count, repost_of, reposted_on = 0, None, None
+        lineage_root, lineage_first_seen = eid, today
         if prior:
+            claimed.add(prior["id"])
             repost_count = prior.get("repost_count", 0) + 1
-            repost_of, reposted_on = prior["id"], today
+            # prefer the new posting's own exact date over "the day we happened to scrape it" -
+            # they only diverge when a run is missed or errors out, but when they do, the actual
+            # date is the more honest one to keep permanently in the record
+            repost_of, reposted_on = prior["id"], (j.get("posted") or today)
+            # walk-free lineage tracking: inherit the root/earliest-date from the prior entry so a
+            # long repost chain never needs to be re-walked to answer "how old is this role really"
+            lineage_root = prior.get("lineage_root") or prior["id"]
+            lineage_first_seen = prior.get("lineage_first_seen") or prior.get("first_seen") or today
             if spons != "Blocked" and prior.get("state") in ("dismissed", "applied", "shortlisted"):
                 entry_state = prior["state"]  # a repost of a role Yazad already acted on inherits that decision
             if not prior.get("closed_on"):
@@ -938,7 +1029,9 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
                      kw_hits=keyword_hits(j["title"], text, keywords),
                      state=entry_state, first_run=first_run,
                      last_seen_live=today, miss_count=0, closed_on=None, closed_reason=None,
-                     repost_count=repost_count, repost_of=repost_of, reposted_on=reposted_on)
+                     repost_count=repost_count, repost_of=repost_of, reposted_on=reposted_on,
+                     lineage_root=lineage_root, lineage_first_seen=lineage_first_seen,
+                     ghost_status="Unclear", ghost_evidence="")  # refreshed queue-wide by _classify_ghosts()
         queue.append(entry)
         queued_ids.add(eid)
         if prior:
