@@ -384,18 +384,23 @@ def describe(c, job):
 
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
-    # term like "intern" doesn't false-positive inside "Internal"/"International". Locations stay
-    # plain substring: filters like ", nj" rely on punctuation that word-boundary matching would
-    # reject (the comma has no alnum neighbor to anchor against).
+    # term like "intern" doesn't false-positive inside "Internal"/"International". Locations
+    # (include and exclude) stay plain substring: filters like ", nj" rely on punctuation that
+    # word-boundary matching would reject (the comma has no alnum neighbor to anchor against).
+    # locations_exclude terms are written as ", <country>" where possible so "New Mexico, NM"
+    # and "Indianapolis" don't false-match ", mexico"/", india".
     t, loc = job["title"], job["location"].lower()
     inc = f.get("title_include", [])
     exc = f.get("title_exclude", [])
     locs = [x.lower() for x in f.get("locations_include", [])]
+    loc_exc = [x.lower() for x in f.get("locations_exclude", [])]
     if inc and not any(contains_term(t, x) for x in inc):
         return False
     if any(contains_term(t, x) for x in exc):
         return False
     if locs and not any(x in loc for x in locs):
+        return False
+    if any(x in loc for x in loc_exc):
         return False
     return True
 
