@@ -200,44 +200,59 @@ def _workday_posted(text):
 def _workday_detail_posted(info):
     """Workday's job-DETAIL response (unlike the bulk search listing) usually carries an exact
     startDate - prefer it over the relative postedOn bucket text, and over the bulk listing's own
-    postedOn (which some tenants, e.g. Ares, omit from the bulk response entirely)."""
+    postedOn (which some tenants, e.g. Ares, omit from the bulk response entirely).
+
+    Returns (date, source) - source is "exact" for startDate, "approx" for the relative-text
+    fallback (derived from a coarse day-count string, not a timestamp - see _workday_posted), or
+    "unknown" for neither. Callers surface this so a date on the tracker page never looks more
+    certain than it actually is."""
     start = (info.get("startDate") or "")[:10]
     try:
         if start and date.fromisoformat(start) <= date.today() + timedelta(days=1):
-            return start
+            return start, "exact"
     except ValueError:
         pass
-    return _workday_posted(info.get("postedOn"))
+    fallback = _workday_posted(info.get("postedOn"))
+    return fallback, ("approx" if fallback else "unknown")
 
 
 def workday(c):
     """Unofficial endpoint. Needs host, tenant, site. 'search' is a term or a list of terms; each
-    term is queried separately (max_per_term results, default 60) and results are merged by id."""
-    base = f"https://{c['host']}/wday/cxs/{c['tenant']}/{c['site']}/jobs"
+    term is queried separately (max_per_term results, default 60) and results are merged by id.
+    'site' may also be a list of site paths under the same tenant - some subsidiaries post to a
+    separate career site sharing the parent's Workday tenant (e.g. PGIM/Prudential: same host and
+    tenant, "PGIM_Careers" vs "Careers"), and the same requisition can appear on both - tracking
+    them as one company lets the existing repost-fingerprint matching recognize that instead of
+    silently double-counting it as two unrelated postings under two different company names."""
+    sites = c["site"] if isinstance(c["site"], list) else [c["site"]]
     terms = c.get("search") or [""]
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 60))
     out, seen = [], set()
     page = 20  # Workday's unofficial endpoint 400s on limit > 20 - confirmed by testing, not documented
-    complete = True  # AND across terms: one truncated term makes the whole listing untrustworthy for removal
-    for term in terms:
-        offset = 0
-        term_complete = False
-        while offset < cap:
-            d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
-            rows = d.get("jobPostings", [])
-            for j in rows:
-                path = j.get("externalPath")
-                if not path or path in seen:  # some rows are placeholder cards with no title/path
-                    continue
-                seen.add(path)
-                out.append(dict(id=path, title=j["title"], location=j.get("locationsText", "") or "",
-                                url=f"https://{c['host']}/{c['site']}{path}", posted=_workday_posted(j.get("postedOn"))))
-            offset += page
-            if len(rows) < page:
-                term_complete = True  # ran out of rows before hitting the per-term cap
-                break
-        complete = complete and term_complete
+    complete = True  # AND across terms/sites: one truncated one makes the whole listing untrustworthy for removal
+    for site in sites:
+        base = f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs"
+        for term in terms:
+            offset = 0
+            term_complete = False
+            while offset < cap:
+                d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
+                rows = d.get("jobPostings", [])
+                for j in rows:
+                    path = j.get("externalPath")
+                    key = (site, path)
+                    if not path or key in seen:  # some rows are placeholder cards with no title/path
+                        continue
+                    seen.add(key)
+                    out.append(dict(id=path, title=j["title"], location=j.get("locationsText", "") or "",
+                                    url=f"https://{c['host']}/{site}{path}", site=site,
+                                    posted=_workday_posted(j.get("postedOn"))))
+                offset += page
+                if len(rows) < page:
+                    term_complete = True  # ran out of rows before hitting the per-term cap
+                    break
+            complete = complete and term_complete
     return out, complete
 
 
@@ -304,23 +319,27 @@ def fetch_company(c):
 
 
 def describe(c, job):
-    """Full description text for one job, plus a Workday date refinement (empty string for every
-    other ATS - they already get an exact date from their list call). Lever/Ashby already carry
-    the description from the list call."""
+    """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
+    posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate, "approx"
+    for its relative-text fallback, and "" for every other ATS (their list call already returns an
+    exact native date, so there's nothing to refine - see the per-fetcher functions above). Lever/
+    Ashby already carry the description from the list call."""
     if job.get("desc"):
-        return job["desc"], ""
+        return job["desc"], "", ""
     ats = c["ats"]
     if ats == "greenhouse":
         d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs/{job['id']}")
-        return strip_html(d.get("content", "")), ""
+        return strip_html(d.get("content", "")), "", ""
     if ats == "smartrecruiters":
         d = http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings/{job['id']}")
         secs = (d.get("jobAd") or {}).get("sections") or {}
-        return strip_html(" ".join((s or {}).get("text", "") for s in secs.values())), ""
+        return strip_html(" ".join((s or {}).get("text", "") for s in secs.values())), "", ""
     if ats == "workday":
-        d = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{c['site']}{job['id']}")
+        site = job.get("site") or c["site"]  # per-job when 'site' is a list on the company config
+        d = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}{job['id']}")
         info = d.get("jobPostingInfo") or {}
-        return strip_html(info.get("jobDescription", "")), _workday_detail_posted(info)
+        posted, posted_source = _workday_detail_posted(info)
+        return strip_html(info.get("jobDescription", "")), posted, posted_source
     if ats == "oracle":
         finder = f"ById;Id={job['id']}"
         url = (f"https://{c['host']}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails?"
@@ -328,11 +347,11 @@ def describe(c, job):
         d = http(url)
         items = d.get("items") or []
         if not items:
-            return "", ""
+            return "", "", ""
         it = items[0]
         parts = [it.get(k) for k in ("ExternalDescriptionStr", "ExternalResponsibilitiesStr", "ExternalQualificationsStr")]
-        return strip_html(" ".join(p for p in parts if p)), ""
-    return "", ""
+        return strip_html(" ".join(p for p in parts if p)), "", ""
+    return "", "", ""
 
 
 # ------------------------------------------------------------------ analysis
@@ -608,10 +627,14 @@ def cmd_queue(args):
 
 def posted_label(e):
     posted = e.get("posted") or ""
+    # "~" flags a date derived from Workday's relative "Posted N Days Ago" text rather than an
+    # exact timestamp (see describe()/_workday_detail_posted's posted_source) - it's not wrong,
+    # but it's a day-count bucket, not a real recorded date, so it shouldn't look as certain as one.
+    prefix = "~" if e.get("posted_source") == "approx" else ""
     if posted == date.today().isoformat():
-        return "today"
+        return prefix + "today"
     if posted:
-        return posted
+        return prefix + posted
     first_seen = e.get("first_seen") or ""
     return f"seen {first_seen[5:]}" if first_seen else "unknown"  # MM-DD, no real posted date to trust
 
@@ -666,10 +689,13 @@ def write_queue_html(q, path, updated_at=None):
         ghost_label = "Likely ghost" if is_ghost else "N/A"
         ghost_evidence = html.escape(e.get("ghost_evidence") or "no repeat-posting pattern detected")
         row_class = e["state"] + (" closed" if closed else "") + (" ghost" if is_ghost else "")
+        posted_title = ("approximate - derived from Workday's relative posting-age text, not an exact timestamp"
+                         if e.get("posted_source") == "approx" else "exact date from the source")
         return (
             f'<tr class="{row_class}"{row_title}{exp_data}'
-            f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}">'
-            f'<td class="posted">{html.escape(posted_label(e))}</td>'
+            f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
+            f' data-posted-source="{html.escape(e.get("posted_source") or "")}">'
+            f'<td class="posted" title="{html.escape(posted_title)}">{html.escape(posted_label(e))}</td>'
             f'<td title="{ghost_evidence}" class="ghost-cell">{html.escape(ghost_label)}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td>{role_cell}</td>'
@@ -726,6 +752,7 @@ tr.ghost td.ghost-cell {{ color: #c0392b; font-weight: 700; }}
 tr.closed {{ color: #999; }}
 tr.closed a, tr.closed {{ text-decoration: line-through; }}
 td.posted {{ white-space: nowrap; }}
+.approx-marker {{ font-weight: 700; color: #b45309; }}
 td.ghost-cell {{ white-space: nowrap; color: #999; }}
 td.kw {{ color: #555; font-size: 0.85rem; }}
 td.salary {{ white-space: nowrap; }}
@@ -741,7 +768,7 @@ tr.hidden-by-filter {{ display: none; }}
 </style></head>
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
-<p class="meta">Data last updated {updated_label}</p>
+<p class="meta">Data last updated {updated_label} &middot; <span class="approx-marker">~</span> before a Posted date means approximate (day-count bucket, not an exact timestamp) - hover any date for details</p>
 <div id="filterBar">
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <span id="filterCount"></span>
@@ -755,7 +782,7 @@ to
 {''.join(f'<option value="{n}">{n}</option>' for n in range(16))}
 <option value="inf" selected>15+</option>
 </select>
-<button type="button" id="expReset">reset</button>
+<button type="button" id="expReset">reset all filters</button>
 </div>
 </div>
 <h2>New ({len(new_rows)})</h2>
@@ -818,6 +845,7 @@ to
   }}
 
   expReset.addEventListener('click', function() {{
+    box.value = '';
     expMin.value = '0';
     expMax.value = 'inf';
     apply();
@@ -850,10 +878,14 @@ to
   document.querySelectorAll('tr[data-posted]').forEach(function(tr) {{
     var posted = tr.getAttribute('data-posted');
     var cell = tr.querySelector('td.posted');
+    // "~" marks a date derived from Workday's relative day-count text rather than an exact
+    // timestamp (see posted_label()/posted_source server-side) - carried through here so the
+    // marker survives the dynamic relabel instead of only appearing on first render.
+    var prefix = tr.getAttribute('data-posted-source') === 'approx' ? '~' : '';
     var label;
     if (posted) {{
       var n = daysAgo(posted);
-      label = n <= 0 ? 'today' : n === 1 ? 'yesterday' : n + 'd ago';
+      label = prefix + (n <= 0 ? 'today' : n === 1 ? 'yesterday' : n + 'd ago');
       tr.classList.toggle('today', n <= 0);
     }} else {{
       var firstSeen = tr.getAttribute('data-first-seen');
@@ -861,6 +893,22 @@ to
       tr.classList.remove('today');
     }}
     if (cell) cell.textContent = label;
+  }});
+  // Row order is dynamic too, not just the label - re-sort each table body by the same date every
+  // load (today, then yesterday, then further back; undated rows last) so the order self-corrects
+  // exactly like the label does, instead of staying frozen at whatever order the last regeneration
+  // computed it in.
+  document.querySelectorAll('table tbody').forEach(function(tbody) {{
+    var trs = Array.prototype.slice.call(tbody.children);
+    trs.sort(function(a, b) {{
+      var ka = a.getAttribute('data-posted') || a.getAttribute('data-first-seen') || '';
+      var kb = b.getAttribute('data-posted') || b.getAttribute('data-first-seen') || '';
+      if (ka === kb) return 0;
+      if (!ka) return 1;
+      if (!kb) return -1;
+      return ka < kb ? 1 : -1;
+    }});
+    trs.forEach(function(tr) {{ tbody.appendChild(tr); }});
   }});
 }})();
 </script>
@@ -936,10 +984,11 @@ def run(args):
                 for fut in as_completed(futures):
                     j = futures[fut]
                     try:
-                        text, posted = fut.result()
+                        text, posted, posted_source = fut.result()
                         descriptions[j["id"]] = text
                         if posted:  # refines/replaces the bulk listing's date with the detail page's exact one
                             j["posted"] = posted
+                            j["posted_source"] = posted_source
                     except Exception as e:
                         print(f"! {name} description for {j['title']}: {e}", file=sys.stderr)
                         descriptions[j["id"]] = ""
@@ -1021,8 +1070,17 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
             if not prior.get("closed_on"):
                 prior["closed_on"], prior["closed_reason"] = today, "reposted"
 
+        posted = j.get("posted") or ""
+        # provenance for the date, surfaced on the tracker page so a date never looks more certain
+        # than it is: every non-Workday ATS returns an exact native timestamp from its list call
+        # (see the per-fetcher functions above), so a posted value there is always "exact". Workday
+        # sets posted_source itself via describe()/_workday_detail_posted (exact startDate vs the
+        # approx relative-text fallback) - if describe() never got that far (threw, or this entry
+        # skipped it), fall back to "approx" since workday()'s own bulk-listing value is always the
+        # relative-text parse.
+        posted_source = j.get("posted_source") or (("exact" if c["ats"] != "workday" else "approx") if posted else "")
         entry = dict(id=eid, company=name, role=j["title"], location=j["location"], link=j["url"],
-                     posted=j.get("posted") or "", source="job-scout", first_seen=today,
+                     posted=posted, posted_source=posted_source, source="job-scout", first_seen=today,
                      sponsorship_status=spons, sponsorship_evidence=evidence,
                      experience=experience, experience_evidence=experience_evidence,
                      salary=salary, salary_evidence=salary_evidence,

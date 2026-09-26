@@ -492,7 +492,7 @@
    "ats": "workday",
    "host": "pru.wd5.myworkdayjobs.com",
    "tenant": "pru",
-   "site": "Careers",
+   "site": ["Careers", "PGIM_Careers"],
    "search": [
     "treasury",
     "liquidity",
@@ -1096,32 +1096,6 @@
    "name": "ProShares",
    "ats": "greenhouse",
    "slug": "proshares"
-  },
-  {
-   "name": "PGIM",
-   "ats": "workday",
-   "host": "pru.wd5.myworkdayjobs.com",
-   "tenant": "pru",
-   "site": "PGIM_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
   },
   {
    "name": "PineBridge Investments",
