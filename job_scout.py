@@ -614,7 +614,7 @@ def write_queue_html(q, path, updated_at=None):
     updated_label = updated_at.strftime("%Y-%m-%d %H:%M %Z") if updated_at else "unknown"
 
     page = f"""<!doctype html>
-<html><head><meta charset="utf-8"><title>Job Scout Live</title>
+<html><head><meta charset="utf-8"><title>Jobs Tracker</title>
 <style>
 body {{ font-family: system-ui, sans-serif; margin: 2rem; background: #fafafa; color: #111; }}
 h1 {{ font-size: 1.2rem; }}
