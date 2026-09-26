@@ -334,6 +334,48 @@ def classify_sponsorship(text):
     return "Unclear", "No sponsorship language in the description."
 
 
+_EXPERIENCE_YEARS_RE = re.compile(
+    r"(\d{1,2})\s*(?:-|to|–)\s*(\d{1,2})\s*\+?\s*years?|"      # "3-5 years" / "3 to 5 years"
+    r"(\d{1,2})\s*\+\s*years?|"                                     # "5+ years"
+    r"(?:minimum|min\.?|at least)\s*(?:of\s*)?(\d{1,2})\s*years?",  # "minimum of 3 years"
+    re.I,
+)
+_ENTRY_PHRASE_RE = re.compile(
+    r"\bentry[- ]level\b|\bnew grad(?:uate)?s?\b|\brecent graduate\b|\bcampus hire\b|"
+    r"\bno (?:prior )?experience (?:required|necessary)\b",
+    re.I,
+)
+_SENIOR_TITLE_RE = re.compile(r"\b(senior|sr\.?|vice president|vp|svp|principal|lead|staff)\b", re.I)
+_MID_TITLE_RE = re.compile(r"\bassociate\b", re.I)
+
+
+def classify_experience(title, text):
+    """Best-effort years-of-experience bucket. Explicit numbers in the description win over title
+    words, since a title alone ("Analyst") says less than a description that actually states "3-5
+    years required". No explicit signal at all is Unclear, not assumed entry-level - same "never
+    guess beyond the evidence" rule as sponsorship classification."""
+    hay = text or ""
+    m = _ENTRY_PHRASE_RE.search(hay)
+    if m:
+        s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
+        return "Entry (0-1y)", hay[s:e].strip()
+    m = _EXPERIENCE_YEARS_RE.search(hay)
+    if m:
+        min_years = min(int(g) for g in m.groups() if g)
+        s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
+        evidence = hay[s:e].strip()
+        if min_years <= 1:
+            return "Entry (0-1y)", evidence
+        if min_years <= 4:
+            return "Mid (2-4y)", evidence
+        return "Senior (5+y)", evidence
+    if _SENIOR_TITLE_RE.search(title or ""):
+        return "Senior (5+y)", f"inferred from title: {title}"
+    if _MID_TITLE_RE.search(title or ""):
+        return "Mid (2-4y)", f"inferred from title: {title}"
+    return "Unclear", "No years-of-experience language found."
+
+
 def keyword_hits(title, text, keywords):
     hay = f"{title} {text}".lower()
     return [k for k in keywords if re.search(r"(?<![a-z])" + re.escape(k) + r"(?![a-z])", hay)]
@@ -431,7 +473,8 @@ def cmd_queue(args):
         return
     for e in q:
         print(f"{e['id']}  {e['company']}: {e['role']} ({e['location']}) posted {posted_label(e)} "
-              f"[{e['state']}, spons {e['sponsorship_status']}, kw {', '.join(e['kw_hits']) or 'none'}]\n    {e['link']}")
+              f"[{e['state']}, spons {e['sponsorship_status']}, exp {e.get('experience', 'Unclear')}, "
+              f"kw {', '.join(e['kw_hits']) or 'none'}]\n    {e['link']}")
     print(f"{len(q)} queue entr{'y' if len(q) == 1 else 'ies'}.")
 
 
@@ -464,6 +507,8 @@ def write_queue_html(q, path, updated_at=None):
         badge = " today" if posted == today else ""
         kw = ", ".join(e["kw_hits"]) if e["kw_hits"] else "—"
         spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
+        exp = e.get("experience") or "Unclear"
+        exp_evidence = html.escape(e.get("experience_evidence") or "")
         role = html.escape(e["role"])
         if e.get("repost_count"):
             role += f' <span class="repost" title="repost of {html.escape(e.get("repost_of") or "?")}">repost x{e["repost_count"]}</span>'
@@ -481,12 +526,14 @@ def write_queue_html(q, path, updated_at=None):
             f'<td>{role_cell}</td>'
             f'<td>{html.escape(e["location"])}</td>'
             f'<td title="{spons_evidence}">{html.escape(e["sponsorship_status"])}</td>'
+            f'<td title="{exp_evidence}">{html.escape(exp)}</td>'
             f'<td class="kw">{html.escape(kw)}</td>'
             f'{state_cell}'
             f'</tr>'
         )
 
-    head = "<tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th><th>Keywords</th></tr>"
+    head = ("<tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th>"
+            "<th>Experience</th><th>Keywords</th></tr>")
     closed_head = head.replace("</tr>", "<th>State</th></tr>")
 
     open_q = [e for e in q if not e.get("closed_on")]
@@ -535,6 +582,11 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBox {{ width: 100%; max-width: 480px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
 #filterCount {{ color: #666; font-size: 0.85rem; margin-left: 8px; }}
 tr.hidden-by-filter {{ display: none; }}
+.chips {{ margin-top: 6px; }}
+.chip {{ display: inline-block; padding: 3px 10px; margin: 2px 4px 2px 0; border: 1px solid #ccc;
+         border-radius: 12px; background: #fff; font-size: 0.8rem; cursor: pointer; color: #333; }}
+.chip:hover {{ background: #eee; }}
+.chip.active {{ background: #333; color: #fff; border-color: #333; }}
 </style></head>
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
@@ -542,6 +594,11 @@ tr.hidden-by-filter {{ display: none; }}
 <div id="filterBar">
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <span id="filterCount"></span>
+<div class="chips">
+<button type="button" class="chip" data-term="entry">Fresher (Entry)</button>
+<button type="button" class="chip" data-term="mid (2-4y)">Mid (2-4y)</button>
+<button type="button" class="chip" data-term="senior">Senior (5+y)</button>
+</div>
 </div>
 <h2>New ({len(new_rows)})</h2>
 <table id="q">
@@ -559,6 +616,7 @@ tr.hidden-by-filter {{ display: none; }}
   // terms; nothing is sent anywhere and nothing is saved except this browser's own last search.
   var box = document.getElementById('filterBox');
   var countEl = document.getElementById('filterCount');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
 
@@ -569,6 +627,7 @@ tr.hidden-by-filter {{ display: none; }}
     if (!raw) {{
       rows.forEach(function(tr) {{ tr.classList.remove('hidden-by-filter'); }});
       countEl.textContent = '';
+      chips.forEach(function(c) {{ c.classList.remove('active'); }});
       try {{ localStorage.setItem('jobScoutFilter', ''); }} catch (e) {{}}
       return;
     }}
@@ -587,7 +646,17 @@ tr.hidden-by-filter {{ display: none; }}
     }});
     countEl.textContent = 'showing ' + shown + ' of ' + rows.length;
     try {{ localStorage.setItem('jobScoutFilter', box.value); }} catch (e) {{}}
+    var current = raw;
+    chips.forEach(function(c) {{ c.classList.toggle('active', current === c.dataset.term); }});
   }}
+
+  chips.forEach(function(c) {{
+    c.addEventListener('click', function() {{
+      var term = c.dataset.term;
+      box.value = (box.value.trim().toLowerCase() === term) ? '' : term;
+      apply();
+    }});
+  }});
 
   try {{
     var saved = localStorage.getItem('jobScoutFilter');
@@ -712,6 +781,7 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         eid = f"{name}:{j['id']}"
         text = descriptions.get(j["id"], "")
         spons, evidence = classify_sponsorship(text)
+        experience, experience_evidence = classify_experience(j["title"], text)
         fp = role_fingerprint(j["title"], j["location"])
         # a capped/paginated listing can't prove a prior id is gone - it may just be outside the
         # window - so only trust absence as repost evidence when this run's listing was complete
@@ -730,6 +800,7 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         entry = dict(id=eid, company=name, role=j["title"], location=j["location"], link=j["url"],
                      posted=j.get("posted") or "", source="job-scout", first_seen=today,
                      sponsorship_status=spons, sponsorship_evidence=evidence,
+                     experience=experience, experience_evidence=experience_evidence,
                      kw_hits=keyword_hits(j["title"], text, keywords),
                      state=entry_state, first_run=first_run,
                      last_seen_live=today, miss_count=0, closed_on=None, closed_reason=None,
