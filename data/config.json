@@ -1,7 +1,8 @@
 {
  "notify": {
   "type": "ntfy",
-  "server": "https://ntfy.sh"
+  "server": "https://ntfy.sh",
+  "tracker_url": "https://darkknight6499.github.io/job-scrap/"
  },
  "filters": {
   "title_include": [

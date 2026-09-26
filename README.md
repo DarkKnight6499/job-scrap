@@ -27,6 +27,9 @@ this build doesn't know what you've already applied to.
    to that topic in the ntfy phone app to receive alerts. The topic is
    deliberately not committed to `data/config.json` since this repo is
    public - anyone who saw it in the repo could subscribe to your alerts.
+   Each alert's main tap opens that job's own posting; a secondary
+   "Open Jobs Tracker" button (`notify.tracker_url` in `data/config.json`)
+   opens the full shared queue page instead.
 2. Edit `data/config.json` - `companies` (each needs `ats` +
    the fields that ATS needs: `slug` for greenhouse/ashby/smartrecruiters,
    `host`/`tenant`/`site`/`search` for workday, `host`/`site`/`search` for

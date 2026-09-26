@@ -460,7 +460,10 @@ def notify(cfg, entry, dry):
     try:
         if kind == "ntfy":
             server = cfg.get("server", "https://ntfy.sh").rstrip("/")
+            tracker_url = cfg.get("tracker_url")
             hdr = {"Title": f"New job: {entry['company']}".encode("ascii", "ignore").decode(), "Click": entry["link"]}
+            if tracker_url:  # secondary button - keeps the main tap on the job link, adds a way into the full queue
+                hdr["Actions"] = f"view, Open Jobs Tracker, {tracker_url}"
             http(f"{server}/{topic}", data=line.encode(), headers=hdr, raw=True)
         elif kind == "telegram":
             http(f"https://api.telegram.org/bot{cfg['bot_token']}/sendMessage",
