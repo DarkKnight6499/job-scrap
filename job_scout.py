@@ -551,6 +551,7 @@ def write_queue_html(q, path, updated_at=None):
     collapses into a <details> section; closed/removed entries (any state) go in one final section so
     a growing history doesn't bury what's actionable today."""
     today = date.today().isoformat()
+    exp_rank = {"0-3 years": 0, "3-6 years": 1, "6+ years": 2}
 
     def row_html(e):
         posted = e.get("posted") or ""
@@ -572,8 +573,9 @@ def write_queue_html(q, path, updated_at=None):
             row_title = (f' title="closed {html.escape(e["closed_on"])} ({html.escape(e.get("closed_reason") or "")}); '
                          f'last live {html.escape(e.get("last_seen_live") or "unknown")}"')
         state_cell = f'<td>{html.escape(e["state"])}</td>' if closed else ""
+        exp_data = f' data-exp="{exp_rank[exp]}"' if exp in exp_rank else ' data-exp="-1"'
         return (
-            f'<tr class="{e["state"]}{badge}{" closed" if closed else ""}"{row_title}>'
+            f'<tr class="{e["state"]}{badge}{" closed" if closed else ""}"{row_title}{exp_data}>'
             f'<td class="posted">{html.escape(posted_label(e))}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td>{role_cell}</td>'
@@ -637,11 +639,8 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBox {{ width: 100%; max-width: 480px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
 #filterCount {{ color: #666; font-size: 0.85rem; margin-left: 8px; }}
 tr.hidden-by-filter {{ display: none; }}
-.chips {{ margin-top: 6px; }}
-.chip {{ display: inline-block; padding: 3px 10px; margin: 2px 4px 2px 0; border: 1px solid #ccc;
-         border-radius: 12px; background: #fff; font-size: 0.8rem; cursor: pointer; color: #333; }}
-.chip:hover {{ background: #eee; }}
-.chip.active {{ background: #333; color: #fff; border-color: #333; }}
+.exp-filter {{ margin-top: 6px; font-size: 0.85rem; color: #333; }}
+.exp-filter select {{ padding: 3px 6px; font-size: 0.85rem; margin: 0 4px; }}
 </style></head>
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
@@ -649,10 +648,20 @@ tr.hidden-by-filter {{ display: none; }}
 <div id="filterBar">
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <span id="filterCount"></span>
-<div class="chips">
-<button type="button" class="chip" data-term="0-3 years">0-3 years</button>
-<button type="button" class="chip" data-term="3-6 years">3-6 years</button>
-<button type="button" class="chip" data-term="6+ years">6+ years</button>
+<div class="exp-filter">
+Experience: from
+<select id="expMin">
+<option value="0">0-3 years</option>
+<option value="1">3-6 years</option>
+<option value="2">6+ years</option>
+</select>
+to
+<select id="expMax">
+<option value="0">0-3 years</option>
+<option value="1">3-6 years</option>
+<option value="2" selected>6+ years</option>
+</select>
+<button type="button" id="expReset">reset</button>
 </div>
 </div>
 <h2>New ({len(new_rows)})</h2>
@@ -671,27 +680,34 @@ tr.hidden-by-filter {{ display: none; }}
   // terms; nothing is sent anywhere and nothing is saved except this browser's own last search.
   var box = document.getElementById('filterBox');
   var countEl = document.getElementById('filterCount');
-  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var expMin = document.getElementById('expMin');
+  var expMax = document.getElementById('expMax');
+  var expReset = document.getElementById('expReset');
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
 
   function apply() {{
     var raw = box.value.trim().toLowerCase();
+    var lo = parseInt(expMin.value, 10);
+    var hi = parseInt(expMax.value, 10);
     forcedOpen.forEach(function(d) {{ d.removeAttribute('open'); }});
     forcedOpen = [];
-    if (!raw) {{
-      rows.forEach(function(tr) {{ tr.classList.remove('hidden-by-filter'); }});
-      countEl.textContent = '';
-      chips.forEach(function(c) {{ c.classList.remove('active'); }});
-      try {{ localStorage.setItem('jobScoutFilter', ''); }} catch (e) {{}}
-      return;
-    }}
-    var groups = raw.split(',').map(function(g) {{ return g.trim().split(/\\s+/).filter(Boolean); }})
-                     .filter(function(g) {{ return g.length; }});
+    var groups = raw ? raw.split(',').map(function(g) {{ return g.trim().split(/\\s+/).filter(Boolean); }})
+                          .filter(function(g) {{ return g.length; }}) : null;
+    var expActive = !(lo === 0 && hi === 2);
     var shown = 0;
     rows.forEach(function(tr) {{
-      var text = tr.textContent.toLowerCase();
-      var match = groups.some(function(terms) {{ return terms.every(function(t) {{ return text.indexOf(t) !== -1; }}); }});
+      var textMatch = true;
+      if (groups) {{
+        var text = tr.textContent.toLowerCase();
+        textMatch = groups.some(function(terms) {{ return terms.every(function(t) {{ return text.indexOf(t) !== -1; }}); }});
+      }}
+      var expMatch = true;
+      if (expActive) {{
+        var rank = parseInt(tr.getAttribute('data-exp'), 10);
+        expMatch = rank >= lo && rank <= hi;
+      }}
+      var match = textMatch && expMatch;
       tr.classList.toggle('hidden-by-filter', !match);
       if (match) {{
         shown++;
@@ -699,25 +715,31 @@ tr.hidden-by-filter {{ display: none; }}
         if (details && !details.open) {{ details.open = true; forcedOpen.push(details); }}
       }}
     }});
-    countEl.textContent = 'showing ' + shown + ' of ' + rows.length;
-    try {{ localStorage.setItem('jobScoutFilter', box.value); }} catch (e) {{}}
-    var current = raw;
-    chips.forEach(function(c) {{ c.classList.toggle('active', current === c.dataset.term); }});
+    countEl.textContent = (raw || expActive) ? ('showing ' + shown + ' of ' + rows.length) : '';
+    try {{
+      localStorage.setItem('jobScoutFilter', box.value);
+      localStorage.setItem('jobScoutExpMin', expMin.value);
+      localStorage.setItem('jobScoutExpMax', expMax.value);
+    }} catch (e) {{}}
   }}
 
-  chips.forEach(function(c) {{
-    c.addEventListener('click', function() {{
-      var term = c.dataset.term;
-      box.value = (box.value.trim().toLowerCase() === term) ? '' : term;
-      apply();
-    }});
+  expReset.addEventListener('click', function() {{
+    expMin.value = '0';
+    expMax.value = '2';
+    apply();
   }});
 
   try {{
     var saved = localStorage.getItem('jobScoutFilter');
     if (saved) box.value = saved;
+    var savedMin = localStorage.getItem('jobScoutExpMin');
+    var savedMax = localStorage.getItem('jobScoutExpMax');
+    if (savedMin !== null) expMin.value = savedMin;
+    if (savedMax !== null) expMax.value = savedMax;
   }} catch (e) {{}}
   box.addEventListener('input', apply);
+  expMin.addEventListener('change', apply);
+  expMax.addEventListener('change', apply);
   apply();
 }})();
 </script>
