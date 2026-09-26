@@ -351,32 +351,29 @@ _MID_TITLE_RE = re.compile(r"\bassociate\b", re.I)
 
 
 def classify_experience(title, text):
-    """Best-effort years-of-experience bucket, keyed off the LOWER bound stated (e.g. "5+ years"
-    or "3-5 years" both key off 3/5, not an average or the upper end) since that's the number that
-    actually gates whether someone can apply. Explicit numbers in the description win over title
-    words, since a title alone ("Analyst") says less than a description that actually states "3-5
-    years required". No explicit signal at all is Unclear, not assumed entry-level - same "never
+    """Best-effort years-of-experience, keyed off the LOWER bound stated (e.g. "5+ years" or "3-5
+    years" both key off 3/5, not an average or the upper end) since that's the number that actually
+    gates whether someone can apply. Returns (years, evidence): years is an exact integer whenever
+    the description states one, or a representative anchor (0 for entry-level phrasing, 3/6 for a
+    title-inferred guess) when it doesn't. Explicit numbers in the description win over title words,
+    since a title alone ("Analyst") says less than a description that actually states "3-5 years
+    required". No signal at all is (None, ...) - Unclear, not assumed entry-level - same "never
     guess beyond the evidence" rule as sponsorship classification."""
     hay = text or ""
     m = _ENTRY_PHRASE_RE.search(hay)
     if m:
         s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
-        return "0-3 years", hay[s:e].strip()
+        return 0, hay[s:e].strip()
     m = _EXPERIENCE_YEARS_RE.search(hay)
     if m:
         min_years = min(int(g) for g in m.groups() if g)
         s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
-        evidence = hay[s:e].strip()
-        if min_years < 3:
-            return "0-3 years", evidence
-        if min_years < 6:
-            return "3-6 years", evidence
-        return "6+ years", evidence
+        return min_years, hay[s:e].strip()
     if _SENIOR_TITLE_RE.search(title or ""):
-        return "6+ years", f"inferred from title: {title}"
+        return 6, f"inferred from title: {title}"
     if _MID_TITLE_RE.search(title or ""):
-        return "3-6 years", f"inferred from title: {title}"
-    return "Unclear", "No years-of-experience language found."
+        return 3, f"inferred from title: {title}"
+    return None, "No years-of-experience language found."
 
 
 _SALARY_RANGE_RE = re.compile(
@@ -551,15 +548,14 @@ def write_queue_html(q, path, updated_at=None):
     collapses into a <details> section; closed/removed entries (any state) go in one final section so
     a growing history doesn't bury what's actionable today."""
     today = date.today().isoformat()
-    exp_rank = {"0-3 years": 0, "3-6 years": 1, "6+ years": 2}
-
     def row_html(e):
         posted = e.get("posted") or ""
         closed = bool(e.get("closed_on"))
         badge = " today" if posted == today else ""
         kw = ", ".join(e["kw_hits"]) if e["kw_hits"] else "—"
         spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
-        exp = e.get("experience") or "Unclear"
+        exp_years = e.get("experience")
+        exp_label = f"{exp_years}+ years" if isinstance(exp_years, int) else "Unclear"
         exp_evidence = html.escape(e.get("experience_evidence") or "")
         salary = e.get("salary") or "Unclear"
         salary_evidence = html.escape(e.get("salary_evidence") or "")
@@ -573,7 +569,7 @@ def write_queue_html(q, path, updated_at=None):
             row_title = (f' title="closed {html.escape(e["closed_on"])} ({html.escape(e.get("closed_reason") or "")}); '
                          f'last live {html.escape(e.get("last_seen_live") or "unknown")}"')
         state_cell = f'<td>{html.escape(e["state"])}</td>' if closed else ""
-        exp_data = f' data-exp="{exp_rank[exp]}"' if exp in exp_rank else ' data-exp="-1"'
+        exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
         return (
             f'<tr class="{e["state"]}{badge}{" closed" if closed else ""}"{row_title}{exp_data}>'
             f'<td class="posted">{html.escape(posted_label(e))}</td>'
@@ -581,7 +577,7 @@ def write_queue_html(q, path, updated_at=None):
             f'<td>{role_cell}</td>'
             f'<td>{html.escape(e["location"])}</td>'
             f'<td title="{spons_evidence}">{html.escape(e["sponsorship_status"])}</td>'
-            f'<td title="{exp_evidence}">{html.escape(exp)}</td>'
+            f'<td title="{exp_evidence}">{html.escape(exp_label)}</td>'
             f'<td title="{salary_evidence}" class="salary">{html.escape(salary)}</td>'
             f'<td class="kw">{html.escape(kw)}</td>'
             f'{state_cell}'
@@ -649,17 +645,14 @@ tr.hidden-by-filter {{ display: none; }}
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <span id="filterCount"></span>
 <div class="exp-filter">
-Experience: from
+Experience (years): from
 <select id="expMin">
-<option value="0">0-3 years</option>
-<option value="1">3-6 years</option>
-<option value="2">6+ years</option>
+{''.join(f'<option value="{n}"{" selected" if n == 0 else ""}>{n}</option>' for n in range(16))}
 </select>
 to
 <select id="expMax">
-<option value="0">0-3 years</option>
-<option value="1">3-6 years</option>
-<option value="2" selected>6+ years</option>
+{''.join(f'<option value="{n}">{n}</option>' for n in range(16))}
+<option value="inf" selected>15+</option>
 </select>
 <button type="button" id="expReset">reset</button>
 </div>
@@ -689,12 +682,12 @@ to
   function apply() {{
     var raw = box.value.trim().toLowerCase();
     var lo = parseInt(expMin.value, 10);
-    var hi = parseInt(expMax.value, 10);
+    var hi = expMax.value === 'inf' ? Infinity : parseInt(expMax.value, 10);
     forcedOpen.forEach(function(d) {{ d.removeAttribute('open'); }});
     forcedOpen = [];
     var groups = raw ? raw.split(',').map(function(g) {{ return g.trim().split(/\\s+/).filter(Boolean); }})
                           .filter(function(g) {{ return g.length; }}) : null;
-    var expActive = !(lo === 0 && hi === 2);
+    var expActive = !(lo === 0 && hi === Infinity);
     var shown = 0;
     rows.forEach(function(tr) {{
       var textMatch = true;
@@ -725,7 +718,7 @@ to
 
   expReset.addEventListener('click', function() {{
     expMin.value = '0';
-    expMax.value = '2';
+    expMax.value = 'inf';
     apply();
   }});
 
