@@ -47,6 +47,7 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 REPO_DIR = Path(__file__).resolve().parent
@@ -516,7 +517,8 @@ def cmd_queue(args):
         print(json.dumps(q, indent=1))
         return
     if args.html:
-        updated_at = datetime.fromtimestamp((HOME / "queue.json").stat().st_mtime) if (HOME / "queue.json").exists() else None
+        updated_at = (datetime.fromtimestamp((HOME / "queue.json").stat().st_mtime, tz=ZoneInfo("America/New_York"))
+                      if (HOME / "queue.json").exists() else None)
         write_queue_html(q, args.html, updated_at)
         print(f"wrote {len(q)} entries to {args.html}")
         return
@@ -611,7 +613,7 @@ def write_queue_html(q, path, updated_at=None):
             f'</details>'
         )
 
-    updated_label = updated_at.strftime("%Y-%m-%d %H:%M") if updated_at else "unknown"
+    updated_label = updated_at.strftime("%Y-%m-%d %H:%M %Z") if updated_at else "unknown"
 
     page = f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>Job Scout Queue</title>
