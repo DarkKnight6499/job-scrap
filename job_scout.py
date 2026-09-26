@@ -43,6 +43,7 @@ import re
 import secrets
 import sys
 import time
+import unicodedata
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -382,25 +383,43 @@ def describe(c, job):
 
 # ------------------------------------------------------------------ analysis
 
+def _fold_accents(s):
+    """"México"/"Bogotá"/"São Paulo" -> "Mexico"/"Bogota"/"Sao Paulo" so plain-ASCII
+    locations_exclude terms still match accented location strings from non-US ATS entries."""
+    return "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
+
+
+_MEXICO_RE = re.compile(r"(?<!new )(?<![a-z0-9])mexico(?![a-z0-9])")
+
+
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
-    # term like "intern" doesn't false-positive inside "Internal"/"International". Locations
-    # (include and exclude) stay plain substring: filters like ", nj" rely on punctuation that
-    # word-boundary matching would reject (the comma has no alnum neighbor to anchor against).
-    # locations_exclude terms are written as ", <country>" where possible so "New Mexico, NM"
-    # and "Indianapolis" don't false-match ", mexico"/", india".
+    # term like "intern" doesn't false-positive inside "Internal"/"International". locations_include
+    # stays plain substring: filters like ", nj" rely on punctuation that word-boundary matching
+    # would reject (the comma has no alnum neighbor to anchor against). locations_exclude uses
+    # word-boundary matching instead, on an accent-folded location string, so a bare country name
+    # matches regardless of where it sits ("Mexico" / "Argentina - Buenos Aires" / "Ciudad de
+    # Mexico, Mexico") while still not false-matching inside a longer word ("Indianapolis" for
+    # "india"). "Mexico" gets its own regex with a negative lookbehind for "new " since "New
+    # Mexico" is a real US state name containing "Mexico" as its own bounded word - no amount of
+    # word-boundary anchoring alone can tell those apart. "Georgia" (also a real US state name) and
+    # "Jersey" (a Channel Island, also a real US state's shorthand) are deliberately left out of
+    # locations_exclude for the same reason and aren't worth the collision risk.
     t, loc = job["title"], job["location"].lower()
+    loc_folded = _fold_accents(loc)
     inc = f.get("title_include", [])
     exc = f.get("title_exclude", [])
     locs = [x.lower() for x in f.get("locations_include", [])]
-    loc_exc = [x.lower() for x in f.get("locations_exclude", [])]
+    loc_exc = f.get("locations_exclude", [])
     if inc and not any(contains_term(t, x) for x in inc):
         return False
     if any(contains_term(t, x) for x in exc):
         return False
+    if _MEXICO_RE.search(loc_folded):
+        return False
     if locs and not any(x in loc for x in locs):
         return False
-    if any(x in loc for x in loc_exc):
+    if any(contains_term(loc_folded, x) for x in loc_exc):
         return False
     return True
 
