@@ -757,8 +757,12 @@ def write_queue_html(q, path, updated_at=None):
         ghost_label = "Likely ghost" if is_ghost else "N/A"
         ghost_evidence = html.escape(e.get("ghost_evidence") or "no repeat-posting pattern detected")
         row_class = e["state"] + (" closed" if closed else "") + (" ghost" if is_ghost else "")
-        posted_title = ("approximate - derived from Workday's relative posting-age text, not an exact timestamp"
-                         if e.get("posted_source") == "approx" else "exact date from the source")
+        if e.get("posted_source") == "approx":
+            posted_title = "approximate - derived from Workday's relative posting-age text, not an exact timestamp"
+        elif posted and e.get("posted_source") == "exact":
+            posted_title = "exact date from the source"
+        else:
+            posted_title = "no posting date available from the source - this is when job-scout first discovered it, not when it was actually posted"
         return (
             f'<tr class="{row_class}"{row_title}{exp_data}'
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
