@@ -859,6 +859,7 @@ to
 {''.join(f'<option value="{n}">{n}</option>' for n in range(16))}
 <option value="inf" selected>15+</option>
 </select>
+<label><input type="checkbox" id="expIncludeNA" checked> include N/A (no years-of-experience found)</label>
 <button type="button" id="expReset">reset all filters</button>
 </div>
 </div>
@@ -880,6 +881,7 @@ to
   var countEl = document.getElementById('filterCount');
   var expMin = document.getElementById('expMin');
   var expMax = document.getElementById('expMax');
+  var expIncludeNA = document.getElementById('expIncludeNA');
   var expReset = document.getElementById('expReset');
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
@@ -903,7 +905,9 @@ to
       var expMatch = true;
       if (expActive) {{
         var rank = parseInt(tr.getAttribute('data-exp'), 10);
-        expMatch = rank >= lo && rank <= hi;
+        // -1 means "no years-of-experience language found" - never silently drop those from a
+        // numeric range filter (they didn't fail the check, they just have nothing to check).
+        expMatch = rank === -1 ? expIncludeNA.checked : (rank >= lo && rank <= hi);
       }}
       var match = textMatch && expMatch;
       tr.classList.toggle('hidden-by-filter', !match);
@@ -918,6 +922,7 @@ to
       localStorage.setItem('jobScoutFilter', box.value);
       localStorage.setItem('jobScoutExpMin', expMin.value);
       localStorage.setItem('jobScoutExpMax', expMax.value);
+      localStorage.setItem('jobScoutExpIncludeNA', expIncludeNA.checked ? '1' : '0');
     }} catch (e) {{}}
   }}
 
@@ -925,6 +930,7 @@ to
     box.value = '';
     expMin.value = '0';
     expMax.value = 'inf';
+    expIncludeNA.checked = true;
     apply();
   }});
 
@@ -933,12 +939,15 @@ to
     if (saved) box.value = saved;
     var savedMin = localStorage.getItem('jobScoutExpMin');
     var savedMax = localStorage.getItem('jobScoutExpMax');
+    var savedNA = localStorage.getItem('jobScoutExpIncludeNA');
     if (savedMin !== null) expMin.value = savedMin;
     if (savedMax !== null) expMax.value = savedMax;
+    if (savedNA !== null) expIncludeNA.checked = savedNA === '1';
   }} catch (e) {{}}
   box.addEventListener('input', apply);
   expMin.addEventListener('change', apply);
   expMax.addEventListener('change', apply);
+  expIncludeNA.addEventListener('change', apply);
   apply();
 }})();
 (function() {{
