@@ -6,14 +6,19 @@ companies, filters by title/location keywords, flags explicit no-sponsorship
 language in the description, and pushes a phone alert (ntfy) for anything
 new. No paid scraping API, no LLM tokens.
 
-Runs on a schedule via GitHub Actions (`.github/workflows/scout.yml`, every 2
-hours) - no server or laptop required. State (`data/state.json`,
-`data/queue.json`) is committed back to the repo after each run so the next
-run picks up where the last one left off.
+Runs on a schedule via GitHub Actions (`.github/workflows/scout.yml`, hourly)
+- no server or laptop required. State (`data/state.json`, `data/queue.json`)
+is committed back to the repo after each run so the next run picks up where
+the last one left off.
+
+Every run also diffs each company's live listing against its queued entries:
+a posting missing for two consecutive complete (unpaginated-cap) runs is
+marked closed, a same-id reappearance is reopened, and a new id matching a
+closed entry's (title, location) is recorded as a repost of it - alerting
+again only if the prior posting had been auto-blocked and the new one isn't.
 
 **No application-tracker integration.** Unlike a private companion version,
-this build doesn't know what you've already applied to, so it can re-alert on
-a posting that drops out of a company's search window and reappears later.
+this build doesn't know what you've already applied to.
 
 ## Setup
 

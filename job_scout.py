@@ -5,10 +5,7 @@ Lever, Ashby, SmartRecruiters, Workday, Oracle Recruiting Cloud) for a list
 of target companies - no paid scraping API, no LLM tokens.
 
 Standalone version: unlike the private-repo original, this build has no
-dependency on an application tracker. It does NOT know what you've already
-applied to, so it will alert again on a posting if it drops out of a
-company's search-result window and reappears later. That's the trade-off
-for being runnable from a public repo with no PII.
+dependency on an application tracker.
 
 For every NEW role that matches the title/location filters it:
   1. fetches the full description and classifies sponsorship (Blocked /
@@ -17,13 +14,22 @@ For every NEW role that matches the title/location filters it:
   2. appends it to the triage queue and sends a phone alert (ntfy) unless
      it was auto-blocked on sponsorship.
 
+Every run also diffs each company's current listing against its queued
+entries: an id absent for CLOSE_AFTER_MISSES consecutive complete (not
+paginated/capped) runs is marked closed; an id that reappears is reopened;
+and a new id matching a closed entry's (title, location) fingerprint is
+recorded as a repost of it (a same-role Workday req number reappearing
+under a new id is common on repost, unlike Greenhouse/Lever, which usually
+just reissue the same id) - only alerting if the prior posting had been
+auto-blocked and the new one isn't.
+
 Usage:
     python job_scout.py --init              create data/config.json
     python job_scout.py --check             per-company job/match counts, no state change
     python job_scout.py --dry-run           print what would be queued/sent, no state change
     python job_scout.py                     normal run (schedule this)
     python job_scout.py --queue [--all] [--json]   show the triage queue (default: state=new only)
-    python job_scout.py --mark <id> <new|shortlisted|applied|dismissed>
+    python job_scout.py --mark <id> <new|shortlisted|applied|dismissed|closed|open>
 
 Runtime files live in ./data/: config.json (companies/filters - the ntfy
 topic is NOT stored here, see notify() below), state.json, queue.json.
@@ -40,7 +46,7 @@ import time
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 REPO_DIR = Path(__file__).resolve().parent
@@ -52,6 +58,11 @@ from keyword_matching import contains_term  # noqa: E402
 HOME = Path(os.environ.get("JOB_SCOUT_HOME", REPO_DIR / "data"))
 UA = {"User-Agent": "job-scout/1.0", "Accept": "application/json"}
 QUEUE_STATES = ("new", "shortlisted", "applied", "dismissed", "auto_blocked")
+
+CLOSE_AFTER_MISSES = 2     # consecutive complete-listing runs an id must be absent before we call it closed
+REPOST_WINDOW_DAYS = 180   # a same-fingerprint match older than this is a coincidence, not a repost
+MASS_VANISH_GUARD = 0.5    # if more than this fraction of a company's open entries vanish in one run,
+                           # treat it as a broken fetch (bad slug, API change) and skip closing anything
 
 BLOCK_PATTERNS = [
     r"(?:will|would|does|do|can|could|is|are)\s+not\s+(?:\w+\s+){0,3}sponsor",
@@ -100,8 +111,9 @@ def strip_html(text):
 
 def greenhouse(c):
     d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs")
-    return [dict(id=str(j["id"]), title=j["title"], location=(j.get("location") or {}).get("name", ""),
+    jobs = [dict(id=str(j["id"]), title=j["title"], location=(j.get("location") or {}).get("name", ""),
                  url=j["absolute_url"], posted=(j.get("first_published") or "")[:10]) for j in d.get("jobs", [])]
+    return jobs, True  # single uncapped call: always the full board
 
 
 def lever(c):
@@ -119,18 +131,20 @@ def lever(c):
             posted = date.fromtimestamp(ms / 1000).isoformat()
         out.append(dict(id=j["id"], title=j["text"], location=(j.get("categories") or {}).get("location", "") or "",
                         url=j["hostedUrl"], desc=desc, posted=posted))
-    return out
+    return out, True  # single uncapped call: always the full board
 
 
 def ashby(c):
     d = http(f"https://api.ashbyhq.com/posting-api/job-board/{c['slug']}")
-    return [dict(id=j["id"], title=j["title"], location=j.get("location", "") or "", url=j.get("jobUrl", ""),
+    jobs = [dict(id=j["id"], title=j["title"], location=j.get("location", "") or "", url=j.get("jobUrl", ""),
                  desc=j.get("descriptionPlain") or strip_html(j.get("descriptionHtml", "")),
                  posted=(j.get("publishedAt") or "")[:10]) for j in d.get("jobs", [])]
+    return jobs, True  # single uncapped call: always the full board
 
 
 def smartrecruiters(c):
     out, offset = [], 0
+    complete = False
     while offset < 2000:
         d = http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings?limit=100&offset={offset}")
         rows = d.get("content", [])
@@ -142,8 +156,9 @@ def smartrecruiters(c):
                             posted=(j.get("releasedDate") or "")[:10]))
         offset += 100
         if len(rows) < 100:
+            complete = True  # ran out of rows before hitting the 2000 ceiling: this is everything
             break
-    return out
+    return out, complete
 
 
 _RELATIVE_DAYS_RE = re.compile(r"posted\s+(today|yesterday|(\d+)\+?\s*day)", re.I)
@@ -174,8 +189,10 @@ def workday(c):
     cap = int(c.get("max_per_term", 60))
     out, seen = [], set()
     page = 20  # Workday's unofficial endpoint 400s on limit > 20 - confirmed by testing, not documented
+    complete = True  # AND across terms: one truncated term makes the whole listing untrustworthy for removal
     for term in terms:
         offset = 0
+        term_complete = False
         while offset < cap:
             d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
             rows = d.get("jobPostings", [])
@@ -188,8 +205,10 @@ def workday(c):
                                 url=f"https://{c['host']}/{c['site']}{path}", posted=_workday_posted(j.get("postedOn"))))
             offset += page
             if len(rows) < page:
+                term_complete = True  # ran out of rows before hitting the per-term cap
                 break
-    return out
+        complete = complete and term_complete
+    return out, complete
 
 
 def oracle(c):
@@ -206,8 +225,10 @@ def oracle(c):
     cap = int(c.get("max_per_term", 60))
     page = 50
     out, seen = [], set()
+    complete = True  # AND across terms: one truncated term makes the whole listing untrustworthy for removal
     for term in terms:
         offset = 0
+        term_complete = False
         while offset < cap:
             finder = f"findReqs;siteNumber={c['site']},limit={page},offset={offset}"
             if term:
@@ -226,8 +247,10 @@ def oracle(c):
                                 posted=(j.get("PostedDate") or "")[:10]))
             offset += page
             if len(rows) < page:
+                term_complete = True  # ran out of rows before hitting the per-term cap
                 break
-    return out
+        complete = complete and term_complete
+    return out, complete
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
@@ -239,13 +262,15 @@ def fetch_company(c):
     """Runs on a worker thread. Retries once after a 5s sleep on any error - absorbs a scheduled
     run firing right as the runner's network isn't fully up yet."""
     try:
-        return c["name"], FETCH[c["ats"]](c), None
+        jobs, complete = FETCH[c["ats"]](c)
+        return c["name"], jobs, complete, None
     except Exception:
         time.sleep(5)
         try:
-            return c["name"], FETCH[c["ats"]](c), None
+            jobs, complete = FETCH[c["ats"]](c)
+            return c["name"], jobs, complete, None
         except Exception as e2:
-            return c["name"], None, e2
+            return c["name"], None, None, e2
 
 
 def describe(c, job):
@@ -314,6 +339,21 @@ def keyword_hits(title, text, keywords):
     return [k for k in keywords if re.search(r"(?<![a-z])" + re.escape(k) + r"(?![a-z])", hay)]
 
 
+_REQ_NUMBER_RE = re.compile(r"\b[a-z]*-?\d{4,}(?:-\d+)*\b")  # also swallow a trailing -2/-3 repost suffix
+
+
+def role_fingerprint(title, location):
+    """Identity for 'is this the same role reposted under a new id' - not a job id, since a repost
+    on Greenhouse/Lever usually mints a new one while Workday keeps the same req number, so id alone
+    can't tell a repost from a genuinely different opening. Strips requisition-number-shaped tokens
+    (e.g. "R249058-2") since those change on repost even when the role itself didn't."""
+    def norm(s):
+        s = _REQ_NUMBER_RE.sub("", (s or "").lower())
+        s = re.sub(r"[^a-z0-9]+", " ", s)
+        return re.sub(r"\s+", " ", s).strip()
+    return f"{norm(title)}|{norm(location)}"
+
+
 # --------------------------------------------------------------------- notify
 
 def notify(cfg, entry, dry):
@@ -362,7 +402,7 @@ def cmd_init():
 def cmd_queue(args):
     q = load_json(HOME / "queue.json", [])
     if not args.all:
-        q = [e for e in q if e["state"] == "new"]
+        q = [e for e in q if e["state"] == "new" and not e.get("closed_on")]
     if args.days is not None:
         cutoff = (date.today() - timedelta(days=args.days)).isoformat()
         # postings with no parseable date are kept, not dropped - "unknown" isn't the same as "old"
@@ -385,7 +425,8 @@ def cmd_queue(args):
         print(json.dumps(q, indent=1))
         return
     if args.html:
-        write_queue_html(q, args.html)
+        updated_at = datetime.fromtimestamp((HOME / "queue.json").stat().st_mtime) if (HOME / "queue.json").exists() else None
+        write_queue_html(q, args.html, updated_at)
         print(f"wrote {len(q)} entries to {args.html}")
         return
     for e in q:
@@ -406,36 +447,53 @@ def posted_label(e):
 
 # states shown collapsed below the main "new" table, in this order; any other state found (e.g.
 # a custom state from a hand-edit) is appended after these
-_SECONDARY_STATE_ORDER = ["auto_blocked", "applied", "skipped"]
+_SECONDARY_STATE_ORDER = ["shortlisted", "applied", "auto_blocked", "dismissed"]
 
 
-def write_queue_html(q, path):
+def write_queue_html(q, path, updated_at=None):
     """Static page, no server: q is already sorted newest-posted-first by cmd_queue. Each row is a
     plain <a> to the live posting so double-clicking the file and clicking a link is the whole workflow.
-    "new" postings get their own table up top; everything else (auto_blocked, applied, skipped, ...)
-    is collapsed into <details> sections so a growing history doesn't bury what's actionable today."""
+    "new" postings get their own table up top; every other open state (shortlisted, applied, ...)
+    collapses into a <details> section; closed/removed entries (any state) go in one final section so
+    a growing history doesn't bury what's actionable today."""
     today = date.today().isoformat()
 
     def row_html(e):
         posted = e.get("posted") or ""
+        closed = bool(e.get("closed_on"))
         badge = " today" if posted == today else ""
         kw = ", ".join(e["kw_hits"]) if e["kw_hits"] else "—"
         spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
+        role = html.escape(e["role"])
+        if e.get("repost_count"):
+            role += f' <span class="repost" title="repost of {html.escape(e.get("repost_of") or "?")}">repost x{e["repost_count"]}</span>'
+        role_cell = (f'<a href="{html.escape(e["link"])}" target="_blank" rel="noopener">{role}</a>'
+                     if not closed else role)
+        row_title = ""
+        if closed:
+            row_title = (f' title="closed {html.escape(e["closed_on"])} ({html.escape(e.get("closed_reason") or "")}); '
+                         f'last live {html.escape(e.get("last_seen_live") or "unknown")}"')
+        state_cell = f'<td>{html.escape(e["state"])}</td>' if closed else ""
         return (
-            f'<tr class="{e["state"]}{badge}">'
+            f'<tr class="{e["state"]}{badge}{" closed" if closed else ""}"{row_title}>'
             f'<td class="posted">{html.escape(posted_label(e))}</td>'
             f'<td>{html.escape(e["company"])}</td>'
-            f'<td><a href="{html.escape(e["link"])}" target="_blank" rel="noopener">{html.escape(e["role"])}</a></td>'
+            f'<td>{role_cell}</td>'
             f'<td>{html.escape(e["location"])}</td>'
             f'<td title="{spons_evidence}">{html.escape(e["sponsorship_status"])}</td>'
             f'<td class="kw">{html.escape(kw)}</td>'
+            f'{state_cell}'
             f'</tr>'
         )
 
     head = "<tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th><th>Keywords</th></tr>"
-    new_rows = [e for e in q if e["state"] == "new"]
+    closed_head = head.replace("</tr>", "<th>State</th></tr>")
+
+    open_q = [e for e in q if not e.get("closed_on")]
+    closed_q = [e for e in q if e.get("closed_on")]
+    new_rows = [e for e in open_q if e["state"] == "new"]
     by_state = {}
-    for e in q:
+    for e in open_q:
         if e["state"] != "new":
             by_state.setdefault(e["state"], []).append(e)
     ordered_states = [s for s in _SECONDARY_STATE_ORDER if s in by_state] + \
@@ -447,23 +505,36 @@ def write_queue_html(q, path):
         f'</details>'
         for state in ordered_states
     )
+    if closed_q:
+        sections += (
+            f'<details><summary>closed / removed ({len(closed_q)})</summary>'
+            f'<table><thead>{closed_head}</thead><tbody>{"".join(row_html(e) for e in closed_q)}</tbody></table>'
+            f'</details>'
+        )
+
+    updated_label = updated_at.strftime("%Y-%m-%d %H:%M") if updated_at else "unknown"
 
     page = f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>Job Scout Queue</title>
 <style>
 body {{ font-family: system-ui, sans-serif; margin: 2rem; background: #fafafa; color: #111; }}
 h1 {{ font-size: 1.2rem; }}
+.meta {{ color: #666; font-size: 0.85rem; margin-top: -0.5rem; margin-bottom: 1rem; }}
 table {{ border-collapse: collapse; width: 100%; margin-bottom: 1rem; }}
 th, td {{ padding: 6px 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 0.9rem; }}
 th {{ position: sticky; top: 0; background: #fafafa; }}
 tr.today {{ background: #eaffea; font-weight: 600; }}
+tr.closed {{ color: #999; }}
+tr.closed a, tr.closed {{ text-decoration: line-through; }}
 td.posted {{ white-space: nowrap; }}
 td.kw {{ color: #555; font-size: 0.85rem; }}
+span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decoration: none; }}
 details {{ margin-bottom: 0.5rem; }}
 summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 </style></head>
 <body>
-<h1>Job Scout Queue - generated {today} - {len(q)} entries</h1>
+<h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
+<p class="meta">Data last updated {updated_label} - page generated {today}</p>
 <h2>New ({len(new_rows)})</h2>
 <table id="q">
 <thead>{head}</thead>
@@ -478,12 +549,18 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 
 def cmd_mark(args):
     q = load_json(HOME / "queue.json", [])
-    if args.state not in QUEUE_STATES:
-        sys.exit(f"state must be one of {QUEUE_STATES}")
     hit = [e for e in q if e["id"] == args.id]
     if not hit:
         sys.exit(f"no queue entry {args.id}")
-    hit[0]["state"] = args.state
+    e = hit[0]
+    if args.state == "closed":  # manual: for a dead link the scout's own liveness check missed
+        e["closed_on"], e["closed_reason"] = date.today().isoformat(), "manual"
+    elif args.state == "open":
+        e["closed_on"], e["closed_reason"], e["miss_count"] = None, None, 0
+    elif args.state in QUEUE_STATES:
+        e["state"] = args.state
+    else:
+        sys.exit(f"state must be one of {QUEUE_STATES + ('closed', 'open')}")
     atomic_json.write(str(HOME / "queue.json"), q)
     print(f"{args.id} -> {args.state}")
 
@@ -498,14 +575,15 @@ def run(args):
     queue = load_json(HOME / "queue.json", [])
     queued_ids = {e["id"] for e in queue}
     run_id = "scout_" + date.today().isoformat()
-    counts = dict(companies=0, errors=0, matched=0, blocked=0, queued=0, alerted=0)
+    counts = dict(companies=0, errors=0, matched=0, blocked=0, queued=0, alerted=0,
+                  closed=0, reopened=0, reposts=0)
 
     fetched = {}
     with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
         futures = {pool.submit(fetch_company, c): c for c in cfg["companies"]}
         for fut in as_completed(futures):
-            name, jobs, err = fut.result()
-            fetched[name] = (jobs, err)
+            name, jobs, complete, err = fut.result()
+            fetched[name] = (jobs, complete, err)
 
     # One shared pool for every description fetch across every company, not one pool per company -
     # several companies finishing their listing fetch around the same time and each spinning up
@@ -514,7 +592,7 @@ def run(args):
     try:
         for c in cfg["companies"]:
             name = c["name"]
-            jobs, err = fetched[name]
+            jobs, complete, err = fetched[name]
             if err is not None:
                 counts["errors"] += 1
                 print(f"! {name} ({c['ats']}): {err}", file=sys.stderr)
@@ -523,7 +601,8 @@ def run(args):
             hits = [j for j in jobs if matches(j, filters)]
             if args.check:
                 warn = "  <- 0 jobs, check slug" if not jobs else ""
-                print(f"ok {name}: {len(jobs)} jobs, {len(hits)} match{warn}")
+                trunc = "  [truncated - raise max_per_term or narrow search terms]" if not complete else ""
+                print(f"ok {name}: {len(jobs)} jobs, {len(hits)} match{warn}{trunc}")
                 continue
 
             seen = set(state.get(name, []))
@@ -540,8 +619,10 @@ def run(args):
                     except Exception as e:
                         print(f"! {name} description for {j['title']}: {e}", file=sys.stderr)
                         descriptions[j["id"]] = ""
-            _process_company(c, name, fresh, descriptions, first_run, jobs, seen, state, queue, queued_ids,
+            _process_company(c, name, fresh, descriptions, first_run, jobs, complete, seen, state, queue, queued_ids,
                               keywords, cfg, args, counts)
+            if not args.dry_run:
+                _update_liveness(name, jobs, complete, queue, counts)
     finally:
         describe_pool.shutdown()
 
@@ -552,34 +633,114 @@ def run(args):
         atomic_json.write(str(HOME / "state.json"), state)
         atomic_json.write(str(HOME / "queue.json"), queue)
     print(f"done: {counts['companies']} companies ({counts['errors']} errors), {counts['matched']} new matches, "
-          f"{counts['blocked']} auto-blocked on sponsorship, {counts['queued']} queued, {counts['alerted']} alerts.")
+          f"{counts['blocked']} auto-blocked on sponsorship, {counts['queued']} queued, {counts['alerted']} alerts, "
+          f"{counts['closed']} closed, {counts['reopened']} reopened, {counts['reposts']} reposts.")
 
 
-def _process_company(c, name, fresh, descriptions, first_run, jobs, seen, state, queue, queued_ids,
+def _find_repost_source(queue, name, fp, live_ids, eid):
+    """A prior queue entry is this job's repost source if: same company, same role fingerprint,
+    its own id is no longer in the live listing (so it's not just a second concurrent opening for
+    the same role), and it's recent enough that the match isn't just coincidence."""
+    cutoff = (date.today() - timedelta(days=REPOST_WINDOW_DAYS)).isoformat()
+    candidates = [e for e in queue if e["company"] == name and e["id"] != eid
+                  and role_fingerprint(e["role"], e["location"]) == fp
+                  and e["id"].split(":", 1)[1] not in live_ids
+                  and e.get("first_seen", "") >= cutoff]
+    return max(candidates, key=lambda e: e.get("first_seen", "")) if candidates else None
+
+
+def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, seen, state, queue, queued_ids,
                       keywords, cfg, args, counts):
+    live_ids = {jj["id"] for jj in jobs}
+    today = date.today().isoformat()
     for j in fresh:
         counts["matched"] += 1
         eid = f"{name}:{j['id']}"
         text = descriptions.get(j["id"], "")
         spons, evidence = classify_sponsorship(text)
+        fp = role_fingerprint(j["title"], j["location"])
+        # a capped/paginated listing can't prove a prior id is gone - it may just be outside the
+        # window - so only trust absence as repost evidence when this run's listing was complete
+        prior = None if (first_run or not complete) else _find_repost_source(queue, name, fp, live_ids, eid)
+
+        entry_state = "auto_blocked" if spons == "Blocked" else "new"
+        repost_count, repost_of, reposted_on = 0, None, None
+        if prior:
+            repost_count = prior.get("repost_count", 0) + 1
+            repost_of, reposted_on = prior["id"], today
+            if spons != "Blocked" and prior.get("state") in ("dismissed", "applied", "shortlisted"):
+                entry_state = prior["state"]  # a repost of a role Yazad already acted on inherits that decision
+            if not prior.get("closed_on"):
+                prior["closed_on"], prior["closed_reason"] = today, "reposted"
+
         entry = dict(id=eid, company=name, role=j["title"], location=j["location"], link=j["url"],
-                     posted=j.get("posted") or "", source="job-scout", first_seen=date.today().isoformat(),
+                     posted=j.get("posted") or "", source="job-scout", first_seen=today,
                      sponsorship_status=spons, sponsorship_evidence=evidence,
                      kw_hits=keyword_hits(j["title"], text, keywords),
-                     state="auto_blocked" if spons == "Blocked" else "new", first_run=first_run)
+                     state=entry_state, first_run=first_run,
+                     last_seen_live=today, miss_count=0, closed_on=None, closed_reason=None,
+                     repost_count=repost_count, repost_of=repost_of, reposted_on=reposted_on)
         queue.append(entry)
         queued_ids.add(eid)
+        if prior:
+            counts["reposts"] += 1
         if spons == "Blocked":
             counts["blocked"] += 1
             continue
         counts["queued"] += 1
-        if not first_run:  # first run seeds the queue silently; only genuinely new postings alert
+        # first run seeds the queue silently; a repost only alerts if it flips from blocked to open -
+        # otherwise it's the same decision Yazad already made, just resurfacing under a new id
+        if not first_run and (not prior or prior.get("state") == "auto_blocked"):
             notify(cfg.get("notify", {}), entry, args.dry_run)
             counts["alerted"] += 1
     if not args.dry_run:
         state[name] = sorted(seen | {j["id"] for j in jobs})  # union: a capped search must not re-alert on drift
     elif first_run:
         print(f"[dry-run] {name}: first run, would queue {len(fresh)} current matches silently")
+
+
+def _update_liveness(name, jobs, complete, queue, counts):
+    """Detects closed/reopened postings for one company's queue entries by diffing against the FULL
+    current listing (`jobs`, not the title/location-filtered `hits`) - so editing filters never closes
+    an entry. Closing requires CLOSE_AFTER_MISSES consecutive complete (unpaginated-cap) runs without
+    the id showing up, since a single miss on a paginated/capped board just means it fell outside the
+    search window, not that the posting is gone."""
+    if not jobs:
+        print(f"! {name}: empty listing, skipping close/reopen check (broken slug or API?)", file=sys.stderr)
+        return
+    live_ids = {j["id"] for j in jobs}
+    today = date.today().isoformat()
+    mine = [e for e in queue if e["company"] == name]
+    open_mine = [e for e in mine if not e.get("closed_on")]
+    missing = [e for e in open_mine if e["id"].split(":", 1)[1] not in live_ids]
+
+    for e in mine:
+        if e["id"].split(":", 1)[1] not in live_ids:
+            continue
+        e["last_seen_live"] = today
+        e["miss_count"] = 0
+        if e.get("closed_on") and e.get("closed_reason") != "manual":  # same id came back: a real reopen
+            e["closed_on"], e["closed_reason"] = None, None
+            e["repost_count"] = e.get("repost_count", 0) + 1
+            e["reposted_on"] = today
+            counts["reopened"] += 1
+
+    # A mass vanish (likely a broken fetch, bad slug, API change) needs stronger evidence before
+    # closing anything - but must not block closure forever: raising the bar rather than returning
+    # early still lets miss_count climb, so a genuine mass closure eventually goes through instead of
+    # permanently freezing every entry the moment the ratio is first crossed.
+    mass_vanish = len(open_mine) >= 3 and len(missing) / len(open_mine) > MASS_VANISH_GUARD
+    if mass_vanish:
+        print(f"! {name}: {len(missing)}/{len(open_mine)} open queue entries vanished at once, "
+              f"requiring stronger evidence before closing (possible broken fetch)", file=sys.stderr)
+    if not complete:
+        return  # a truncated/capped listing can't prove absence - a job outside the window isn't closed
+    close_after = CLOSE_AFTER_MISSES * 3 if mass_vanish else CLOSE_AFTER_MISSES
+    for e in missing:
+        e["miss_count"] = e.get("miss_count", 0) + 1
+        if e["miss_count"] >= close_after:
+            e["closed_on"], e["closed_reason"] = today, "removed"
+            counts["closed"] += 1
 
 
 def main():

@@ -32,7 +32,7 @@ def main():
             print(f"  {name}: not in config.json anymore, skipping {len(entries)}")
             continue
         try:
-            live = FETCH[c["ats"]](c)
+            live, _complete = FETCH[c["ats"]](c)
         except Exception as exc:
             print(f"  {name}: fetch failed ({exc}), skipping {len(entries)}")
             errors += len(entries)
