@@ -531,10 +531,18 @@ td.kw {{ color: #555; font-size: 0.85rem; }}
 span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decoration: none; }}
 details {{ margin-bottom: 0.5rem; }}
 summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
+#filterBar {{ position: sticky; top: 0; background: #fafafa; padding: 0.5rem 0; margin-bottom: 0.5rem; z-index: 1; }}
+#filterBox {{ width: 100%; max-width: 480px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
+#filterCount {{ color: #666; font-size: 0.85rem; margin-left: 8px; }}
+tr.hidden-by-filter {{ display: none; }}
 </style></head>
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
 <p class="meta">Data last updated {updated_label}</p>
+<div id="filterBar">
+<input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
+<span id="filterCount"></span>
+</div>
 <h2>New ({len(new_rows)})</h2>
 <table id="q">
 <thead>{head}</thead>
@@ -543,6 +551,52 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 </tbody>
 </table>
 {sections}
+<script>
+(function() {{
+  // Live client-side filter, no server: comma-separated groups are OR'd, terms within a group
+  // are AND'd (e.g. "python, sql bloomberg" = python OR (sql AND bloomberg)). Lets one shared
+  // page/URL serve different people with different interests - each viewer just types their own
+  // terms; nothing is sent anywhere and nothing is saved except this browser's own last search.
+  var box = document.getElementById('filterBox');
+  var countEl = document.getElementById('filterCount');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
+  var forcedOpen = [];
+
+  function apply() {{
+    var raw = box.value.trim().toLowerCase();
+    forcedOpen.forEach(function(d) {{ d.removeAttribute('open'); }});
+    forcedOpen = [];
+    if (!raw) {{
+      rows.forEach(function(tr) {{ tr.classList.remove('hidden-by-filter'); }});
+      countEl.textContent = '';
+      try {{ localStorage.setItem('jobScoutFilter', ''); }} catch (e) {{}}
+      return;
+    }}
+    var groups = raw.split(',').map(function(g) {{ return g.trim().split(/\\s+/).filter(Boolean); }})
+                     .filter(function(g) {{ return g.length; }});
+    var shown = 0;
+    rows.forEach(function(tr) {{
+      var text = tr.textContent.toLowerCase();
+      var match = groups.some(function(terms) {{ return terms.every(function(t) {{ return text.indexOf(t) !== -1; }}); }});
+      tr.classList.toggle('hidden-by-filter', !match);
+      if (match) {{
+        shown++;
+        var details = tr.closest('details');
+        if (details && !details.open) {{ details.open = true; forcedOpen.push(details); }}
+      }}
+    }});
+    countEl.textContent = 'showing ' + shown + ' of ' + rows.length;
+    try {{ localStorage.setItem('jobScoutFilter', box.value); }} catch (e) {{}}
+  }}
+
+  try {{
+    var saved = localStorage.getItem('jobScoutFilter');
+    if (saved) box.value = saved;
+  }} catch (e) {{}}
+  box.addEventListener('input', apply);
+  apply();
+}})();
+</script>
 </body></html>"""
     Path(path).write_text(page, encoding="utf-8")
 

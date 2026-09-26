@@ -34,6 +34,16 @@ this build doesn't know what you've already applied to.
 3. Trigger a manual run from the Actions tab (`workflow_dispatch`) to confirm
    it works before waiting for the schedule.
 
+## Sharing the queue (GitHub Pages)
+
+Every scheduled run also regenerates `docs/index.html` and commits it, so the
+same queue can be shared with someone else via a stable URL instead of
+sending them a file. One-time setup: repo Settings -> Pages -> Source:
+"Deploy from a branch" -> branch `main`, folder `/docs`. The page includes a
+live client-side search box (comma = OR, space = AND) so different people
+can filter the same shared data down to their own interests - nothing is
+sent anywhere and each browser remembers only its own last search.
+
 ## Local use
 
 ```
@@ -41,4 +51,5 @@ python job_scout.py --check      # per-company job/match counts, no state change
 python job_scout.py --dry-run    # show what would queue/alert, no state change
 python job_scout.py              # normal run
 python job_scout.py --queue      # show the triage queue
+python job_scout.py --queue --all --html queue.html   # write the same page written to docs/index.html
 ```
