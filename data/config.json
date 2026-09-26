@@ -773,6 +773,58 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "KeyBank",
+   "ats": "workday",
+   "host": "keybank.wd5.myworkdayjobs.com",
+   "tenant": "keybank",
+   "site": "External_Career_Site",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "M&T Bank",
+   "ats": "workday",
+   "host": "mtb.wd5.myworkdayjobs.com",
+   "tenant": "mtb",
+   "site": "MTB",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
