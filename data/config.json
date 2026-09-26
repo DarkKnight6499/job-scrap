@@ -747,6 +747,32 @@
     "collateral"
    ],
    "max_per_term": 60
+  },
+  {
+   "name": "Morgan Stanley",
+   "ats": "workday",
+   "host": "ms.wd5.myworkdayjobs.com",
+   "tenant": "ms",
+   "site": "External",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
