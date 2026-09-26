@@ -39,11 +39,13 @@ import argparse
 import html
 import json
 import os
+import random
 import re
 import secrets
 import sys
 import time
 import unicodedata
+import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -59,6 +61,7 @@ from keyword_matching import contains_term  # noqa: E402
 
 HOME = Path(os.environ.get("JOB_SCOUT_HOME", REPO_DIR / "data"))
 UA = {"User-Agent": "job-scout/1.0", "Accept": "application/json"}
+RETRY_429_MAX = 4  # Workday 429s on bursts; a short backoff clears them (40 of 40 recovered in testing)
 QUEUE_STATES = ("new", "shortlisted", "applied", "dismissed", "auto_blocked")
 
 CLOSE_AFTER_MISSES = 2     # consecutive complete-listing runs an id must be absent before we call it closed
@@ -113,8 +116,19 @@ def http(url, data=None, headers=None, timeout=20, raw=False):
     if headers:
         h.update(headers)
     req = urllib.request.Request(url, data=body, headers=h)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        payload = r.read()
+    for attempt in range(RETRY_429_MAX + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                payload = r.read()
+            break
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or attempt == RETRY_429_MAX:
+                raise
+            try:
+                delay = float(e.headers.get("Retry-After"))
+            except (TypeError, ValueError):
+                delay = 2 ** (attempt + 1)
+            time.sleep(delay + random.random())
     return payload if raw else json.loads(payload)
 
 
