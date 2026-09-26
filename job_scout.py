@@ -376,6 +376,53 @@ def classify_experience(title, text):
     return "Unclear", "No years-of-experience language found."
 
 
+_SALARY_RANGE_RE = re.compile(
+    r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\s*(?:-|–|to)\s*\$?\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?",
+    re.I,
+)
+_SALARY_SINGLE_RE = re.compile(r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\b", re.I)
+_SALARY_CONTEXT_RE = re.compile(r"\b(?:salary|compensation|base pay|total comp|pay range)\b", re.I)
+# finance JDs are full of unrelated dollar figures ("$2B in assets", "$500M portfolio") - a nearby
+# context word alone isn't always enough, so also reject anything sitting next to an asset-scale word
+_SALARY_DISQUALIFY_RE = re.compile(
+    r"\b(million|billion|trillion|aum|assets under management|in assets|portfolio|book of business)\b", re.I)
+
+
+def _salary_num(digits, k_suffix):
+    n = float(digits.replace(",", ""))
+    return n * 1000 if k_suffix else n
+
+
+def classify_salary(text):
+    """Best-effort salary range from explicit description text, gated on BOTH a nearby salary/
+    compensation context word and a plausible annual-salary magnitude ($20k-$600k) - a raw dollar
+    regex alone would happily "find" a salary in "manages a $500M portfolio". Unclear when no
+    confident match, never guessed from title/company alone."""
+    hay = text or ""
+    for m in _SALARY_RANGE_RE.finditer(hay):
+        context = hay[max(0, m.start() - 80):m.end() + 20]
+        nearby = hay[max(0, m.start() - 20):m.end() + 20]
+        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
+            continue
+        lo, hi = _salary_num(m.group(1), m.group(2)), _salary_num(m.group(3), m.group(4))
+        lo, hi = min(lo, hi), max(lo, hi)
+        if not (20000 <= lo <= 600000 and 20000 <= hi <= 600000):
+            continue
+        evidence = hay[max(0, m.start() - 40):min(len(hay), m.end() + 40)].strip()
+        return f"${int(lo):,} - ${int(hi):,}", evidence
+    for m in _SALARY_SINGLE_RE.finditer(hay):
+        context = hay[max(0, m.start() - 40):m.end() + 10]
+        nearby = hay[max(0, m.start() - 20):m.end() + 20]
+        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
+            continue
+        val = _salary_num(m.group(1), m.group(2))
+        if not (20000 <= val <= 600000):
+            continue
+        evidence = hay[max(0, m.start() - 40):min(len(hay), m.end() + 40)].strip()
+        return f"${int(val):,}", evidence
+    return "Unclear", ""
+
+
 def keyword_hits(title, text, keywords):
     hay = f"{title} {text}".lower()
     return [k for k in keywords if re.search(r"(?<![a-z])" + re.escape(k) + r"(?![a-z])", hay)]
@@ -474,7 +521,7 @@ def cmd_queue(args):
     for e in q:
         print(f"{e['id']}  {e['company']}: {e['role']} ({e['location']}) posted {posted_label(e)} "
               f"[{e['state']}, spons {e['sponsorship_status']}, exp {e.get('experience', 'Unclear')}, "
-              f"kw {', '.join(e['kw_hits']) or 'none'}]\n    {e['link']}")
+              f"salary {e.get('salary', 'Unclear')}, kw {', '.join(e['kw_hits']) or 'none'}]\n    {e['link']}")
     print(f"{len(q)} queue entr{'y' if len(q) == 1 else 'ies'}.")
 
 
@@ -509,6 +556,8 @@ def write_queue_html(q, path, updated_at=None):
         spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
         exp = e.get("experience") or "Unclear"
         exp_evidence = html.escape(e.get("experience_evidence") or "")
+        salary = e.get("salary") or "Unclear"
+        salary_evidence = html.escape(e.get("salary_evidence") or "")
         role = html.escape(e["role"])
         if e.get("repost_count"):
             role += f' <span class="repost" title="repost of {html.escape(e.get("repost_of") or "?")}">repost x{e["repost_count"]}</span>'
@@ -527,13 +576,14 @@ def write_queue_html(q, path, updated_at=None):
             f'<td>{html.escape(e["location"])}</td>'
             f'<td title="{spons_evidence}">{html.escape(e["sponsorship_status"])}</td>'
             f'<td title="{exp_evidence}">{html.escape(exp)}</td>'
+            f'<td title="{salary_evidence}" class="salary">{html.escape(salary)}</td>'
             f'<td class="kw">{html.escape(kw)}</td>'
             f'{state_cell}'
             f'</tr>'
         )
 
     head = ("<tr><th>Posted</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th>"
-            "<th>Experience</th><th>Keywords</th></tr>")
+            "<th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
     closed_head = head.replace("</tr>", "<th>State</th></tr>")
 
     open_q = [e for e in q if not e.get("closed_on")]
@@ -575,6 +625,7 @@ tr.closed {{ color: #999; }}
 tr.closed a, tr.closed {{ text-decoration: line-through; }}
 td.posted {{ white-space: nowrap; }}
 td.kw {{ color: #555; font-size: 0.85rem; }}
+td.salary {{ white-space: nowrap; }}
 span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decoration: none; }}
 details {{ margin-bottom: 0.5rem; }}
 summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
@@ -782,6 +833,7 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         text = descriptions.get(j["id"], "")
         spons, evidence = classify_sponsorship(text)
         experience, experience_evidence = classify_experience(j["title"], text)
+        salary, salary_evidence = classify_salary(text)
         fp = role_fingerprint(j["title"], j["location"])
         # a capped/paginated listing can't prove a prior id is gone - it may just be outside the
         # window - so only trust absence as repost evidence when this run's listing was complete
@@ -801,6 +853,7 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
                      posted=j.get("posted") or "", source="job-scout", first_seen=today,
                      sponsorship_status=spons, sponsorship_evidence=evidence,
                      experience=experience, experience_evidence=experience_evidence,
+                     salary=salary, salary_evidence=salary_evidence,
                      kw_hits=keyword_hits(j["title"], text, keywords),
                      state=entry_state, first_run=first_run,
                      last_seen_live=today, miss_count=0, closed_on=None, closed_reason=None,
