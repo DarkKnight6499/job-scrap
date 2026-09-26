@@ -6,7 +6,7 @@ companies, filters by title/location keywords, flags explicit no-sponsorship
 language in the description, and pushes a phone alert (ntfy) for anything
 new. No paid scraping API, no LLM tokens.
 
-Runs on a schedule via GitHub Actions (`.github/workflows/scout.yml`, hourly)
+Runs on a schedule via GitHub Actions (`.github/workflows/scout.yml`, every 30 min)
 - no server or laptop required. State (`data/state.json`, `data/queue.json`)
 is committed back to the repo after each run so the next run picks up where
 the last one left off.
