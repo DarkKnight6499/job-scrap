@@ -162,13 +162,17 @@ def smartrecruiters(c):
     return out, complete
 
 
-_RELATIVE_DAYS_RE = re.compile(r"posted\s+(today|yesterday|(\d+)\+?\s*day)", re.I)
+_RELATIVE_DAYS_RE = re.compile(r"posted\s+(today|yesterday|(\d+)(\+?)\s*day)", re.I)
 
 
 def _workday_posted(text):
     """Workday's postedOn is relative text ("Posted 5 Days Ago", "Posted Today", "Posted 30+ Days
     Ago") not a real date - approximate it as an ISO date so postings can be sorted/filtered by
-    recency. "30+" is a floor, not exact, since Workday caps the display at that bucket."""
+    recency. "30+" is a floor, not a real day count (Workday caps the display at that bucket, so
+    the true age could be 30 days or 300) - computing today-minus-30 for it would print a specific
+    date that looks exact but is actually a guess, so treat it as unknown ("") instead. This is
+    meant as a last-resort fallback when the detail endpoint (which usually has the real date via
+    startDate - see _workday_detail_posted) couldn't be reached at all."""
     m = _RELATIVE_DAYS_RE.search(text or "")
     if not m:
         return ""
@@ -176,6 +180,8 @@ def _workday_posted(text):
         days = 0
     elif m.group(1).lower() == "yesterday":
         days = 1
+    elif m.group(3) == "+":
+        return ""  # "30+ Days Ago" - a floor, not a count; don't dress it up as a real date
     else:
         days = int(m.group(2))
     return (date.today() - timedelta(days=days)).isoformat()
