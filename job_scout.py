@@ -71,6 +71,16 @@ GHOST_MIN_COUNT = 3        # a role posted at least this many times under the sa
 GHOST_MIN_SPAN_DAYS = 120  # ...spanning at least this many days looks like an evergreen/ghost req,
                            # not a normal one-off backfill after someone leaves
 
+# Workday's detail-endpoint startDate is not the fixed value it looks like - confirmed live: the
+# same unedited posting returned startDate one calendar day apart in two checks made hours apart,
+# so it drifts across Workday's own day boundary the same way postedOn's relative text does, just
+# with finer granularity. An entry captured right at the boundary can freeze the wrong date forever
+# unless it's re-checked once the drift window has passed. REVERIFY_MIN_AGE_DAYS gives Workday's
+# clock time to settle before re-checking; REVERIFY_MAX_AGE_DAYS bounds how long a not-yet-reverified
+# entry stays eligible, so this never re-fetches the whole queue on every run.
+REVERIFY_MIN_AGE_DAYS = 1
+REVERIFY_MAX_AGE_DAYS = 3
+
 BLOCK_PATTERNS = [
     r"(?:will|would|does|do|can|could|is|are)\s+not\s+(?:\w+\s+){0,3}sponsor",
     r"\bcannot\s+(?:\w+\s+){0,3}sponsor",
@@ -198,14 +208,23 @@ def _workday_posted(text):
 
 
 def _workday_detail_posted(info):
-    """Workday's job-DETAIL response (unlike the bulk search listing) usually carries an exact
-    startDate - prefer it over the relative postedOn bucket text, and over the bulk listing's own
-    postedOn (which some tenants, e.g. Ares, omit from the bulk response entirely).
+    """Workday's job-DETAIL response (unlike the bulk search listing) usually carries a startDate -
+    prefer it over the relative postedOn bucket text, and over the bulk listing's own postedOn
+    (which some tenants, e.g. Ares, omit from the bulk response entirely).
 
     Returns (date, source) - source is "exact" for startDate, "approx" for the relative-text
     fallback (derived from a coarse day-count string, not a timestamp - see _workday_posted), or
     "unknown" for neither. Callers surface this so a date on the tracker page never looks more
-    certain than it actually is."""
+    certain than it actually is.
+
+    "exact" is still not perfectly stable, confirmed live: the same unedited posting returned
+    startDate one calendar day apart in two checks made hours apart, meaning Workday recomputes it
+    relative to its own server clock at request time too, the same way postedOn's relative text is,
+    just with finer granularity and a much smaller/rarer drift window (one day, around Workday's own
+    day boundary, vs. every single request for postedOn). That's still far more reliable than the
+    relative-text fallback, so "exact" stays the right label relative to "approx" - but it's why
+    _reverify_recent_posted() re-checks a freshly captured value a day or two later instead of
+    trusting it permanently from the moment of first capture."""
     start = (info.get("startDate") or "")[:10]
     try:
         if start and date.fromisoformat(start) <= date.today() + timedelta(days=1):
@@ -214,6 +233,13 @@ def _workday_detail_posted(info):
         pass
     fallback = _workday_posted(info.get("postedOn"))
     return fallback, ("approx" if fallback else "unknown")
+
+
+def _workday_refresh_posted(c, job_id, site):
+    """Re-fetches just the detail endpoint's date fields (no description/salary/etc - this only
+    runs to re-verify a date, so there's no reason to re-parse and re-classify the whole posting)."""
+    d = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}{job_id}")
+    return _workday_detail_posted(d.get("jobPostingInfo") or {})
 
 
 def workday(c):
@@ -537,6 +563,48 @@ def _classify_ghosts(queue):
                     f"most recently {last_seen}")
         for e in entries:
             e["ghost_status"], e["ghost_evidence"] = "Likely", evidence
+
+
+def _reverify_recent_posted(queue, cfg):
+    """Re-checks posted/posted_source once for each Workday entry first_seen between
+    REVERIFY_MIN_AGE_DAYS and REVERIFY_MAX_AGE_DAYS ago - startDate can drift by a day depending on
+    exactly when it's queried relative to Workday's own day boundary (see _workday_detail_posted),
+    so a value captured right at first sighting isn't fully trustworthy until re-observed a day or
+    two later. Marks every eligible entry posted_reverified=True whether or not the value actually
+    changed, so each entry is only ever re-checked once - not every run for its whole eligible
+    window, which would multiply this into dozens of redundant refetches per entry."""
+    by_company = {c["name"]: c for c in cfg["companies"]}
+    today = date.today()
+    lo = (today - timedelta(days=REVERIFY_MAX_AGE_DAYS)).isoformat()
+    hi = (today - timedelta(days=REVERIFY_MIN_AGE_DAYS)).isoformat()
+    changed = checked = 0
+    for e in queue:
+        if e.get("posted_reverified") or e.get("closed_on"):
+            continue
+        first_seen = e.get("first_seen") or ""
+        if not (lo <= first_seen <= hi):
+            continue
+        c = by_company.get(e["company"])
+        if not c or c.get("ats") != "workday":
+            continue
+        job_id = e["id"].split(":", 1)[1]
+        site = e.get("site") or c["site"]
+        if isinstance(site, list):
+            site = site[0]  # pre-existing entry with no stored site - best-effort on a multi-site company
+        checked += 1
+        try:
+            posted, posted_source = _workday_refresh_posted(c, job_id, site)
+        except Exception:
+            continue  # likely closed since first_seen - the separate liveness check handles that
+        finally:
+            time.sleep(0.3)  # Workday 429s on bursts - see describe_pool's own comment in run()
+        e["posted_reverified"] = True
+        if posted and posted != e.get("posted"):
+            e["posted"], e["posted_source"] = posted, posted_source
+            changed += 1
+    if checked:
+        print(f"reverify: checked {checked} recent Workday postings, corrected {changed}")
+    return changed
 
 
 # --------------------------------------------------------------------- notify
@@ -1001,6 +1069,8 @@ def run(args):
 
     if args.check:
         return
+    if not args.dry_run:
+        _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
         HOME.mkdir(parents=True, exist_ok=True)
@@ -1080,7 +1150,9 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         # relative-text parse.
         posted_source = j.get("posted_source") or (("exact" if c["ats"] != "workday" else "approx") if posted else "")
         entry = dict(id=eid, company=name, role=j["title"], location=j["location"], link=j["url"],
-                     posted=posted, posted_source=posted_source, source="job-scout", first_seen=today,
+                     posted=posted, posted_source=posted_source, posted_reverified=False,
+                     site=j.get("site"),  # which Workday site this came from, for multi-site companies
+                     source="job-scout", first_seen=today,
                      sponsorship_status=spons, sponsorship_evidence=evidence,
                      experience=experience, experience_evidence=experience_evidence,
                      salary=salary, salary_evidence=salary_evidence,
