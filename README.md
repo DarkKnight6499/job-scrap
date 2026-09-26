@@ -60,17 +60,35 @@ python job_scout.py --queue --all --html queue.html   # write the same page writ
 ## Dedup against your own application tracker (optional, local only)
 
 The scheduled scraper itself has no application-tracker integration (see above) - it doesn't
-know what you've applied to, on purpose, since this repo is public. If you keep your own
-tracker (a `.csv` or `.xlsx` with one row per application) and want a local view of the queue
-with anything you've already applied to filtered out, `dedup_applied.py` does that:
+know what you've applied to, on purpose, since this repo is public. `dedup_applied.py` +
+`identity_lib.py` are an optional add-on that runs entirely on your own machine: point it at
+your own tracker (a `.csv` or `.xlsx`, one row per application) and it writes a local HTML copy
+of `data/queue.json` with anything you've already applied to filtered out. Nothing from your
+tracker is ever written back into `data/`, committed, or sent anywhere.
 
-```
-python dedup_applied.py
-```
+**Setup:**
 
-Edit the `CONFIG` block at the top of `dedup_applied.py` first - point `APPLICATIONS_FILE` at
-your tracker and set the column-name constants (`COMPANY_COL`, `ROLE_COL`, `LOCATION_COL`,
-`LINK_COL`, `STATUS_COL`, `APPLIED_STATUSES`) to match your tracker's actual headers and status
-values. It matches a queue entry to one of your rows by Link when both have one, falling back
-to Company + Role Title + Location otherwise (`identity_lib.py`), and writes a standalone HTML
-file (`OUTPUT_HTML`) - nothing from your tracker is written back into `data/`.
+1. Clone or fork this repo and make sure you can already run `python job_scout.py` locally
+   (see Local use above) - `dedup_applied.py` reads `data/queue.json` that produces.
+2. Open `dedup_applied.py` and edit the `CONFIG` block at the top:
+   - `APPLICATIONS_FILE` - path to your tracker (`.csv` needs no extra dependency; `.xlsx`
+     needs `pip install openpyxl`).
+   - `COMPANY_COL`, `ROLE_COL`, `LOCATION_COL`, `LINK_COL` - your tracker's actual column
+     headers (set `LINK_COL = None` if you don't track a link per row).
+   - `STATUS_COL` and `APPLIED_STATUSES` - which column holds a status, and which values in
+     it mean "I've applied" (set `STATUS_COL = None` to treat every row in the file as applied).
+   - `OUTPUT_HTML` - where to write the result (defaults to `job_scrap_dedup.html` next to
+     this script; already covered by `.gitignore` so it's never committed by accident).
+3. Run it:
+   ```
+   python dedup_applied.py
+   ```
+   It prints how many tracker rows it loaded and how many queue entries were kept vs. dropped,
+   then writes `OUTPUT_HTML` - open that file directly in a browser.
+4. Re-run it any time after `job_scout.py` updates `data/queue.json` (for example, on the same
+   30-min schedule as the scraper via your OS's task scheduler / cron) to keep the view current.
+
+Matching logic (`identity_lib.py`): a queue entry counts as "already applied" if its Link
+matches one of your rows' Link, or - when either side has no Link - if Company + Role Title +
+Location match. This is the same fallback the private companion version uses, so results are
+identical to it when pointed at the same tracker.
