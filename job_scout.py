@@ -534,7 +534,7 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 </style></head>
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
-<p class="meta">Data last updated {updated_label} - page generated {today}</p>
+<p class="meta">Data last updated {updated_label}</p>
 <h2>New ({len(new_rows)})</h2>
 <table id="q">
 <thead>{head}</thead>
