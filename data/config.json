@@ -5464,6 +5464,31 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Jefferies",
+   "ats": "oracle",
+   "host": "hdid.fa.us2.oraclecloud.com",
+   "site": "CX_1",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
