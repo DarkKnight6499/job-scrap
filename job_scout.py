@@ -350,7 +350,9 @@ _MID_TITLE_RE = re.compile(r"\bassociate\b", re.I)
 
 
 def classify_experience(title, text):
-    """Best-effort years-of-experience bucket. Explicit numbers in the description win over title
+    """Best-effort years-of-experience bucket, keyed off the LOWER bound stated (e.g. "5+ years"
+    or "3-5 years" both key off 3/5, not an average or the upper end) since that's the number that
+    actually gates whether someone can apply. Explicit numbers in the description win over title
     words, since a title alone ("Analyst") says less than a description that actually states "3-5
     years required". No explicit signal at all is Unclear, not assumed entry-level - same "never
     guess beyond the evidence" rule as sponsorship classification."""
@@ -358,21 +360,21 @@ def classify_experience(title, text):
     m = _ENTRY_PHRASE_RE.search(hay)
     if m:
         s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
-        return "Entry (0-1y)", hay[s:e].strip()
+        return "0-3 years", hay[s:e].strip()
     m = _EXPERIENCE_YEARS_RE.search(hay)
     if m:
         min_years = min(int(g) for g in m.groups() if g)
         s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
         evidence = hay[s:e].strip()
-        if min_years <= 1:
-            return "Entry (0-1y)", evidence
-        if min_years <= 4:
-            return "Mid (2-4y)", evidence
-        return "Senior (5+y)", evidence
+        if min_years < 3:
+            return "0-3 years", evidence
+        if min_years < 6:
+            return "3-6 years", evidence
+        return "6+ years", evidence
     if _SENIOR_TITLE_RE.search(title or ""):
-        return "Senior (5+y)", f"inferred from title: {title}"
+        return "6+ years", f"inferred from title: {title}"
     if _MID_TITLE_RE.search(title or ""):
-        return "Mid (2-4y)", f"inferred from title: {title}"
+        return "3-6 years", f"inferred from title: {title}"
     return "Unclear", "No years-of-experience language found."
 
 
@@ -646,9 +648,9 @@ tr.hidden-by-filter {{ display: none; }}
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <span id="filterCount"></span>
 <div class="chips">
-<button type="button" class="chip" data-term="entry">Fresher (Entry)</button>
-<button type="button" class="chip" data-term="mid (2-4y)">Mid (2-4y)</button>
-<button type="button" class="chip" data-term="senior">Senior (5+y)</button>
+<button type="button" class="chip" data-term="0-3 years">0-3 years</button>
+<button type="button" class="chip" data-term="3-6 years">3-6 years</button>
+<button type="button" class="chip" data-term="6+ years">6+ years</button>
 </div>
 </div>
 <h2>New ({len(new_rows)})</h2>
