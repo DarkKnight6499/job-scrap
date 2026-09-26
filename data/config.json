@@ -3050,6 +3050,63 @@
    "name": "ClearAlpha Technologies",
    "ats": "ashby",
    "slug": "clearalpha"
+  },
+  {
+   "name": "Synchrony",
+   "ats": "workday",
+   "host": "synchronyfinancial.wd5.myworkdayjobs.com",
+   "tenant": "synchronyfinancial",
+   "site": "careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Wilmington Trust",
+   "ats": "workday",
+   "host": "mtb.wd5.myworkdayjobs.com",
+   "tenant": "mtb",
+   "site": "WTExternal",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "CoreWeave",
+   "ats": "greenhouse",
+   "slug": "coreweave"
   }
  ],
  "keywords": [
