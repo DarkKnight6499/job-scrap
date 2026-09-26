@@ -56,3 +56,21 @@ python job_scout.py              # normal run
 python job_scout.py --queue      # show the triage queue
 python job_scout.py --queue --all --html queue.html   # write the same page written to docs/index.html
 ```
+
+## Dedup against your own application tracker (optional, local only)
+
+The scheduled scraper itself has no application-tracker integration (see above) - it doesn't
+know what you've applied to, on purpose, since this repo is public. If you keep your own
+tracker (a `.csv` or `.xlsx` with one row per application) and want a local view of the queue
+with anything you've already applied to filtered out, `dedup_applied.py` does that:
+
+```
+python dedup_applied.py
+```
+
+Edit the `CONFIG` block at the top of `dedup_applied.py` first - point `APPLICATIONS_FILE` at
+your tracker and set the column-name constants (`COMPANY_COL`, `ROLE_COL`, `LOCATION_COL`,
+`LINK_COL`, `STATUS_COL`, `APPLIED_STATUSES`) to match your tracker's actual headers and status
+values. It matches a queue entry to one of your rows by Link when both have one, falling back
+to Company + Role Title + Location otherwise (`identity_lib.py`), and writes a standalone HTML
+file (`OUTPUT_HTML`) - nothing from your tracker is written back into `data/`.

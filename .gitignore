@@ -1,3 +1,8 @@
 __pycache__/
 *.pyc
 queue.html
+
+# dedup_applied.py's inputs/output - never commit your own application tracker or its export
+Applications.xlsx
+Applications.csv
+job_scrap_dedup.html
