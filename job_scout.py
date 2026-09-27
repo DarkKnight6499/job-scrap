@@ -893,7 +893,8 @@ span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decorat
 details {{ margin-bottom: 0.5rem; }}
 summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBar {{ position: sticky; top: 0; background: #fafafa; padding: 0.5rem 0; margin-bottom: 0.5rem; z-index: 1; }}
-#filterBox {{ width: 100%; max-width: 480px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
+#filterBox {{ width: 100%; max-width: 420px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
+#filterSearchBtn {{ padding: 8px 14px; font-size: 1rem; margin-left: 6px; cursor: pointer; }}
 #filterCount {{ color: #666; font-size: 0.85rem; margin-left: 8px; }}
 tr.hidden-by-filter {{ display: none; }}
 .exp-filter {{ margin-top: 6px; font-size: 0.85rem; color: #333; }}
@@ -904,6 +905,7 @@ tr.hidden-by-filter {{ display: none; }}
 <p class="meta">Data last updated {updated_label} &middot; <span class="approx-marker">~</span> before a Posted date means approximate (day-count bucket, not an exact timestamp) - hover any date for details</p>
 <div id="filterBar">
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
+<button type="button" id="filterSearchBtn">Search</button>
 <span id="filterCount"></span>
 <div class="exp-filter">
 Experience (years): from
@@ -929,11 +931,15 @@ to
 {sections}
 <script>
 (function() {{
-  // Live client-side filter, no server: comma-separated groups are OR'd, terms within a group
+  // Client-side filter, no server: comma-separated groups are OR'd, terms within a group
   // are AND'd (e.g. "python, sql bloomberg" = python OR (sql AND bloomberg)). Lets one shared
   // page/URL serve different people with different interests - each viewer just types their own
   // terms; nothing is sent anywhere and nothing is saved except this browser's own last search.
+  // The text box only re-filters on Search-click/Enter, not per keystroke - with several thousand
+  // rows, re-scanning tr.textContent on every character typed was visibly laggy. The exp/N-A
+  // controls stay live since a dropdown change is a single cheap event, not one per keystroke.
   var box = document.getElementById('filterBox');
+  var searchBtn = document.getElementById('filterSearchBtn');
   var countEl = document.getElementById('filterCount');
   var expMin = document.getElementById('expMin');
   var expMax = document.getElementById('expMax');
@@ -1000,7 +1006,8 @@ to
     if (savedMax !== null) expMax.value = savedMax;
     if (savedNA !== null) expIncludeNA.checked = savedNA === '1';
   }} catch (e) {{}}
-  box.addEventListener('input', apply);
+  searchBtn.addEventListener('click', apply);
+  box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
   expMin.addEventListener('change', apply);
   expMax.addEventListener('change', apply);
   expIncludeNA.addEventListener('change', apply);
