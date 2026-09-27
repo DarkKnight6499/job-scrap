@@ -104,14 +104,28 @@ BLOCK_PATTERNS = [
     r"visa\s+sponsorship\s+(?:is\s+)?not\s+(?:available|offered|provided)",
     r"sponsor[^.]{0,120}(?:now|currently)[^.]{0,20}(?:or|and)\s+in\s+the\s+future",
     r"(?:now|currently)[^.]{0,20}(?:or|and)\s+in\s+the\s+future[^.]{0,120}sponsor",
-    r"not\s+eligible\s+for[^.]{0,60}(?:h-?1b|employer.sponsored)",
+    r"not\s+eligible\s+for[^.]{0,80}(?:h-?1b|employer.sponsored|sponsorship|work\s+visa)",
     r"\bITAR\b",
     r"\b(?:active|current)\s+(?:top\s+secret|secret|ts/sci)\b",
     r"must\s+be\s+a\s+u\.?s\.?\s+citizen",
     r"u\.?s\.?\s+citizens?\s+(?:only|required)",
     r"(?:u\.?s\.?\s+citizenship|permanent\s+residen(?:t|cy))\s+(?:is\s+)?required",
+    r"requires?\s+permanent\s+(?:work\s+)?authorization\s+to\s+work",
+    r"not\s+eligible\s+for[^.]{0,150}\b(?:opt|cpt)\b",
 ]
 BLOCK_RES = [re.compile(p, re.I) for p in BLOCK_PATTERNS]
+
+# Abbreviations whose internal periods break the "[^.]{0,N}" same-sentence
+# windows above (a period-based window can't span "U.S." without this) -
+# normalized out of the text before matching, in classify_sponsorship() only.
+_ABBREV_RE = re.compile(r"\bU\.S\.(A\.)?\b|\bU\.K\.\b", re.I)
+
+
+def _normalize_abbreviations(text):
+    """Replaces each abbreviation's internal periods with spaces (never removes
+    characters), so match offsets into the ORIGINAL text still line up - lets
+    classify_sponsorship() slice the evidence excerpt straight out of `text`."""
+    return _ABBREV_RE.sub(lambda m: m.group(0).replace(".", " "), text)
 
 
 # ---------------------------------------------------------------- http / text
@@ -496,8 +510,9 @@ def classify_sponsorship(text):
     """Blocked on explicit language, else Unclear. Never Allowed."""
     if not text:
         return "Unclear", "Description unavailable; not checked."
+    normalized = _normalize_abbreviations(text)  # same length as `text` - offsets stay valid
     for rx in BLOCK_RES:
-        m = rx.search(text)
+        m = rx.search(normalized)
         if m:
             s, e = max(0, m.start() - 50), min(len(text), m.end() + 50)
             return "Blocked", "..." + text[s:e].strip() + "..."
