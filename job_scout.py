@@ -405,6 +405,15 @@ def _fold_accents(s):
 
 _MEXICO_RE = re.compile(r"(?<!new )(?<![a-z0-9])mexico(?![a-z0-9])")
 
+# "Dublin" collides with two real US instances (Cardinal Health's "OH-Dublin-Cardinal Place" and
+# Fifth Third Bank's "Dublin, OH") among otherwise-all-Ireland hits, so it needs the same
+# negative-lookaround treatment as Mexico rather than a plain locations_exclude entry.
+_DUBLIN_RE = re.compile(r"(?<!oh-)(?<![a-z0-9])dublin(?![a-z0-9])(?!, oh\b)")
+
+# Same story for "Athens": bare "Athens" (PwC's Greece office listings) vs. Gopuff's "Athens, OH"/
+# "Athens, GA" (real US college towns) - the state suffix is what disambiguates, not the word itself.
+_ATHENS_RE = re.compile(r"(?<![a-z0-9])athens(?![a-z0-9])(?!, oh\b)(?!, ga\b)")
+
 
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
@@ -430,6 +439,10 @@ def matches(job, f):
     if any(contains_term(t, x) for x in exc):
         return False
     if _MEXICO_RE.search(loc_folded):
+        return False
+    if _DUBLIN_RE.search(loc_folded):
+        return False
+    if _ATHENS_RE.search(loc_folded):
         return False
     if locs and not any(x in loc for x in locs):
         return False
