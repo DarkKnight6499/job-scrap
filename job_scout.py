@@ -75,6 +75,16 @@ GHOST_MIN_COUNT = 3        # a role posted at least this many times under the sa
 GHOST_MIN_SPAN_DAYS = 120  # ...spanning at least this many days looks like an evergreen/ghost req,
                            # not a normal one-off backfill after someone leaves
 
+PRUNE_AFTER_DAYS = 60      # queue.json only ever accumulates (matches() re-runs at intake, never
+                           # retroactively against what's already queued), so without a cutoff it
+                           # grows forever and the generated docs/index.html gets slow to render.
+                           # Measured against the live queue on 2026-09-27: 60 days drops ~26% of
+                           # entries and lines up with how job hunting actually works - most listings
+                           # either fill or go quiet within 4-8 weeks of the employer's own posted
+                           # date, so anything older is unlikely to still be an actively-screening
+                           # req. 30 days was too aggressive (cuts ~47%, including postings still in
+                           # a normal review cycle); 90+ days barely trims the queue at all.
+
 # Workday's detail-endpoint startDate is not the fixed value it looks like - confirmed live: the
 # same unedited posting returned startDate one calendar day apart in two checks made hours apart,
 # so it drifts across Workday's own day boundary the same way postedOn's relative text does, just
@@ -1077,7 +1087,7 @@ def run(args):
     queued_ids = {e["id"] for e in queue}
     run_id = "scout_" + date.today().isoformat()
     counts = dict(companies=0, errors=0, matched=0, blocked=0, queued=0, alerted=0,
-                  closed=0, reopened=0, reposts=0)
+                  closed=0, reopened=0, reposts=0, pruned=0)
 
     fetched = {}
     with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
@@ -1137,12 +1147,14 @@ def run(args):
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
+        _prune_stale(queue, counts)
         HOME.mkdir(parents=True, exist_ok=True)
         atomic_json.write(str(HOME / "state.json"), state)
         atomic_json.write(str(HOME / "queue.json"), queue)
     print(f"done: {counts['companies']} companies ({counts['errors']} errors), {counts['matched']} new matches, "
           f"{counts['blocked']} auto-blocked on sponsorship, {counts['queued']} queued, {counts['alerted']} alerts, "
-          f"{counts['closed']} closed, {counts['reopened']} reopened, {counts['reposts']} reposts.")
+          f"{counts['closed']} closed, {counts['reopened']} reopened, {counts['reposts']} reposts, "
+          f"{counts['pruned']} pruned (posted > {PRUNE_AFTER_DAYS}d ago).")
 
 
 def _find_repost_source(queue, name, fp, live_ids, eid, claimed):
@@ -1287,6 +1299,26 @@ def _update_liveness(name, jobs, complete, queue, counts):
         if e["miss_count"] >= close_after:
             e["closed_on"], e["closed_reason"] = today, "removed"
             counts["closed"] += 1
+
+
+def _prune_stale(queue, counts):
+    """Drops "new"/"auto_blocked" entries whose employer-posted date is older than
+    PRUNE_AFTER_DAYS, so queue.json (and the HTML page rendering it) doesn't grow forever. Never
+    touches shortlisted/applied/dismissed - those came from an explicit `--mark`, a human decision
+    the scout has no business overriding just because time passed. An entry with no cleanly-parsed
+    posted date is kept rather than guessed at."""
+    cutoff = (date.today() - timedelta(days=PRUNE_AFTER_DAYS)).isoformat()
+    kept = []
+    pruned = 0
+    for e in queue:
+        posted = e.get("posted", "")
+        is_stale = e["state"] in ("new", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff
+        if is_stale:
+            pruned += 1
+        else:
+            kept.append(e)
+    counts["pruned"] = pruned
+    queue[:] = kept
 
 
 def main():
