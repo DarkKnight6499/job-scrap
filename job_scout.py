@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 job_scout.py - free job discovery. Polls public ATS job APIs (Greenhouse,
-Lever, Ashby, SmartRecruiters, Workday, Oracle Recruiting Cloud) for a list
-of target companies - no paid scraping API, no LLM tokens.
+Lever, Ashby, SmartRecruiters, Workday, Oracle Recruiting Cloud, Personio)
+for a list of target companies - no paid scraping API, no LLM tokens.
 
 Standalone version: unlike the private-repo original, this build has no
 dependency on an application tracker.
@@ -48,6 +48,7 @@ import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -349,8 +350,38 @@ def oracle(c):
     return out, complete
 
 
+def personio(c):
+    """Personio's public XML job feed - no auth, no API key. Needs 'slug' (the company subdomain
+    in https://{slug}.jobs.personio.de). Verified live against a real tenant (ottonova.jobs.
+    personio.de) on 2026-09-27, including a real Risk Management & Actuary posting - confirms the
+    feed genuinely carries finance-relevant roles, not just this doc example.
+
+    Each tenant must have turned the XML feed on themselves (Settings > Recruiting > Career page),
+    so a candidate company with no career site on personio.de, or one that never enabled it, 404s
+    or returns an empty <workzag-jobs/> - both look like "0 jobs" via --check, not an error, so
+    verify a candidate by curling the URL directly before adding it to config.json, same as every
+    other ATS here.
+
+    The feed embeds the full description already (unlike Greenhouse/SmartRecruiters/Workday/
+    Oracle, which need a second per-job detail call) - see the jobDescriptions/jobDescription/value
+    CDATA blocks below - so describe() never needs a personio-specific branch."""
+    raw = http(f"https://{c['slug']}.jobs.personio.de/xml?language=en", raw=True)
+    root = ET.fromstring(raw)
+    jobs = []
+    for pos in root.findall("position"):
+        jid = pos.findtext("id", "") or ""
+        offices = [pos.findtext("office", "") or ""]
+        offices += [o.text or "" for o in pos.findall("additionalOffices/office")]
+        desc = " ".join(strip_html(v.text or "") for v in pos.findall("jobDescriptions/jobDescription/value"))
+        jobs.append(dict(id=jid, title=pos.findtext("name", "") or "",
+                         location=", ".join(o for o in offices if o),
+                         url=f"https://{c['slug']}.jobs.personio.de/job/{jid}?language=en",
+                         desc=desc, posted=(pos.findtext("createdAt", "") or "")[:10]))
+    return jobs, True  # single uncapped call: always the full board
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle)
+             oracle=oracle, personio=personio)
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
 

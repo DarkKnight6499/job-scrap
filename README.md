@@ -1,8 +1,8 @@
 # job-scrap
 
 Free job discovery: polls public ATS job-board APIs (Greenhouse, Lever, Ashby,
-SmartRecruiters, Workday, Oracle Recruiting Cloud) for a curated list of
-companies, filters by title/location keywords, flags explicit no-sponsorship
+SmartRecruiters, Workday, Oracle Recruiting Cloud, Personio) for a curated
+list of companies, filters by title/location keywords, flags explicit no-sponsorship
 language in the description, and pushes a phone alert (ntfy) for anything
 new. No paid scraping API, no LLM tokens.
 
@@ -31,7 +31,8 @@ this build doesn't know what you've already applied to.
    "Open Jobs Tracker" button (`notify.tracker_url` in `data/config.json`)
    opens the full shared queue page instead.
 2. Edit `data/config.json` - `companies` (each needs `ats` +
-   the fields that ATS needs: `slug` for greenhouse/ashby/smartrecruiters,
+   the fields that ATS needs: `slug` for greenhouse/ashby/smartrecruiters/
+   personio (the company subdomain in `https://<slug>.jobs.personio.de`),
    `host`/`tenant`/`site`/`search` for workday, `host`/`site`/`search` for
    oracle) and `filters` (`title_include`/`title_exclude`/`locations_include`).
 3. Trigger a manual run from the Actions tab (`workflow_dispatch`) to confirm
