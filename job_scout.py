@@ -226,6 +226,20 @@ def smartrecruiters(c):
 _RELATIVE_DAYS_RE = re.compile(r"posted\s+(today|yesterday|(\d+)(\+?)\s*day)", re.I)
 
 
+_MULTI_LOC_RE = re.compile(r"^\s*\d+\s+locations?\s*$", re.I)
+
+
+def _workday_location(text, path):
+    """Workday shows "2 Locations" for multi-site postings, hiding the city from locations_exclude;
+    the city is still in externalPath (/job/London/...), so append it."""
+    text = text or ""
+    if _MULTI_LOC_RE.match(text):
+        m = re.match(r"/job/([^/]+)/", path or "")
+        if m:
+            return f"{text} ({m.group(1).replace('-', ' ')})"
+    return text
+
+
 def _workday_posted(text):
     """Workday's postedOn is relative text ("Posted 5 Days Ago", "Posted Today", "Posted 30+ Days
     Ago") not a real date - approximate it as an ISO date so postings can be sorted/filtered by
@@ -312,7 +326,7 @@ def workday(c):
                     if not path or key in seen:  # some rows are placeholder cards with no title/path
                         continue
                     seen.add(key)
-                    out.append(dict(id=path, title=j["title"], location=j.get("locationsText", "") or "",
+                    out.append(dict(id=path, title=j["title"], location=_workday_location(j.get("locationsText"), path),
                                     url=f"https://{c['host']}/{site}{path}", site=site,
                                     posted=_workday_posted(j.get("postedOn"))))
                 offset += page
