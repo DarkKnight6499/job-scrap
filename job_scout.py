@@ -451,8 +451,16 @@ def describe(c, job):
         secs = (d.get("jobAd") or {}).get("sections") or {}
         return strip_html(" ".join((s or {}).get("text", "") for s in secs.values())), "", ""
     if ats == "workday":
-        site = job.get("site") or c["site"]  # per-job when 'site' is a list on the company config
-        d = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}{job['id']}")
+        cand = [job["site"]] if job.get("site") else (c["site"] if isinstance(c["site"], list) else [c["site"]])
+        d, err = None, None
+        for site in cand:  # queue entries without a per-job site try each configured site
+            try:
+                d = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}{job['id']}")
+                break
+            except Exception as e:  # noqa: BLE001
+                err = e
+        if d is None:
+            raise err
         info = d.get("jobPostingInfo") or {}
         posted, posted_source = _workday_detail_posted(info)
         return strip_html(info.get("jobDescription", "")), posted, posted_source
