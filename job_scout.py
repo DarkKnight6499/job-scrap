@@ -489,6 +489,9 @@ _DUBLIN_RE = re.compile(r"(?<!oh-)(?<![a-z0-9])dublin(?![a-z0-9])(?!, oh\b)")
 # "Athens, GA" (real US college towns) - the state suffix is what disambiguates, not the word itself.
 _ATHENS_RE = re.compile(r"(?<![a-z0-9])athens(?![a-z0-9])(?!, oh\b)(?!, ga\b)")
 
+# Bare "Vancouver" (Workday shows just the city) is Canadian; Vancouver, WA is a real US city.
+_VANCOUVER_RE = re.compile(r"(?<![a-z0-9])vancouver(?![a-z0-9])(?!, wa)(?!, washington)")
+
 
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
@@ -518,6 +521,8 @@ def matches(job, f):
     if _DUBLIN_RE.search(loc_folded):
         return False
     if _ATHENS_RE.search(loc_folded):
+        return False
+    if _VANCOUVER_RE.search(loc_folded):
         return False
     if locs and not any(x in loc for x in locs):
         return False
