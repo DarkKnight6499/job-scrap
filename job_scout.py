@@ -492,6 +492,14 @@ _ATHENS_RE = re.compile(r"(?<![a-z0-9])athens(?![a-z0-9])(?!, oh\b)(?!, ga\b)")
 # Bare "Vancouver" (Workday shows just the city) is Canadian; Vancouver, WA is a real US city.
 _VANCOUVER_RE = re.compile(r"(?<![a-z0-9])vancouver(?![a-z0-9])(?!, wa)(?!, washington)")
 
+# FIS (and similar Workday tenants) write locations as "<ISO country code> <site code> ...", e.g.
+# "IND HYDB 18-23 OB3"; US sites start with "US", so only non-US country codes are listed here.
+_COUNTRY_CODE_SITE_RE = re.compile(
+    r"^(ind|esp|pol|phl|cyp|hgk|can|gbr|irl|deu|fra|ita|nld|sgp|jpn|aus|bra|mex|chn|zaf|are|isr|che|swe|nor|dnk"
+    r"|fin|prt|rou|bgr|cze|hun|ltu|lva|est|ukr|tur|arg|chl|col|per|pak|bgd|lka|mys|tha|vnm|idn|kor|twn|nzl|egy"
+    r"|mar|ken|nga|sau|qat|kwt) [a-z]{4}(?![a-z])"
+)
+
 
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
@@ -523,6 +531,8 @@ def matches(job, f):
     if _ATHENS_RE.search(loc_folded):
         return False
     if _VANCOUVER_RE.search(loc_folded):
+        return False
+    if _COUNTRY_CODE_SITE_RE.match(loc_folded):
         return False
     if locs and not any(x in loc for x in locs):
         return False
