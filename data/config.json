@@ -86,12 +86,16 @@
    "fpna"
   ],
   "title_exclude": [
-   "marketing manager",
+   "marketing",
+   "transformation",
+   "supply chain",
    "personal banker",
    "sales development",
    "associate buyer",
    "academy",
    "analyst program",
+   "university associate",
+   "university program",
    "rotational",
    "apprentice",
    "chief",
@@ -115,6 +119,8 @@
    "inclusion",
    "home equity",
    "equity compensation",
+   "fund accounting",
+   "tax",
    "starbucks",
    "barista",
    "dashmart",
@@ -124,6 +130,9 @@
    "warehouse associate",
    "automotive parts",
    "clinical research associate",
+   "scientist",
+   "vaccines",
+   "manufacturing and control",
    "clinical trial associate",
    "clinical data manager",
    "oncology specialist",
@@ -322,16 +331,22 @@
    "structural engineering",
    "design engineering",
    "project engineering",
+   "project manager",
+   "project management",
+   "program manager",
    "validation engineering",
    "hardware engineering",
    "silicon engineer",
+   "silicon co-design",
+   "hsio",
    "asic engineer",
    "fpga engineer",
    "packaging engineer",
    "engineering change management",
    "engineering technician",
    "co-op",
-   "senior engineer"
+   "senior engineer",
+   "service engineering"
   ],
   "locations_include": [],
   "locations_exclude": [
@@ -6401,11 +6416,6 @@
    "name": "Revolution Medicines",
    "ats": "greenhouse",
    "slug": "revolutionmedicines"
-  },
-  {
-   "name": "Natera",
-   "ats": "greenhouse",
-   "slug": "natera"
   },
   {
    "name": "Clover Health",

@@ -97,7 +97,12 @@ REVERIFY_MIN_AGE_DAYS = 1
 REVERIFY_MAX_AGE_DAYS = 3
 
 BLOCK_PATTERNS = [
-    r"(?:will|would|does|do|can|could|is|are)\s+not\s+(?:\w+\s+){0,3}sponsor",
+    # Same-sentence character window (bounded by the next period, like the other patterns
+    # below), not a strict word count - a strict {0,3}-word cap missed real phrasing like
+    # "do not offer any type of employment-based immigration sponsorship" or "will not provide
+    # any assistance ... in support of any other form of immigration sponsorship", both of which
+    # put well over 3 words between the negation and "sponsor".
+    r"(?:will|would|does|do|can|could|is|are)\s+not\s+[^.]{0,150}?sponsor",
     r"\bcannot\s+(?:\w+\s+){0,3}sponsor",
     r"unable\s+to\s+(?:\w+\s+){0,3}sponsor",
     r"\bno\s+(?:work\s+)?(?:visa\s+)?sponsorship",
