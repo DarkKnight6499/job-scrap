@@ -10,6 +10,7 @@ end with punctuation) eliminates that class of false positive.
 Also normalizes a curated set of full-phrase <-> acronym aliases, so a JD
 that spells out "Asset Liability Management" matches "ALM", and vice versa.
 """
+import functools
 import re
 
 ALIASES = {
@@ -44,6 +45,7 @@ def _term_variants(term):
     return variants
 
 
+@functools.lru_cache(maxsize=None)  # re's own cache holds 512; the exclude lists now exceed that and thrash
 def _pattern(term):
     escaped = re.escape(term)
     return re.compile(r"(?<![A-Za-z0-9])" + escaped + r"(?![A-Za-z0-9])", re.IGNORECASE)
