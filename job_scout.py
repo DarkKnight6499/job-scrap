@@ -981,6 +981,11 @@ _EXTRA_SCRIPT = r"""
     checkboxes.forEach(function(cb) { cb.checked = saved.indexOf(cb.dataset.catKey) !== -1; });
   } catch (e) {}
   checkboxes.forEach(function(cb) { cb.addEventListener('change', applyCategory); });
+  var resetBtn = document.getElementById('expReset');
+  if (resetBtn) resetBtn.addEventListener('click', function() {
+    checkboxes.forEach(function(cb) { cb.checked = false; });
+    applyCategory();
+  });
 
   // Hide one company
   var na = document.getElementById('expIncludeNA');
