@@ -107,6 +107,8 @@ BLOCK_PATTERNS = [
     r"unable\s+to\s+(?:\w+\s+){0,3}sponsor",
     r"\bno\s+(?:work\s+)?(?:visa\s+)?sponsorship",
     r"visa\s+sponsorship\s+(?:is\s+)?not\s+(?:available|offered|provided)",
+    r"not\s+(?:available|offered|provided)\s+for[^.]{0,60}sponsorship",
+    r"\bsponsorship\s+(?:is\s+)?not\s+(?:available|offered|provided)",
     r"sponsor[^.]{0,120}(?:now|currently|current)[^.]{0,20}(?:or|and)\s+in\s+the\s+future",
     r"(?:now|currently|current)[^.]{0,20}(?:or|and)\s+in\s+the\s+future[^.]{0,120}sponsor",
     r"not\s+eligible\s+for[^.]{0,80}(?:h-?1b|employer.sponsored|sponsorship|work\s+visa)",
