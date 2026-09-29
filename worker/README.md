@@ -10,8 +10,7 @@ Deploy once:
     npx wrangler login
     npx wrangler deploy
 
-Copy the printed `https://job-scout-jd-proxy.<subdomain>.workers.dev` URL into `JD_PROXY_URL` in
-`job_scout.py`, then regenerate the page.
+The deployed URL is set as JD_PROXY_URL in job_scout.py (https://job-scout-jd-proxy.yazad-jobscout.workers.dev).
 
 Only these hosts are ever fetched: boards-api.greenhouse.io, api.lever.co, api.eu.lever.co,
 api.ashbyhq.com, api.smartrecruiters.com, `*.myworkdayjobs.com`, `*.oraclecloud.com`.

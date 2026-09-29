@@ -864,7 +864,7 @@ _SECONDARY_STATE_ORDER = ["shortlisted", "applied", "auto_blocked", "dismissed"]
 
 # Cloudflare Worker that returns a posting's full JD text (see worker/README.md). Blank = the Copy JD
 # button reports "not configured" instead of failing silently.
-JD_PROXY_URL = ""
+JD_PROXY_URL = "https://job-scout-jd-proxy.yazad-jobscout.workers.dev"
 
 ACTIONS_TD = '<td class="act"><button type="button" class="skip-btn copy-act">Copy JD</button></td>'
 
