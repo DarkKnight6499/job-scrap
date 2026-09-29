@@ -862,6 +862,231 @@ def posted_label(e):
 _SECONDARY_STATE_ORDER = ["shortlisted", "applied", "auto_blocked", "dismissed"]
 
 
+# Cloudflare Worker that returns a posting's full JD text (see worker/README.md). Blank = the Copy JD
+# button reports "not configured" instead of failing silently.
+JD_PROXY_URL = ""
+
+ACTIONS_TD = '<td class="act"><button type="button" class="skip-btn copy-act">Copy JD</button></td>'
+
+HIDE_COMPANY = "JPMorgan Chase"
+
+# Title-only, word-boundary matched in the page script; unticked = no restriction.
+ROLE_CATEGORIES = {
+    "Treasury/ALM/Liquidity": [
+        "treasury", "alm", "asset liability management", "asset/liability management",
+        "asset-liability", "liquidity risk", "liquidity management", "lcr", "nsfr", "liquidity",
+    ],
+    "FP&A": ["fp&a", "fp & a", "financial planning and analysis", "financial planning & analysis"],
+    "Credit Risk": [
+        "credit risk", "credit analyst", "credit analysis", "counterparty credit risk",
+        "credit portfolio",
+    ],
+    "Fixed Income": ["fixed income"],
+    "Operational Risk": [
+        "operational risk", "business risk", "internal controls", "enterprise risk",
+        "risk governance", "governance risk",
+    ],
+    "Quantitative Risk/Analytics": [
+        "quantitative risk", "quantitative analyst", "quant analyst", "quantitative analytics",
+    ],
+    "Capital Planning": [
+        "capital planning", "resolution planning", "ccar", "icaap", "basel", "rwa",
+        "pillar 3", "capital adequacy", "stress testing", "regulatory reporting",
+    ],
+    "Model Risk/Validation": ["model risk", "model validation", "model risk management"],
+    "Market Risk": ["market risk", "value at risk", "var", "trading risk"],
+    "Capital Markets/IB": ["capital markets", "investment banking", "equity capital markets"],
+    "Risk & Controls (General)": [
+        "risk management", "risk compliance", "risk controls", "risk control", "security risk",
+        "information security", "third party risk", "third-party risk", "technology risk",
+        "financial risk",
+    ],
+    "Portfolio/Asset Management": [
+        "portfolio management", "asset management", "investment management",
+        "portfolio analytics", "investment operations",
+    ],
+    "Underwriting": ["underwriting"],
+    "Real Estate Finance": ["real estate", "commercial real estate", "real assets"],
+    "Private Equity/Credit": ["private equity", "private credit", "private capital", "capital advisory"],
+    "Wealth Management": ["wealth management", "registered client", "private banking"],
+    "Equity Research": ["equity research"],
+    "Corporate Finance/Development": ["corporate finance", "corporate development"],
+}
+
+_EXTRA_SCRIPT = r"""
+<script>
+(function() {
+  var CATEGORIES = __CATEGORIES__;
+  var COMPANY = __COMPANY__;
+  var JD_COMPANIES = __JD_COMPANIES__;
+  var bar = document.getElementById('filterBar');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
+  var HIDE = ['hidden-by-filter', 'hidden-by-category', 'hidden-by-company'];
+
+  var counters = [];
+  document.querySelectorAll('h2, summary').forEach(function(el) {
+    var table = el.tagName === 'SUMMARY' ? el.parentElement.querySelector('table') : el.nextElementSibling;
+    if (!table || table.tagName !== 'TABLE') return;
+    var m = el.textContent.match(/^(.*)\((\d+)\)$/);
+    if (m) counters.push({el: el, table: table, label: m[1]});
+  });
+  function recount() {
+    counters.forEach(function(c) {
+      var n = Array.prototype.filter.call(c.table.querySelectorAll('tbody tr'), function(tr) {
+        return !HIDE.some(function(k) { return tr.classList.contains(k); });
+      }).length;
+      c.el.textContent = c.label + '(' + n + ')';
+    });
+  }
+  ['filterSearchBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener(el.tagName === 'BUTTON' ? 'click' : 'change', function() {
+      setTimeout(function() { applyCategory(); applyCompany(); }, 0);
+    });
+  });
+
+  // Categories
+  var wrap = document.createElement('div');
+  wrap.className = 'exp-filter';
+  wrap.innerHTML = 'Categories: ' + CATEGORIES.map(function(c) {
+    return '<label style="margin-right: 10px; white-space: nowrap; display: inline-block;"><input type="checkbox" data-cat-key="' + c.key + '"> ' +
+           c.label.replace(/&/g, '&amp;') + '</label>';
+  }).join('');
+  if (bar) bar.appendChild(wrap);
+  var checkboxes = Array.prototype.slice.call(wrap.querySelectorAll('input[type=checkbox]'));
+  function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  CATEGORIES.forEach(function(c) {
+    c.re = c.terms.length ? new RegExp('\\b(?:' + c.terms.map(function(t) { return escapeRegex(t.toLowerCase()); }).join('|') + ')\\b') : null;
+  });
+  rows.forEach(function(tr) {
+    var role = (tr.cells[3] ? tr.cells[3].textContent : '').toLowerCase();
+    var matched = [];
+    CATEGORIES.forEach(function(c) { if (c.re && c.re.test(role)) matched.push(c.key); });
+    if (!matched.length) matched.push('other');
+    tr.dataset.cats = matched.join(',');
+  });
+  function applyCategory() {
+    var ticked = checkboxes.filter(function(cb) { return cb.checked; }).map(function(cb) { return cb.dataset.catKey; });
+    rows.forEach(function(tr) {
+      var rc = tr.dataset.cats ? tr.dataset.cats.split(',') : [];
+      tr.classList.toggle('hidden-by-category', ticked.length > 0 && !ticked.some(function(k) { return rc.indexOf(k) !== -1; }));
+    });
+    recount();
+    try { localStorage.setItem('jobScoutCategoryTicks', JSON.stringify(ticked)); } catch (e) {}
+  }
+  try {
+    var saved = JSON.parse(localStorage.getItem('jobScoutCategoryTicks') || '[]');
+    checkboxes.forEach(function(cb) { cb.checked = saved.indexOf(cb.dataset.catKey) !== -1; });
+  } catch (e) {}
+  checkboxes.forEach(function(cb) { cb.addEventListener('change', applyCategory); });
+
+  // Hide one company
+  var na = document.getElementById('expIncludeNA');
+  var anchor = na ? na.closest('label') : null;
+  var label = document.createElement('label');
+  label.style.marginLeft = '10px';
+  label.innerHTML = '<input type="checkbox" id="hideCompanyBox"> hide ' + COMPANY;
+  if (anchor) anchor.insertAdjacentElement('afterend', label);
+  else if (bar) bar.appendChild(label);
+  var hideBox = label.querySelector('input');
+  function applyCompany() {
+    rows.forEach(function(tr) {
+      var c = tr.cells[2] ? tr.cells[2].textContent.trim() : '';
+      tr.classList.toggle('hidden-by-company', hideBox.checked && c === COMPANY);
+    });
+    recount();
+    try { localStorage.setItem('jobScoutHideCompany', hideBox.checked ? '1' : '0'); } catch (e) {}
+  }
+  try { hideBox.checked = localStorage.getItem('jobScoutHideCompany') === '1'; } catch (e) {}
+  hideBox.addEventListener('change', applyCompany);
+  applyCategory();
+  applyCompany();
+
+  // Copy JD: window.JD_PROXY_URL_OVERRIDE lets the local dedup page point at its own server.
+  var JD_URL = window.JD_PROXY_URL_OVERRIDE || __JD_URL__;
+  document.addEventListener('click', function(ev) {
+    var btn = ev.target.closest ? ev.target.closest('button.copy-act') : null;
+    if (!btn) return;
+    var tr = btn.closest('tr');
+    var td = btn.parentElement;
+    var old = td.querySelector('.jd-err');
+    if (old) old.remove();
+    function fail(msg) {
+      btn.disabled = false;
+      btn.textContent = 'Copy JD';
+      var e = document.createElement('span');
+      e.className = 'jd-err';
+      e.style.cssText = 'color:#c0392b;font-size:0.75rem;display:block';
+      e.textContent = msg;
+      td.appendChild(e);
+    }
+    if (!JD_URL) { fail('JD proxy not configured'); return; }
+    var roleLink = tr.cells[3] ? tr.cells[3].querySelector('a') : null;
+    var company = (tr.cells[2].textContent || '').trim();
+    btn.disabled = true;
+    btn.textContent = 'Fetching...';
+    fetch(JD_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        company: company,
+        role: (roleLink ? roleLink.textContent : tr.cells[3].textContent).trim(),
+        link: roleLink ? roleLink.href : '',
+        location: (tr.cells[5] ? tr.cells[5].textContent : '').trim(),
+        jid: tr.getAttribute('data-jid') || '',
+        cfg: JD_COMPANIES[company] || null
+      })
+    }).then(function(resp) {
+      if (!resp.ok) throw new Error('server returned ' + resp.status);
+      return resp.json();
+    }).then(function(data) {
+      if (!data.ok) throw new Error(data.stderr || 'request failed');
+      return navigator.clipboard.writeText(data.text).then(function() {
+        btn.textContent = 'Copied';
+        setTimeout(function() { btn.textContent = 'Copy JD'; btn.disabled = false; }, 2000);
+      });
+    }).catch(function(err) { fail('Failed: ' + err.message); });
+  });
+})();
+</script>
+<style>
+tr.hidden-by-category, tr.hidden-by-company { display: none; }
+.skip-btn { display: inline-block; width: 5.5rem; margin: 0 4px 0 0; padding: 3px 0; font-size: 0.85rem; cursor: pointer; white-space: nowrap; text-align: center; }
+td.act { white-space: nowrap; }
+</style>
+"""
+
+
+def _jd_company_map():
+    """Company -> just the fields a stateless proxy needs to rebuild that ATS's detail URL."""
+    out = {}
+    for c in load_json(HOME / "config.json", {}).get("companies", []):
+        ats = c.get("ats")
+        if ats in ("greenhouse", "lever", "ashby", "smartrecruiters"):
+            entry = dict(ats=ats, slug=c["slug"])
+            if c.get("region"):
+                entry["region"] = c["region"]
+        elif ats == "workday":
+            sites = c["site"] if isinstance(c["site"], list) else [c["site"]]
+            entry = dict(ats=ats, host=c["host"], tenant=c["tenant"], sites=sites)
+        elif ats == "oracle":
+            entry = dict(ats=ats, host=c["host"])
+        else:
+            continue
+        out[c["name"]] = entry
+    return out
+
+
+def _extra_script():
+    cats = [dict(key=f"cat{i}", label=label, terms=terms) for i, (label, terms) in enumerate(ROLE_CATEGORIES.items())]
+    cats.append(dict(key="other", label="Other (no category)", terms=[]))
+    return (_EXTRA_SCRIPT
+            .replace("__CATEGORIES__", json.dumps(cats))
+            .replace("__COMPANY__", json.dumps(HIDE_COMPANY))
+            .replace("__JD_COMPANIES__", json.dumps(_jd_company_map(), separators=(",", ":")))
+            .replace("__JD_URL__", json.dumps(JD_PROXY_URL)))
+
+
 def write_queue_html(q, path, updated_at=None):
     """Static page, no server: q is already sorted newest-posted-first by cmd_queue. Each row is a
     plain <a> to the live posting so double-clicking the file and clicking a link is the whole workflow.
@@ -914,13 +1139,14 @@ def write_queue_html(q, path, updated_at=None):
         else:
             posted_title = "no posting date available from the source - this is when job-scout first discovered it, not when it was actually posted"
         return (
-            f'<tr class="{row_class}"{row_title}{exp_data}'
+            f'<tr class="{row_class}"{row_title}{exp_data} data-jid="{html.escape(e["id"].split(":", 1)[-1])}"'
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
             f' data-posted-source="{html.escape(e.get("posted_source") or "")}">'
             f'<td class="posted" title="{html.escape(posted_title)}">{html.escape(posted_label(e))}</td>'
             f'<td title="{ghost_evidence}" class="ghost-cell">{html.escape(ghost_label)}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td>{role_cell}</td>'
+            f'{"" if closed else ACTIONS_TD}'
             f'<td>{html.escape(e["location"])}</td>'
             f'<td title="{spons_evidence}">{html.escape(spons_label)}</td>'
             f'<td title="{exp_evidence}">{html.escape(exp_label)}</td>'
@@ -930,9 +1156,9 @@ def write_queue_html(q, path, updated_at=None):
             f'</tr>'
         )
 
-    head = ("<tr><th>Posted</th><th>Ghost</th><th>Company</th><th>Role</th><th>Location</th><th>Sponsorship</th>"
-            "<th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
-    closed_head = head.replace("</tr>", "<th>State</th></tr>")
+    head = ("<tr><th>Posted</th><th>Ghost</th><th>Company</th><th>Role</th><th>Actions</th><th>Location</th>"
+            "<th>Sponsorship</th><th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
+    closed_head = head.replace("<th>Actions</th>", "").replace("</tr>", "<th>State</th></tr>")
 
     open_q = [e for e in q if not e.get("closed_on")]
     closed_q = [e for e in q if e.get("closed_on")]
@@ -1150,6 +1376,7 @@ to
   }});
 }})();
 </script>
+{_extra_script()}
 </body></html>"""
     Path(path).write_text(page, encoding="utf-8")
 
