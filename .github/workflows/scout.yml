@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [0, 1, 2, 3, 4, 5, 6, 7]  # keep in step with --fetch-shard's /8 below
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]  # keep in step with --fetch-shard's /12 below
     steps:
       - uses: actions/checkout@v4
 
@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Fetch shard
-        run: python job_scout.py --fetch-shard ${{ matrix.shard }}/8 --out shard_${{ matrix.shard }}.json
+        run: python job_scout.py --fetch-shard ${{ matrix.shard }}/12 --out shard_${{ matrix.shard }}.json
 
       - uses: actions/upload-artifact@v4
         with:
@@ -68,7 +68,7 @@ jobs:
         run: |
           git config user.name "job-scout-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/state.json data/queue.json docs/index.html
+          git add data/state.json data/queue.json data/fetch_times.json docs/index.html
           git diff --cached --quiet && exit 0
           git commit -m "Update job-scout state [skip ci]"
           for i in 1 2 3 4 5; do

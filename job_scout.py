@@ -436,14 +436,21 @@ def fetch_company(c):
             return c["name"], None, None, e2
 
 
+def _timed_fetch(c):
+    start = time.time()
+    name, jobs, complete, err = fetch_company(c)
+    return name, jobs, complete, err, time.time() - start
+
+
 def fetch_all(companies):
-    fetched = {}
+    fetched, secs = {}, {}
     with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
-        futures = {pool.submit(fetch_company, c): c for c in companies}
+        futures = {pool.submit(_timed_fetch, c): c for c in companies}
         for fut in as_completed(futures):
-            name, jobs, complete, err = fut.result()
+            name, jobs, complete, err, took = fut.result()
             fetched[name] = (jobs, complete, err)
-    return fetched
+            secs[name] = took
+    return fetched, secs
 
 
 def _fetch_cost(c):
@@ -454,10 +461,34 @@ def _fetch_cost(c):
     return len(sites) * (1 if isinstance(terms, str) else len(terms))
 
 
-def shard_companies(companies, index, total):
-    """Deterministic cost-balanced split: heaviest first, round-robin, so no shard gets all the big Workday tenants."""
-    ordered = sorted(companies, key=lambda c: (-_fetch_cost(c), c["name"]))
-    return [c for i, c in enumerate(ordered) if i % total == index]
+FETCH_TIMES_PATH = HOME / "fetch_times.json"  # committed, so every shard job of a run splits identically
+
+
+def shard_companies(companies, index, total, times=None):
+    """Deterministic longest-first split onto the least-loaded shard, using measured seconds per
+    company (falls back to the call-count estimate for a company with no measurement yet)."""
+    times = times or {}
+    ordered = sorted(companies, key=lambda c: (-times.get(c["name"], _fetch_cost(c)), c["name"]))
+    loads = [0.0] * total
+    mine = []
+    for c in ordered:
+        k = loads.index(min(loads))
+        loads[k] += times.get(c["name"], _fetch_cost(c))
+        if k == index:
+            mine.append(c)
+    return mine
+
+
+def update_fetch_times(directory, path=None):
+    """Blends each shard file's measured seconds into the stored per-company times (moving average, so one 429-retry spike doesn't skew the split)."""
+    path = Path(path or FETCH_TIMES_PATH)
+    times = load_json(path, {})
+    for p in sorted(Path(directory).glob("*.json")):
+        for name, row in json.loads(p.read_text(encoding="utf-8")).items():
+            took = row.get("secs")
+            if took is not None:
+                times[name] = round(0.5 * times[name] + 0.5 * took, 2) if name in times else round(took, 2)
+    atomic_json.write(str(path), times)
 
 
 def cmd_fetch_shard(args):
@@ -465,9 +496,9 @@ def cmd_fetch_shard(args):
     if cfg is None:
         sys.exit(f"No config at {HOME / 'config.json'}.")
     index, total = (int(x) for x in args.fetch_shard.split("/"))
-    mine = shard_companies(cfg["companies"], index, total)
-    fetched = fetch_all(mine)
-    out = {name: dict(jobs=jobs, complete=complete, err=None if err is None else str(err))
+    mine = shard_companies(cfg["companies"], index, total, load_json(FETCH_TIMES_PATH, {}))
+    fetched, secs = fetch_all(mine)
+    out = {name: dict(jobs=jobs, complete=complete, err=None if err is None else str(err), secs=secs[name])
            for name, (jobs, complete, err) in fetched.items()}
     Path(args.out).write_text(json.dumps(out), encoding="utf-8")
     print(f"shard {index}/{total}: fetched {len(out)} companies -> {args.out}")
@@ -1470,8 +1501,10 @@ def run(args):
 
     if args.from_fetched:
         fetched = load_fetched(args.from_fetched, cfg["companies"])
+        if not args.dry_run:
+            update_fetch_times(args.from_fetched)
     else:
-        fetched = fetch_all(cfg["companies"])
+        fetched, _ = fetch_all(cfg["companies"])
 
     # One shared pool for every description fetch across every company, not one pool per company -
     # several companies finishing their listing fetch around the same time and each spinning up
