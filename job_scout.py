@@ -1324,7 +1324,7 @@ tr.hidden-by-filter {{ display: none; }}
   var hours = (Date.now() - updated.getTime()) / 3600000;
   if (!isNaN(hours) && hours > {STALE_ALERT_HOURS}) {{
     var b = document.getElementById("stale-banner");
-    b.textContent = "Scout has not updated for " + Math.floor(hours) + " hours (last run " + "{updated_label}" + "). The workflow may be stuck or failing - check GitHub Actions.";
+    b.textContent = "Scout has not updated for " + Math.floor(hours) + " hours (last run " + "{updated_label}" + "). Press Ctrl+F5 first (this may be a cached copy); if it persists the workflow may be stuck, check GitHub Actions.";
     b.hidden = false;
   }}
 }})();
