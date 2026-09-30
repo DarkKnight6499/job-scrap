@@ -418,6 +418,7 @@ def personio(c):
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
              oracle=oracle, personio=personio)
+STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
 
@@ -1271,6 +1272,7 @@ def write_queue_html(q, path, updated_at=None):
         )
 
     updated_label = updated_at.strftime("%Y-%m-%d %H:%M %Z") if updated_at else "unknown"
+    updated_iso = updated_at.isoformat(timespec="seconds") if updated_at else ""
 
     page = f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>Jobs Tracker</title>
@@ -1305,6 +1307,18 @@ tr.hidden-by-filter {{ display: none; }}
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
 <p class="meta">Data last updated {updated_label} &middot; <span class="approx-marker">~</span> before a Posted date means approximate (day-count bucket, not an exact timestamp) - hover any date for details</p>
+<div id="stale-banner" hidden style="background:#b00020;color:#fff;padding:10px 14px;border-radius:6px;margin:8px 0;font-weight:600"></div>
+<script>
+(function() {{
+  var updated = new Date("{updated_iso}");
+  var hours = (Date.now() - updated.getTime()) / 3600000;
+  if (!isNaN(hours) && hours > {STALE_ALERT_HOURS}) {{
+    var b = document.getElementById("stale-banner");
+    b.textContent = "Scout has not updated for " + Math.floor(hours) + " hours (last run " + "{updated_label}" + "). The workflow may be stuck or failing - check GitHub Actions.";
+    b.hidden = false;
+  }}
+}})();
+</script>
 <div id="filterBar">
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <button type="button" id="filterSearchBtn">Search</button>
