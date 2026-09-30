@@ -319,28 +319,38 @@ def workday(c):
     out, seen = [], set()
     page = 20  # Workday's unofficial endpoint 400s on limit > 20 - confirmed by testing, not documented
     complete = True  # AND across terms/sites: one truncated one makes the whole listing untrustworthy for removal
-    for site in sites:
+
+    def fetch_term(site, term):
         base = f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs"
-        for term in terms:
-            offset = 0
-            term_complete = False
-            while offset < cap:
-                d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
-                rows = d.get("jobPostings", [])
-                for j in rows:
-                    path = j.get("externalPath")
-                    key = (site, path)
-                    if not path or not j.get("title") or key in seen:  # some rows are placeholder cards with no title/path
-                        continue
-                    seen.add(key)
-                    out.append(dict(id=path, title=j["title"], location=_workday_location(j.get("locationsText"), path),
-                                    url=f"https://{c['host']}/{site}{path}", site=site,
-                                    posted=_workday_posted(j.get("postedOn"))))
-                offset += page
-                if len(rows) < page:
-                    term_complete = True  # ran out of rows before hitting the per-term cap
-                    break
-            complete = complete and term_complete
+        rows_all, offset, term_complete = [], 0, False
+        while offset < cap:
+            d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
+            rows = d.get("jobPostings", [])
+            rows_all.extend(rows)
+            offset += page
+            if len(rows) < page:
+                term_complete = True  # ran out of rows before hitting the per-term cap
+                break
+        return rows_all, term_complete
+
+    # Slow tenants opt in via config "term_workers" (RBC answers in ~5s per request, so 16 sequential
+    # multi-page terms took 4 min). Default stays 1: running every tenant's terms in parallel got
+    # 429s on unrelated tenants from the shared per-IP load. map() keeps term order, so output is unchanged.
+    combos = [(site, term) for site in sites for term in terms]
+    workers = max(1, min(int(c.get("term_workers", 1)), len(combos)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        results = list(pool.map(lambda st: fetch_term(*st), combos))
+    for (site, _term), (rows, term_complete) in zip(combos, results):
+        for j in rows:
+            path = j.get("externalPath")
+            key = (site, path)
+            if not path or not j.get("title") or key in seen:  # some rows are placeholder cards with no title/path
+                continue
+            seen.add(key)
+            out.append(dict(id=path, title=j["title"], location=_workday_location(j.get("locationsText"), path),
+                            url=f"https://{c['host']}/{site}{path}", site=site,
+                            posted=_workday_posted(j.get("postedOn"))))
+        complete = complete and term_complete
     return out, complete
 
 

@@ -750,6 +750,7 @@
   {
    "name": "Citi",
    "ats": "workday",
+   "term_workers": 4,
    "host": "citi.wd5.myworkdayjobs.com",
    "tenant": "citi",
    "site": "2",
@@ -802,6 +803,7 @@
   {
    "name": "RBC",
    "ats": "workday",
+   "term_workers": 4,
    "host": "rbc.wd3.myworkdayjobs.com",
    "tenant": "rbc",
    "site": "RBCGLOBAL1",
@@ -854,6 +856,7 @@
   {
    "name": "MUFG",
    "ats": "workday",
+   "term_workers": 4,
    "host": "mufgub.wd3.myworkdayjobs.com",
    "tenant": "mufgub",
    "site": "MUFG-Careers",
@@ -880,6 +883,7 @@
   {
    "name": "State Street",
    "ats": "workday",
+   "term_workers": 4,
    "host": "statestreet.wd1.myworkdayjobs.com",
    "tenant": "statestreet",
    "site": "Global",
@@ -906,6 +910,7 @@
   {
    "name": "PNC",
    "ats": "workday",
+   "term_workers": 4,
    "host": "pnc.wd5.myworkdayjobs.com",
    "tenant": "pnc",
    "site": "External",
@@ -1307,6 +1312,7 @@
   {
    "name": "Morgan Stanley",
    "ats": "workday",
+   "term_workers": 4,
    "host": "ms.wd5.myworkdayjobs.com",
    "tenant": "ms",
    "site": "External",
@@ -1762,6 +1768,7 @@
   {
    "name": "BMO Financial Group",
    "ats": "workday",
+   "term_workers": 4,
    "host": "bmo.wd3.myworkdayjobs.com",
    "tenant": "bmo",
    "site": "External",
@@ -1911,6 +1918,7 @@
   {
    "name": "Santander",
    "ats": "workday",
+   "term_workers": 4,
    "host": "santander.wd3.myworkdayjobs.com",
    "tenant": "santander",
    "site": "SantanderCareers",
@@ -1963,6 +1971,7 @@
   {
    "name": "TD Securities",
    "ats": "workday",
+   "term_workers": 4,
    "host": "td.wd3.myworkdayjobs.com",
    "tenant": "td",
    "site": "TD_Bank_Careers",
@@ -3160,6 +3169,7 @@
   {
    "name": "LSEG",
    "ats": "workday",
+   "term_workers": 4,
    "host": "lseg.wd3.myworkdayjobs.com",
    "tenant": "lseg",
    "site": "Careers",
@@ -6976,6 +6986,7 @@
   {
    "name": "Deutsche Bank",
    "ats": "workday",
+   "term_workers": 4,
    "host": "db.wd3.myworkdayjobs.com",
    "tenant": "db",
    "site": "DBWebsite",
@@ -10200,6 +10211,7 @@
   {
    "name": "Workday",
    "ats": "workday",
+   "term_workers": 4,
    "host": "workday.wd5.myworkdayjobs.com",
    "tenant": "workday",
    "site": "Workday",
