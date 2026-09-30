@@ -14453,6 +14453,37 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "First Merchants",
+   "ats": "workday",
+   "host": "fmc.wd12.myworkdayjobs.com",
+   "tenant": "fmc",
+   "site": "FMC",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "SiriusPoint",
+   "ats": "greenhouse",
+   "slug": "siriuspoint"
   }
  ],
  "keywords": [

@@ -1746,7 +1746,10 @@ def _prune_stale(queue, counts):
     pruned = 0
     for e in queue:
         posted = e.get("posted", "")
-        is_stale = e["state"] in ("new", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff
+        # an old posting still on the employer's board today is live (employers bump/relist), so keep it
+        still_live = e.get("last_seen_live") == date.today().isoformat() and not e.get("closed_on")
+        is_stale = (e["state"] in ("new", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff
+                    and not still_live)
         if is_stale:
             pruned += 1
         else:
