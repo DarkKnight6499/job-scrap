@@ -4,3 +4,6 @@ compatibility_date = "2026-09-01"
 
 [triggers]
 crons = ["7,37 * * * *"]
+
+workers_dev = false
+preview_urls = false
