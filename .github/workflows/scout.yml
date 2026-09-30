@@ -22,6 +22,8 @@ jobs:
         shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]  # keep in step with --fetch-shard's /12 below
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main  # a run queued behind another must not start from its stale trigger-time commit
 
       - uses: actions/setup-python@v5
         with:
@@ -43,6 +45,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main  # a run queued behind another must not start from its stale trigger-time commit
 
       - uses: actions/setup-python@v5
         with:
@@ -73,9 +77,13 @@ jobs:
           git commit -m "Update job-scout state [skip ci]"
           for i in 1 2 3 4 5; do
             git push && exit 0
-            git rebase --abort 2>/dev/null || true
             git fetch origin main
-            git rebase origin/main || { git rebase --abort; git reset --hard origin/main; echo "state conflict, aborting"; exit 1; }
+            if ! git rebase origin/main; then
+              # generated files: keep this run's version, the next run regenerates them
+              git checkout --theirs docs/index.html data/fetch_times.json 2>/dev/null || true
+              git add docs/index.html data/fetch_times.json
+              GIT_EDITOR=true git rebase --continue || { git rebase --abort; echo "state conflict, aborting"; exit 1; }
+            fi
             sleep $((RANDOM % 10 + 1))
           done
           exit 1
