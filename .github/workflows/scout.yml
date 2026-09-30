@@ -13,8 +13,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  scout:
+  fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]  # keep in step with --fetch-shard's /8 below
     steps:
       - uses: actions/checkout@v4
 
@@ -22,10 +27,37 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Fetch shard
+        run: python job_scout.py --fetch-shard ${{ matrix.shard }}/8 --out shard_${{ matrix.shard }}.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shard-${{ matrix.shard }}
+          path: shard_${{ matrix.shard }}.json
+          retention-days: 1
+
+  scout:
+    needs: fetch
+    if: ${{ !cancelled() }}  # run even if a shard failed: missing shards are treated as fetch errors
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: shard-*
+          path: shards
+          merge-multiple: true
+
       - name: Run job_scout
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-        run: python job_scout.py
+        run: python job_scout.py --from-fetched shards
 
       - name: Generate shared HTML view
         run: |
@@ -37,10 +69,13 @@ jobs:
           git config user.name "job-scout-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/state.json data/queue.json docs/index.html
-          git diff --cached --quiet || git commit -m "Update job-scout state [skip ci]"
+          git diff --cached --quiet && exit 0
+          git commit -m "Update job-scout state [skip ci]"
           for i in 1 2 3 4 5; do
-            git push && break
+            git push && exit 0
+            git rebase --abort 2>/dev/null || true
             git fetch origin main
-            git rebase origin/main
+            git rebase origin/main || { git rebase --abort; git reset --hard origin/main; echo "state conflict, aborting"; exit 1; }
             sleep $((RANDOM % 10 + 1))
           done
+          exit 1

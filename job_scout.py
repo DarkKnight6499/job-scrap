@@ -330,7 +330,7 @@ def workday(c):
                 for j in rows:
                     path = j.get("externalPath")
                     key = (site, path)
-                    if not path or key in seen:  # some rows are placeholder cards with no title/path
+                    if not path or not j.get("title") or key in seen:  # some rows are placeholder cards with no title/path
                         continue
                     seen.add(key)
                     out.append(dict(id=path, title=j["title"], location=_workday_location(j.get("locationsText"), path),
@@ -434,6 +434,55 @@ def fetch_company(c):
             return c["name"], jobs, complete, None
         except Exception as e2:
             return c["name"], None, None, e2
+
+
+def fetch_all(companies):
+    fetched = {}
+    with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
+        futures = {pool.submit(fetch_company, c): c for c in companies}
+        for fut in as_completed(futures):
+            name, jobs, complete, err = fut.result()
+            fetched[name] = (jobs, complete, err)
+    return fetched
+
+
+def _fetch_cost(c):
+    if c["ats"] != "workday":
+        return 1
+    sites = c["site"] if isinstance(c["site"], list) else [c["site"]]
+    terms = c.get("search") or [""]
+    return len(sites) * (1 if isinstance(terms, str) else len(terms))
+
+
+def shard_companies(companies, index, total):
+    """Deterministic cost-balanced split: heaviest first, round-robin, so no shard gets all the big Workday tenants."""
+    ordered = sorted(companies, key=lambda c: (-_fetch_cost(c), c["name"]))
+    return [c for i, c in enumerate(ordered) if i % total == index]
+
+
+def cmd_fetch_shard(args):
+    cfg = load_json(HOME / "config.json", None)
+    if cfg is None:
+        sys.exit(f"No config at {HOME / 'config.json'}.")
+    index, total = (int(x) for x in args.fetch_shard.split("/"))
+    mine = shard_companies(cfg["companies"], index, total)
+    fetched = fetch_all(mine)
+    out = {name: dict(jobs=jobs, complete=complete, err=None if err is None else str(err))
+           for name, (jobs, complete, err) in fetched.items()}
+    Path(args.out).write_text(json.dumps(out), encoding="utf-8")
+    print(f"shard {index}/{total}: fetched {len(out)} companies -> {args.out}")
+
+
+def load_fetched(directory, companies):
+    """Merges every shard file; a company missing from all of them (failed shard) is an error, which
+    run() already treats as skip-without-closing-anything."""
+    merged = {}
+    for p in sorted(Path(directory).glob("*.json")):
+        merged.update(json.loads(p.read_text(encoding="utf-8")))
+    return {c["name"]: ((merged[c["name"]]["jobs"], merged[c["name"]]["complete"],
+                         merged[c["name"]]["err"]) if c["name"] in merged
+                        else (None, None, "shard result missing"))
+            for c in companies}
 
 
 def describe(c, job):
@@ -1419,12 +1468,10 @@ def run(args):
     counts = dict(companies=0, errors=0, matched=0, blocked=0, queued=0, alerted=0,
                   closed=0, reopened=0, reposts=0, pruned=0)
 
-    fetched = {}
-    with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
-        futures = {pool.submit(fetch_company, c): c for c in cfg["companies"]}
-        for fut in as_completed(futures):
-            name, jobs, complete, err = fut.result()
-            fetched[name] = (jobs, complete, err)
+    if args.from_fetched:
+        fetched = load_fetched(args.from_fetched, cfg["companies"])
+    else:
+        fetched = fetch_all(cfg["companies"])
 
     # One shared pool for every description fetch across every company, not one pool per company -
     # several companies finishing their listing fetch around the same time and each spinning up
@@ -1662,7 +1709,12 @@ def main():
     ap.add_argument("--days", type=int, help="with --queue: only postings posted within the last N days")
     ap.add_argument("--html", metavar="PATH", help="with --queue: write a clickable HTML page instead of stdout")
     ap.add_argument("--mark", nargs=2, metavar=("ID", "STATE"))
+    ap.add_argument("--fetch-shard", metavar="I/N", help="fetch only shard I of N and write --out, no state changes")
+    ap.add_argument("--out", metavar="PATH", help="with --fetch-shard: result file")
+    ap.add_argument("--from-fetched", metavar="DIR", help="run using shard result files instead of fetching")
     args = ap.parse_args()
+    if args.fetch_shard:
+        return cmd_fetch_shard(args)
     if args.init:
         return cmd_init()
     if args.queue:
