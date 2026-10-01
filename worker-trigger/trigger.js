@@ -26,7 +26,7 @@ async function dispatch(env) {
   }
 }
 
-// Fires only in the 30-min slot where the age crosses STALE_HOURS, then every REPEAT_HOURS, so a long outage does not spam.
+// Fires only in the hourly slot where the age crosses STALE_HOURS, then every REPEAT_HOURS, so a long outage does not spam.
 async function checkStale(env) {
   const res = await fetch(LAST_OK, { headers: ghHeaders(env) });
   if (!res.ok) return;
@@ -34,7 +34,7 @@ async function checkStale(env) {
   if (!run) return;
   const age = (Date.now() - new Date(run.updated_at).getTime()) / 3600000;
   const over = age - STALE_HOURS;
-  if (over >= 0 && over % REPEAT_HOURS < 0.5) {
+  if (over >= 0 && over % REPEAT_HOURS < 1) {
     await ntfy(env, "job-scout stalled", `No successful scout run for ${Math.floor(age)} hours. Check GitHub Actions.`);
   }
 }
