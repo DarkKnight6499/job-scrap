@@ -601,6 +601,20 @@ _COUNTRY_CODE_SITE_RE = re.compile(
     r"|mar|ken|nga|sau|qat|kwt) [a-z]{4}(?![a-z])"
 )
 
+# Generic non-US shapes so each new overseas Workday site stops needing its own exclude term
+# (candidates are US-only). "<ISO3> - City" / "IND-BLR-Site", "CA-<province>-" and "DE/FR/...-<state>-"
+# triples, Canadian province codes and Canadian postal codes. Raw (un-lowered) location for postal.
+_ISO3_DASH_RE = re.compile(
+    r"^(ind|esp|pol|phl|cyp|hgk|can|gbr|irl|deu|fra|ita|nld|sgp|jpn|aus|bra|mex|chn|zaf|isr|che|swe|dnk"
+    r"|fin|prt|rou|bgr|cze|hun|ltu|lva|ukr|tur|arg|chl|pak|bgd|lka|mys|tha|vnm|idn|kor|twn|nzl|egy|ken|nga"
+    r"|sau|qat|kwt)\s*-\s*[a-z]"
+)
+_ISO2_SUBDIV_RE = re.compile(
+    r"^(?:ca-(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe|yt|nt|nu)-[a-z]|(?:de|fr|it|nl|es|au|jp|cn|br|mx|ie|sg|se|pl)-[a-z]{2,3}-[a-z])"
+)
+_CA_POSTAL_RE = re.compile(r"[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPRSTV-Z]\d")
+_CA_PROVINCE_CODE_RE = re.compile(r",\s*(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe)\s*(?:,|$)", re.I)
+
 
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
@@ -634,6 +648,9 @@ def matches(job, f):
     if _VANCOUVER_RE.search(loc_folded):
         return False
     if _COUNTRY_CODE_SITE_RE.match(loc_folded):
+        return False
+    if (_ISO3_DASH_RE.match(loc_folded) or _ISO2_SUBDIV_RE.match(loc_folded)
+            or _CA_POSTAL_RE.search(job["location"]) or _CA_PROVINCE_CODE_RE.search(job["location"])):
         return False
     if locs and not any(x in loc for x in locs):
         return False
