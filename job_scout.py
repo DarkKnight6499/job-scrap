@@ -591,7 +591,7 @@ _DUBLIN_RE = re.compile(r"(?<!oh-)(?<![a-z0-9])dublin(?![a-z0-9])(?!, oh\b)")
 _ATHENS_RE = re.compile(r"(?<![a-z0-9])athens(?![a-z0-9])(?!, oh\b)(?!, ga\b)")
 
 # Bare "Vancouver" (Workday shows just the city) is Canadian; Vancouver, WA is a real US city.
-_VANCOUVER_RE = re.compile(r"(?<![a-z0-9])vancouver(?![a-z0-9])(?!, wa)(?!, washington)")
+_VANCOUVER_RE = re.compile(r"(?<![a-z0-9])vancouver(?![a-z0-9])(?!, wa\b)(?!, washington\b)")
 
 # FIS (and similar Workday tenants) write locations as "<ISO country code> <site code> ...", e.g.
 # "IND HYDB 18-23 OB3"; US sites start with "US", so only non-US country codes are listed here.
@@ -612,7 +612,7 @@ _ISO3_DASH_RE = re.compile(
 _ISO2_SUBDIV_RE = re.compile(
     r"^(?:ca-(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe|yt|nt|nu)-[a-z]|(?:de|fr|it|nl|es|au|jp|cn|br|mx|ie|sg|se|pl)-[a-z]{2,3}-[a-z])"
 )
-_CA_POSTAL_RE = re.compile(r"[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPRSTV-Z]\d")
+_CA_POSTAL_RE = re.compile(r"\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPRSTV-Z]\d\b")
 _CA_PROVINCE_CODE_RE = re.compile(r",\s*(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe)\s*(?:,|$)", re.I)
 
 
@@ -1032,6 +1032,21 @@ _EXTRA_SCRIPT = r"""
   var bar = document.getElementById('filterBar');
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var HIDE = ['hidden-by-filter', 'hidden-by-category', 'hidden-by-company', 'hidden-by-location'];
+  var COL_COMPANY = 'company', COL_ROLE = 'role', COL_LOCATION = 'location';
+  // Cell lookup by header text, never by position: tables differ (the dedup page adds columns).
+  function cellOf(tr, name) {
+    var table = tr.closest('table');
+    if (!table) return null;
+    if (!table._cols) {
+      table._cols = {};
+      Array.prototype.forEach.call(table.querySelectorAll('thead th'), function(th, i) {
+        table._cols[th.textContent.trim().toLowerCase()] = i;
+      });
+    }
+    var i = table._cols[name];
+    return i === undefined ? null : (tr.cells[i] || null);
+  }
+  function textOf(tr, name) { var c = cellOf(tr, name); return c ? c.textContent : ''; }
 
   var counters = [];
   document.querySelectorAll('h2, summary').forEach(function(el) {
@@ -1069,7 +1084,7 @@ _EXTRA_SCRIPT = r"""
     c.re = c.terms.length ? new RegExp('\\b(?:' + c.terms.map(function(t) { return escapeRegex(t.toLowerCase()); }).join('|') + ')\\b') : null;
   });
   rows.forEach(function(tr) {
-    var role = (tr.cells[3] ? tr.cells[3].textContent : '').toLowerCase();
+    var role = textOf(tr, COL_ROLE).toLowerCase();
     var matched = [];
     CATEGORIES.forEach(function(c) { if (c.re && c.re.test(role)) matched.push(c.key); });
     if (!matched.length) matched.push('other');
@@ -1108,7 +1123,7 @@ _EXTRA_SCRIPT = r"""
   var hideBox = label.querySelector('input');
   function applyCompany() {
     rows.forEach(function(tr) {
-      var c = tr.cells[2] ? tr.cells[2].textContent.trim() : '';
+      var c = textOf(tr, COL_COMPANY).trim();
       tr.classList.toggle('hidden-by-company', hideBox.checked && c === COMPANY);
     });
     recount();
@@ -1118,8 +1133,8 @@ _EXTRA_SCRIPT = r"""
   hideBox.addEventListener('change', applyCompany);
 
   // NY metro only: NY/NJ/CT area by location text; upstate NY cities excluded.
-  var METRO_RE = /(new york|nyc|manhattan|brooklyn|queens|bronx|long island|westchester|white plains|new jersey|nj|jersey city|newark|hoboken|harrison|stamford|greenwich|norwalk|connecticut|ct|ny)/;
-  var UPSTATE_RE = /(buffalo|albany|rochester|syracuse|ithaca|binghamton|utica)/;
+  var METRO_RE = /\b(new york|nyc|manhattan|brooklyn|queens|bronx|long island|westchester|white plains|new jersey|nj|jersey city|newark|hoboken|harrison|stamford|greenwich|norwalk|connecticut|ct|ny)\b/;
+  var UPSTATE_RE = /\b(buffalo|albany|rochester|syracuse|ithaca|binghamton|utica)\b/;
   var metroLabel = document.createElement('label');
   metroLabel.style.marginLeft = '10px';
   metroLabel.innerHTML = '<input type="checkbox" id="metroOnlyBox"> NY metro only (NY/NJ/CT)';
@@ -1127,13 +1142,7 @@ _EXTRA_SCRIPT = r"""
   metroBox = metroLabel.querySelector('input');
   function applyLocation() {
     rows.forEach(function(tr) {
-      var table = tr.closest('table');
-      if (table && table.dataset.locIdx === undefined) {
-        var heads = Array.prototype.map.call(table.querySelectorAll('thead th'), function(th) { return th.textContent.trim().toLowerCase(); });
-        table.dataset.locIdx = heads.indexOf('location');
-      }
-      var li = table ? parseInt(table.dataset.locIdx, 10) : -1;
-      var loc = (li >= 0 && tr.cells[li] ? tr.cells[li].textContent : '').toLowerCase();
+      var loc = textOf(tr, COL_LOCATION).toLowerCase();
       var ok = METRO_RE.test(loc) && !UPSTATE_RE.test(loc);
       tr.classList.toggle('hidden-by-location', metroBox.checked && !ok);
     });
@@ -1165,8 +1174,9 @@ _EXTRA_SCRIPT = r"""
       td.appendChild(e);
     }
     if (!JD_URL) { fail('JD proxy not configured'); return; }
-    var roleLink = tr.cells[3] ? tr.cells[3].querySelector('a') : null;
-    var company = (tr.cells[2].textContent || '').trim();
+    var roleCell = cellOf(tr, COL_ROLE);
+    var roleLink = roleCell ? roleCell.querySelector('a') : null;
+    var company = textOf(tr, COL_COMPANY).trim();
     btn.disabled = true;
     btn.textContent = 'Fetching...';
     fetch(JD_URL, {
@@ -1174,9 +1184,9 @@ _EXTRA_SCRIPT = r"""
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         company: company,
-        role: (roleLink ? roleLink.textContent : tr.cells[3].textContent).trim(),
+        role: (roleLink ? roleLink.textContent : textOf(tr, COL_ROLE)).trim(),
         link: roleLink ? roleLink.href : '',
-        location: (tr.cells[5] ? tr.cells[5].textContent : '').trim(),
+        location: textOf(tr, COL_LOCATION).trim(),
         jid: tr.getAttribute('data-jid') || '',
         cfg: JD_COMPANIES[company] || null
       })
