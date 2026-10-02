@@ -564,14 +564,18 @@ def icims(c):
 
 
 def _icims_description(job):
+    """(description, posted) from a job page's JSON-LD. The list card often has no posted date (Schwab's
+    doesn't), so describe() returns the JSON-LD datePosted, which refines it for each new match."""
     raw = http(job["url"] + "?in_iframe=1", raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
     m = re.search(r'<script type="application/ld\+json">(.*?)</script>', raw, re.S)
     if not m:
-        return ""
+        return "", ""
     try:
-        return strip_html(json.loads(m.group(1)).get("description", ""))
+        data = json.loads(m.group(1))
     except ValueError:
-        return ""
+        return "", ""
+    posted = str(data.get("datePosted") or "")[:10]
+    return strip_html(data.get("description", "")), posted if re.match(r"\d{4}-\d\d-\d\d$", posted) else ""
 
 
 def eightfold(c):
@@ -951,7 +955,8 @@ def describe(c, job):
         parts = [it.get(k) for k in ("ExternalDescriptionStr", "ExternalResponsibilitiesStr", "ExternalQualificationsStr")]
         return strip_html(" ".join(p for p in parts if p)), "", ""
     if ats == "icims":
-        return _icims_description(job), "", ""
+        text, posted = _icims_description(job)
+        return text, posted, "exact" if posted else ""
     if ats == "avature":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
