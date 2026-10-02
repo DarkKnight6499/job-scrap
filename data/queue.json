@@ -71,14 +71,16 @@
   "first_run": true,
   "posted": "2026-09-18",
   "last_seen_live": "2026-10-02",
-  "miss_count": 1,
+  "miss_count": 2,
   "ghost_status": "Unclear",
   "ghost_evidence": "",
   "lineage_root": "Stripe:8190054",
   "lineage_first_seen": "2026-09-24",
   "posted_source": "exact",
   "posted_reverified": false,
-  "site": null
+  "site": null,
+  "closed_on": "2026-10-02",
+  "closed_reason": "removed"
  },
  {
   "id": "Stripe:8206733",
