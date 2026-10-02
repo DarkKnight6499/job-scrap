@@ -14687,6 +14687,40 @@
    "ats": "avature",
    "host": "careers.twosigma.com",
    "list_path": "careers/OpenRoles"
+  },
+  {
+   "name": "D. E. Shaw",
+   "ats": "deshaw"
+  },
+  {
+   "name": "KKR",
+   "ats": "greenhouse",
+   "slug": "stage"
+  },
+  {
+   "name": "Nomura",
+   "ats": "successfactors",
+   "host": "careers.nomura.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [

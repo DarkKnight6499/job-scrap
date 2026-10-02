@@ -689,8 +689,48 @@ def avature(c):
     return out, False
 
 
+def deshaw(c):
+    """D. E. Shaw's own careers site (Next.js, server-rendered). The job list is the set of
+    /careers/<slug>-<id> links on /careers/choose-your-path; each job page embeds the full job as
+    __NEXT_DATA__ JSON (jobData: displayName, jobLocations, description fields), so one page fetch per
+    job gives title, location and description. Verified live 2026-10-02 (about 95 jobs). The
+    "all-positions-in-..." slugs are category landing pages, not jobs, and are skipped. datePosted on
+    the page is just the render time, so `posted` stays blank."""
+    raw = http("https://www.deshaw.com/careers/choose-your-path", raw=True, timeout=40,
+               headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    paths = sorted(set(re.findall(r'href="(/careers/(?!all-positions)[a-z0-9-]+-\d{4})"', raw)))
+
+    def one(path):
+        page = http("https://www.deshaw.com" + path, raw=True, timeout=40,
+                    headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', page, re.S)
+        jd = json.loads(m.group(1))["props"]["pageProps"]["jobData"]
+        desc = jd.get("jobDescription") or {}
+        text = " ".join(strip_html(x or "") for x in (desc.get("websiteDescription"), desc.get("responsibilitiesHtml"),
+                                                       desc.get("peopleWeAreLookingForStr")))
+        locs = [x.get("name", "") for x in (jd.get("jobMetadata") or {}).get("jobLocations") or []]
+        return dict(id=str(jd["id"]), title=jd.get("displayName", ""), location=" | ".join(x for x in locs if x),
+                    url="https://www.deshaw.com" + path, posted="", desc=text)
+
+    out, complete = [], True
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        for r in pool.map(lambda x: _try(one, x), paths):
+            if r is None:
+                complete = False  # a page failed: don't let a partial list close queued postings
+            else:
+                out.append(r)
+    return out, complete
+
+
+def _try(fn, arg):
+    try:
+        return fn(arg)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
