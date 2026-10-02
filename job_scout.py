@@ -1031,7 +1031,7 @@ _EXTRA_SCRIPT = r"""
   var JD_COMPANIES = __JD_COMPANIES__;
   var bar = document.getElementById('filterBar');
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
-  var HIDE = ['hidden-by-filter', 'hidden-by-category', 'hidden-by-company'];
+  var HIDE = ['hidden-by-filter', 'hidden-by-category', 'hidden-by-company', 'hidden-by-location'];
 
   var counters = [];
   document.querySelectorAll('h2, summary').forEach(function(el) {
@@ -1051,7 +1051,7 @@ _EXTRA_SCRIPT = r"""
   ['filterSearchBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener(el.tagName === 'BUTTON' ? 'click' : 'change', function() {
-      setTimeout(function() { applyCategory(); applyCompany(); }, 0);
+      setTimeout(function() { applyCategory(); applyCompany(); applyLocation(); }, 0);
     });
   });
 
@@ -1089,10 +1089,12 @@ _EXTRA_SCRIPT = r"""
     checkboxes.forEach(function(cb) { cb.checked = saved.indexOf(cb.dataset.catKey) !== -1; });
   } catch (e) {}
   checkboxes.forEach(function(cb) { cb.addEventListener('change', applyCategory); });
+  var metroBox = null;
   var resetBtn = document.getElementById('expReset');
   if (resetBtn) resetBtn.addEventListener('click', function() {
     checkboxes.forEach(function(cb) { cb.checked = false; });
     applyCategory();
+    if (metroBox) { metroBox.checked = false; applyLocation(); }
   });
 
   // Hide one company
@@ -1114,8 +1116,29 @@ _EXTRA_SCRIPT = r"""
   }
   try { hideBox.checked = localStorage.getItem('jobScoutHideCompany') === '1'; } catch (e) {}
   hideBox.addEventListener('change', applyCompany);
+
+  // NY metro only: NY/NJ/CT area by location text; upstate NY cities excluded.
+  var METRO_RE = /(new york|nyc|manhattan|brooklyn|queens|bronx|long island|westchester|white plains|new jersey|nj|jersey city|newark|hoboken|harrison|stamford|greenwich|norwalk|connecticut|ct|ny)/;
+  var UPSTATE_RE = /(buffalo|albany|rochester|syracuse|ithaca|binghamton|utica)/;
+  var metroLabel = document.createElement('label');
+  metroLabel.style.marginLeft = '10px';
+  metroLabel.innerHTML = '<input type="checkbox" id="metroOnlyBox"> NY metro only (NY/NJ/CT)';
+  label.insertAdjacentElement('afterend', metroLabel);
+  metroBox = metroLabel.querySelector('input');
+  function applyLocation() {
+    rows.forEach(function(tr) {
+      var loc = (tr.cells[5] ? tr.cells[5].textContent : '').toLowerCase();
+      var ok = METRO_RE.test(loc) && !UPSTATE_RE.test(loc);
+      tr.classList.toggle('hidden-by-location', metroBox.checked && !ok);
+    });
+    recount();
+    try { localStorage.setItem('jobScoutMetroOnly', metroBox.checked ? '1' : '0'); } catch (e) {}
+  }
+  try { metroBox.checked = localStorage.getItem('jobScoutMetroOnly') === '1'; } catch (e) {}
+  metroBox.addEventListener('change', applyLocation);
   applyCategory();
   applyCompany();
+  applyLocation();
 
   // Copy JD: window.JD_PROXY_URL_OVERRIDE lets the local dedup page point at its own server.
   var JD_URL = window.JD_PROXY_URL_OVERRIDE || __JD_URL__;
@@ -1165,7 +1188,7 @@ _EXTRA_SCRIPT = r"""
 })();
 </script>
 <style>
-tr.hidden-by-category, tr.hidden-by-company { display: none; }
+tr.hidden-by-category, tr.hidden-by-company, tr.hidden-by-location { display: none; }
 .skip-btn { display: inline-block; width: 5.5rem; margin: 0 4px 0 0; padding: 3px 0; font-size: 0.85rem; cursor: pointer; white-space: nowrap; text-align: center; }
 td.act { white-space: nowrap; }
 </style>
