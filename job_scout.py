@@ -812,8 +812,36 @@ def brassring(c):
     return out, len(rows) >= total
 
 
+def jibe(c):
+    """iCIMS Career Sites ("Jibe") front ends - public /api/jobs?page=N&limit=100 on the careers host.
+    Needs host and job_path (the site's public job URL prefix, e.g. "us/jobs"). Verified live 2026-10-02
+    against Principal Financial (careers.principal.com, 139 jobs). Each job carries title, location
+    fields, the full description/responsibilities/qualifications and an exact posted_date, so no
+    describe() call is needed."""
+    out, seen = [], set()
+    page, limit = 1, 100
+    while page <= int(c.get("max_pages", 30)):
+        d = http(f"https://{c['host']}/api/jobs?page={page}&limit={limit}", headers={"Accept": "application/json"}, timeout=40)
+        rows = d.get("jobs") or []
+        for r in rows:
+            j = r.get("data") or {}
+            jid = str(j.get("req_id") or j.get("slug") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            loc = j.get("full_location") or ", ".join(x for x in (j.get("city"), j.get("state"), j.get("country_code")) if x)
+            text = " ".join(strip_html(j.get(k) or "") for k in ("description", "responsibilities", "qualifications"))
+            out.append(dict(id=jid, title=j.get("title", "") or "", location=loc or "",
+                            url=f"https://{c['host']}/{c.get('job_path', 'jobs').strip('/')}/{j.get('slug') or jid}",
+                            posted=str(j.get("posted_date") or j.get("create_date") or "")[:10], desc=text))
+        if len(rows) < limit:
+            return out, True
+        page += 1
+    return out, False
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
