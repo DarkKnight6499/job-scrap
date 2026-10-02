@@ -729,8 +729,72 @@ def _try(fn, arg):
         return None
 
 
+def brassring(c):
+    """Kenexa/IBM BrassRing "TGnewUI" career sites. Needs host, partnerid, siteid. Verified live
+    2026-10-02 against UBS (jobs.ubs.com, about 530 jobs). The AJAX search needs a browser-like session,
+    reverse-engineered from the page: (1) GET the search page with a cookie jar, which sets tg_session
+    cookies; (2) the cookie tg_session_<partner>_<site> is the `encryptedsessionvalue` for every call;
+    (3) every POST also needs header RFT = the hidden __RequestVerificationToken input (apply.js reads
+    it the same way) plus Referer/Origin; (4) POST /Search/Ajax/MatchedJobs returns page 1 (50 jobs),
+    POST /Search/Ajax/ProcessSortAndShowMoreJobs with pageNumber 2.. returns the rest. Each job is a
+    Questions list of name/value pairs; the list call already includes the full jobdescription, so
+    describe() needs no brassring branch. Location is formtext23 ("United States - New York")."""
+    import http.cookiejar
+    base = f"https://{c['host']}"
+    pid, sid = str(c["partnerid"]), str(c["siteid"])
+    ref = (f"{base}/TGnewUI/Search/home/HomeWithPreLoad?partnerid={pid}&siteid={sid}"
+           f"&PageType=searchResults&SearchType=linkquery&LinkID={c.get('linkid', '')}")
+    ua = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
+    cj = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+    page = opener.open(urllib.request.Request(ref, headers=ua), timeout=60).read().decode("utf-8", "ignore")
+    tok = next(ck.value for ck in cj if ck.name == f"tg_session_{pid}_{sid}")
+    rft = re.search(r'name="__RequestVerificationToken"[^>]*value="([^"]+)"', page).group(1)
+
+    def post(path, body):
+        req = urllib.request.Request(base + path, data=json.dumps(body).encode(), headers={
+            **ua, "Content-Type": "application/json; charset=UTF-8", "X-Requested-With": "XMLHttpRequest",
+            "Accept": "application/json, text/javascript, */*; q=0.01", "Referer": ref, "Origin": base, "RFT": rft})
+        return json.loads(opener.open(req, timeout=60).read())
+
+    kw, loc = "FORMTEXT2,FORMTEXT21,AutoReq,Department,JobTitle", "FORMTEXT2,FORMTEXT23,Location"
+    first = post("/TgNewUI/Search/Ajax/MatchedJobs", {
+        "PartnerId": pid, "SiteId": sid, "Keyword": "", "Location": "", "KeywordCustomSolrFields": kw,
+        "LocationCustomSolrFields": loc, "FacetFilterFields": None, "TurnOffHttps": False, "Latitude": 0,
+        "Longitude": 0, "PowerSearchOptions": {"PowerSearchOption": []}, "encryptedsessionvalue": tok})
+    total = int(first.get("JobsCount") or first.get("TotalJobsCount") or 0)
+    rows = list((first.get("Jobs") or {}).get("Job") or [])
+    page_no = 2
+    while len(rows) < total and page_no <= int(c.get("max_pages", 40)):
+        d = post("/TgNewUI/Search/Ajax/ProcessSortAndShowMoreJobs", {
+            "partnerId": pid, "siteId": sid, "keyword": "", "location": "", "keywordCustomSolrFields": kw,
+            "locationCustomSolrFields": loc, "linkId": "", "Latitude": 0, "Longitude": 0,
+            "facetfilterfields": {"Facet": []}, "powersearchoptions": {"PowerSearchOption": []},
+            "SortType": "LastUpdated", "pageNumber": page_no, "encryptedSessionValue": tok})
+        got = (d.get("Jobs") or {}).get("Job") or []
+        if not got:
+            break
+        rows.extend(got)
+        page_no += 1
+    out, seen = [], set()
+    for j in rows:
+        q = {x.get("QuestionName"): x.get("Value") for x in j.get("Questions") or []}
+        jid = str(q.get("reqid") or "")
+        if not jid or jid in seen:
+            continue
+        seen.add(jid)
+        posted = ""
+        try:
+            posted = datetime.strptime(q.get("lastupdated") or "", "%d-%b-%Y").date().isoformat()
+        except ValueError:
+            pass
+        out.append(dict(id=jid, title=strip_html(q.get("jobtitle") or ""), location=strip_html(q.get("formtext23") or ""),
+                        url=j.get("Link") or ref, posted=posted, desc=strip_html(q.get("jobdescription") or "")))
+    return out, len(rows) >= total
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
