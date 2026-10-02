@@ -1127,7 +1127,13 @@ _EXTRA_SCRIPT = r"""
   metroBox = metroLabel.querySelector('input');
   function applyLocation() {
     rows.forEach(function(tr) {
-      var loc = (tr.cells[5] ? tr.cells[5].textContent : '').toLowerCase();
+      var table = tr.closest('table');
+      if (table && table.dataset.locIdx === undefined) {
+        var heads = Array.prototype.map.call(table.querySelectorAll('thead th'), function(th) { return th.textContent.trim().toLowerCase(); });
+        table.dataset.locIdx = heads.indexOf('location');
+      }
+      var li = table ? parseInt(table.dataset.locIdx, 10) : -1;
+      var loc = (li >= 0 && tr.cells[li] ? tr.cells[li].textContent : '').toLowerCase();
       var ok = METRO_RE.test(loc) && !UPSTATE_RE.test(loc);
       tr.classList.toggle('hidden-by-location', metroBox.checked && !ok);
     });
