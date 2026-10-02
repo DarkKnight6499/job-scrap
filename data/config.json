@@ -14510,6 +14510,183 @@
    "name": "SiriusPoint",
    "ats": "greenhouse",
    "slug": "siriuspoint"
+  },
+  {
+   "name": "Goldman Sachs",
+   "ats": "goldman",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 200
+  },
+  {
+   "name": "Scotiabank",
+   "ats": "successfactors",
+   "host": "jobs.scotiabank.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Standard Chartered",
+   "ats": "successfactors",
+   "host": "jobs.standardchartered.com",
+   "locale": "en_GB",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "SMBC",
+   "ats": "successfactors",
+   "host": "careers.smbcgroup.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "MSCI",
+   "ats": "icims",
+   "hosts": [
+    "globalcareers-msci.icims.com",
+    "uscareers-msci.icims.com",
+    "ukcareers-msci.icims.com",
+    "rsacareers-msci.icims.com"
+   ]
+  },
+  {
+   "name": "Brevan Howard",
+   "ats": "workday",
+   "host": "wd3.myworkdaysite.com",
+   "tenant": "brevanhoward",
+   "site": "BH_ExternalCareers",
+   "url_base": "https://wd3.myworkdaysite.com/recruiting/brevanhoward",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "New York Life",
+   "ats": "eightfold",
+   "host": "careers.newyorklife.com",
+   "domain": "newyorklife.com"
+  },
+  {
+   "name": "Moody's",
+   "ats": "talentbrew",
+   "host": "careers.moodys.com"
+  },
+  {
+   "name": "HSBC",
+   "ats": "eightfold",
+   "host": "portal.careers.hsbc.com",
+   "domain": "hsbc.com",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Two Sigma",
+   "ats": "avature",
+   "host": "careers.twosigma.com",
+   "list_path": "careers/OpenRoles"
   }
  ],
  "keywords": [

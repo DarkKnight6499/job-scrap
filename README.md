@@ -1,7 +1,7 @@
 # job-scrap
 
 Free job discovery: polls public ATS job-board APIs (Greenhouse, Lever, Ashby,
-SmartRecruiters, Workday, Oracle Recruiting Cloud, Personio) for a curated
+SmartRecruiters, Workday, Oracle Recruiting Cloud, Personio, SuccessFactors RSS, iCIMS, Eightfold, Goldman Sachs's own site) for a curated
 list of companies, filters by title/location keywords, flags explicit no-sponsorship
 language in the description, and pushes a phone alert (ntfy) for anything
 new. No paid scraping API, no LLM tokens.

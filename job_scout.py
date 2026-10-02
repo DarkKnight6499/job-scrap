@@ -49,6 +49,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from email.utils import parsedate_to_datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -348,7 +349,7 @@ def workday(c):
                 continue
             seen.add(key)
             out.append(dict(id=path, title=j["title"], location=_workday_location(j.get("locationsText"), path),
-                            url=f"https://{c['host']}/{site}{path}", site=site,
+                            url=f"{c.get('url_base') or 'https://' + c['host']}/{site}{path}", site=site,
                             posted=_workday_posted(j.get("postedOn"))))
         complete = complete and term_complete
     return out, complete
@@ -426,8 +427,270 @@ def personio(c):
     return jobs, True  # single uncapped call: always the full board
 
 
+def goldman(c):
+    """Goldman Sachs' own careers site (higher.gs.com) - unofficial GraphQL gateway, reverse-engineered
+    and verified live 2026-10-02 (not in any doc). No config beyond 'search' terms. `experiences` must
+    be non-empty (an empty list is a validation error); the list call already returns descriptionHtml,
+    so describe() needs no goldman branch. No posted date is exposed, so `posted` stays blank."""
+    terms = c.get("search") or [""]
+    terms = [terms] if isinstance(terms, str) else terms
+    cap = int(c.get("max_per_term", 100))
+    page = 50
+    query = ("query GetRoles($searchQueryInput: RoleSearchQueryInput!) { roleSearch(searchQueryInput: "
+             "$searchQueryInput) { totalCount items { roleId jobTitle division descriptionHtml "
+             "locations { city state country } externalSource { sourceId } } } }")
+    out, seen = [], set()
+    complete = True
+    for term in terms:
+        offset, term_complete = 0, False
+        while offset < cap:
+            body = {"operationName": "GetRoles", "query": query, "variables": {"searchQueryInput": {
+                "page": {"pageSize": page, "pageNumber": offset // page},
+                "sort": {"sortStrategy": "RELEVANCE", "sortOrder": "DESC"}, "filters": [],
+                "experiences": ["PROFESSIONAL", "EARLY_CAREER"], "searchTerm": term}}}
+            d = http("https://api-higher.gs.com/gateway/api/v1/graphql", data=body)
+            if d.get("errors"):
+                raise RuntimeError(f"goldman graphql: {d['errors'][0].get('message')}")
+            rows = ((d.get("data") or {}).get("roleSearch") or {}).get("items") or []
+            for j in rows:
+                jid = str(j.get("roleId") or "")
+                if not jid or jid in seen:
+                    continue
+                seen.add(jid)
+                locs = [", ".join(x for x in (l.get("city"), l.get("state"), l.get("country")) if x)
+                        for l in (j.get("locations") or [])]
+                src = (j.get("externalSource") or {}).get("sourceId") or jid.split("_")[0]
+                out.append(dict(id=jid, title=j.get("jobTitle", "") or "", location=" | ".join(locs),
+                                url=f"https://higher.gs.com/roles/{src}", posted="",
+                                desc=strip_html(j.get("descriptionHtml", ""))))
+            offset += page
+            if len(rows) < page:
+                term_complete = True
+                break
+        complete = complete and term_complete
+    return out, complete
+
+
+def successfactors(c):
+    """SAP SuccessFactors Career Site Builder tenants that expose the public RSS job feed. Needs
+    host and locale (e.g. jobs.scotiabank.com / en_US). Verified live 2026-10-02 against Scotiabank,
+    Standard Chartered and SMBC. Feed shape: /services/rss/job/?locale=..&keywords=(term)&startrow=N,
+    20 items per page, each with the full description, link, guid and pubDate; the location is the
+    trailing parenthetical of the title. Only tenants using the Career Site Builder front end have
+    this feed (Moody's career8 login pages do not), so verify a host by curl before adding it."""
+    terms = c.get("search") or [""]
+    terms = [terms] if isinstance(terms, str) else terms
+    cap = int(c.get("max_per_term", 60))
+    page = 20
+    out, seen = [], set()
+    complete = True
+    for term in terms:
+        offset, term_complete = 0, False
+        while offset < cap:
+            q = {"locale": c.get("locale", "en_US"), "startrow": offset}
+            if term:
+                q["keywords"] = f"({term})"
+            raw = http(f"https://{c['host']}/services/rss/job/?" + urllib.parse.urlencode(q), raw=True, timeout=40,
+                       headers={"Accept": "application/rss+xml, */*"})  # default json-only Accept gets a 406
+            items = ET.fromstring(raw).findall("channel/item")
+            fresh = 0
+            for it in items:
+                link = (it.findtext("link", "") or "").strip()
+                parts = urllib.parse.urlsplit(link)
+                link = urllib.parse.urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))  # drop RSS tracking params
+                jid = parts.path.rstrip("/").rsplit("/", 1)[-1]
+                if not jid or jid in seen:
+                    continue
+                seen.add(jid)
+                fresh += 1
+                title = (it.findtext("title", "") or "").strip()
+                m = re.match(r"^(.*)\s\(([^()]*)\)$", title)
+                title, loc = (m.group(1), m.group(2)) if m else (title, "")
+                try:
+                    posted = parsedate_to_datetime(it.findtext("pubDate", "")).date().isoformat()
+                except (TypeError, ValueError):
+                    posted = ""
+                out.append(dict(id=jid, title=title, location=loc, url=link, posted=posted,
+                                desc=strip_html(it.findtext("description", ""))))
+            offset += page
+            if len(items) < page or not fresh:
+                term_complete = True
+                break
+        complete = complete and term_complete
+    return out, complete
+
+
+def _icims_location(text):
+    """iCIMS shows "US-NY-New York" / "PH-Makati City Manila" (country-[state-]city); rewrite it as
+    "New York, NY, US" so the shared location filters read it like every other ATS."""
+    parts = [x.strip() for x in (text or "").split("-", 2)]
+    if len(parts) >= 2 and len(parts[0]) == 2 and parts[0].isalpha():
+        return ", ".join(reversed(parts))
+    return (text or "").strip()
+
+
+def icims(c):
+    """iCIMS career portals (server-rendered HTML job cards, no API). Needs 'hosts' (one or more
+    portal hosts, e.g. MSCI splits global/us/uk/rsa across four). Verified live 2026-10-02 against
+    MSCI. List pages carry title, id, location and posted date; the full description comes from each
+    job page's JSON-LD block via describe(). Paged with pr=0,1,.. until a page has no cards."""
+    hosts = c.get("hosts") or [c["host"]]
+    cap_pages = int(c.get("max_pages", 20))
+    out, seen = [], set()
+    complete = True
+    for host in hosts:
+        for pr in range(cap_pages):
+            raw = http(f"https://{host}/jobs/search?ss=1&in_iframe=1&pr={pr}", raw=True, timeout=40,
+                       headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+            cards = raw.split('class="iCIMS_JobCardItem"')[1:]
+            for card in cards:
+                m = re.search(r'href="(https://[^"]+/jobs/(\d+)/[^"?]*)', card)
+                if not m or m.group(2) in seen:  # one posting can appear on several of a tenant's portals
+                    continue
+                seen.add(m.group(2))
+                title = re.search(r"<h3[^>]*>\s*(.*?)\s*</h3>", card, re.S)
+                loc = re.search(r"Job Locations</span>.*?<span[^>]*>\s*(.*?)\s*</span>", card, re.S)
+                posted = re.search(r'<span title="(\d{1,2})/(\d{1,2})/(\d{4})', card)
+                out.append(dict(id=m.group(2), title=strip_html(title.group(1)) if title else "",
+                                location=_icims_location(strip_html(loc.group(1)) if loc else ""),
+                                url=m.group(1),
+                                posted=f"{posted.group(3)}-{int(posted.group(1)):02d}-{int(posted.group(2)):02d}" if posted else ""))
+            if not cards:
+                break
+        else:
+            complete = False  # hit the page cap on this portal
+    return out, complete
+
+
+def _icims_description(job):
+    raw = http(job["url"] + "?in_iframe=1", raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    m = re.search(r'<script type="application/ld\+json">(.*?)</script>', raw, re.S)
+    if not m:
+        return ""
+    try:
+        return strip_html(json.loads(m.group(1)).get("description", ""))
+    except ValueError:
+        return ""
+
+
+def eightfold(c):
+    """Eightfold career sites (static assets on static.vscdn.net) - public /api/apply/v2/jobs endpoint.
+    Needs host and domain (e.g. careers.newyorklife.com / newyorklife.com). Verified live 2026-10-02
+    against New York Life (279 jobs, whole board) and HSBC (portal.careers.hsbc.com, thousands of jobs,
+    so it opts into 'search' terms). The endpoint caps every page at 10 results whatever `num` says,
+    so it pages with start += 10, once per search term (no 'search' key = the whole board, capped by
+    max_per_term). The list rows carry no description; describe() reads it from the per-job endpoint."""
+    page = 10
+    terms = c.get("search") or [""]
+    terms = [terms] if isinstance(terms, str) else terms
+    cap = int(c.get("max_per_term", 1500))
+    out, seen = [], set()
+    complete = True
+    for term in terms:
+        start, term_complete = 0, False
+        while start < cap:
+            q = urllib.parse.urlencode({"domain": c["domain"], "start": start, "num": page, "query": term})
+            d = http(f"https://{c['host']}/api/apply/v2/jobs?{q}", headers={"Accept": "application/json"})
+            total = d.get("count")
+            rows = d.get("positions") or []
+            for j in rows:
+                jid = str(j.get("id") or "")
+                if not jid or jid in seen:
+                    continue
+                seen.add(jid)
+                locs = j.get("locations") or [j.get("location") or ""]
+                posted = ""
+                if j.get("t_create"):
+                    posted = datetime.fromtimestamp(int(j["t_create"]), timezone.utc).date().isoformat()
+                out.append(dict(id=jid, title=j.get("name", "") or "", location=" | ".join(str(x) for x in locs if x),
+                                url=j.get("canonicalPositionUrl") or f"https://{c['host']}/careers/job/{jid}", posted=posted))
+            start += page
+            if len(rows) < page or (total is not None and start >= total):
+                term_complete = True
+                break
+        complete = complete and term_complete
+    return out, complete
+
+
+def _jsonld_description(url):
+    """Description from a job page's schema.org JobPosting JSON-LD block (used by TalentBrew)."""
+    raw = http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    for m in re.finditer(r'<script type="application/ld\+json">(.*?)</script>', raw, re.S):
+        try:
+            data = json.loads(m.group(1))
+        except ValueError:
+            continue
+        if isinstance(data, dict) and data.get("description"):
+            return strip_html(data["description"])
+    return ""
+
+
+def talentbrew(c):
+    """Radancy TalentBrew career sites (job URLs like /en/job/<city>/<title>/<site id>/<job id>, search
+    at /search-jobs). Needs host. Verified live 2026-10-02 against Moody's. The site's own AJAX
+    endpoint /search-jobs/results returns JSON whose "results" field is the job-card HTML (title,
+    location, MM/DD/YYYY posted, data-job-id) 50 per page with data-total-pages; the description
+    comes from each job page's JSON-LD via describe()."""
+    out, seen = [], set()
+    total_pages = 1
+    page = 1
+    while page <= min(total_pages, int(c.get("max_pages", 40))):
+        q = urllib.parse.urlencode({
+            "ActiveFacetID": 0, "CurrentPage": page, "RecordsPerPage": 50, "Distance": 50, "RadiusUnitType": 0,
+            "Keywords": "", "Location": "", "ShowRadius": "False", "IsPagination": "False", "FacetType": 0,
+            "SearchResultsModuleName": "Search Results", "SearchFiltersModuleName": "Search Filters",
+            "SortCriteria": 0, "SortDirection": 0, "SearchType": 5, "ResultsType": 0})
+        d = http(f"https://{c['host']}/search-jobs/results?{q}", headers={"X-Requested-With": "XMLHttpRequest"}, timeout=40)
+        h = d.get("results", "")
+        m = re.search(r'data-total-pages="(\d+)"', h)
+        if m:
+            total_pages = int(m.group(1))
+        for card in re.finditer(r'<a href="(/[^"]+/job/[^"]+)" data-job-id="(\d+)">(.*?)</a>', h, re.S):
+            jid = card.group(2)
+            if jid in seen:
+                continue
+            seen.add(jid)
+            body = card.group(3)
+            title = re.search(r"<h2[^>]*>(.*?)</h2>", body, re.S)
+            loc = re.search(r'class="job-location">(.*?)</span>', body, re.S)
+            posted = re.search(r'class="job-date-posted">(\d{2})/(\d{2})/(\d{4})', body)
+            out.append(dict(id=jid, title=strip_html(title.group(1)) if title else "",
+                            location=strip_html(loc.group(1)) if loc else "",
+                            url=f"https://{c['host']}{card.group(1)}",
+                            posted=f"{posted.group(3)}-{posted.group(1)}-{posted.group(2)}" if posted else ""))
+        page += 1
+    return out, page > total_pages
+
+
+def avature(c):
+    """Avature career sites with a server-rendered list page. Needs host and list_path (the tenant's
+    job-list page, e.g. "careers/OpenRoles"; it differs per tenant). Verified live 2026-10-02 against
+    Two Sigma. 10 results per page, paged with jobOffset; each result is an <article class="article
+    article--result"> holding the JobDetail link (title), then one <span class="paragraph_inner-span">
+    per field, the first being the location. Descriptions come from each JobDetail page's JSON-LD."""
+    out, seen = [], set()
+    offset, page = 0, 10
+    cap = int(c.get("max_jobs", 1000))
+    while offset < cap:
+        raw = http(f"https://{c['host']}/{c['list_path']}?jobOffset={offset}", raw=True, timeout=40,
+                   headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        arts = raw.split('class="article article--result')[1:]
+        for a in arts:
+            m = re.search(r'<a class="link" href="([^"]+/JobDetail/[^"]+/(\d+))"[^>]*>\s*(.*?)\s*</a>', a, re.S)
+            if not m or m.group(2) in seen:
+                continue
+            seen.add(m.group(2))
+            spans = re.findall(r'<span class="paragraph_inner-span">\s*(.*?)\s*</span>', a, re.S)
+            out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=html.unescape(m.group(1)),
+                            location=strip_html(spans[0]) if spans else "", posted=""))
+        offset += page
+        if len(arts) < page:
+            return out, True
+    return out, False
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -568,6 +831,18 @@ def describe(c, job):
         it = items[0]
         parts = [it.get(k) for k in ("ExternalDescriptionStr", "ExternalResponsibilitiesStr", "ExternalQualificationsStr")]
         return strip_html(" ".join(p for p in parts if p)), "", ""
+    if ats == "icims":
+        return _icims_description(job), "", ""
+    if ats == "avature":
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
+        return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+    if ats == "talentbrew":
+        return _jsonld_description(job["url"]), "", ""
+    if ats == "eightfold":
+        d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
+                 headers={"Accept": "application/json"})
+        return strip_html(d.get("job_description", "")), "", ""
     return "", "", ""
 
 
