@@ -14978,6 +14978,172 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Stifel",
+   "ats": "icims",
+   "hosts": [
+    "careers-stifel.icims.com"
+   ]
+  },
+  {
+   "name": "Susquehanna International Group",
+   "ats": "jibe",
+   "host": "careers.sig.com",
+   "job_path": "jobs"
+  },
+  {
+   "name": "ANZ",
+   "ats": "successfactors",
+   "host": "careers.anz.com",
+   "locale": "en_GB",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Westpac",
+   "ats": "oracle",
+   "host": "ebuu.fa.ap1.oraclecloud.com",
+   "site": "CX",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "DBS",
+   "ats": "workday",
+   "host": "dbs.wd3.myworkdayjobs.com",
+   "tenant": "dbs",
+   "site": "dbs_careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "UOB",
+   "ats": "workday",
+   "host": "uobgroup.wd3.myworkdayjobs.com",
+   "tenant": "uobgroup",
+   "site": "uobexternal",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Desjardins",
+   "ats": "workday",
+   "host": "desjardins.wd10.myworkdayjobs.com",
+   "tenant": "desjardins",
+   "site": "Desjardins",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Nordea",
+   "ats": "successfactors",
+   "host": "careers.nordea.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [

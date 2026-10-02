@@ -550,7 +550,8 @@ def icims(c):
                     continue
                 seen.add(m.group(2))
                 title = re.search(r"<h3[^>]*>\s*(.*?)\s*</h3>", card, re.S)
-                loc = re.search(r"Job Locations</span>.*?<span[^>]*>\s*(.*?)\s*</span>", card, re.S)
+                loc = (re.search(r"Job Locations</span>.*?<span[^>]*>\s*(.*?)\s*</span>", card, re.S)
+                       or re.search(r">Locations?</span>\s*<span[^>]*>\s*(.*?)\s*</span>", card, re.S))  # Stifel-style cards
                 posted = re.search(r'<span title="(\d{1,2})/(\d{1,2})/(\d{4})', card)
                 out.append(dict(id=m.group(2), title=strip_html(title.group(1)) if title else "",
                                 location=_icims_location(strip_html(loc.group(1)) if loc else ""),
