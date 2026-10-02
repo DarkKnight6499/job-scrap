@@ -431,13 +431,13 @@ def goldman(c):
     """Goldman Sachs' own careers site (higher.gs.com) - unofficial GraphQL gateway, reverse-engineered
     and verified live 2026-10-02 (not in any doc). No config beyond 'search' terms. `experiences` must
     be non-empty (an empty list is a validation error); the list call already returns descriptionHtml,
-    so describe() needs no goldman branch. No posted date is exposed, so `posted` stays blank."""
+    so describe() needs no goldman branch. `posted` is lastPostedDate (the real posting day; createdDate trails it by a day)."""
     terms = c.get("search") or [""]
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 100))
     page = 50
     query = ("query GetRoles($searchQueryInput: RoleSearchQueryInput!) { roleSearch(searchQueryInput: "
-             "$searchQueryInput) { totalCount items { roleId jobTitle division descriptionHtml "
+             "$searchQueryInput) { totalCount items { roleId jobTitle division descriptionHtml lastPostedDate createdDate "
              "locations { city state country } externalSource { sourceId } } } }")
     out, seen = [], set()
     complete = True
@@ -461,7 +461,8 @@ def goldman(c):
                         for l in (j.get("locations") or [])]
                 src = (j.get("externalSource") or {}).get("sourceId") or jid.split("_")[0]
                 out.append(dict(id=jid, title=j.get("jobTitle", "") or "", location=" | ".join(locs),
-                                url=f"https://higher.gs.com/roles/{src}", posted="",
+                                url=f"https://higher.gs.com/roles/{src}",
+                                posted=(j.get("lastPostedDate") or j.get("createdDate") or "")[:10],
                                 desc=strip_html(j.get("descriptionHtml", ""))))
             offset += page
             if len(rows) < page:
@@ -671,6 +672,20 @@ def avature(c):
     out, seen = [], set()
     offset, page = 0, 10
     cap = int(c.get("max_jobs", 1000))
+    dates = {}
+    if c.get("feed"):
+        # Two Sigma's RSS feed carries real pubDates but only its 20 oldest roles (paging params are ignored),
+        # so newer jobs keep a blank `posted` and fall back to first_seen.
+        try:
+            for it in ET.fromstring(http(f"https://{c['host']}/{c['list_path']}/feed/", raw=True, timeout=40,
+                                         headers={"Accept": "application/rss+xml, */*"})).findall("channel/item"):
+                try:
+                    dates[(it.findtext("link", "") or "").rstrip("/").rsplit("/", 1)[-1]] = parsedate_to_datetime(
+                        it.findtext("pubDate", "")).date().isoformat()
+                except (TypeError, ValueError):
+                    pass
+        except Exception:  # noqa: BLE001  the feed is a bonus; the list pages are the source of truth
+            pass
     while offset < cap:
         raw = http(f"https://{c['host']}/{c['list_path']}?jobOffset={offset}", raw=True, timeout=40,
                    headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
@@ -682,7 +697,7 @@ def avature(c):
             seen.add(m.group(2))
             spans = re.findall(r'<span class="paragraph_inner-span">\s*(.*?)\s*</span>', a, re.S)
             out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=html.unescape(m.group(1)),
-                            location=strip_html(spans[0]) if spans else "", posted=""))
+                            location=strip_html(spans[0]) if spans else "", posted=dates.get(m.group(2), "")))
         offset += page
         if len(arts) < page:
             return out, True
