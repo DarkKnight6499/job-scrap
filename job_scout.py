@@ -841,8 +841,70 @@ def jibe(c):
     return out, False
 
 
+def taleo(c):
+    """Oracle Taleo Enterprise career sections - POST /careersection/rest/jobboard/searchjobs (25 per page).
+    Needs host, section and portal (the number in the section's jobsearch.ftl?portal= URL). The list
+    columns are title, locations (JSON string) and an exact posted date. Verified live 2026-10-02
+    against Equitable (equitable.taleo.net, section eqh_1)."""
+    host, sec, portal = c["host"], c["section"], c["portal"]
+    empty = lambda ids: [dict(id=i, selectedValues=[]) for i in ids]
+    out, seen, page = [], set(), 1
+    while page <= int(c.get("max_pages", 60)):
+        body = {"multilineEnabled": False, "sortingSelection": {"sortBySelectionParam": "3", "ascendingSortingOrder": "false"},
+                "fieldData": {"fields": {"KEYWORD": "", "LOCATION": ""}, "valid": True},
+                "filterSelectionParam": {"searchFilterSelections": empty(["POSTING_DATE", "LOCATION", "JOB_FIELD", "JOB_TYPE", "JOB_SCHEDULE", "JOB_LEVEL"])},
+                "advancedSearchFiltersSelectionParam": {"searchFilterSelections": empty(["ORGANIZATION", "LOCATION", "JOB_FIELD", "JOB_NUMBER", "URGENT_JOB", "EMPLOYEE_STATUS", "STUDY_LEVEL", "WILL_TRAVEL", "JOB_SHIFT"])},
+                "pageNo": page}
+        d = http(f"https://{host}/careersection/rest/jobboard/searchjobs?lang=en&portal={portal}", data=body, timeout=40,
+                 headers={"Accept": "application/json", "tz": "GMT-05:00", "tzname": "America/New_York", "X-Requested-With": "XMLHttpRequest"})
+        rows = d.get("requisitionList") or []
+        for r in rows:
+            jid = str(r.get("contestNo") or r.get("jobId") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            col = r.get("column") or []
+            try:
+                locs = json.loads(col[1]) if len(col) > 1 else []
+                loc = "; ".join(locs) if isinstance(locs, list) else str(locs)
+            except ValueError:
+                loc = col[1] if len(col) > 1 else ""
+            posted = ""
+            try:
+                posted = datetime.strptime(col[2].strip(), "%b %d, %Y").date().isoformat() if len(col) > 2 else ""
+            except ValueError:
+                pass
+            out.append(dict(id=jid, title=strip_html(col[0]) if col else "", location=loc,
+                            url=f"https://{host}/careersection/{sec}/jobdetail.ftl?job={jid}&lang=en", posted=posted))
+        if len(rows) < int((d.get("pagingData") or {}).get("pageSize") or 25):
+            return out, True
+        page += 1
+    return out, False
+
+
+def hrmdirect(c):
+    """ClearCompany HRM Direct boards (e.g. Oppenheimer, opco.hrmdirect.com) - server-rendered list at
+    /employment/job-openings.php, one detail page per req for location and description. No posted date is
+    published, so first_seen stands in. Verified live 2026-10-03 (51 reqs)."""
+    base = f"https://{c['host']}/employment"
+    raw = http(f"{base}/job-openings.php?search=true&nohd=&dept=-1&office=-1&cust_sort1=-1", raw=True, timeout=40,
+               headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    out, seen = [], set()
+    for req, title in re.findall(r"""<a href="job-opening\.php\?req=(\d+)[^"]*">([^<]+)</a>""", raw):
+        if req in seen:
+            continue
+        seen.add(req)
+        url = f"{base}/job-opening.php?req={req}&&nohd"
+        page = http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        page = re.sub(r"(?is)<(script|style).*?</>", " ", page)
+        text = strip_html(page)
+        m = re.search(r"Location:\s*(.+?)\s+Type of Hire:", text)
+        out.append(dict(id=req, title=strip_html(title), location=m.group(1) if m else "", url=url, posted="", desc=text[:30000]))
+    return out, True
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -992,6 +1054,14 @@ def describe(c, job):
         return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
     if ats == "talentbrew":
         return _jsonld_description(job["url"]), "", ""
+    if ats == "taleo":
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        i = raw.find("api.fillList('requisitionDescriptionInterface', 'descRequisition'")
+        if i < 0:
+            return "", "", ""
+        arr = raw[i:raw.find("]);", i)]
+        parts = [urllib.parse.unquote(m) for m in re.findall(r"'([^']*)'", arr)[3:] if len(m) > 40]  # description fields are the long URL-encoded strings
+        return strip_html(" ".join(p.replace("!*!", " ") for p in parts))[:30000], "", ""
     if ats == "eightfold":
         d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
                  headers={"Accept": "application/json"})

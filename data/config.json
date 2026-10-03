@@ -15144,6 +15144,45 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Equitable",
+   "ats": "taleo",
+   "host": "equitable.taleo.net",
+   "section": "eqh_1",
+   "portal": "36105020509"
+  },
+  {
+   "name": "SS&C Technologies",
+   "ats": "workday",
+   "host": "wd1.myworkdaysite.com",
+   "tenant": "ssctech",
+   "site": "SSCTechnologies",
+   "url_base": "https://wd1.myworkdaysite.com/recruiting/ssctech",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Oppenheimer",
+   "ats": "hrmdirect",
+   "host": "opco.hrmdirect.com"
   }
  ],
  "keywords": [
