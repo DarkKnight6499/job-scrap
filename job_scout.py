@@ -2172,10 +2172,13 @@ def run(args):
     # several companies finishing their listing fetch around the same time and each spinning up
     # their own pool caused a brief concurrency spike that tripped Workday's rate limiting (429s).
     describe_pool = ThreadPoolExecutor(max_workers=8)
+    unverified = {c["name"] for c in cfg["companies"]}  # companies not cleanly and completely fetched this run: never prune their entries
     try:
         for c in cfg["companies"]:
             name = c["name"]
             jobs, complete, err = fetched[name]
+            if err is None and complete and jobs:
+                unverified.discard(name)
             if err is not None:
                 counts["errors"] += 1
                 print(f"! {name} ({c['ats']}): {err}", file=sys.stderr)
@@ -2219,10 +2222,11 @@ def run(args):
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
-        _prune_stale(queue, counts)
+        _prune_stale(queue, counts, unverified)
         HOME.mkdir(parents=True, exist_ok=True)
-        atomic_json.write(str(HOME / "state.json"), state)
+        # queue first: a crash between the writes must never leave a job marked seen without its queue row
         atomic_json.write(str(HOME / "queue.json"), queue)
+        atomic_json.write(str(HOME / "state.json"), state)
     print(f"done: {counts['companies']} companies ({counts['errors']} errors), {counts['matched']} new matches, "
           f"{counts['blocked']} auto-blocked on sponsorship, {counts['queued']} queued, {counts['alerted']} alerts, "
           f"{counts['closed']} closed, {counts['reopened']} reopened, {counts['reposts']} reposts, "
@@ -2373,12 +2377,13 @@ def _update_liveness(name, jobs, complete, queue, counts):
             counts["closed"] += 1
 
 
-def _prune_stale(queue, counts):
+def _prune_stale(queue, counts, unverified=frozenset()):
     """Drops "new"/"auto_blocked" entries whose employer-posted date is older than
     PRUNE_AFTER_DAYS, so queue.json (and the HTML page rendering it) doesn't grow forever. Never
     touches shortlisted/applied/dismissed - those came from an explicit `--mark`, a human decision
     the scout has no business overriding just because time passed. An entry with no cleanly-parsed
-    posted date is kept rather than guessed at."""
+    posted date is kept rather than guessed at. Entries of `unverified` companies (fetch failed, shard
+    missing, truncated or empty listing this run) are kept too: absence from a bad fetch proves nothing."""
     cutoff = (date.today() - timedelta(days=PRUNE_AFTER_DAYS)).isoformat()
     kept = []
     pruned = 0
@@ -2387,7 +2392,7 @@ def _prune_stale(queue, counts):
         # an old posting still on the employer's board today is live (employers bump/relist), so keep it
         still_live = e.get("last_seen_live") == date.today().isoformat() and not e.get("closed_on")
         is_stale = (e["state"] in ("new", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff
-                    and not still_live)
+                    and not still_live and e["company"] not in unverified)
         if is_stale:
             pruned += 1
         else:

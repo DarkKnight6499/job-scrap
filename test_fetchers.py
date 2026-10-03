@@ -90,3 +90,33 @@ def test_successfactors_pages_past_a_page_that_only_repeats_earlier_searches():
     with mock.patch.object(js, "http", _http):
         jobs, complete = js.successfactors(dict(host="h", locale="en_US", search=["a", "b"], max_per_term=100))
     assert complete and len(jobs) == 25
+
+
+def _old_entry(company, **kw):
+    e = dict(id=f"{company}:1", company=company, state="new", posted="2020-01-01", last_seen_live="2020-01-02", closed_on=None)
+    e.update(kw)
+    return e
+
+
+def test_prune_skips_unverified_companies_but_prunes_clean_ones():
+    queue = [_old_entry("Flaky"), _old_entry("Clean"), _old_entry("Gone")]
+    counts = {}
+    js._prune_stale(queue, counts, unverified={"Flaky"})
+    assert [e["company"] for e in queue] == ["Flaky"] and counts["pruned"] == 2
+
+
+def test_prune_tolerates_null_posted():
+    queue = [_old_entry("A", posted=None)]
+    js._prune_stale(queue, {}, unverified=set())
+    assert len(queue) == 1
+
+
+def test_run_writes_queue_before_state(tmp_path, monkeypatch):
+    import argparse
+    (tmp_path / "config.json").write_text(json.dumps(dict(notify={}, filters={}, keywords=[], companies=[])))
+    monkeypatch.setattr(js, "HOME", tmp_path)
+    order = []
+    monkeypatch.setattr(js.atomic_json, "write", lambda path, data: order.append(path.replace(chr(92), "/").rsplit("/", 1)[-1]))
+    monkeypatch.setattr(js, "_reverify_recent_posted", lambda q, c: None)
+    js.run(argparse.Namespace(from_fetched=None, dry_run=False, check=False))
+    assert order == ["queue.json", "state.json"]
