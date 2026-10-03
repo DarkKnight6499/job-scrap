@@ -29,7 +29,7 @@ jobs:
         run: python -m pip install pytest
 
       - name: Run offline regression tests
-        run: python -m pytest -q test_validate_config.py test_liveness.py test_fetchers.py
+        run: python -m pytest -q test_validate_config.py test_liveness.py test_fetchers.py test_health.py test_scout_review_guards.py
 
       - name: Validate company config
         if: ${{ always() }}
@@ -88,7 +88,21 @@ jobs:
       - name: Run job_scout
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-        run: python job_scout.py --from-fetched shards
+        run: |
+          set -o pipefail
+          python -u job_scout.py --from-fetched shards 2>&1 | tee scout.log
+
+      - name: Summarize scout health
+        if: ${{ always() }}
+        run: python health.py --shards shards --scout-log scout.log --output health.json --summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload scout health
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: scout-health
+          path: health.json
+          retention-days: 7
 
       - name: Generate shared HTML view
         run: |
@@ -99,7 +113,7 @@ jobs:
         run: |
           git config user.name "job-scout-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/state.json data/queue.json data/fetch_times.json docs/index.html
+          git add data/state.json data/queue.json data/fetch_times.json docs/index.html health.json
           git diff --cached --quiet && exit 0
           git commit -m "Update job-scout state [skip ci]"
           for i in 1 2 3 4 5; do
@@ -107,8 +121,8 @@ jobs:
             git fetch origin main
             if ! git rebase origin/main; then
               # generated files: keep this run's version, the next run regenerates them
-              git checkout --theirs docs/index.html data/fetch_times.json 2>/dev/null || true
-              git add docs/index.html data/fetch_times.json
+              git checkout --theirs docs/index.html data/fetch_times.json health.json 2>/dev/null || true
+              git add docs/index.html data/fetch_times.json health.json
               GIT_EDITOR=true git rebase --continue || { git rebase --abort; echo "state conflict, aborting"; exit 1; }
             fi
             sleep $((RANDOM % 10 + 1))
