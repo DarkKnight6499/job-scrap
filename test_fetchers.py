@@ -188,3 +188,18 @@ def test_pending_alert_gives_up_after_max_attempts(tmp_path, monkeypatch):
                  state="new", closed_on=None, alert_pending=True, alert_attempts=js.ALERT_MAX_ATTEMPTS)
     sent, queue, _ = _scout(tmp_path, monkeypatch, [_job(9)], state={"X": ["9"]}, queue=[entry], notify_ok=False)
     assert not sent and not queue[0]["alert_pending"]
+
+
+def _liveness(last_seen, misses):
+    e = dict(id="X:1", company="X", closed_on=None, miss_count=misses, last_seen_live=last_seen, state="new")
+    counts = dict(closed=0, reopened=0)
+    js._update_liveness("X", [dict(id="other")], True, [e], counts)
+    return e
+
+
+def test_closure_waits_for_a_day_after_last_sighting():
+    from datetime import date, timedelta
+    today = date.today().isoformat()
+    assert _liveness(today, 5)["closed_on"] is None  # seen earlier today: enough misses, still too soon
+    assert _liveness((date.today() - timedelta(days=1)).isoformat(), 1)["closed_on"] == today
+    assert _liveness((date.today() - timedelta(days=1)).isoformat(), 0)["closed_on"] is None  # needs two misses

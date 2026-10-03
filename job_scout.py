@@ -2423,7 +2423,8 @@ def _update_liveness(name, jobs, complete, queue, counts):
     close_after = CLOSE_AFTER_MISSES * 3 if mass_vanish else CLOSE_AFTER_MISSES
     for e in missing:
         e["miss_count"] = e.get("miss_count", 0) + 1
-        if e["miss_count"] >= close_after:
+        # hourly runs make two misses only two hours: also require the last confirmed sighting to be before today
+        if e["miss_count"] >= close_after and (e.get("last_seen_live") or "") < today:
             e["closed_on"], e["closed_reason"] = today, "removed"
             counts["closed"] += 1
 
