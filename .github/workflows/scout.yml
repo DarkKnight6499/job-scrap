@@ -13,7 +13,30 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Run offline regression tests
+        run: python -m pytest -q test_validate_config.py test_liveness.py test_fetchers.py
+
+      - name: Validate company config
+        if: ${{ always() }}
+        run: python validate_config.py
+
   fetch:
+    needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -39,8 +62,9 @@ jobs:
           retention-days: 1
 
   scout:
-    needs: fetch
-    if: ${{ !cancelled() }}  # run even if a shard failed: missing shards are treated as fetch errors
+    needs: [validate, fetch]
+    # A failed shard can still be processed, but invalid config or failed tests must block scouting.
+    if: ${{ !cancelled() && needs.validate.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -57,6 +81,9 @@ jobs:
           pattern: shard-*
           path: shards
           merge-multiple: true
+
+      - name: Validate company config before scout
+        run: python validate_config.py
 
       - name: Run job_scout
         env:
