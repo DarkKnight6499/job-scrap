@@ -130,13 +130,21 @@ BLOCK_PATTERNS = [
     r"(?:u\.?s\.?\s+citizenship|permanent\s+residen(?:t|cy))\s+(?:is\s+)?required",
     r"requires?\s+permanent\s+(?:work\s+)?authorization\s+to\s+work",
     r"not\s+eligible\s+for[^.]{0,150}\b(?:opt|cpt)\b",
+    # "immigration support/assistance" wording that never says "sponsor" (USAA 2026-10-03: "do not apply ...
+    # if you will need immigration support (H-1B, TN, STEM OPT)")
+    r"(?:do\s+not|don'?t|should\s+not)\s+apply[^.]{0,150}(?:immigration|visa|sponsor|work\s+authorization)",
+    r"\bno\s+(?:\w+\s+)?(?:immigration|visa)\s+(?:support|assistance|sponsorship)",
+    r"(?:not|unable|cannot|can'?t)\s+(?:\w+\s+){0,4}(?:offer|provide|available|support|assist|extend)[^.]{0,60}(?:immigration|visa)\s+(?:support|assistance|services)",
+    r"not\s+eligible\s+for[^.]{0,80}(?:immigration|visa)\s+(?:support|assistance)",
+    r"requir\w*\s+(?:\w+\s+){0,3}(?:immigration|visa|employer)\s+(?:support|assistance|sponsorship)[^.]{0,150}(?:not\s+(?:be\s+)?(?:considered|eligible)|ineligible)",
+    r"(?:authorized|eligible)\s+to\s+work[^.]{0,80}without[^.]{0,60}(?:sponsor|employer\s+support|visa\s+support|immigration)",
 ]
 BLOCK_RES = [re.compile(p, re.I) for p in BLOCK_PATTERNS]
 
 # Abbreviations whose internal periods break the "[^.]{0,N}" same-sentence
 # windows above (a period-based window can't span "U.S." without this) -
 # normalized out of the text before matching, in classify_sponsorship() only.
-_ABBREV_RE = re.compile(r"\bU\.S\.(A\.)?\b|\bU\.K\.\b", re.I)
+_ABBREV_RE = re.compile(r"\bU\.S\.(?:A\.)?|\bU\.K\.", re.I)  # no trailing \b: it never matches before a space
 
 
 def _normalize_abbreviations(text):
