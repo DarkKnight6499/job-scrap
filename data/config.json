@@ -15183,6 +15183,72 @@
    "name": "Oppenheimer",
    "ats": "hrmdirect",
    "host": "opco.hrmdirect.com"
+  },
+  {
+   "name": "Macquarie",
+   "ats": "avature",
+   "host": "recruitment.macquarie.com",
+   "list_path": "en_US/careers/SearchJobs",
+   "variant": "details",
+   "page_size": 9
+  },
+  {
+   "name": "Danske Bank",
+   "ats": "oracle",
+   "host": "ejqi.fa.ocs.oraclecloud.eu",
+   "site": "CX_1001",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Commerzbank",
+   "ats": "commerzbank"
+  },
+  {
+   "name": "DZ Bank",
+   "ats": "dzbank"
+  },
+  {
+   "name": "Intesa Sanpaolo",
+   "ats": "successfactors",
+   "host": "jobs.intesasanpaolo.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [

@@ -675,7 +675,7 @@ def avature(c):
     article--result"> holding the JobDetail link (title), then one <span class="paragraph_inner-span">
     per field, the first being the location. Descriptions come from each JobDetail page's JSON-LD."""
     out, seen = [], set()
-    offset, page = 0, 10
+    offset, page = 0, int(c.get("page_size", 10))
     cap = int(c.get("max_jobs", 1000))
     dates = {}
     if c.get("feed"):
@@ -696,6 +696,22 @@ def avature(c):
                    headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         arts = raw.split('class="article article--result')[1:]
         for a in arts:
+            if c.get("variant") == "details":
+                # Macquarie-style cards: JobDetail?jobId=N link, then icon rows for ID, location, "dd Mon yyyy" posted date
+                m = re.search(r'<a class="link" href="([^"]+JobDetail\?jobId=(\d+))"[^>]*>\s*(.*?)\s*</a>', a, re.S)
+                if not m or m.group(2) in seen:
+                    continue
+                seen.add(m.group(2))
+                loc = re.search(r'alt="Office Location:"[^>]*>\s*<p>\s*(.*?)\s*</p>', a, re.S)
+                pd = re.search(r'alt="Posted Date:"[^>]*>\s*<p>\s*(.*?)\s*</p>', a, re.S)
+                posted = ""
+                try:
+                    posted = datetime.strptime(strip_html(pd.group(1)), "%d %b %Y").date().isoformat() if pd else ""
+                except ValueError:
+                    pass
+                out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=html.unescape(m.group(1)),
+                                location=strip_html(loc.group(1)) if loc else "", posted=posted))
+                continue
             m = re.search(r'<a class="link" href="([^"]+/JobDetail/[^"]+/(\d+))"[^>]*>\s*(.*?)\s*</a>', a, re.S)
             if not m or m.group(2) in seen:
                 continue
@@ -903,8 +919,51 @@ def hrmdirect(c):
     return out, True
 
 
+def commerzbank(c):
+    """Commerzbank's own job board (jobs.commerzbank.com) - public POST api-jobs.commerzbank.com/search/ with
+    an OData-style SearchParameters body; FirstItem is 1-based. Each item carries title, URI, locations and
+    an exact PublicationStartDate. Verified live 2026-10-03 (450 jobs). The description comes from describe()."""
+    out, seen, first, step = [], set(), 1, 100
+    while first < int(c.get("max_jobs", 2000)):
+        body = {"SearchParameters": {"FirstItem": first, "CountItem": step, "Sort": [{"Criterion": "PublicationStartDate", "Direction": "DESC"}],
+                                     "MatchedObjectDescriptor": ["ID", "PositionTitle", "PositionURI", "PositionLocation.CountryName", "PositionLocation.CityName", "PublicationStartDate"]},
+                "SearchCriteria": [], "LanguageCode": "EN"}
+        d = http("https://api-jobs.commerzbank.com/search/", data=body, timeout=40,
+                 headers={"Accept": "application/json", "Origin": "https://jobs.commerzbank.com", "Referer": "https://jobs.commerzbank.com/"})
+        items = (d.get("SearchResult") or {}).get("SearchResultItems") or []
+        for it in items:
+            m = it.get("MatchedObjectDescriptor") or {}
+            jid = str(m.get("ID") or it.get("MatchedObjectId") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            locs = ["{}, {}".format(x.get("CityName", ""), x.get("CountryName", "")).strip(", ") for x in m.get("PositionLocation") or []]
+            out.append(dict(id=jid, title=m.get("PositionTitle", "") or "", location="; ".join(locs), url=m.get("PositionURI") or f"https://jobs.commerzbank.com/index.php?ac=jobad&id={jid}",
+                            posted=str(m.get("PublicationStartDate") or "")[:10]))
+        if len(items) < step:
+            return out, True
+        first += step
+    return out, False
+
+
+def dzbank(c):
+    """DZ Bank's karriere.dzbank.de publishes the whole board, descriptions included, as one JSON array at
+    /bin/dzbank/sapjobs.json (SuccessFactors behind it). Verified live 2026-10-03 (56 jobs, dd.mm.yyyy dates)."""
+    rows = http("https://karriere.dzbank.de/bin/dzbank/sapjobs.json", timeout=40)
+    out = []
+    for r in rows:
+        posted = ""
+        try:
+            posted = datetime.strptime(r.get("publiziert") or "", "%d.%m.%Y").date().isoformat()
+        except ValueError:
+            pass
+        out.append(dict(id=str(r.get("jobReqId")), title=r.get("stellenbezeichnung", "") or "", location=r.get("standort", "") or "",
+                        url=r.get("joblink") or "", posted=posted, desc=strip_html(r.get("beschreibung") or "")))
+    return [j for j in out if j["id"] and j["url"]], True
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1052,6 +1111,9 @@ def describe(c, job):
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
         return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+    if ats == "commerzbank":
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer).*?</>", " ", raw))[:30000], "", ""
     if ats == "talentbrew":
         return _jsonld_description(job["url"]), "", ""
     if ats == "taleo":
