@@ -933,7 +933,7 @@ def hrmdirect(c):
         seen.add(req)
         url = f"{base}/job-opening.php?req={req}&&nohd"
         page = http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
-        page = re.sub(r"(?is)<(script|style).*?</>", " ", page)
+        page = re.sub(r"(?is)<(script|style).*?</\1>", " ", page)
         text = strip_html(page)
         m = re.search(r"Location:\s*(.+?)\s+Type of Hire:", text)
         out.append(dict(id=req, title=strip_html(title), location=m.group(1) if m else "", url=url, posted="", desc=text[:30000]))
@@ -1189,7 +1189,7 @@ def describe(c, job):
         return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
     if ats == "commerzbank":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
-        return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer).*?</>", " ", raw))[:30000], "", ""
+        return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer).*?</\1>", " ", raw))[:30000], "", ""
     if ats == "phenom":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         for m in re.finditer(r'"description":"((?:[^"\\]|\\.)*)"', raw):
@@ -1215,7 +1215,7 @@ def describe(c, job):
         i = raw.find('itemprop="description"')
         if i < 0:
             return "", "", ""
-        return strip_html(re.sub(r"(?is)<(script|style).*?</>", " ", raw[raw.find(">", i) + 1:]))[:30000], "", ""
+        return strip_html(re.sub(r"(?is)<(script|style).*?</\1>", " ", raw[raw.find(">", i) + 1:]))[:30000], "", ""
     if ats == "eightfold":
         d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
                  headers={"Accept": "application/json"})
@@ -1247,6 +1247,14 @@ _VANCOUVER_RE = re.compile(r"(?<![a-z0-9])vancouver(?![a-z0-9])(?!, wa\b)(?!, wa
 
 # FIS (and similar Workday tenants) write locations as "<ISO country code> <site code> ...", e.g.
 # "IND HYDB 18-23 OB3"; US sites start with "US", so only non-US country codes are listed here.
+# Saxo Bank's Copenhagen roles carry the bare Workday location "Headquarters"; as a locations_exclude term it also
+# dropped US sites like "US-NJ-Princeton-100-Headquarters" and "Office - USA - CA - Headquarters", so only the
+# whole-string form is excluded.
+_BARE_HQ_RE = re.compile(r"^\s*headquarters\s*$")
+
+# Canadian Ontario, but not Ontario, California / Oregon / New York / Ohio.
+_ONTARIO_RE = re.compile(r"\bontario\b(?!,?\s*(?:ca|california|or|oregon|ny|oh|ohio)\b)")
+
 _COUNTRY_CODE_SITE_RE = re.compile(
     r"^(ind|esp|pol|phl|cyp|hgk|can|gbr|irl|deu|fra|ita|nld|sgp|jpn|aus|bra|mex|chn|zaf|are|isr|che|swe|nor|dnk"
     r"|fin|prt|rou|bgr|cze|hun|ltu|lva|est|ukr|tur|arg|chl|col|per|pak|bgd|lka|mys|tha|vnm|idn|kor|twn|nzl|egy"
@@ -1290,6 +1298,10 @@ def matches(job, f):
     if inc and not any(contains_term(t, x) for x in inc):
         return False
     if any(contains_term(t, x) for x in exc):
+        return False
+    if _BARE_HQ_RE.match(loc_folded):
+        return False
+    if _ONTARIO_RE.search(loc_folded):
         return False
     if _MEXICO_RE.search(loc_folded):
         return False
