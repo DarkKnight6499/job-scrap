@@ -15371,6 +15371,31 @@
    "name": "Addepar",
    "ats": "greenhouse",
    "slug": "addepar1"
+  },
+  {
+   "name": "BOK Financial",
+   "ats": "successfactors",
+   "host": "jobs.bokf.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [

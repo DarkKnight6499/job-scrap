@@ -486,7 +486,7 @@ def successfactors(c):
     out, seen = [], set()
     complete = True
     for term in terms:
-        offset, term_complete = 0, False
+        offset, term_complete, term_seen = 0, False, set()
         while offset < cap:
             q = {"locale": c.get("locale", "en_US"), "startrow": offset}
             if term:
@@ -500,10 +500,14 @@ def successfactors(c):
                 parts = urllib.parse.urlsplit(link)
                 link = urllib.parse.urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))  # drop RSS tracking params
                 jid = parts.path.rstrip("/").rsplit("/", 1)[-1]
-                if not jid or jid in seen:
+                if not jid:
+                    continue
+                if jid not in term_seen:
+                    term_seen.add(jid)
+                    fresh += 1  # fresh is per search, so a page that only repeats earlier searches still pages on
+                if jid in seen:
                     continue
                 seen.add(jid)
-                fresh += 1
                 title = (it.findtext("title", "") or "").strip()
                 m = re.match(r"^(.*)\s\(([^()]*)\)$", title)
                 title, loc = (m.group(1), m.group(2)) if m else (title, "")
@@ -2379,7 +2383,7 @@ def _prune_stale(queue, counts):
     kept = []
     pruned = 0
     for e in queue:
-        posted = e.get("posted", "")
+        posted = e.get("posted") or ""  # null dates exist in the queue; len(None) would crash the prune
         # an old posting still on the employer's board today is live (employers bump/relist), so keep it
         still_live = e.get("last_seen_live") == date.today().isoformat() and not e.get("closed_on")
         is_stale = (e["state"] in ("new", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff

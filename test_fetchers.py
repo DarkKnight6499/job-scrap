@@ -75,3 +75,18 @@ def test_avature_details_variant():
     assert complete
     assert jobs == [dict(id="77", title="Treasury Analyst", url="https://r.example/en_US/careers/JobDetail?jobId=77",
                          location="Sydney Office", posted="2026-10-02")]
+
+
+def test_successfactors_pages_past_a_page_that_only_repeats_earlier_searches():
+    def item(i):
+        return f"<item><title>Job {i} (NY)</title><link>https://h/job/x/{i}/</link><pubDate>Fri, 02 Oct 2026 10:00:00 GMT</pubDate><description>d</description></item>"
+    def feed(ids):
+        return ("<rss><channel>" + "".join(item(i) for i in ids) + "</channel></rss>").encode()
+    pages = {("(a)", 0): feed(range(20)), ("(a)", 20): feed([]), ("(b)", 0): feed(range(20)), ("(b)", 20): feed(range(20, 25))}
+
+    def _http(url, data=None, headers=None, timeout=20, raw=False):
+        q = dict(x.split("=", 1) for x in url.split("?", 1)[1].split("&"))
+        return pages[(js.urllib.parse.unquote(q["keywords"]), int(q["startrow"]))]
+    with mock.patch.object(js, "http", _http):
+        jobs, complete = js.successfactors(dict(host="h", locale="en_US", search=["a", "b"], max_per_term=100))
+    assert complete and len(jobs) == 25

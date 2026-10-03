@@ -63,12 +63,12 @@ def main():
         for e in entries:
             job_id = e["id"].split(":", 1)[1]
             try:
-                _text, posted = describe(c, {"id": job_id})
+                _text, posted, posted_source = describe(c, {"id": job_id, "site": e.get("site")})
             except Exception as exc:
                 print(f"    {job_id}: fetch failed ({exc})", file=sys.stderr)
-                posted = ""
+                posted, posted_source = "", ""
             if posted:
-                e["posted"] = posted
+                e["posted"], e["posted_source"] = posted, posted_source
                 n_recovered += 1
             else:
                 e["posted"] = ""
