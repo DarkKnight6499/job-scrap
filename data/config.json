@@ -1077,8 +1077,7 @@
    "host": "pru.wd5.myworkdayjobs.com",
    "tenant": "pru",
    "site": [
-    "Careers",
-    "PGIM_Careers"
+    "Careers"
    ],
    "search": [
     "treasury",
@@ -2002,33 +2001,6 @@
    "max_per_term": 100
   },
   {
-   "name": "TD Securities",
-   "ats": "workday",
-   "term_workers": 4,
-   "host": "td.wd3.myworkdayjobs.com",
-   "tenant": "td",
-   "site": "TD_Bank_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "ING Financial Markets",
    "ats": "workday",
    "host": "ing.wd3.myworkdayjobs.com",
@@ -2207,17 +2179,6 @@
     "quantitative",
     "derivatives",
     "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Nuveen",
-   "ats": "workday",
-   "host": "tiaa.wd1.myworkdayjobs.com",
-   "tenant": "tiaa",
-   "site": "Search",
-   "search": [
-    "Nuveen"
    ],
    "max_per_term": 100
   },
@@ -2634,17 +2595,6 @@
    "max_per_term": 100
   },
   {
-   "name": "LCH",
-   "ats": "workday",
-   "host": "lseg.wd3.myworkdayjobs.com",
-   "tenant": "lseg",
-   "site": "Careers",
-   "search": [
-    "LCH"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "CME Group",
    "ats": "workday",
    "host": "cmegroup.wd1.myworkdayjobs.com",
@@ -2693,17 +2643,6 @@
     "quantitative",
     "derivatives",
     "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Charles River Development",
-   "ats": "workday",
-   "host": "statestreet.wd1.myworkdayjobs.com",
-   "tenant": "statestreet",
-   "site": "Global",
-   "search": [
-    "Charles River"
    ],
    "max_per_term": 100
   },
@@ -3179,33 +3118,6 @@
    "host": "nasdaq.wd1.myworkdayjobs.com",
    "tenant": "nasdaq",
    "site": "Global_External_Site",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "LSEG",
-   "ats": "workday",
-   "term_workers": 4,
-   "host": "lseg.wd3.myworkdayjobs.com",
-   "tenant": "lseg",
-   "site": "Careers",
    "search": [
     "treasury",
     "liquidity",
@@ -4435,32 +4347,6 @@
    "host": "cardinalhealth.wd1.myworkdayjobs.com",
    "tenant": "cardinalhealth",
    "site": "EXT",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Carlyle",
-   "ats": "workday",
-   "host": "carlyle.wd1.myworkdayjobs.com",
-   "tenant": "carlyle",
-   "site": "Carlyle",
    "search": [
     "treasury",
     "liquidity",
@@ -7070,32 +6956,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Booz Allen",
-   "ats": "workday",
-   "host": "bah.wd1.myworkdayjobs.com",
-   "tenant": "bah",
-   "site": "BAH_Jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Booz Allen Hamilton",
    "ats": "workday",
    "host": "bah.wd1.myworkdayjobs.com",
@@ -9046,32 +8906,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Cadence Bank",
-   "ats": "workday",
-   "host": "cadence.wd1.myworkdayjobs.com",
-   "tenant": "cadence",
-   "site": "External_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "PSP Investments",
    "ats": "workday",
    "host": "investpsp.wd3.myworkdayjobs.com",
@@ -10404,32 +10238,6 @@
    "host": "avant.wd503.myworkdayjobs.com",
    "tenant": "avant",
    "site": "External_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Westlake Financial",
-   "ats": "workday",
-   "host": "westlake.wd1.myworkdayjobs.com",
-   "tenant": "westlake",
-   "site": "westlake",
    "search": [
     "treasury",
     "liquidity",
@@ -14330,32 +14138,6 @@
    "host": "jbhunt.wd501.myworkdayjobs.com",
    "tenant": "jbhunt",
    "site": "Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Zillow",
-   "ats": "workday",
-   "host": "zillow.wd5.myworkdayjobs.com",
-   "tenant": "zillow",
-   "site": "Zillow_Group_External",
    "search": [
     "treasury",
     "liquidity",
