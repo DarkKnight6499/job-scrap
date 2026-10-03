@@ -15278,6 +15278,99 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "London Stock Exchange Group",
+   "ats": "workday",
+   "host": "lseg.wd3.myworkdayjobs.com",
+   "tenant": "lseg",
+   "site": "Careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "State Farm",
+   "ats": "jibe",
+   "host": "jobs.statefarm.com",
+   "job_path": "main/jobs"
+  },
+  {
+   "name": "Schroders",
+   "ats": "oracle",
+   "host": "ekbq.fa.em2.oraclecloud.com",
+   "site": "SCH",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Brighthouse Financial",
+   "ats": "successfactors",
+   "host": "jobs.brighthousefinancial.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Aon",
+   "ats": "jibe",
+   "host": "jobs.aon.com",
+   "job_path": "jobs"
+  },
+  {
+   "name": "Addepar",
+   "ats": "greenhouse",
+   "slug": "addepar1"
   }
  ],
  "keywords": [
