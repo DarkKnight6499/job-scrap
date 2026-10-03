@@ -18,7 +18,7 @@ REQUIRED_FIELDS = {
     "brassring": ("host", "partnerid", "siteid"),
     "jibe": ("host",), "taleo": ("host", "section", "portal"),
     "hrmdirect": ("host",), "goldman": (), "deshaw": (),
-    "commerzbank": (), "dzbank": (), "marketaxess": (),
+    "commerzbank": (), "dzbank": (), "marketaxess": (), "phenom": ("host", "ref_num", "page_id"),
 }
 ROOT = Path(__file__).resolve().parent
 

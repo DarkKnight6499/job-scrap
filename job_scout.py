@@ -48,6 +48,7 @@ import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
+from http.cookiejar import CookieJar
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -580,7 +581,7 @@ def _icims_description(job):
     """(description, posted) from a job page's JSON-LD. The list card often has no posted date (Schwab's
     doesn't), so describe() returns the JSON-LD datePosted, which refines it for each new match."""
     raw = http(job["url"] + "?in_iframe=1", raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
-    m = re.search(r'<script type="application/ld\+json">(.*?)</script>', raw, re.S)
+    m = re.search(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw, re.S)
     if not m:
         return "", ""
     try:
@@ -633,7 +634,7 @@ def eightfold(c):
 def _jsonld_description(url):
     """Description from a job page's schema.org JobPosting JSON-LD block (used by TalentBrew)."""
     raw = http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
-    for m in re.finditer(r'<script type="application/ld\+json">(.*?)</script>', raw, re.S):
+    for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw, re.S):
         try:
             data = json.loads(m.group(1))
         except ValueError:
@@ -992,8 +993,45 @@ def marketaxess(c):
     return out, True
 
 
+def phenom(c):
+    """Phenom People career sites. POST https://<host>/widgets with ddoKey "refineSearch" after one GET of the
+    search page for the session cookie. Needs host, ref_num (the site's refNum), page_id (the search page's
+    pageId) and optionally path (search page path, default /us/en/search-results) and lang/country. The list
+    carries title, location and an exact postedDate; descriptions come from each job page's JSON-LD.
+    Verified live 2026-10-03 against Franklin Templeton (198 jobs)."""
+    jar = CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+    hdr = {"User-Agent": UA["User-Agent"]}
+    host, country = c["host"], c.get("country", "us")
+    opener.open(urllib.request.Request(f"https://{host}{c.get('path', '/us/en/search-results')}", headers=hdr), timeout=40).read()
+    out, seen, offset, size = [], set(), 0, 50
+    while offset < int(c.get("max_jobs", 2000)):
+        body = {"sortBy": "", "subsearch": "", "from": offset, "jobs": True, "counts": True,
+                "all_fields": ["category", "country", "state", "city", "type"], "pageName": "search-results", "size": size,
+                "clearAll": False, "jdsource": "facets", "isSliderEnable": False, "pageId": c["page_id"], "siteType": "external",
+                "keywords": "", "global": True, "selected_fields": {}, "sort": {"order": "desc", "field": "postedDate"},
+                "lang": c.get("lang", "en_us"), "deviceType": "desktop", "country": country, "refNum": c["ref_num"], "ddoKey": "refineSearch"}
+        raw = opener.open(urllib.request.Request(f"https://{host}/widgets", data=json.dumps(body).encode(),
+                                                 headers=dict(hdr, **{"Content-Type": "application/json"})), timeout=40).read()
+        data = json.loads(raw).get("refineSearch") or {}
+        rows = (data.get("data") or {}).get("jobs") or []
+        for r in rows:
+            jid = str(r.get("jobSeqNo") or r.get("jobId") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            slug = re.sub(r"[^A-Za-z0-9]+", "-", r.get("title", "") or "").strip("-")
+            out.append(dict(id=jid, title=r.get("title", "") or "", location=r.get("location") or r.get("cityStateCountry") or "",
+                            url=f"https://{host}/{country}/{c.get('lang', 'en_us')[:2]}/job/{jid}/{slug}",
+                            posted=str(r.get("postedDate") or r.get("dateCreated") or "")[:10]))
+        if len(rows) < size:
+            return out, True
+        offset += size
+    return out, False
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1144,6 +1182,16 @@ def describe(c, job):
     if ats == "commerzbank":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer).*?</>", " ", raw))[:30000], "", ""
+    if ats == "phenom":
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        for m in re.finditer(r'"description":"((?:[^"\\]|\\.)*)"', raw):
+            try:
+                text = strip_html(json.loads('"' + m.group(1) + '"'))
+            except ValueError:
+                continue
+            if len(text) > 200:  # the page also carries short site-level descriptions
+                return text, "", ""
+        return _jsonld_description(job["url"]), "", ""
     if ats == "talentbrew":
         return _jsonld_description(job["url"]), "", ""
     if ats == "taleo":

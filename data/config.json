@@ -2984,29 +2984,10 @@
   },
   {
    "name": "Franklin Templeton",
-   "ats": "workday",
-   "host": "franklintempleton.wd5.myworkdayjobs.com",
-   "tenant": "franklintempleton",
-   "site": "Primary-External-1",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
+   "ats": "phenom",
+   "host": "careers.franklintempleton.com",
+   "ref_num": "FTGFTMUS",
+   "page_id": "page23"
   },
   {
    "name": "Millennium Management",
@@ -15184,6 +15165,13 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Marsh McLennan",
+   "ats": "phenom",
+   "host": "careers.marsh.com",
+   "ref_num": "MAMCGLOBAL",
+   "page_id": "page21"
   }
  ],
  "keywords": [

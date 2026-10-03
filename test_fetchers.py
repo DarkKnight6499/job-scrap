@@ -315,3 +315,26 @@ def test_failed_summary_is_kept_and_retried(tmp_path, monkeypatch):
     js._send_summaries({}, [], {}, False)
     assert sent == ["X: 15 roles appeared at once, queued silently (flood guard)"]
     assert json.loads((tmp_path / "pending_summaries.json").read_text()) == []
+
+
+def test_phenom_pages_and_dates():
+    def page(ids):
+        return json.dumps({"refineSearch": {"data": {"jobs": [dict(jobSeqNo=f"R{i}", title=f"Treasury Analyst {i}", location="New York, NY",
+                                                                     postedDate="2026-10-02T00:00:00.000+0000") for i in ids]}}}).encode()
+
+    class Resp:
+        def __init__(self, data):
+            self.data = data
+
+        def read(self):
+            return self.data
+
+    answers = iter([b"<html></html>", page(range(50)), page(range(50, 53))])
+
+    class Opener:
+        def open(self, req, timeout=None):
+            return Resp(next(answers))
+    with mock.patch.object(js.urllib.request, "build_opener", lambda *a: Opener()):
+        jobs, complete = js.phenom(dict(host="h.example", ref_num="R", page_id="page1"))
+    assert complete and len(jobs) == 53
+    assert jobs[0]["posted"] == "2026-10-02" and jobs[0]["url"] == "https://h.example/us/en/job/R0/Treasury-Analyst-0"
