@@ -99,7 +99,7 @@ def _old_entry(company, **kw):
 
 
 def test_prune_skips_unverified_companies_but_prunes_clean_ones():
-    queue = [_old_entry("Flaky"), _old_entry("Clean"), _old_entry("Gone")]
+    queue = [_old_entry("Flaky", closed_on="2026-10-02"), _old_entry("Clean", closed_on="2026-10-02"), _old_entry("Gone", closed_on="2026-10-02")]
     counts = {}
     js._prune_stale(queue, counts, unverified={"Flaky"})
     assert [e["company"] for e in queue] == ["Flaky"] and counts["pruned"] == 2
@@ -208,7 +208,7 @@ def test_closure_waits_for_a_day_after_last_sighting():
 def test_prune_writes_tombstones_and_recall_skips_them(tmp_path, monkeypatch):
     import argparse
     monkeypatch.setattr(js, "HOME", tmp_path)
-    queue = [_old_entry("X")]
+    queue = [_old_entry("X", closed_on="2026-10-02")]
     counts = {}
     js._prune_stale(queue, counts, unverified=set())
     js._write_tombstones(counts["pruned_ids"], "pruned")
@@ -295,3 +295,23 @@ def test_failed_description_at_intake_is_flagged(tmp_path, monkeypatch):
     monkeypatch.setattr(js, "describe", bad)
     _, queue, _ = _scout(tmp_path, monkeypatch, [_job(1)])
     assert queue[0]["description_status"] == "failed"
+
+
+def test_prune_requires_confirmed_closure_but_drops_companies_removed_from_config():
+    open_old = _old_entry("Live")  # old posting, not closed: a single complete miss must not prune it
+    removed = _old_entry("NoLongerTracked")
+    queue = [open_old, removed]
+    js._prune_stale(queue, {}, unverified=set(), configured={"Live"})
+    assert [e["company"] for e in queue] == ["Live"]
+
+
+def test_failed_summary_is_kept_and_retried(tmp_path, monkeypatch):
+    monkeypatch.setattr(js, "HOME", tmp_path)
+    monkeypatch.setattr(js, "notify", lambda cfg, entry, dry: False)
+    js._send_summaries({}, [("X", 15)], {}, False)
+    assert json.loads((tmp_path / "pending_summaries.json").read_text()) == [dict(line="X: 15 roles appeared at once, queued silently (flood guard)", attempts=1)]
+    sent = []
+    monkeypatch.setattr(js, "notify", lambda cfg, entry, dry: sent.append(entry["role"]) or True)
+    js._send_summaries({}, [], {}, False)
+    assert sent == ["X: 15 roles appeared at once, queued silently (flood guard)"]
+    assert json.loads((tmp_path / "pending_summaries.json").read_text()) == []

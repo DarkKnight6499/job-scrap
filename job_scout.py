@@ -2294,7 +2294,7 @@ def run(args):
         _retry_enrichment(queue, cfg, keywords)
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
-        _prune_stale(queue, counts, unverified)
+        _prune_stale(queue, counts, unverified, configured={c["name"] for c in cfg["companies"]})
         _write_tombstones(counts.get("pruned_ids", []), "pruned")
         HOME.mkdir(parents=True, exist_ok=True)
         # queue first: a crash between the writes must never leave a job marked seen without its queue row
@@ -2399,18 +2399,25 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         # first run seeds the queue silently; a repost only alerts if it flips from blocked to open -
         # otherwise it's the same decision Yazad already made, just resurfacing under a new id
         if not first_run and not silent and (not prior or prior.get("state") == "auto_blocked"):
-            if counts["alerted"] >= ALERT_CAP_PER_RUN:
+            if _alert_cap_reached(counts):
                 counts["alert_capped"] = counts.get("alert_capped", 0) + 1
-            elif notify(cfg.get("notify", {}), entry, args.dry_run):
-                counts["alerted"] += 1
-            elif not args.dry_run:
-                entry["alert_pending"], entry["alert_attempts"] = True, 1  # retried next run by _retry_pending_alerts()
-                counts.setdefault("failed_now", set()).add(eid)  # not retried again within this same run
+            else:
+                counts["alert_tries"] = counts.get("alert_tries", 0) + 1
+                if notify(cfg.get("notify", {}), entry, args.dry_run):
+                    counts["alerted"] += 1
+                elif not args.dry_run:
+                    entry["alert_pending"], entry["alert_attempts"] = True, 1  # retried next run by _retry_pending_alerts()
+                    counts.setdefault("failed_now", set()).add(eid)  # not retried again within this same run
     if not args.dry_run and (jobs or not first_run):
         # a first fetch that returned nothing must not seed state: once the config is fixed, every match would alert
         state[name] = sorted(seen | {j["id"] for j in jobs})  # union: a capped search must not re-alert on drift
     elif first_run:
         print(f"[dry-run] {name}: first run, would queue {len(fresh)} current matches silently")
+
+
+def _alert_cap_reached(counts):
+    """The cap budgets delivery attempts (successful or not); a delivered alert always counts as an attempt too."""
+    return max(counts.get("alerted", 0), counts.get("alert_tries", 0)) >= ALERT_CAP_PER_RUN
 
 
 def _retry_pending_alerts(queue, notify_cfg, counts, dry):
@@ -2422,8 +2429,9 @@ def _retry_pending_alerts(queue, notify_cfg, counts, dry):
         if e.get("closed_on") or e.get("state") != "new" or e.get("alert_attempts", 1) >= ALERT_MAX_ATTEMPTS:
             e["alert_pending"] = False
             continue
-        if counts["alerted"] >= ALERT_CAP_PER_RUN:
-            break
+        if _alert_cap_reached(counts):
+            continue  # keep walking: later rows may still need their stale flag cleared
+        counts["alert_tries"] = counts.get("alert_tries", 0) + 1
         if notify(notify_cfg, e, dry):
             e["alert_pending"] = False
             counts["alerted"] += 1
@@ -2473,9 +2481,18 @@ def _send_summaries(notify_cfg, floods, counts, dry):
     lines = [f"{name}: {n} roles appeared at once, queued silently (flood guard)" for name, n in floods]
     if counts.get("alert_capped"):
         lines.append(f"{counts['alert_capped']} more new roles queued without individual alerts (cap {ALERT_CAP_PER_RUN})")
-    for line in lines:
-        notify(notify_cfg, dict(company="Summary", role=line, location="", sponsorship_status="n/a", kw_hits=[],
-                                link=notify_cfg.get("tracker_url") or "https://ntfy.sh"), dry)
+    path = HOME / "pending_summaries.json"
+    pending = [] if dry else load_json(path, [])
+    todo = pending + [dict(line=line, attempts=0) for line in lines]
+    still = []
+    for item in todo:
+        ok = notify(notify_cfg, dict(company="Summary", role=item["line"], location="", sponsorship_status="n/a", kw_hits=[],
+                                     link=notify_cfg.get("tracker_url") or "https://ntfy.sh"), dry)
+        if not ok and not dry and item["attempts"] + 1 < ALERT_MAX_ATTEMPTS:
+            still.append(dict(line=item["line"], attempts=item["attempts"] + 1))
+    if not dry and (still or pending):
+        HOME.mkdir(parents=True, exist_ok=True)
+        atomic_json.write(str(path), still)
 
 
 def _update_liveness(name, jobs, complete, queue, counts):
@@ -2547,7 +2564,7 @@ def _write_tombstones(ids, reason):
             f.write(json.dumps(dict(id=i, reason=reason, on=today)) + "\n")
 
 
-def _prune_stale(queue, counts, unverified=frozenset()):
+def _prune_stale(queue, counts, unverified=frozenset(), configured=None):
     """Drops "new"/"auto_blocked" entries whose employer-posted date is older than
     PRUNE_AFTER_DAYS, so queue.json (and the HTML page rendering it) doesn't grow forever. Never
     touches shortlisted/applied/dismissed - those came from an explicit `--mark`, a human decision
@@ -2562,7 +2579,8 @@ def _prune_stale(queue, counts, unverified=frozenset()):
         # an old posting still on the employer's board today is live (employers bump/relist), so keep it
         still_live = e.get("last_seen_live") == date.today().isoformat() and not e.get("closed_on")
         is_stale = (e["state"] in ("new", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff
-                    and not still_live and e["company"] not in unverified)
+                    and not still_live and e["company"] not in unverified
+                    and (e.get("closed_on") or (configured is not None and e["company"] not in configured)))
         if is_stale:
             pruned += 1
             counts.setdefault("pruned_ids", []).append(e["id"])

@@ -1,10 +1,4 @@
-"""Explicitly run review reproductions; these intentionally fail at 7db761b.
-
-Run: python -m pytest -q review_tests/scout_regressions.py
-The filename excludes these known failures from normal pytest discovery and CI.
-Every assertion states desired behavior and passes when that behavior is fixed.
-No expected-failure markers or unconditional failure placeholders are used.
-"""
+"""Regression tests promoted from the read-only review (shared_endpoint_review in scout_review.md): prune needs confirmed closure, the alert cap budgets attempts, cap exhaustion still cleans stale pending flags."""
 import argparse
 from datetime import date
 import json
