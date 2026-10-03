@@ -203,3 +203,47 @@ def test_closure_waits_for_a_day_after_last_sighting():
     assert _liveness(today, 5)["closed_on"] is None  # seen earlier today: enough misses, still too soon
     assert _liveness((date.today() - timedelta(days=1)).isoformat(), 1)["closed_on"] == today
     assert _liveness((date.today() - timedelta(days=1)).isoformat(), 0)["closed_on"] is None  # needs two misses
+
+
+def test_prune_writes_tombstones_and_recall_skips_them(tmp_path, monkeypatch):
+    import argparse
+    monkeypatch.setattr(js, "HOME", tmp_path)
+    queue = [_old_entry("X")]
+    counts = {}
+    js._prune_stale(queue, counts, unverified=set())
+    js._write_tombstones(counts["pruned_ids"], "pruned")
+    assert js._load_tombstones() == {"X:1"}
+
+
+def _recall(tmp_path, monkeypatch, jobs, seen, queue=None, tomb=(), dry=False, cap=None):
+    import argparse
+    (tmp_path / "config.json").write_text(json.dumps(dict(notify={}, filters=dict(title_include=["treasury"]), keywords=[],
+                                                         companies=[dict(name="X", ats="fake")])))
+    (tmp_path / "state.json").write_text(json.dumps({"X": seen}))
+    if queue is not None:
+        (tmp_path / "queue.json").write_text(json.dumps(queue))
+    if tomb:
+        js.HOME = tmp_path
+        js._write_tombstones(list(tomb), "purged")
+    monkeypatch.setattr(js, "HOME", tmp_path)
+    monkeypatch.setitem(js.FETCH, "fake", lambda c: (jobs, True))
+    monkeypatch.setattr(js, "_reverify_recent_posted", lambda q, c: None)
+    if cap is not None:
+        monkeypatch.setattr(js, "RECALL_MAX", cap)
+    sent = []
+    monkeypatch.setattr(js, "notify", lambda cfg, entry, dry: sent.append(entry) or True)
+    js.run(argparse.Namespace(from_fetched=None, dry_run=dry, check=False, recall=True))
+    q = json.loads((tmp_path / "queue.json").read_text()) if (tmp_path / "queue.json").exists() else []
+    return sent, q
+
+
+def test_recall_queues_seen_unqueued_matches_silently_and_tags_origin(tmp_path, monkeypatch):
+    sent, q = _recall(tmp_path, monkeypatch, [_job(1), _job(2)], seen=["1", "2"], tomb=["X:2"])
+    assert [e["id"] for e in q] == ["X:1"] and q[0]["origin"] == "recall" and not sent
+
+
+def test_recall_respects_cap_and_dry_run_writes_nothing(tmp_path, monkeypatch):
+    _, q = _recall(tmp_path, monkeypatch, [_job(i) for i in range(5)], seen=[str(i) for i in range(5)], cap=3)
+    assert len(q) == 3
+    _, q2 = _recall(tmp_path / "d" if (tmp_path / "d").mkdir() is None else tmp_path, monkeypatch, [_job(1)], seen=["1"], dry=True)
+    assert q2 == []

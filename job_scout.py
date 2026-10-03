@@ -82,6 +82,7 @@ FLOOD_FRACTION = 0.5       # matches) as new is almost surely an id-scheme or se
                            # them silently and send one summary instead of one alert per job
 ALERT_MAX_ATTEMPTS = 3     # failed alerts are retried on later runs until this many total attempts
 ALERT_CAP_PER_RUN = 30     # per-run ceiling on individual alerts; the rest queue silently and roll into one summary
+RECALL_MAX = 150           # --recall queues at most this many never-queued matching roles per run
 PRUNE_AFTER_DAYS = 60      # queue.json only ever accumulates (matches() re-runs at intake, never
                            # retroactively against what's already queued), so without a cutoff it
                            # grows forever and the generated docs/index.html gets slow to render.
@@ -2181,6 +2182,7 @@ def run(args):
     # their own pool caused a brief concurrency spike that tripped Workday's rate limiting (429s).
     describe_pool = ThreadPoolExecutor(max_workers=8)
     floods = []  # (company, n) for companies held back by the flood guard
+    tombstones = _load_tombstones() if getattr(args, "recall", False) else set()
     unverified = {c["name"] for c in cfg["companies"]}  # companies not cleanly and completely fetched this run: never prune their entries
     try:
         for c in cfg["companies"]:
@@ -2226,6 +2228,8 @@ def run(args):
                 floods.append((name, len(fresh)))
             _process_company(c, name, fresh, descriptions, first_run, jobs, complete, seen, state, queue, queued_ids,
                               keywords, cfg, args, counts, silent=flood)
+            if getattr(args, "recall", False) and not first_run:
+                _recall_company(c, name, hits, seen, queued_ids, tombstones, describe_pool, queue, keywords, cfg, args, counts)
             if not args.dry_run:
                 _update_liveness(name, jobs, complete, queue, counts)
     finally:
@@ -2240,6 +2244,7 @@ def run(args):
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
         _prune_stale(queue, counts, unverified)
+        _write_tombstones(counts.get("pruned_ids", []), "pruned")
         HOME.mkdir(parents=True, exist_ok=True)
         # queue first: a crash between the writes must never leave a job marked seen without its queue row
         atomic_json.write(str(HOME / "queue.json"), queue)
@@ -2374,6 +2379,43 @@ def _retry_pending_alerts(queue, notify_cfg, counts, dry):
             e["alert_attempts"] = e.get("alert_attempts", 1) + 1
 
 
+def _recall_company(c, name, hits, seen, queued_ids, tombstones, pool, queue, keywords, cfg, args, counts):
+    """--recall only: queue roles that match the filters now, were fetched before (so are in `seen`) yet never
+    reached the queue, e.g. because the filters were narrower then. Silent, tagged origin=recall, capped, and it
+    skips tombstoned ids and anything old enough to be pruned straight away."""
+    cutoff = (date.today() - timedelta(days=PRUNE_AFTER_DAYS)).isoformat()
+    todo = []
+    for j in hits:
+        eid = f"{name}:{j['id']}"
+        if j["id"] not in seen or eid in queued_ids or eid in tombstones:
+            continue
+        if (j.get("posted") or "")[:10] and j["posted"][:10] < cutoff:
+            continue
+        todo.append(j)
+    room = RECALL_MAX - counts.get("recalled", 0)
+    todo = todo[:max(room, 0)]
+    if not todo:
+        return
+    counts["recalled"] = counts.get("recalled", 0) + len(todo)
+    print(f"[recall{' dry-run' if args.dry_run else ''}] {name}: {len(todo)} matching roles never queued")
+    if args.dry_run:
+        return
+    descs = {}
+    for j, fut in [(j, pool.submit(describe, c, j)) for j in todo]:
+        try:
+            text, posted, posted_source = fut.result()
+            descs[j["id"]] = text
+            if posted:
+                j["posted"], j["posted_source"] = posted, posted_source
+        except Exception as e:  # noqa: BLE001
+            print(f"! {name} description for {j['title']}: {e}", file=sys.stderr)
+            descs[j["id"]] = ""
+    before = len(queue)
+    _process_company(c, name, todo, descs, True, [], True, seen, {}, queue, queued_ids, keywords, cfg, args, counts, silent=True)
+    for e in queue[before:]:
+        e["origin"] = "recall"
+
+
 def _send_summaries(notify_cfg, floods, counts, dry):
     """One alert per flooded company, plus one for roles past the per-run alert cap."""
     lines = [f"{name}: {n} roles appeared at once, queued silently (flood guard)" for name, n in floods]
@@ -2429,6 +2471,30 @@ def _update_liveness(name, jobs, complete, queue, counts):
             counts["closed"] += 1
 
 
+def _load_tombstones():
+    path = HOME / "removed.jsonl"
+    if not path.exists():
+        return set()
+    out = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        try:
+            out.add(json.loads(line)["id"])
+        except (ValueError, KeyError):
+            continue
+    return out
+
+
+def _write_tombstones(ids, reason):
+    """Append-only record of queue entries removed on purpose, so --recall never resurrects them."""
+    if not ids:
+        return
+    HOME.mkdir(parents=True, exist_ok=True)
+    today = date.today().isoformat()
+    with open(HOME / "removed.jsonl", "a", encoding="utf-8", newline="\n") as f:
+        for i in sorted(ids):
+            f.write(json.dumps(dict(id=i, reason=reason, on=today)) + "\n")
+
+
 def _prune_stale(queue, counts, unverified=frozenset()):
     """Drops "new"/"auto_blocked" entries whose employer-posted date is older than
     PRUNE_AFTER_DAYS, so queue.json (and the HTML page rendering it) doesn't grow forever. Never
@@ -2447,6 +2513,7 @@ def _prune_stale(queue, counts, unverified=frozenset()):
                     and not still_live and e["company"] not in unverified)
         if is_stale:
             pruned += 1
+            counts.setdefault("pruned_ids", []).append(e["id"])
         else:
             kept.append(e)
     counts["pruned"] = pruned
@@ -2458,6 +2525,7 @@ def main():
     ap.add_argument("--init", action="store_true")
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--recall", action="store_true", help="also queue matching roles that were fetched before but never queued (silent, capped, manual)")
     ap.add_argument("--queue", action="store_true")
     ap.add_argument("--all", action="store_true", help="with --queue: include every state")
     ap.add_argument("--json", action="store_true", help="with --queue: JSON output")
