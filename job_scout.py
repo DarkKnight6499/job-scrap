@@ -1202,6 +1202,12 @@ def describe(c, job):
         arr = raw[i:raw.find("]);", i)]
         parts = [urllib.parse.unquote(m) for m in re.findall(r"'([^']*)'", arr)[3:] if len(m) > 40]  # description fields are the long URL-encoded strings
         return strip_html(" ".join(p.replace("!*!", " ") for p in parts))[:30000], "", ""
+    if ats == "successfactors":  # list call carries desc, but a queue entry has only its link; read the page's description block
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        i = raw.find('itemprop="description"')
+        if i < 0:
+            return "", "", ""
+        return strip_html(re.sub(r"(?is)<(script|style).*?</>", " ", raw[raw.find(">", i) + 1:]))[:30000], "", ""
     if ats == "eightfold":
         d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
                  headers={"Accept": "application/json"})
