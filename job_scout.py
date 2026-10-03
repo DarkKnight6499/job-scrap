@@ -80,6 +80,7 @@ GHOST_MIN_SPAN_DAYS = 120  # ...spanning at least this many days looks like an e
 FLOOD_MIN = 10             # a company that has run before and suddenly shows more than max(FLOOD_MIN, FLOOD_FRACTION of its
 FLOOD_FRACTION = 0.5       # matches) as new is almost surely an id-scheme or search-term change, not real postings: queue
                            # them silently and send one summary instead of one alert per job
+ALERT_MAX_ATTEMPTS = 3     # failed alerts are retried on later runs until this many total attempts
 ALERT_CAP_PER_RUN = 30     # per-run ceiling on individual alerts; the rest queue silently and roll into one summary
 PRUNE_AFTER_DAYS = 60      # queue.json only ever accumulates (matches() re-runs at intake, never
                            # retroactively against what's already queued), so without a cutoff it
@@ -1456,17 +1457,18 @@ def _reverify_recent_posted(queue, cfg):
 # --------------------------------------------------------------------- notify
 
 def notify(cfg, entry, dry):
+    """Returns True when the alert was delivered (or printed), False when it failed or was skipped."""
     line = (f"{entry['company']}: {entry['role']} ({entry['location'] or 'n/a'}) | "
             f"sponsorship {entry['sponsorship_status']}"
             + (f" | {', '.join(entry['kw_hits'][:5])}" if entry["kw_hits"] else ""))
     kind = cfg.get("type", "stdout")
     if dry or kind == "stdout":
         print(("[dry-run] " if dry else "[alert] ") + line + "\n    " + entry["link"])
-        return
+        return True
     topic = cfg.get("topic") or os.environ.get("NTFY_TOPIC")
     if kind == "ntfy" and not topic:
         print(f"! notify skipped: no ntfy topic (set NTFY_TOPIC env var or cfg.notify.topic): {line}", file=sys.stderr)
-        return
+        return False
     try:
         if kind == "ntfy":
             server = cfg.get("server", "https://ntfy.sh").rstrip("/")
@@ -1480,6 +1482,8 @@ def notify(cfg, entry, dry):
                  data={"chat_id": cfg["chat_id"], "text": f"{line}\n{entry['link']}"})
     except Exception as e:  # an alert failure must not lose the queue entry
         print(f"! notify failed: {e}", file=sys.stderr)
+        return False
+    return True
 
 
 # ------------------------------------------------------------------- commands
@@ -2229,6 +2233,7 @@ def run(args):
 
     if args.check:
         return
+    _retry_pending_alerts(queue, cfg.get("notify", {}), counts, args.dry_run)
     _send_summaries(cfg.get("notify", {}), floods, counts, args.dry_run)
     if not args.dry_run:
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
@@ -2339,14 +2344,34 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         if not first_run and not silent and (not prior or prior.get("state") == "auto_blocked"):
             if counts["alerted"] >= ALERT_CAP_PER_RUN:
                 counts["alert_capped"] = counts.get("alert_capped", 0) + 1
-            else:
-                notify(cfg.get("notify", {}), entry, args.dry_run)
+            elif notify(cfg.get("notify", {}), entry, args.dry_run):
                 counts["alerted"] += 1
+            elif not args.dry_run:
+                entry["alert_pending"], entry["alert_attempts"] = True, 1  # retried next run by _retry_pending_alerts()
+                counts.setdefault("failed_now", set()).add(eid)  # not retried again within this same run
     if not args.dry_run and (jobs or not first_run):
         # a first fetch that returned nothing must not seed state: once the config is fixed, every match would alert
         state[name] = sorted(seen | {j["id"] for j in jobs})  # union: a capped search must not re-alert on drift
     elif first_run:
         print(f"[dry-run] {name}: first run, would queue {len(fresh)} current matches silently")
+
+
+def _retry_pending_alerts(queue, notify_cfg, counts, dry):
+    """Re-sends alerts that failed earlier, under the per-run cap; gives up after ALERT_MAX_ATTEMPTS so a
+    dead ntfy topic cannot retry forever. Closed or acted-on entries are dropped from the retry list."""
+    for e in queue:
+        if not e.get("alert_pending") or e["id"] in counts.get("failed_now", ()):
+            continue
+        if e.get("closed_on") or e.get("state") != "new" or e.get("alert_attempts", 1) >= ALERT_MAX_ATTEMPTS:
+            e["alert_pending"] = False
+            continue
+        if counts["alerted"] >= ALERT_CAP_PER_RUN:
+            break
+        if notify(notify_cfg, e, dry):
+            e["alert_pending"] = False
+            counts["alerted"] += 1
+        elif not dry:
+            e["alert_attempts"] = e.get("alert_attempts", 1) + 1
 
 
 def _send_summaries(notify_cfg, floods, counts, dry):

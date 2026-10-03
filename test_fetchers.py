@@ -122,7 +122,7 @@ def test_run_writes_queue_before_state(tmp_path, monkeypatch):
     assert order == ["queue.json", "state.json"]
 
 
-def _scout(tmp_path, monkeypatch, jobs, state=None, cap=None):
+def _scout(tmp_path, monkeypatch, jobs, state=None, cap=None, queue=None, notify_ok=True):
     import argparse
     (tmp_path / "config.json").write_text(json.dumps(dict(notify={}, filters=dict(title_include=["treasury"]), keywords=[],
                                                          companies=[dict(name="X", ats="fake")])))
@@ -131,10 +131,12 @@ def _scout(tmp_path, monkeypatch, jobs, state=None, cap=None):
     monkeypatch.setattr(js, "HOME", tmp_path)
     monkeypatch.setitem(js.FETCH, "fake", lambda c: (jobs, True))
     monkeypatch.setattr(js, "_reverify_recent_posted", lambda q, c: None)
+    if queue is not None:
+        (tmp_path / "queue.json").write_text(json.dumps(queue))
     if cap is not None:
         monkeypatch.setattr(js, "ALERT_CAP_PER_RUN", cap)
     sent = []
-    monkeypatch.setattr(js, "notify", lambda cfg, entry, dry: sent.append(entry))
+    monkeypatch.setattr(js, "notify", lambda cfg, entry, dry: sent.append(entry) or notify_ok)
     js.run(argparse.Namespace(from_fetched=None, dry_run=False, check=False))
     queue = json.loads((tmp_path / "queue.json").read_text())
     state_out = json.loads((tmp_path / "state.json").read_text())
@@ -166,3 +168,23 @@ def test_empty_first_fetch_does_not_seed_state(tmp_path, monkeypatch):
 def test_repeated_id_in_one_fetch_queues_once(tmp_path, monkeypatch):
     _, queue, _ = _scout(tmp_path, monkeypatch, [_job(1), _job(1)])
     assert len(queue) == 1
+
+
+def test_failed_alert_is_marked_pending_then_retried_then_dropped(tmp_path, monkeypatch):
+    state = {"X": [str(i) for i in range(20)]}
+    old = [_job(i) for i in range(20)]
+    # run 1: delivery fails -> entry queued with alert_pending
+    sent, queue, _ = _scout(tmp_path, monkeypatch, old + [_job(100)], state=state, notify_ok=False)
+    new = [e for e in queue if e["id"] == "X:100"][0]
+    assert new["alert_pending"] and new["alert_attempts"] == 1
+    # run 2: delivery works -> pending cleared, counted once
+    sent, queue, _ = _scout(tmp_path, monkeypatch, old + [_job(100)], state=state, queue=queue, notify_ok=True)
+    assert [e["id"] for e in sent] == ["X:100"]
+    assert not [e for e in queue if e["id"] == "X:100"][0]["alert_pending"]
+
+
+def test_pending_alert_gives_up_after_max_attempts(tmp_path, monkeypatch):
+    entry = dict(id="X:9", company="X", role="Treasury Analyst", location="", link="u", sponsorship_status="Unclear", kw_hits=[],
+                 state="new", closed_on=None, alert_pending=True, alert_attempts=js.ALERT_MAX_ATTEMPTS)
+    sent, queue, _ = _scout(tmp_path, monkeypatch, [_job(9)], state={"X": ["9"]}, queue=[entry], notify_ok=False)
+    assert not sent and not queue[0]["alert_pending"]
