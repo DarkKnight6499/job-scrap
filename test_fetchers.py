@@ -247,3 +247,51 @@ def test_recall_respects_cap_and_dry_run_writes_nothing(tmp_path, monkeypatch):
     assert len(q) == 3
     _, q2 = _recall(tmp_path / "d" if (tmp_path / "d").mkdir() is None else tmp_path, monkeypatch, [_job(1)], seen=["1"], dry=True)
     assert q2 == []
+
+
+def _enrich_entry(**kw):
+    e = dict(id="X:7", company="X", role="Treasury Analyst", location="NY", link="https://x/7", state="new", closed_on=None,
+             posted="2026-10-01", sponsorship_status="Unclear", sponsorship_evidence="", experience=None, experience_evidence="",
+             salary=None, salary_evidence="", kw_hits=[], description_status="failed")
+    e.update(kw)
+    return e
+
+
+def test_retry_recovers_failed_description_and_reclassifies(monkeypatch):
+    monkeypatch.setattr(js, "describe", lambda c, j: ("We do not sponsor visas. 3+ years of experience.", "", ""))
+    e = _enrich_entry()
+    js._retry_enrichment([e], dict(companies=[dict(name="X", ats="fake")]), [])
+    assert e["description_status"] == "ok" and e["sponsorship_status"] == "Blocked" and e["state"] == "auto_blocked"
+
+
+def test_retry_backs_off_one_day_and_stops_after_max_attempts(monkeypatch):
+    calls = []
+
+    def boom(c, j):
+        calls.append(1)
+        raise RuntimeError("down")
+    monkeypatch.setattr(js, "describe", boom)
+    cfg = dict(companies=[dict(name="X", ats="fake")])
+    e = _enrich_entry()
+    js._retry_enrichment([e], cfg, [])
+    js._retry_enrichment([e], cfg, [])  # same day: enrich_next is tomorrow, so no second call
+    assert len(calls) == 1 and e["enrich_attempts"] == 1
+    e2 = _enrich_entry(enrich_attempts=js.ENRICH_MAX_ATTEMPTS)
+    js._retry_enrichment([e2], cfg, [])
+    assert len(calls) == 1
+
+
+def test_retry_fills_undated_workday_entry(monkeypatch):
+    monkeypatch.setattr(js.time, "sleep", lambda s: None)
+    monkeypatch.setattr(js, "describe", lambda c, j: ("text", "2026-09-30", "exact"))
+    e = _enrich_entry(posted="", description_status="ok")
+    js._retry_enrichment([e], dict(companies=[dict(name="X", ats="workday")]), [])
+    assert e["posted"] == "2026-09-30" and e["posted_source"] == "exact"
+
+
+def test_failed_description_at_intake_is_flagged(tmp_path, monkeypatch):
+    def bad(c, j):
+        raise RuntimeError("down")
+    monkeypatch.setattr(js, "describe", bad)
+    _, queue, _ = _scout(tmp_path, monkeypatch, [_job(1)])
+    assert queue[0]["description_status"] == "failed"

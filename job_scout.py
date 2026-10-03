@@ -82,6 +82,8 @@ FLOOD_FRACTION = 0.5       # matches) as new is almost surely an id-scheme or se
                            # them silently and send one summary instead of one alert per job
 ALERT_MAX_ATTEMPTS = 3     # failed alerts are retried on later runs until this many total attempts
 ALERT_CAP_PER_RUN = 30     # per-run ceiling on individual alerts; the rest queue silently and roll into one summary
+ENRICH_RETRY_BUDGET = 40    # per run: failed description fetches and undated Workday entries retried at most this many times
+ENRICH_MAX_ATTEMPTS = 5    # then the entry is left as it is (one try per day)
 RECALL_MAX = 150           # --recall queues at most this many never-queued matching roles per run
 PRUNE_AFTER_DAYS = 60      # queue.json only ever accumulates (matches() re-runs at intake, never
                            # retroactively against what's already queued), so without a cutoff it
@@ -1455,6 +1457,53 @@ def _reverify_recent_posted(queue, cfg):
     return changed
 
 
+def _retry_enrichment(queue, cfg, keywords, dry=False):
+    """Retries what failed at intake, a few per run and at most once a day per entry: (1) description fetches
+    that errored, which left sponsorship/experience/salary unchecked, and (2) undated Workday entries,
+    which fall outside the one-shot 1-to-3-day date recheck above. Success reclassifies the entry."""
+    by_company = {c["name"]: c for c in cfg["companies"]}
+    today = date.today().isoformat()
+    budget, fixed = ENRICH_RETRY_BUDGET, 0
+    for e in queue:
+        if budget <= 0:
+            break
+        if e.get("closed_on") or e.get("enrich_next", "") > today or e.get("enrich_attempts", 0) >= ENRICH_MAX_ATTEMPTS:
+            continue
+        c = by_company.get(e["company"])
+        if not c:
+            continue
+        desc_failed = e.get("description_status") == "failed"
+        undated_workday = c.get("ats") == "workday" and not e.get("posted")
+        if not (desc_failed or undated_workday):
+            continue
+        budget -= 1
+        e["enrich_attempts"] = e.get("enrich_attempts", 0) + 1
+        e["enrich_next"] = (date.today() + timedelta(days=1)).isoformat()
+        job = dict(id=e["id"].split(":", 1)[1], url=e["link"], site=e.get("site"), title=e["role"], location=e["location"])
+        try:
+            text, posted, posted_source = describe(c, job)
+        except Exception:  # noqa: BLE001  still failing: try again tomorrow, up to the attempt limit
+            continue
+        finally:
+            if c.get("ats") == "workday":
+                time.sleep(0.3)  # Workday 429s on bursts
+        if posted and not e.get("posted"):
+            e["posted"], e["posted_source"] = posted, posted_source
+            fixed += 1
+        if desc_failed and text:
+            e["sponsorship_status"], e["sponsorship_evidence"] = classify_sponsorship(text)
+            e["experience"], e["experience_evidence"] = classify_experience(e["role"], text)
+            e["salary"], e["salary_evidence"] = classify_salary(text)
+            e["kw_hits"] = keyword_hits(e["role"], text, keywords)
+            e["description_status"] = "ok"
+            if e["state"] == "new" and e["sponsorship_status"] == "Blocked":
+                e["state"] = "auto_blocked"
+            fixed += 1
+    if fixed:
+        print(f"retry: recovered {fixed} descriptions or posted dates")
+    return fixed
+
+
 # --------------------------------------------------------------------- notify
 
 def notify(cfg, entry, dry):
@@ -2221,6 +2270,7 @@ def run(args):
                     except Exception as e:
                         print(f"! {name} description for {j['title']}: {e}", file=sys.stderr)
                         descriptions[j["id"]] = ""
+                        j["desc_failed"] = True
             flood = (not first_run and len(fresh) > max(FLOOD_MIN, FLOOD_FRACTION * len(hits)))
             if flood:
                 print(f"! {name}: {len(fresh)}/{len(hits)} matches are new at once (id or search-term change?), "
@@ -2241,6 +2291,7 @@ def run(args):
     _send_summaries(cfg.get("notify", {}), floods, counts, args.dry_run)
     if not args.dry_run:
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
+        _retry_enrichment(queue, cfg, keywords)
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
         _prune_stale(queue, counts, unverified)
@@ -2325,6 +2376,7 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         posted_source = j.get("posted_source") or (("exact" if c["ats"] != "workday" else "approx") if posted else "")
         entry = dict(id=eid, company=name, role=j["title"], location=j["location"], link=j["url"],
                      posted=posted, posted_source=posted_source, posted_reverified=False,
+                     description_status="failed" if j.get("desc_failed") else "ok",
                      site=j.get("site"),  # which Workday site this came from, for multi-site companies
                      source="job-scout", first_seen=today,
                      sponsorship_status=spons, sponsorship_evidence=evidence,
