@@ -962,8 +962,26 @@ def dzbank(c):
     return [j for j in out if j["id"] and j["url"]], True
 
 
+def marketaxess(c):
+    """MarketAxess serves its Greenhouse Harvest data through a public proxy: harvest.php?path=/jobs/ (opened_at,
+    offices) and /job_posts/ (title, location, HTML content). Detail URL is /careers/current-openings/detail/<slug>-<job_id>.
+    Verified live 2026-10-03 (6 open jobs)."""
+    base = "https://www.marketaxess.com/harvest.php?path="
+    hdr = {"Accept": "application/json"}
+    opened = {str(j.get("id")): str(j.get("opened_at") or "")[:10] for j in http(base + "/jobs/", headers=hdr, timeout=40)}
+    out = []
+    for p in http(base + "/job_posts/", headers=hdr, timeout=40):
+        jid = str(p.get("job_id") or p.get("id"))
+        title = p.get("title", "") or ""
+        slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+        out.append(dict(id=jid, title=title, location=(p.get("location") or {}).get("name", ""),
+                        url=f"https://www.marketaxess.com/careers/current-openings/detail/{slug}-{jid}",
+                        posted=opened.get(jid, ""), desc=strip_html(p.get("content") or "")))
+    return out, True
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 

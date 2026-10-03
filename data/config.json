@@ -15249,6 +15249,35 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "MarketAxess",
+   "ats": "marketaxess"
+  },
+  {
+   "name": "Fitch Ratings",
+   "ats": "successfactors",
+   "host": "careers.fitch.group",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
