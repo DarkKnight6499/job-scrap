@@ -35,3 +35,15 @@ def test_non_us_locations_excluded(loc):
 @pytest.mark.parametrize("loc", US_KEPT)
 def test_us_locations_kept(loc):
     assert kept(loc)
+
+
+def test_drop_location_filtered_removes_only_non_us_new_rows():
+    queue = [
+        {"id": "a", "state": "new", "location": "Kwun Tong"},
+        {"id": "b", "state": "new", "location": "US-NJ-Princeton-100-Headquarters"},
+        {"id": "c", "state": "applied", "location": "Kwun Tong"},
+    ]
+    counts = {}
+    js._drop_location_filtered(queue, CFG, counts)
+    assert [e["id"] for e in queue] == ["b", "c"]
+    assert counts["location_dropped"] == 1

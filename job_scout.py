@@ -2370,6 +2370,7 @@ def run(args):
     if not args.dry_run:
         _prune_stale(queue, counts, unverified, configured={c["name"] for c in cfg["companies"]})
         _write_tombstones(counts.get("pruned_ids", []), "pruned")
+        _drop_location_filtered(queue, cfg.get("filters", {}), counts)
         HOME.mkdir(parents=True, exist_ok=True)
         # queue first: a crash between the writes must never leave a job marked seen without its queue row
         atomic_json.write(str(HOME / "queue.json"), queue)
@@ -2378,6 +2379,17 @@ def run(args):
           f"{counts['blocked']} auto-blocked on sponsorship, {counts['queued']} queued, {counts['alerted']} alerts, "
           f"{counts['closed']} closed, {counts['reopened']} reopened, {counts['reposts']} reposts, "
           f"{counts['pruned']} pruned (posted > {PRUNE_AFTER_DAYS}d ago).")
+
+
+def _drop_location_filtered(queue, filters, counts):
+    """Removes still-new queue rows whose location a newer locations_exclude term (or location regex) rejects, so
+    the hosted page matches the config without a hand-edit of queue.json. Location only (never the title lists),
+    not tombstoned: if a term is later loosened the row simply comes back on the next fetch."""
+    loc_only = {"title_include": [], "title_exclude": [], "locations_include": filters.get("locations_include", []),
+                "locations_exclude": filters.get("locations_exclude", [])}
+    keep = [e for e in queue if e.get("state") != "new" or matches({"title": "x", "location": e.get("location", "")}, loc_only)]
+    counts["location_dropped"] = len(queue) - len(keep)
+    queue[:] = keep
 
 
 def _find_repost_source(queue, name, fp, live_ids, eid, claimed):
