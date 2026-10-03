@@ -15178,6 +15178,32 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Genworth",
+   "ats": "workday",
+   "host": "gnw.wd1.myworkdayjobs.com",
+   "tenant": "gnw",
+   "site": "GNW",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
