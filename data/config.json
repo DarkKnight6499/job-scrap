@@ -3010,29 +3010,9 @@
   },
   {
    "name": "Millennium Management",
-   "ats": "workday",
-   "host": "mlp.wd5.myworkdayjobs.com",
-   "tenant": "mlp",
-   "site": "mlpcareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
+   "ats": "eightfold",
+   "host": "mlp.eightfold.ai",
+   "domain": "mlp.com"
   },
   {
    "name": "Houlihan Lokey",
