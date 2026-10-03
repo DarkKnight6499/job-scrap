@@ -77,6 +77,10 @@ GHOST_MIN_COUNT = 3        # a role posted at least this many times under the sa
 GHOST_MIN_SPAN_DAYS = 120  # ...spanning at least this many days looks like an evergreen/ghost req,
                            # not a normal one-off backfill after someone leaves
 
+FLOOD_MIN = 10             # a company that has run before and suddenly shows more than max(FLOOD_MIN, FLOOD_FRACTION of its
+FLOOD_FRACTION = 0.5       # matches) as new is almost surely an id-scheme or search-term change, not real postings: queue
+                           # them silently and send one summary instead of one alert per job
+ALERT_CAP_PER_RUN = 30     # per-run ceiling on individual alerts; the rest queue silently and roll into one summary
 PRUNE_AFTER_DAYS = 60      # queue.json only ever accumulates (matches() re-runs at intake, never
                            # retroactively against what's already queued), so without a cutoff it
                            # grows forever and the generated docs/index.html gets slow to render.
@@ -2172,6 +2176,7 @@ def run(args):
     # several companies finishing their listing fetch around the same time and each spinning up
     # their own pool caused a brief concurrency spike that tripped Workday's rate limiting (429s).
     describe_pool = ThreadPoolExecutor(max_workers=8)
+    floods = []  # (company, n) for companies held back by the flood guard
     unverified = {c["name"] for c in cfg["companies"]}  # companies not cleanly and completely fetched this run: never prune their entries
     try:
         for c in cfg["companies"]:
@@ -2184,6 +2189,7 @@ def run(args):
                 print(f"! {name} ({c['ats']}): {err}", file=sys.stderr)
                 continue
             counts["companies"] += 1
+            jobs = list({j["id"]: j for j in jobs}.values())  # a fetcher that repeats an id must not double-queue it
             hits = [j for j in jobs if matches(j, filters)]
             if args.check:
                 warn = "  <- 0 jobs, check slug" if not jobs else ""
@@ -2209,8 +2215,13 @@ def run(args):
                     except Exception as e:
                         print(f"! {name} description for {j['title']}: {e}", file=sys.stderr)
                         descriptions[j["id"]] = ""
+            flood = (not first_run and len(fresh) > max(FLOOD_MIN, FLOOD_FRACTION * len(hits)))
+            if flood:
+                print(f"! {name}: {len(fresh)}/{len(hits)} matches are new at once (id or search-term change?), "
+                      f"queueing silently with one summary alert", file=sys.stderr)
+                floods.append((name, len(fresh)))
             _process_company(c, name, fresh, descriptions, first_run, jobs, complete, seen, state, queue, queued_ids,
-                              keywords, cfg, args, counts)
+                              keywords, cfg, args, counts, silent=flood)
             if not args.dry_run:
                 _update_liveness(name, jobs, complete, queue, counts)
     finally:
@@ -2218,6 +2229,7 @@ def run(args):
 
     if args.check:
         return
+    _send_summaries(cfg.get("notify", {}), floods, counts, args.dry_run)
     if not args.dry_run:
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
@@ -2255,7 +2267,7 @@ def _find_repost_source(queue, name, fp, live_ids, eid, claimed):
 
 
 def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, seen, state, queue, queued_ids,
-                      keywords, cfg, args, counts):
+                      keywords, cfg, args, counts, silent=False):
     live_ids = {jj["id"] for jj in jobs}
     today = date.today().isoformat()
     claimed = set()  # prior entries already matched to a fresh posting earlier in this same loop -
@@ -2324,13 +2336,27 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         counts["queued"] += 1
         # first run seeds the queue silently; a repost only alerts if it flips from blocked to open -
         # otherwise it's the same decision Yazad already made, just resurfacing under a new id
-        if not first_run and (not prior or prior.get("state") == "auto_blocked"):
-            notify(cfg.get("notify", {}), entry, args.dry_run)
-            counts["alerted"] += 1
-    if not args.dry_run:
+        if not first_run and not silent and (not prior or prior.get("state") == "auto_blocked"):
+            if counts["alerted"] >= ALERT_CAP_PER_RUN:
+                counts["alert_capped"] = counts.get("alert_capped", 0) + 1
+            else:
+                notify(cfg.get("notify", {}), entry, args.dry_run)
+                counts["alerted"] += 1
+    if not args.dry_run and (jobs or not first_run):
+        # a first fetch that returned nothing must not seed state: once the config is fixed, every match would alert
         state[name] = sorted(seen | {j["id"] for j in jobs})  # union: a capped search must not re-alert on drift
     elif first_run:
         print(f"[dry-run] {name}: first run, would queue {len(fresh)} current matches silently")
+
+
+def _send_summaries(notify_cfg, floods, counts, dry):
+    """One alert per flooded company, plus one for roles past the per-run alert cap."""
+    lines = [f"{name}: {n} roles appeared at once, queued silently (flood guard)" for name, n in floods]
+    if counts.get("alert_capped"):
+        lines.append(f"{counts['alert_capped']} more new roles queued without individual alerts (cap {ALERT_CAP_PER_RUN})")
+    for line in lines:
+        notify(notify_cfg, dict(company="Summary", role=line, location="", sponsorship_status="n/a", kw_hits=[],
+                                link=notify_cfg.get("tracker_url") or "https://ntfy.sh"), dry)
 
 
 def _update_liveness(name, jobs, complete, queue, counts):

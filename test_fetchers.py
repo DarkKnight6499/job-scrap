@@ -120,3 +120,49 @@ def test_run_writes_queue_before_state(tmp_path, monkeypatch):
     monkeypatch.setattr(js, "_reverify_recent_posted", lambda q, c: None)
     js.run(argparse.Namespace(from_fetched=None, dry_run=False, check=False))
     assert order == ["queue.json", "state.json"]
+
+
+def _scout(tmp_path, monkeypatch, jobs, state=None, cap=None):
+    import argparse
+    (tmp_path / "config.json").write_text(json.dumps(dict(notify={}, filters=dict(title_include=["treasury"]), keywords=[],
+                                                         companies=[dict(name="X", ats="fake")])))
+    if state is not None:
+        (tmp_path / "state.json").write_text(json.dumps(state))
+    monkeypatch.setattr(js, "HOME", tmp_path)
+    monkeypatch.setitem(js.FETCH, "fake", lambda c: (jobs, True))
+    monkeypatch.setattr(js, "_reverify_recent_posted", lambda q, c: None)
+    if cap is not None:
+        monkeypatch.setattr(js, "ALERT_CAP_PER_RUN", cap)
+    sent = []
+    monkeypatch.setattr(js, "notify", lambda cfg, entry, dry: sent.append(entry))
+    js.run(argparse.Namespace(from_fetched=None, dry_run=False, check=False))
+    queue = json.loads((tmp_path / "queue.json").read_text())
+    state_out = json.loads((tmp_path / "state.json").read_text())
+    return sent, queue, state_out
+
+
+def _job(i):
+    return dict(id=str(i), title=f"Treasury Analyst {i}", location="New York, NY", url=f"https://x/{i}", posted="2026-10-01")
+
+
+def test_flood_guard_queues_silently_with_one_summary(tmp_path, monkeypatch):
+    sent, queue, _ = _scout(tmp_path, monkeypatch, [_job(i) for i in range(15)], state={"X": ["old"]})
+    assert len(queue) == 15
+    assert [e["company"] for e in sent] == ["Summary"] and "15 roles appeared at once" in sent[0]["role"]
+
+
+def test_alert_cap_rolls_overflow_into_one_summary(tmp_path, monkeypatch):
+    old = [_job(i) for i in range(20)]
+    sent, queue, _ = _scout(tmp_path, monkeypatch, old + [_job(100 + i) for i in range(3)], state={"X": [str(i) for i in range(20)]}, cap=2)
+    assert len(queue) == 3
+    assert [e["company"] for e in sent] == ["X", "X", "Summary"] and "1 more new roles" in sent[2]["role"]
+
+
+def test_empty_first_fetch_does_not_seed_state(tmp_path, monkeypatch):
+    sent, queue, state = _scout(tmp_path, monkeypatch, [])
+    assert "X" not in state and not sent and queue == []
+
+
+def test_repeated_id_in_one_fetch_queues_once(tmp_path, monkeypatch):
+    _, queue, _ = _scout(tmp_path, monkeypatch, [_job(1), _job(1)])
+    assert len(queue) == 1
