@@ -4356,32 +4356,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Busey Bank",
-   "ats": "workday",
-   "host": "busey.wd5.myworkdayjobs.com",
-   "tenant": "busey",
-   "site": "busey",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Cantor Fitzgerald",
    "ats": "oracle",
    "host": "hdow.fa.us6.oraclecloud.com",
