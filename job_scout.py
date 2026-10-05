@@ -232,7 +232,8 @@ def ashby(c):
 def smartrecruiters(c):
     out, offset = [], 0
     complete = False
-    while offset < 2000:
+    ceiling = int(c.get("max_postings", 2000))
+    while offset < ceiling:
         d = http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings?limit=100&offset={offset}")
         rows = d.get("content", [])
         for j in rows:
@@ -388,13 +389,14 @@ def oracle(c):
     terms = c.get("search") or [""]
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 60))
+    ceiling = int(c.get("term_ceiling", 1000))
     page = 50
     out, seen = [], set()
     complete = True  # AND across terms: one truncated term makes the whole listing untrustworthy for removal
     for term in terms:
-        offset = 0
+        offset, limit, total = 0, cap, None
         term_complete = False
-        while offset < cap:
+        while offset < limit:
             finder = f"findReqs;siteNumber={c['site']},limit={page},offset={offset}"
             if term:
                 finder += f",keyword={term}"
@@ -402,6 +404,9 @@ def oracle(c):
             d = http(url)
             items = d.get("items") or [{}]
             rows = items[0].get("requisitionList") or []
+            if offset == 0 and isinstance(items[0].get("TotalJobsCount"), int):
+                total = items[0]["TotalJobsCount"]
+                limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
             for j in rows:
                 jid = str(j.get("Id") or "")
                 if not jid or jid in seen:
@@ -411,8 +416,8 @@ def oracle(c):
                                 url=f"https://{c['host']}/hcmUI/CandidateExperience/en/sites/{c['site']}/job/{jid}",
                                 posted=(j.get("PostedDate") or "")[:10]))
             offset += page
-            if len(rows) < page:
-                term_complete = True  # ran out of rows before hitting the per-term cap
+            if len(rows) < page or (total is not None and offset >= total):
+                term_complete = True  # ran out of rows before hitting the limit
                 break
         complete = complete and term_complete
     return out, complete
@@ -456,6 +461,7 @@ def goldman(c):
     terms = c.get("search") or [""]
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 100))
+    ceiling = int(c.get("term_ceiling", 1000))
     page = 50
     query = ("query GetRoles($searchQueryInput: RoleSearchQueryInput!) { roleSearch(searchQueryInput: "
              "$searchQueryInput) { totalCount items { roleId jobTitle division descriptionHtml lastPostedDate createdDate "
@@ -463,8 +469,8 @@ def goldman(c):
     out, seen = [], set()
     complete = True
     for term in terms:
-        offset, term_complete = 0, False
-        while offset < cap:
+        offset, term_complete, limit, total = 0, False, cap, None
+        while offset < limit:
             body = {"operationName": "GetRoles", "query": query, "variables": {"searchQueryInput": {
                 "page": {"pageSize": page, "pageNumber": offset // page},
                 "sort": {"sortStrategy": "RELEVANCE", "sortOrder": "DESC"}, "filters": [],
@@ -473,6 +479,9 @@ def goldman(c):
             if d.get("errors"):
                 raise RuntimeError(f"goldman graphql: {d['errors'][0].get('message')}")
             rows = ((d.get("data") or {}).get("roleSearch") or {}).get("items") or []
+            if offset == 0 and isinstance(((d.get("data") or {}).get("roleSearch") or {}).get("totalCount"), int):
+                total = d["data"]["roleSearch"]["totalCount"]
+                limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
             for j in rows:
                 jid = str(j.get("roleId") or "")
                 if not jid or jid in seen:
@@ -486,7 +495,7 @@ def goldman(c):
                                 posted=(j.get("lastPostedDate") or j.get("createdDate") or "")[:10],
                                 desc=strip_html(j.get("descriptionHtml", ""))))
             offset += page
-            if len(rows) < page:
+            if len(rows) < page or (total is not None and offset >= total):
                 term_complete = True
                 break
         complete = complete and term_complete
@@ -615,14 +624,17 @@ def eightfold(c):
     terms = c.get("search") or [""]
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 1500))
+    ceiling = int(c.get("term_ceiling", 1000))
     out, seen = [], set()
     complete = True
     for term in terms:
-        start, term_complete = 0, False
-        while start < cap:
+        start, term_complete, limit = 0, False, cap
+        while start < limit:
             q = urllib.parse.urlencode({"domain": c["domain"], "start": start, "num": page, "query": term})
             d = http(f"https://{c['host']}/api/apply/v2/jobs?{q}", headers={"Accept": "application/json"})
             total = d.get("count")
+            if start == 0 and isinstance(total, int):
+                limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
             rows = d.get("positions") or []
             for j in rows:
                 jid = str(j.get("id") or "")
@@ -1661,6 +1673,7 @@ def cmd_queue(args):
     if args.html:
         updated_at = (datetime.fromtimestamp((HOME / "queue.json").stat().st_mtime, tz=ZoneInfo("America/New_York"))
                       if (HOME / "queue.json").exists() else None)
+        q = [e for e in q if e["state"] == "new"]  # public page: never expose applied/shortlisted/dismissed/blocked status
         write_queue_html(q, args.html, updated_at)
         print(f"wrote {len(q)} entries to {args.html}")
         return

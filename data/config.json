@@ -882,7 +882,9 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "Citi",
@@ -909,7 +911,8 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2000
   },
   {
    "name": "Wells Fargo",
@@ -935,7 +938,9 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "RBC",
@@ -1069,7 +1074,8 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2000
   },
   {
    "name": "Northern Trust",
@@ -1417,7 +1423,8 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2500
   },
   {
    "name": "Bank of America",
@@ -1470,7 +1477,8 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2000
   },
   {
    "name": "KeyBank",
@@ -1641,7 +1649,8 @@
   {
    "name": "AECOM",
    "ats": "smartrecruiters",
-   "slug": "AECOM2"
+   "slug": "AECOM2",
+   "max_postings": 6000
   },
   {
    "name": "Banner Bank",
@@ -5249,7 +5258,9 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "Pantheon Ventures",
@@ -5622,7 +5633,8 @@
   {
    "name": "Turner & Townsend",
    "ats": "smartrecruiters",
-   "slug": "turnertownsend"
+   "slug": "turnertownsend",
+   "max_postings": 3500
   },
   {
    "name": "ULStandardsEngagement",
@@ -9800,7 +9812,9 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "BorgWarner",
