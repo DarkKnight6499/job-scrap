@@ -2376,7 +2376,7 @@ def run(args):
             if getattr(args, "recall", False) and not first_run:
                 _recall_company(c, name, hits, seen, queued_ids, tombstones, describe_pool, queue, keywords, cfg, args, counts)
             if not args.dry_run:
-                _update_liveness(name, jobs, complete, queue, counts)
+                _update_liveness(name, jobs, complete, queue, counts, c)
     finally:
         describe_pool.shutdown()
 
@@ -2602,7 +2602,27 @@ def _send_summaries(notify_cfg, floods, counts, dry):
         atomic_json.write(str(path), still)
 
 
-def _update_liveness(name, jobs, complete, queue, counts):
+def _workday_still_listed(c, e):
+    """True when a requisition the list diff missed is still on the Workday board (searched by its req id).
+    Keyword-term searches occasionally drop a live posting, so a miss alone must not close it. Any
+    failure answers True: an unverifiable posting stays open rather than being closed on a guess."""
+    path = e["id"].split(":", 1)[1]
+    tok = re.search(r"_([A-Za-z0-9\-]+)$", path)
+    if not tok:
+        return True
+    req = tok.group(1)
+    if re.match(r"^[A-Za-z]*-?\d+-\d+$", req):
+        req = req.rsplit("-", 1)[0]  # a trailing -N is a repost suffix, the search index holds the base req id
+    site = e.get("site") or (c["site"][0] if isinstance(c.get("site"), list) else c.get("site"))
+    try:
+        d = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs",
+                 data={"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": req})
+        return any(req in (p.get("externalPath") or "") for p in d.get("jobPostings", []))
+    except Exception:
+        return True
+
+
+def _update_liveness(name, jobs, complete, queue, counts, c=None):
     """Detects closed/reopened postings for one company's queue entries by diffing against the FULL
     current listing (`jobs`, not the title/location-filtered `hits`) - so editing filters never closes
     an entry. Closing requires CLOSE_AFTER_MISSES consecutive complete (unpaginated-cap) runs without
@@ -2643,6 +2663,9 @@ def _update_liveness(name, jobs, complete, queue, counts):
         e["miss_count"] = e.get("miss_count", 0) + 1
         # hourly runs make two misses only two hours: also require the last confirmed sighting to be before today
         if e["miss_count"] >= close_after and (e.get("last_seen_live") or "") < today:
+            if c and c.get("ats") == "workday" and _workday_still_listed(c, e):
+                e["last_seen_live"], e["miss_count"] = today, 0  # live but dropped out of the keyword searches
+                continue
             e["closed_on"], e["closed_reason"] = today, "removed"
             counts["closed"] += 1
 
