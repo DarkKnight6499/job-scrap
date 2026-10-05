@@ -334,20 +334,24 @@ def workday(c):
     terms = c.get("search") or [""]
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 60))
+    ceiling = int(c.get("term_ceiling", 1000))
     out, seen = [], set()
     page = 20  # Workday's unofficial endpoint 400s on limit > 20 - confirmed by testing, not documented
     complete = True  # AND across terms/sites: one truncated one makes the whole listing untrustworthy for removal
 
     def fetch_term(site, term):
         base = f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs"
-        rows_all, offset, term_complete = [], 0, False
-        while offset < cap:
+        rows_all, offset, term_complete, limit, total = [], 0, False, cap, None
+        while offset < limit:
             d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
             rows = d.get("jobPostings", [])
             rows_all.extend(rows)
+            if offset == 0 and isinstance(d.get("total"), int):
+                total = d["total"]  # only the first page reliably carries total
+                limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
             offset += page
-            if len(rows) < page:
-                term_complete = True  # ran out of rows before hitting the per-term cap
+            if len(rows) < page or (total is not None and offset >= total):
+                term_complete = True  # ran out of rows before hitting the limit
                 break
         return rows_all, term_complete
 
