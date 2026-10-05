@@ -2618,6 +2618,9 @@ def _still_listed(c, e):
         if ats == "eightfold":
             http(f"https://{c['host']}/api/apply/v2/jobs/{pid}?domain={c['domain']}", headers={"Accept": "application/json"})
             return True
+        if ats == "smartrecruiters":
+            http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings/{pid}")
+            return True
     except urllib.error.HTTPError as ex:
         return ex.code not in (404, 410)
     except Exception:
@@ -2686,7 +2689,7 @@ def _update_liveness(name, jobs, complete, queue, counts, c=None):
         e["miss_count"] = e.get("miss_count", 0) + 1
         # hourly runs make two misses only two hours: also require the last confirmed sighting to be before today
         if e["miss_count"] >= close_after and (e.get("last_seen_live") or "") < today:
-            if c and c.get("ats") in ("workday", "oracle", "eightfold") and _still_listed(c, e):
+            if c and c.get("ats") in ("workday", "oracle", "eightfold", "smartrecruiters") and _still_listed(c, e):
                 e["last_seen_live"], e["miss_count"] = today, 0  # live but dropped out of the keyword searches
                 continue
             e["closed_on"], e["closed_reason"] = today, "removed"
