@@ -2602,6 +2602,29 @@ def _send_summaries(notify_cfg, floods, counts, dry):
         atomic_json.write(str(path), still)
 
 
+def _still_listed(c, e):
+    """Closure double-check for term-search boards (Workday, Oracle, Eightfold): True unless the posting's own
+    detail lookup definitively says it is gone. A list miss alone must not close it, because a keyword
+    search can drop a live posting. Any failure answers True so an unverifiable posting stays open."""
+    ats = c.get("ats")
+    if ats == "workday":
+        return _workday_still_listed(c, e)
+    pid = e["id"].split(":", 1)[1]
+    try:
+        if ats == "oracle":
+            d = http(f"https://{c['host']}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails?"
+                     + urllib.parse.urlencode({"onlyData": "true", "finder": f"ById;Id={pid}"}))
+            return bool(d.get("items"))
+        if ats == "eightfold":
+            http(f"https://{c['host']}/api/apply/v2/jobs/{pid}?domain={c['domain']}", headers={"Accept": "application/json"})
+            return True
+    except urllib.error.HTTPError as ex:
+        return ex.code not in (404, 410)
+    except Exception:
+        return True
+    return True
+
+
 def _workday_still_listed(c, e):
     """True when a requisition the list diff missed is still on the Workday board (searched by its req id).
     Keyword-term searches occasionally drop a live posting, so a miss alone must not close it. Any
@@ -2663,7 +2686,7 @@ def _update_liveness(name, jobs, complete, queue, counts, c=None):
         e["miss_count"] = e.get("miss_count", 0) + 1
         # hourly runs make two misses only two hours: also require the last confirmed sighting to be before today
         if e["miss_count"] >= close_after and (e.get("last_seen_live") or "") < today:
-            if c and c.get("ats") == "workday" and _workday_still_listed(c, e):
+            if c and c.get("ats") in ("workday", "oracle", "eightfold") and _still_listed(c, e):
                 e["last_seen_live"], e["miss_count"] = today, 0  # live but dropped out of the keyword searches
                 continue
             e["closed_on"], e["closed_reason"] = today, "removed"
