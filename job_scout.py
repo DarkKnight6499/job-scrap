@@ -173,13 +173,17 @@ def http(url, data=None, headers=None, timeout=20, raw=False):
                 payload = r.read()
             break
         except urllib.error.HTTPError as e:
-            if e.code != 429 or attempt == RETRY_429_MAX:
+            if e.code not in (429, 502, 503, 504) or attempt == RETRY_429_MAX:
                 raise
             try:
                 delay = float(e.headers.get("Retry-After"))
             except (TypeError, ValueError):
                 delay = 2 ** (attempt + 1)
             time.sleep(delay + random.random())
+        except (urllib.error.URLError, ConnectionError, TimeoutError):
+            if attempt == RETRY_429_MAX:  # connection resets mid-pagination must not lose a whole deep fetch
+                raise
+            time.sleep(2 ** (attempt + 1) + random.random())
     return payload if raw else json.loads(payload)
 
 
