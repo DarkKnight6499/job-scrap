@@ -18,12 +18,12 @@ EXCLUDED = [
     "Headquarters", "Central Region (City Area)", "One Island East", "Kwun Tong, HK", "Central, HK",
     "Monterrey, NLE, MX", "Citi Center - MX", "Bukit Jalil KL, MY", "Schweiz - Nordschweiz", "Lodz, PL, 93-281",
     "Las Condes, RM, CL", "Port Moresby, PG", "Ramat-Gan, ISR", "ED3 - 20 Brandon Street, Edinburgh",
-    "Whitby, Ontario", "Ontario Home Office", "Perth Office", "Guangzhou", "Gandhi Nagar - GIFT City",
+    "Whitby, Ontario", "Pasig - 4th Floor JMT Corporate Condominium", "Delhi NCR", "Munich - Müllerstrasse", "Fortitude Valley, QLD, au", "Ludhiana", "Kaohsiung", "Camana Bay", "Tunis", "København S, DK, 2300", "Saint Helier, Jersey", "Newcastle, NSW, au", "Ontario Home Office", "Perth Office", "Guangzhou", "Gandhi Nagar - GIFT City",
 ]
 US_KEPT = [
     "US-NJ-Princeton-100-Headquarters", "Office - USA - CA - Headquarters", "New York, NY", "Ontario, CA",
     "Houston Office", "Jersey City", "Charlotte", "Boston, Massachusetts", "San Francisco Office",
-    "Washington D.C.", "Montclair, NJ", "Nashville, Tennessee", "San Juan, Puerto Rico", "Cameron", "Wilmington, Delaware",
+    "Washington D.C.", "Montclair, NJ", "Nashville, Tennessee", "San Juan, Puerto Rico", "Cameron", "Wilmington, Delaware", "Perth Amboy, NJ", "Nassau County, NY", "Brisbane, CA", "Belfast, ME", "Delhi, NY", "Medina, OH",
 ]
 
 
