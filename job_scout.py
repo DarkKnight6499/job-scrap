@@ -1704,6 +1704,7 @@ def posted_label(e):
 
 # states shown collapsed below the main "new" table, in this order; any other state found (e.g.
 # a custom state from a hand-edit) is appended after these
+DATE_FILTER_DAYS = [0, 1, 3, 7, 14, 30, 45, 60, 90, 180, 365, 730]
 _SECONDARY_STATE_ORDER = ["shortlisted", "applied", "auto_blocked", "dismissed"]
 
 
@@ -1798,7 +1799,7 @@ _EXTRA_SCRIPT = r"""
       c.el.textContent = c.label + '(' + n + ')';
     });
   }
-  ['filterSearchBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset'].forEach(function(id) {
+  ['filterSearchBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset', 'dateMin', 'dateMax', 'dateIncludeNA'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener(el.tagName === 'BUTTON' ? 'click' : 'change', function() {
       setTimeout(function() { applyCategory(); applyCompany(); applyLocation(); }, 0);
@@ -2135,6 +2136,16 @@ to
 <option value="inf" selected>15+</option>
 </select>
 <label><input type="checkbox" id="expIncludeNA" checked> include N/A (no years-of-experience found)</label>
+<br>Posted (days ago): from
+<select id="dateMin">
+{''.join(f'<option value="{n}"{" selected" if n == 0 else ""}>{n}</option>' for n in DATE_FILTER_DAYS)}
+</select>
+to
+<select id="dateMax">
+{''.join(f'<option value="{n}">{n}</option>' for n in DATE_FILTER_DAYS)}
+<option value="inf" selected>any</option>
+</select>
+<label><input type="checkbox" id="dateIncludeNA" checked> include undated</label>
 <button type="button" id="expReset">reset all filters</button>
 </div>
 </div>
@@ -2162,8 +2173,27 @@ to
   var expMax = document.getElementById('expMax');
   var expIncludeNA = document.getElementById('expIncludeNA');
   var expReset = document.getElementById('expReset');
+  var dateMin = document.getElementById('dateMin');
+  var dateMax = document.getElementById('dateMax');
+  var dateIncludeNA = document.getElementById('dateIncludeNA');
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
+
+  function ageDays(tr) {{
+    var iso = tr.getAttribute('data-posted') || tr.getAttribute('data-first-seen');
+    if (!iso) return null;
+    var now = new Date(), t0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return Math.round((t0 - new Date(iso + 'T00:00:00')) / 86400000);
+  }}
+  function dateActive() {{ return dateMin.value !== '0' || (dateMax.value !== 'inf' && !window.__dateIgnoreMax); }}
+  function dateOk(tr) {{
+    if (!dateActive()) return true;
+    var a = ageDays(tr);
+    if (a === null) return dateIncludeNA.checked;
+    var lo = parseInt(dateMin.value, 10);
+    var hi = (dateMax.value === 'inf' || window.__dateIgnoreMax) ? Infinity : parseInt(dateMax.value, 10);
+    return a >= lo && a <= hi;
+  }}
 
   function apply() {{
     var raw = box.value.trim().toLowerCase();
@@ -2188,7 +2218,7 @@ to
         // numeric range filter (they didn't fail the check, they just have nothing to check).
         expMatch = rank === -1 ? expIncludeNA.checked : (rank >= lo && rank <= hi);
       }}
-      var match = textMatch && expMatch;
+      var match = textMatch && expMatch && dateOk(tr);
       tr.classList.toggle('hidden-by-filter', !match);
       if (match) {{
         shown++;
@@ -2196,12 +2226,15 @@ to
         if (details && !details.open) {{ details.open = true; forcedOpen.push(details); }}
       }}
     }});
-    countEl.textContent = (raw || expActive) ? ('showing ' + shown + ' of ' + rows.length) : '';
+    countEl.textContent = (raw || expActive || dateActive()) ? ('showing ' + shown + ' of ' + rows.length) : '';
     try {{
       localStorage.setItem('jobScoutFilter', box.value);
       localStorage.setItem('jobScoutExpMin', expMin.value);
       localStorage.setItem('jobScoutExpMax', expMax.value);
       localStorage.setItem('jobScoutExpIncludeNA', expIncludeNA.checked ? '1' : '0');
+      localStorage.setItem('jobScoutDateMin', dateMin.value);
+      localStorage.setItem('jobScoutDateMax', dateMax.value);
+      localStorage.setItem('jobScoutDateNA', dateIncludeNA.checked ? '1' : '0');
     }} catch (e) {{}}
   }}
 
@@ -2210,6 +2243,9 @@ to
     expMin.value = '0';
     expMax.value = 'inf';
     expIncludeNA.checked = true;
+    dateMin.value = '0';
+    dateMax.value = 'inf';
+    dateIncludeNA.checked = true;
     apply();
   }});
 
@@ -2222,12 +2258,21 @@ to
     if (savedMin !== null) expMin.value = savedMin;
     if (savedMax !== null) expMax.value = savedMax;
     if (savedNA !== null) expIncludeNA.checked = savedNA === '1';
+    var sdMin = localStorage.getItem('jobScoutDateMin');
+    var sdMax = localStorage.getItem('jobScoutDateMax');
+    var sdNA = localStorage.getItem('jobScoutDateNA');
+    if (sdMin !== null) dateMin.value = sdMin;
+    if (sdMax !== null) dateMax.value = sdMax;
+    if (sdNA !== null) dateIncludeNA.checked = sdNA === '1';
   }} catch (e) {{}}
   searchBtn.addEventListener('click', apply);
   box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
   expMin.addEventListener('change', apply);
   expMax.addEventListener('change', apply);
   expIncludeNA.addEventListener('change', apply);
+  dateMin.addEventListener('change', apply);
+  dateMax.addEventListener('change', apply);
+  dateIncludeNA.addEventListener('change', apply);
   apply();
 }})();
 (function() {{
