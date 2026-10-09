@@ -19,6 +19,7 @@ EXCLUDED = [
     "Monterrey, NLE, MX", "Citi Center - MX", "Bukit Jalil KL, MY", "Schweiz - Nordschweiz", "Lodz, PL, 93-281",
     "Las Condes, RM, CL", "Port Moresby, PG", "Ramat-Gan, ISR", "ED3 - 20 Brandon Street, Edinburgh",
     "Whitby, Ontario", "Pasig - 4th Floor JMT Corporate Condominium", "Delhi NCR", "Munich - Müllerstrasse", "Fortitude Valley, QLD, au", "Ludhiana", "Kaohsiung", "Camana Bay", "Tunis", "København S, DK, 2300", "Saint Helier, Jersey", "Newcastle, NSW, au", "Ontario Home Office", "Perth Office", "Guangzhou", "Gandhi Nagar - GIFT City",
+    "Perth, WA, au", "Docklands, AU", "1/124, SHIVAJI GARDENS, MOONLI", "Thane, IN", "AU - BRISBANE - 50 JAMES ST", "Perth - 225 St. Georges Terrace", "Norwich - Willow", "Parma - Via Carlo Pisacane, 1B", "Łódź, PL, 93-281", "Belfast - Merchant Square (IE)", "Belfast - 20 Adelaide Street",
 ]
 US_KEPT = [
     "US-NJ-Princeton-100-Headquarters", "Office - USA - CA - Headquarters", "New York, NY", "Ontario, CA",
