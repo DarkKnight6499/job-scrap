@@ -129,6 +129,7 @@ BLOCK_PATTERNS = [
     r"u\.?s\.?\s+citizens?\s+(?:only|required)",
     r"(?:u\.?s\.?\s+citizenship|permanent\s+residen(?:t|cy))\s+(?:is\s+)?required",
     r"requires?\s+permanent\s+(?:work\s+)?authorization\s+to\s+work",
+    r"(?:limited|restricted)\s+to\s+(?:persons|people|individuals|candidates|applicants)\s+with\s+(?:an?\s+)?(?:indefinite|unrestricted|permanent)\s+(?:right|authori[sz]ation)\s+to\s+work",
     r"not\s+eligible\s+for[^.]{0,150}\b(?:opt|cpt)\b",
     # "immigration support/assistance" wording that never says "sponsor" (USAA 2026-10-03: "do not apply ...
     # if you will need immigration support (H-1B, TN, STEM OPT)")

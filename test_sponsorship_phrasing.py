@@ -12,6 +12,7 @@ BLOCKED = [
     "Applicants must be authorized to work in the U.S. without current or future employer support.",
     "No immigration support is available for this position.",
     "We do not offer relocation or immigration assistance.",
+    "This role is limited to persons with an indefinite right to work in the United States.",
 ]
 UNCLEAR = [
     "We offer visa sponsorship and immigration support for qualified candidates.",
