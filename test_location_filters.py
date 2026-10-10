@@ -15,7 +15,7 @@ def kept(loc):
 
 
 EXCLUDED = [
-    "Headquarters", "Central Region (City Area)", "One Island East", "Kwun Tong, HK", "Central, HK",
+    "PH", "MX", "SG", "Headquarters", "Central Region (City Area)", "One Island East", "Kwun Tong, HK", "Central, HK",
     "Monterrey, NLE, MX", "Citi Center - MX", "Bukit Jalil KL, MY", "Schweiz - Nordschweiz", "Lodz, PL, 93-281",
     "Las Condes, RM, CL", "Port Moresby, PG", "Ramat-Gan, ISR", "ED3 - 20 Brandon Street, Edinburgh",
     "Whitby, Ontario", "Pasig - 4th Floor JMT Corporate Condominium", "Delhi NCR", "Munich - Müllerstrasse", "Fortitude Valley, QLD, au", "Ludhiana", "Kaohsiung", "Camana Bay", "Tunis", "København S, DK, 2300", "Saint Helier, Jersey", "Newcastle, NSW, au", "Ontario Home Office", "Perth Office", "Guangzhou", "Gandhi Nagar - GIFT City",
@@ -23,6 +23,7 @@ EXCLUDED = [
     "Heredia, Provincia de Heredia", "Boadilla del Monte", "2 Locations (MesseTurm DEFAMESS HQ)", "Købanhavn K, DK, 1402", "3 Locations (Zrich)", "5 Locations (Canadian Head Office)", "2 Locations (POL Gdynia 3T Office Park Tower C)", "2 Locations (Lvis)", "Kulim, Kedah, al", "Milton Keynes", "CD - Kinshasa, Democratic Republic of Congo", "Northampton, Barclays Campus, Pavilion Drive", "Henley-on-Thames, Oxfordshire", "Ranjangaon", "2 Locations (9 10 TAUNUSANLAGE FRANKFURT AM MAIN)", "1054, Retiro, Capital Federal", "Kolhapur", "Jersey, JE", "Brunei, BN", "Addlestone", "Calvin Klein Halfweg Sugar City", "Birmingham, One Snow Hill", "Myanmar, MM - AIA Myanmar", "Pathum Tani", "I-Think Techno, Kanjurmarg", "PSA - Tandag City",
 ]
 US_KEPT = [
+    "IN", "DE", "CA", "ID", "AR", "Indianapolis, IN",
     "US-NJ-Princeton-100-Headquarters", "Office - USA - CA - Headquarters", "New York, NY", "Ontario, CA",
     "Houston Office", "Jersey City", "Charlotte", "Boston, Massachusetts", "San Francisco Office",
     "Washington D.C.", "Montclair, NJ", "Nashville, Tennessee", "San Juan, Puerto Rico", "Cameron", "Wilmington, Delaware", "Perth Amboy, NJ", "Nassau County, NY", "Brisbane, CA", "Belfast, ME", "Delhi, NY", "Medina, OH",

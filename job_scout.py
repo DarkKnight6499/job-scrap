@@ -1275,6 +1275,12 @@ _BARE_HQ_RE = re.compile(r"^\s*headquarters\s*$")
 # Canadian Ontario, but not Ontario, California / Oregon / New York / Ohio.
 _ONTARIO_RE = re.compile(r"\bontario\b(?!,?\s*(?:ca|california|or|oregon|ny|oh|ohio)\b)")
 
+# Lever-style boards (Tala) give a bare country code as the whole location ("PH", "MX"). Only codes that are not US
+# state or territory abbreviations are listed, so "IN", "DE", "CA", "ID", "AR" never match.
+_BARE_NON_US_CODE_RE = re.compile(
+    r"^\s*(?:ph|mx|uk|gb|sg|hk|jp|kr|cn|br|pl|au|my|th|vn|tw|nz|ng|ke|pk|bd|lk|ae|il|ch|se|dk|fi|pt|ro|bg|cz|hu|ua|tr|cl)\s*$"
+)
+
 _COUNTRY_CODE_SITE_RE = re.compile(
     r"^(ind|esp|pol|phl|cyp|hgk|can|gbr|irl|deu|fra|ita|nld|sgp|jpn|aus|bra|mex|chn|zaf|are|isr|che|swe|nor|dnk"
     r"|fin|prt|rou|bgr|cze|hun|ltu|lva|est|ukr|tur|arg|chl|col|per|pak|bgd|lka|mys|tha|vnm|idn|kor|twn|nzl|egy"
@@ -1320,6 +1326,8 @@ def matches(job, f):
     if any(contains_term(t, x) for x in exc):
         return False
     if _BARE_HQ_RE.match(loc_folded):
+        return False
+    if _BARE_NON_US_CODE_RE.match(loc_folded):
         return False
     if _ONTARIO_RE.search(loc_folded):
         return False
