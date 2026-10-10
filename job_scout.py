@@ -1838,7 +1838,7 @@ _EXTRA_SCRIPT = r"""
       c.el.textContent = c.label + '(' + n + ')';
     });
   }
-  ['filterSearchBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset', 'dateMin', 'dateMax', 'dateIncludeNA'].forEach(function(id) {
+  ['filterSearchBtn', 'optOnlyBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset', 'dateMin', 'dateMax', 'dateIncludeNA'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener(el.tagName === 'BUTTON' ? 'click' : 'change', function() {
       setTimeout(function() { applyCategory(); applyCompany(); applyLocation(); }, 0);
@@ -2053,6 +2053,7 @@ def write_queue_html(q, path, updated_at=None):
         state_cell = f'<td>{html.escape(e["state"])}</td>' if closed else ""
         exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
         first_seen = e.get("first_seen") or ""
+        opt_data = ' data-opt="1"' if e.get("sponsorship_status") == "OPT Only" else ""
         # Same "never assert the positive, only flag with evidence" convention as sponsorship: a
         # role that hasn't shown a repeat-posting pattern is N/A, not "clear" of it, since it just
         # hasn't had the chance to repeat yet. Tagged red (see tr.ghost in the CSS) but never
@@ -2070,7 +2071,7 @@ def write_queue_html(q, path, updated_at=None):
         return (
             f'<tr class="{row_class}"{row_title}{exp_data} data-jid="{html.escape(e["id"].split(":", 1)[-1])}"'
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
-            f' data-posted-source="{html.escape(e.get("posted_source") or "")}">'
+            f' data-posted-source="{html.escape(e.get("posted_source") or "")}"{opt_data}>'
             f'<td class="posted" title="{html.escape(posted_title)}">{html.escape(posted_label(e))}</td>'
             f'<td title="{ghost_evidence}" class="ghost-cell">{html.escape(ghost_label)}</td>'
             f'<td>{html.escape(e["company"])}</td>'
@@ -2091,10 +2092,10 @@ def write_queue_html(q, path, updated_at=None):
 
     open_q = [e for e in q if not e.get("closed_on")]
     closed_q = [e for e in q if e.get("closed_on")]
-    new_rows = [e for e in open_q if e["state"] == "new"]
+    new_rows = [e for e in open_q if e["state"] in ("new", "opt_only")]  # OPT-only roles sit in the open list, filterable via the OPT only button
     by_state = {}
     for e in open_q:
-        if e["state"] != "new":
+        if e["state"] not in ("new", "opt_only"):
             by_state.setdefault(e["state"], []).append(e)
     ordered_states = [s for s in _SECONDARY_STATE_ORDER if s in by_state] + \
                       [s for s in by_state if s not in _SECONDARY_STATE_ORDER]
@@ -2139,6 +2140,8 @@ details {{ margin-bottom: 0.5rem; }}
 summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBar {{ position: sticky; top: 0; background: #fafafa; padding: 0.5rem 0; margin-bottom: 0.5rem; z-index: 1; }}
 #filterBox {{ width: 100%; max-width: 420px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
+#optOnlyBtn {{ padding: 6px 14px; font-size: 0.95rem; cursor: pointer; border: 1px solid #888; border-radius: 4px; background: #fff; }}
+#optOnlyBtn[aria-pressed="true"] {{ background: #1a6e1a; color: #fff; border-color: #1a6e1a; }}
 #filterSearchBtn {{ padding: 8px 14px; font-size: 1rem; margin-left: 6px; cursor: pointer; }}
 #filterCount {{ color: #666; font-size: 0.85rem; margin-left: 8px; }}
 tr.hidden-by-filter {{ display: none; }}
@@ -2161,6 +2164,7 @@ tr.hidden-by-filter {{ display: none; }}
 }})();
 </script>
 <div id="filterBar">
+<div class="exp-filter" style="margin: 0 0 6px 0"><button type="button" id="optOnlyBtn" aria-pressed="false" title="Show only roles that state no employer sponsorship (workable on F-1 OPT / STEM OPT)">OPT only</button></div>
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <button type="button" id="filterSearchBtn">Search</button>
 <span id="filterCount"></span>
@@ -2215,8 +2219,11 @@ to
   var dateMin = document.getElementById('dateMin');
   var dateMax = document.getElementById('dateMax');
   var dateIncludeNA = document.getElementById('dateIncludeNA');
+  var optBtn = document.getElementById('optOnlyBtn');
+  var optOnly = false;
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
+  function setOpt(on) {{ optOnly = on; optBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); }}
 
   function ageDays(tr) {{
     var iso = tr.getAttribute('data-posted') || tr.getAttribute('data-first-seen');
@@ -2257,7 +2264,7 @@ to
         // numeric range filter (they didn't fail the check, they just have nothing to check).
         expMatch = rank === -1 ? expIncludeNA.checked : (rank >= lo && rank <= hi);
       }}
-      var match = textMatch && expMatch && dateOk(tr);
+      var match = textMatch && expMatch && dateOk(tr) && (!optOnly || tr.getAttribute('data-opt') === '1');
       tr.classList.toggle('hidden-by-filter', !match);
       if (match) {{
         shown++;
@@ -2265,7 +2272,7 @@ to
         if (details && !details.open) {{ details.open = true; forcedOpen.push(details); }}
       }}
     }});
-    countEl.textContent = (raw || expActive || dateActive()) ? ('showing ' + shown + ' of ' + rows.length) : '';
+    countEl.textContent = (raw || expActive || dateActive() || optOnly) ? ('showing ' + shown + ' of ' + rows.length) : '';
     try {{
       localStorage.setItem('jobScoutFilter', box.value);
       localStorage.setItem('jobScoutExpMin', expMin.value);
@@ -2274,6 +2281,7 @@ to
       localStorage.setItem('jobScoutDateMin', dateMin.value);
       localStorage.setItem('jobScoutDateMax', dateMax.value);
       localStorage.setItem('jobScoutDateNA', dateIncludeNA.checked ? '1' : '0');
+      localStorage.setItem('jobScoutOptOnly', optOnly ? '1' : '0');
     }} catch (e) {{}}
   }}
 
@@ -2285,6 +2293,7 @@ to
     dateMin.value = '0';
     dateMax.value = 'inf';
     dateIncludeNA.checked = true;
+    setOpt(false);
     apply();
   }});
 
@@ -2303,7 +2312,9 @@ to
     if (sdMin !== null) dateMin.value = sdMin;
     if (sdMax !== null) dateMax.value = sdMax;
     if (sdNA !== null) dateIncludeNA.checked = sdNA === '1';
+    setOpt(localStorage.getItem('jobScoutOptOnly') === '1');
   }} catch (e) {{}}
+  optBtn.addEventListener('click', function() {{ setOpt(!optOnly); apply(); }});
   searchBtn.addEventListener('click', apply);
   box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
   expMin.addEventListener('change', apply);
