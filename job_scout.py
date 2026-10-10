@@ -1316,7 +1316,7 @@ def matches(job, f):
     # word-boundary anchoring alone can tell those apart. "Georgia" (also a real US state name) and
     # "Jersey" (a Channel Island, also a real US state's shorthand) are deliberately left out of
     # locations_exclude for the same reason and aren't worth the collision risk.
-    t, loc = job["title"], job["location"].lower()
+    t, loc = " ".join(job["title"].split()), job["location"].lower()  # collapse double spaces so excludes match
     loc_folded = _fold_accents(loc)
     inc = f.get("title_include", [])
     exc = f.get("title_exclude", [])
