@@ -1847,9 +1847,9 @@ _EXTRA_SCRIPT = r"""
 
   // Categories
   var wrap = document.createElement('div');
-  wrap.className = 'exp-filter';
-  wrap.innerHTML = 'Categories: ' + CATEGORIES.map(function(c) {
-    return '<label style="margin-right: 10px; white-space: nowrap; display: inline-block;"><input type="checkbox" data-cat-key="' + c.key + '"> ' +
+  wrap.className = 'fb-row';
+  wrap.innerHTML = '<span class="lbl">Categories</span>' + CATEGORIES.map(function(c) {
+    return '<label class="chip"><input type="checkbox" data-cat-key="' + c.key + '"> ' +
            c.label.replace(/&/g, '&amp;') + '</label>';
   }).join('');
   if (bar) bar.appendChild(wrap);
@@ -1888,12 +1888,11 @@ _EXTRA_SCRIPT = r"""
   });
 
   // Hide one company
-  var na = document.getElementById('expIncludeNA');
-  var anchor = na ? na.closest('label') : null;
+  var toggles = document.getElementById('fbToggles');
   var label = document.createElement('label');
-  label.style.marginLeft = '10px';
-  label.innerHTML = '<input type="checkbox" id="hideCompanyBox"> hide ' + COMPANY;
-  if (anchor) anchor.insertAdjacentElement('afterend', label);
+  label.className = 'chip';
+  label.innerHTML = '<input type="checkbox" id="hideCompanyBox"> Hide ' + COMPANY;
+  if (toggles && resetBtn) toggles.insertBefore(label, resetBtn);
   else if (bar) bar.appendChild(label);
   var hideBox = label.querySelector('input');
   function applyCompany() {
@@ -1911,8 +1910,9 @@ _EXTRA_SCRIPT = r"""
   var METRO_RE = /\b(new york|nyc|manhattan|brooklyn|queens|bronx|long island|westchester|white plains|new jersey|nj|jersey city|newark|hoboken|harrison|stamford|greenwich|norwalk|connecticut|ct|ny)\b/;
   var UPSTATE_RE = /\b(buffalo|albany|rochester|syracuse|ithaca|binghamton|utica)\b/;
   var metroLabel = document.createElement('label');
-  metroLabel.style.marginLeft = '10px';
-  metroLabel.innerHTML = '<input type="checkbox" id="metroOnlyBox"> NY metro only (NY/NJ/CT)';
+  metroLabel.className = 'chip';
+  metroLabel.title = 'NY, NJ and CT locations only';
+  metroLabel.innerHTML = '<input type="checkbox" id="metroOnlyBox"> NY metro only';
   label.insertAdjacentElement('afterend', metroLabel);
   metroBox = metroLabel.querySelector('input');
   function applyLocation() {
@@ -2138,11 +2138,19 @@ td.salary {{ white-space: nowrap; }}
 span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decoration: none; }}
 details {{ margin-bottom: 0.5rem; }}
 summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
-#filterBar {{ position: sticky; top: 0; background: #fafafa; padding: 0.5rem 0; margin-bottom: 0.5rem; z-index: 1; }}
-#filterBox {{ width: 100%; max-width: 420px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
-#optOnlyBtn {{ padding: 6px 14px; font-size: 0.95rem; cursor: pointer; border: 1px solid #888; border-radius: 4px; background: #fff; }}
+#filterBar {{ position: sticky; top: 0; background: #fafafa; padding: 0.6rem 0; margin-bottom: 0.5rem; z-index: 1; border-bottom: 1px solid #e3e3e3; display: flex; flex-direction: column; gap: 8px; }}
+#filterBox {{ width: 100%; max-width: 520px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
+#optOnlyBtn, #expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
 #optOnlyBtn[aria-pressed="true"] {{ background: #1a6e1a; color: #fff; border-color: #1a6e1a; }}
-#filterSearchBtn {{ padding: 8px 14px; font-size: 1rem; margin-left: 6px; cursor: pointer; }}
+#expReset {{ margin-left: auto; color: #555; }}
+.fb-row {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }}
+.fb-row .lbl {{ font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #666; min-width: 7.5rem; }}
+.fb-row .lbl.sep {{ margin-left: 18px; min-width: 0; }}
+.fb-row .to {{ color: #888; font-size: 0.85rem; }}
+.fb-row select {{ padding: 4px 6px; font-size: 0.9rem; }}
+label.chip {{ display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border: 1px solid #ccc; border-radius: 999px; background: #fff; font-size: 0.85rem; cursor: pointer; white-space: nowrap; }}
+label.chip:has(input:checked) {{ background: #e6f0fb; border-color: #6aa5e0; }}
+#filterSearchBtn {{ padding: 8px 14px; font-size: 1rem; cursor: pointer; }}
 #filterCount {{ color: #666; font-size: 0.85rem; margin-left: 8px; }}
 tr.hidden-by-filter {{ display: none; }}
 .exp-filter {{ margin-top: 6px; font-size: 0.85rem; color: #333; }}
@@ -2164,32 +2172,37 @@ tr.hidden-by-filter {{ display: none; }}
 }})();
 </script>
 <div id="filterBar">
-<div class="exp-filter" style="margin: 0 0 6px 0"><button type="button" id="optOnlyBtn" aria-pressed="false" title="Show only roles that state no employer sponsorship (workable on F-1 OPT / STEM OPT)">OPT only</button></div>
+<div class="fb-row">
 <input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
 <button type="button" id="filterSearchBtn">Search</button>
 <span id="filterCount"></span>
-<div class="exp-filter">
-Experience (years): from
+</div>
+<div class="fb-row" id="fbToggles">
+<span class="lbl">Show</span>
+<button type="button" id="optOnlyBtn" aria-pressed="false" title="Show only roles that state no employer sponsorship (workable on F-1 OPT / STEM OPT)">OPT only</button>
+<button type="button" id="expReset">Reset all filters</button>
+</div>
+<div class="fb-row">
+<span class="lbl">Experience (years)</span>
 <select id="expMin">
 {''.join(f'<option value="{n}"{" selected" if n == 0 else ""}>{n}</option>' for n in range(16))}
 </select>
-to
+<span class="to">to</span>
 <select id="expMax">
 {''.join(f'<option value="{n}">{n}</option>' for n in range(16))}
 <option value="inf" selected>15+</option>
 </select>
-<label><input type="checkbox" id="expIncludeNA" checked> include N/A (no years-of-experience found)</label>
-<br>Posted (days ago): from
+<label class="chip" title="Keep roles with no years-of-experience found"><input type="checkbox" id="expIncludeNA" checked> include N/A</label>
+<span class="lbl sep">Posted (days ago)</span>
 <select id="dateMin">
 {''.join(f'<option value="{n}"{" selected" if n == 0 else ""}>{n}</option>' for n in DATE_FILTER_DAYS)}
 </select>
-to
+<span class="to">to</span>
 <select id="dateMax">
 {''.join(f'<option value="{n}">{n}</option>' for n in DATE_FILTER_DAYS)}
 <option value="inf" selected>any</option>
 </select>
-<label><input type="checkbox" id="dateIncludeNA" checked> include undated</label>
-<button type="button" id="expReset">reset all filters</button>
+<label class="chip" title="Keep roles with no posting date"><input type="checkbox" id="dateIncludeNA" checked> include undated</label>
 </div>
 </div>
 <h2>New ({len(new_rows)})</h2>
