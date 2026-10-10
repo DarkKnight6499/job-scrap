@@ -261,7 +261,14 @@ def test_retry_recovers_failed_description_and_reclassifies(monkeypatch):
     monkeypatch.setattr(js, "describe", lambda c, j: ("We do not sponsor visas. 3+ years of experience.", "", ""))
     e = _enrich_entry()
     js._retry_enrichment([e], dict(companies=[dict(name="X", ats="fake")]), [])
-    assert e["description_status"] == "ok" and e["sponsorship_status"] == "Blocked" and e["state"] == "auto_blocked"
+    assert e["description_status"] == "ok" and e["sponsorship_status"] == "OPT Only" and e["state"] == "opt_only"
+
+
+def test_retry_hard_block_still_auto_blocks(monkeypatch):
+    monkeypatch.setattr(js, "describe", lambda c, j: ("Must be a U.S. citizen. We do not sponsor visas.", "", ""))
+    e = _enrich_entry()
+    js._retry_enrichment([e], dict(companies=[dict(name="X", ats="fake")]), [])
+    assert e["sponsorship_status"] == "Blocked" and e["state"] == "auto_blocked"
 
 
 def test_retry_backs_off_one_day_and_stops_after_max_attempts(monkeypatch):

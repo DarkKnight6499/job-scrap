@@ -65,7 +65,7 @@ from keyword_matching import contains_term  # noqa: E402
 HOME = Path(os.environ.get("JOB_SCOUT_HOME", REPO_DIR / "data"))
 UA = {"User-Agent": "job-scout/1.0", "Accept": "application/json"}
 RETRY_429_MAX = 4  # Workday 429s on bursts; a short backoff clears them (40 of 40 recovered in testing)
-QUEUE_STATES = ("new", "shortlisted", "applied", "dismissed", "auto_blocked")
+QUEUE_STATES = ("new", "shortlisted", "applied", "dismissed", "opt_only", "auto_blocked")
 
 CLOSE_AFTER_MISSES = 2     # consecutive complete-listing runs an id must be absent before we call it closed
 REPOST_WINDOW_DAYS = 270   # a same-fingerprint match older than this (measured from when the prior
@@ -141,6 +141,23 @@ BLOCK_PATTERNS = [
     r"(?:authorized|eligible)\s+to\s+work[^.]{0,80}without[^.]{0,60}(?:sponsor|employer\s+support|visa\s+support|immigration)",
 ]
 BLOCK_RES = [re.compile(p, re.I) for p in BLOCK_PATTERNS]
+
+# Wording that rules out OPT/STEM OPT too (citizenship, clearance, permanent work authorization, or an
+# explicit OPT/CPT exclusion). Anything else in BLOCK_PATTERNS only refuses employer sponsorship, which
+# a candidate on F-1 OPT / STEM OPT does not need, so it classifies as "OPT Only" instead of "Blocked".
+HARD_BLOCK_PATTERNS = [
+    r"\bITAR\b",
+    r"\b(?:active|current)\s+(?:top\s+secret|secret|ts/sci)\b",
+    r"must\s+be\s+a\s+u[.\s]{0,2}s[.\s]{0,2}\s*citizen",  # abbreviation periods are already spaces after normalization
+    r"u[.\s]{0,2}s[.\s]{0,2}\s*citizens?\s+(?:only|required)",
+    r"(?:u[.\s]{0,2}s[.\s]{0,2}\s*citizenship|permanent\s+residen(?:t|cy))\s+(?:is\s+)?required",
+    r"requires?\s+permanent\s+(?:work\s+)?authorization\s+to\s+work",
+    r"(?:limited|restricted)\s+to\s+(?:persons|people|individuals|candidates|applicants)\s+with\s+(?:an?\s+)?(?:indefinite|unrestricted|permanent)\s+(?:right|authori[sz]ation)\s+to\s+work",
+    r"not\s+eligible\s+for[^.]{0,150}\b(?:opt|cpt)\b",
+]
+HARD_BLOCK_RES = [re.compile(p, re.I) for p in HARD_BLOCK_PATTERNS]
+_OPT_WORD_RE = re.compile(r"\b(?:opt|cpt|stem|f-?1)\b", re.I)
+OPT_WINDOW_CHARS = 200  # an OPT/STEM/F-1 mention this close to a no-sponsorship phrase is read as an OPT exclusion
 
 # Abbreviations whose internal periods break the "[^.]{0,N}" same-sentence
 # windows above (a period-based window can't span "U.S." without this) -
@@ -954,7 +971,7 @@ def hrmdirect(c):
         seen.add(req)
         url = f"{base}/job-opening.php?req={req}&&nohd"
         page = http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
-        page = re.sub(r"(?is)<(script|style).*?</\1>", " ", page)
+        page = re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", page)
         text = strip_html(page)
         m = re.search(r"Location:\s*(.+?)\s+Type of Hire:", text)
         out.append(dict(id=req, title=strip_html(title), location=m.group(1) if m else "", url=url, posted="", desc=text[:30000]))
@@ -1210,7 +1227,7 @@ def describe(c, job):
         return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
     if ats == "commerzbank":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
-        return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer).*?</\1>", " ", raw))[:30000], "", ""
+        return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw))[:30000], "", ""
     if ats == "phenom":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         for m in re.finditer(r'"description":"((?:[^"\\]|\\.)*)"', raw):
@@ -1236,7 +1253,7 @@ def describe(c, job):
         i = raw.find('itemprop="description"')
         if i < 0:
             return "", "", ""
-        return strip_html(re.sub(r"(?is)<(script|style).*?</\1>", " ", raw[raw.find(">", i) + 1:]))[:30000], "", ""
+        return strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[raw.find(">", i) + 1:]))[:30000], "", ""
     if ats == "eightfold":
         d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
                  headers={"Accept": "application/json"})
@@ -1353,15 +1370,24 @@ def matches(job, f):
 
 
 def classify_sponsorship(text):
-    """Blocked on explicit language, else Unclear. Never Allowed."""
+    """Blocked on language that rules out OPT too (citizenship, clearance, permanent authorization, OPT
+    exclusion), "OPT Only" on plain no-sponsorship language, else Unclear. Never Allowed."""
     if not text:
         return "Unclear", "Description unavailable; not checked."
     normalized = _normalize_abbreviations(text)  # same length as `text` - offsets stay valid
+
+    def evidence(m):
+        s, e = max(0, m.start() - 50), min(len(text), m.end() + 50)
+        return "..." + text[s:e].strip() + "..."
+    for rx in HARD_BLOCK_RES:
+        m = rx.search(normalized)
+        if m:
+            return "Blocked", evidence(m)
     for rx in BLOCK_RES:
         m = rx.search(normalized)
         if m:
-            s, e = max(0, m.start() - 50), min(len(text), m.end() + 50)
-            return "Blocked", "..." + text[s:e].strip() + "..."
+            window = normalized[max(0, m.start() - OPT_WINDOW_CHARS):m.end() + OPT_WINDOW_CHARS]
+            return ("Blocked" if _OPT_WORD_RE.search(window) else "OPT Only"), evidence(m)
     return "Unclear", "No sponsorship language in the description."
 
 
@@ -1601,6 +1627,8 @@ def _retry_enrichment(queue, cfg, keywords, dry=False):
             e["description_status"] = "ok"
             if e["state"] == "new" and e["sponsorship_status"] == "Blocked":
                 e["state"] = "auto_blocked"
+            elif e["state"] == "new" and e["sponsorship_status"] == "OPT Only":
+                e["state"] = "opt_only"
             fixed += 1
     if fixed:
         print(f"retry: recovered {fixed} descriptions or posted dates")
@@ -1686,7 +1714,8 @@ def cmd_queue(args):
     if args.html:
         updated_at = (datetime.fromtimestamp((HOME / "queue.json").stat().st_mtime, tz=ZoneInfo("America/New_York"))
                       if (HOME / "queue.json").exists() else None)
-        q = [e for e in q if e["state"] == "new"]  # public page: never expose applied/shortlisted/dismissed/blocked status
+        # public page: never expose applied/shortlisted/dismissed/blocked status; opt_only is a property of the posting, not a decision
+        q = [e for e in q if e["state"] in ("new", "opt_only")]
         write_queue_html(q, args.html, updated_at)
         print(f"wrote {len(q)} entries to {args.html}")
         return
@@ -1714,7 +1743,8 @@ def posted_label(e):
 # states shown collapsed below the main "new" table, in this order; any other state found (e.g.
 # a custom state from a hand-edit) is appended after these
 DATE_FILTER_DAYS = [0, 1, 3, 7, 14, 30, 45, 60, 90, 180, 365, 730]
-_SECONDARY_STATE_ORDER = ["shortlisted", "applied", "auto_blocked", "dismissed"]
+_SECONDARY_STATE_ORDER = ["shortlisted", "applied", "opt_only", "auto_blocked", "dismissed"]
+_STATE_LABELS = {"opt_only": "OPT only (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
 
 
 # Cloudflare Worker that returns a posting's full JD text (see worker/README.md). Blank = the Copy JD
@@ -2070,7 +2100,7 @@ def write_queue_html(q, path, updated_at=None):
                       [s for s in by_state if s not in _SECONDARY_STATE_ORDER]
 
     sections = "".join(
-        f'<details><summary>{html.escape(state)} ({len(by_state[state])})</summary>'
+        f'<details><summary>{html.escape(_STATE_LABELS.get(state, state))} ({len(by_state[state])})</summary>'
         f'<table><thead>{head}</thead><tbody>{"".join(row_html(e) for e in by_state[state])}</tbody></table>'
         f'</details>'
         for state in ordered_states
@@ -2507,7 +2537,7 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
         # window - so only trust absence as repost evidence when this run's listing was complete
         prior = None if (first_run or not complete) else _find_repost_source(queue, name, fp, live_ids, eid, claimed)
 
-        entry_state = "auto_blocked" if spons == "Blocked" else "new"
+        entry_state = {"Blocked": "auto_blocked", "OPT Only": "opt_only"}.get(spons, "new")
         repost_count, repost_of, reposted_on = 0, None, None
         lineage_root, lineage_first_seen = eid, today
         if prior:
@@ -2555,6 +2585,9 @@ def _process_company(c, name, fresh, descriptions, first_run, jobs, complete, se
             counts["reposts"] += 1
         if spons == "Blocked":
             counts["blocked"] += 1
+            continue
+        if spons == "OPT Only":
+            counts["opt_only"] = counts.get("opt_only", 0) + 1  # listed in its own section, no alert
             continue
         counts["queued"] += 1
         # first run seeds the queue silently; a repost only alerts if it flips from blocked to open -
@@ -2788,7 +2821,7 @@ def _prune_stale(queue, counts, unverified=frozenset(), configured=None):
         posted = e.get("posted") or ""  # null dates exist in the queue; len(None) would crash the prune
         # an old posting still on the employer's board today is live (employers bump/relist), so keep it
         still_live = e.get("last_seen_live") == date.today().isoformat() and not e.get("closed_on")
-        is_stale = (e["state"] in ("new", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff
+        is_stale = (e["state"] in ("new", "opt_only", "auto_blocked") and len(posted) >= 10 and posted[:10] < cutoff
                     and not still_live and e["company"] not in unverified
                     and (e.get("closed_on") or (configured is not None and e["company"] not in configured)))
         if is_stale:

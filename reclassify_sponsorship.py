@@ -19,7 +19,12 @@ so an already-applied or already-decided role never gets silently relabeled. Com
 longer in config.json (a target site was retired) are skipped and counted, not treated as
 errors.
 
-Usage: py -3 reclassify_sponsorship.py [--dry-run]
+Added 2026-10-10: classify_sponsorship() now splits no-sponsorship wording into "OPT Only" (plain
+refusal to sponsor) and "Blocked" (citizenship, clearance, permanent authorization, OPT excluded).
+`--blocked` re-checks entries already marked Blocked and moves those that are really "OPT Only" to
+state "opt_only" (only from state auto_blocked or new; any other state is left as it is).
+
+Usage: py -3 reclassify_sponsorship.py [--dry-run] [--blocked] [--limit N]
 """
 import sys
 import argparse
@@ -31,12 +36,13 @@ import job_scout
 import atomic_json
 
 HOME = job_scout.HOME
-DESCRIBE_WORKERS = 8
+DESCRIBE_WORKERS = 12
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dry-run", action="store_true", help="Report what would change, write nothing")
+    ap.add_argument("--blocked", action="store_true", help="Re-check Blocked entries instead of Unclear ones")
     ap.add_argument("--limit", type=int, default=None, help="Only check the first N Unclear entries (testing)")
     args = ap.parse_args()
 
@@ -46,10 +52,11 @@ def main():
     company_by_name = {c["name"]: c for c in cfg["companies"]}
 
     queue = job_scout.load_json(HOME / "queue.json", [])
-    targets = [e for e in queue if e.get("sponsorship_status") == "Unclear"]
+    from_status = "Blocked" if args.blocked else "Unclear"
+    targets = [e for e in queue if e.get("sponsorship_status") == from_status]
     if args.limit:
         targets = targets[:args.limit]
-    print(f"{len(targets)} entries currently Unclear, out of {len(queue)} total")
+    print(f"{len(targets)} entries currently {from_status}, out of {len(queue)} total")
 
     no_company, fetch_errors, flipped, unchanged = 0, 0, 0, 0
 
@@ -82,22 +89,26 @@ def main():
                 print(f"! {entry['company']} - {entry['role']}: {err}", file=sys.stderr)
                 continue
             spons, evidence = result
+            if args.blocked and spons == "Unclear":
+                unchanged += 1  # a re-fetch that finds no wording proves nothing; keep the earlier Blocked verdict
+                continue
             if spons != entry["sponsorship_status"]:
-                moved = spons == "Blocked" and entry["state"] == "new"
-                suffix = " (state: new -> auto_blocked)" if moved else ""
-                print(f"  {entry['company']} | {entry['role']}: Unclear -> {spons}{suffix}")
+                new_state = {"Blocked": "auto_blocked", "OPT Only": "opt_only"}.get(spons)
+                moved = new_state is not None and entry["state"] in ("new", "auto_blocked", "opt_only")                     and entry["state"] != new_state
+                suffix = f" (state: {entry['state']} -> {new_state})" if moved else ""
+                print(f"  {entry['company']} | {entry['role']}: {from_status} -> {spons}{suffix}")
                 if not args.dry_run:
                     entry["sponsorship_status"] = spons
                     entry["sponsorship_evidence"] = evidence
                     if moved:
-                        entry["state"] = "auto_blocked"
+                        entry["state"] = new_state
                 flipped += 1
             else:
                 unchanged += 1
             if i % 200 == 0:
                 print(f"...{i}/{len(targets)} checked")
 
-    print(f"\n{flipped} reclassified (Unclear -> Blocked), {unchanged} unchanged, "
+    print(f"\n{flipped} reclassified (from {from_status}), {unchanged} unchanged, "
           f"{no_company} skipped (company not in config), {fetch_errors} fetch errors")
 
     if args.dry_run:
