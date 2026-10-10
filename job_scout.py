@@ -1744,7 +1744,7 @@ def posted_label(e):
 # a custom state from a hand-edit) is appended after these
 DATE_FILTER_DAYS = [0, 1, 3, 7, 14, 30, 45, 60, 90, 180, 365, 730]
 _SECONDARY_STATE_ORDER = ["shortlisted", "applied", "opt_only", "auto_blocked", "dismissed"]
-_STATE_LABELS = {"opt_only": "OPT only (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
+_STATE_LABELS = {"opt_only": "OPT allowed (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
 
 
 # Cloudflare Worker that returns a posting's full JD text (see worker/README.md). Blank = the Copy JD
@@ -2039,7 +2039,7 @@ def write_queue_html(q, path, updated_at=None):
         exp_evidence = html.escape(e.get("experience_evidence") or "")
         salary = e.get("salary") or "Unclear"
         salary_evidence = html.escape(e.get("salary_evidence") or "")
-        spons_label = e["sponsorship_status"] if e["sponsorship_status"] != "Unclear" else "N/A"
+        spons_label = {"Unclear": "N/A", "OPT Only": "OPT allowed"}.get(e["sponsorship_status"], e["sponsorship_status"])
         salary_label = salary if salary != "Unclear" else "N/A"
         role = html.escape(e["role"])
         if e.get("repost_count"):
@@ -2179,7 +2179,7 @@ tr.hidden-by-filter {{ display: none; }}
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<button type="button" id="optOnlyBtn" aria-pressed="false" title="Show only roles that state no employer sponsorship (workable on F-1 OPT / STEM OPT)">OPT only</button>
+<button type="button" id="optOnlyBtn" aria-pressed="false" title="Show only roles that refuse employer sponsorship but do not exclude OPT or STEM OPT">OPT allowed</button>
 <button type="button" id="expReset">Reset all filters</button>
 </div>
 <div class="fb-row">
