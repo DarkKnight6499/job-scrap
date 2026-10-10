@@ -15,6 +15,10 @@ def _job(title):
     "Senior Branch Premier Banker Capital District",
     "Associate Branch Manager, Ameriprise Financial Advisors - Richmond, VA",
     "CA WA Private Mortgage Banking Associate Manager",
+    "Client Experience Associate - Piedmont Market",
+    "Registered Client Associate",
+    "Associate Auto Claims Adjuster Upskill",
+    "Associate Territory Manager, Neurovascular - Dallas, TX",
     "Associate Relationship  Banker - Austin Central Market - Austin ,TX",
 ])
 def test_branch_titles_excluded(title):
@@ -25,6 +29,8 @@ def test_branch_titles_excluded(title):
     "Mortgage Quantitative Analyst, VP",
     "Corporate Banker - Global Capital Management - Vice President",
     "Retail Credit Risk Expert",
+    "Treasury Associate",
+    "Credit Risk Review Analyst",
 ])
 def test_adjacent_roles_kept(title):
     f = dict(FILTERS, title_include=[])
