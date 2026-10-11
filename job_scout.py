@@ -2090,18 +2090,125 @@ def classify_sponsorship(text):
 
 
 _EXPERIENCE_YEARS_RE = re.compile(
-    r"(\d{1,2})\s*(?:-|to|–)\s*(\d{1,2})\s*\+?\s*years?|"      # "3-5 years" / "3 to 5 years"
-    r"(\d{1,2})\s*\+\s*years?|"                                     # "5+ years"
+    r"(?<![\d,.])(\d{1,2})\s*(?:-|to|–)\s*(\d{1,2})\s*\+?\s*years?|"      # "3-5 years" / "3 to 5 years"
+    r"(?<![\d,.])(\d{1,2})\s*\+\s*years?|"                                     # "5+ years"
     r"(?:minimum|min\.?|at least)\s*(?:of\s*)?(\d{1,2})\s*years?",  # "minimum of 3 years"
     re.I,
 )
 _ENTRY_PHRASE_RE = re.compile(
-    r"\bentry[- ]level\b|\bnew grad(?:uate)?s?\b|\brecent graduate\b|\bcampus hire\b|"
+    r"\bentry[- ]level\b(?!\s+(?:employees?|staff|to\s+(?:senior|executive|c-suite)))|\bnew grad(?:uate)?s?\b|\brecent graduate\b|\bcampus hire\b|"
     r"\bno (?:prior )?experience (?:required|necessary)\b",
     re.I,
 )
 _SENIOR_TITLE_RE = re.compile(r"\b(senior|sr\.?|vice president|vp|svp|principal|lead|staff)\b", re.I)
 _MID_TITLE_RE = re.compile(r"\bassociate\b", re.I)
+# Added after the two above so existing title-inferred values are unchanged ("Associate Director" stays 3).
+_DIRECTOR_TITLE_RE = re.compile(r"\b(?:managing director|director|head of)\b", re.I)
+_ENTRY_TITLE_RE = re.compile(
+    r"\bintern(?:ship)?s?\b|\bsummer analyst\b|\btrainee\b|\bapprentice(?:ship)?\b|\bgraduate (?:program|scheme|analyst)\b|"
+    r"\bentry[- ]level\b|\b(?:junior|jr\.?)\b", re.I)
+
+_NUM_WORDS = {w: i for i, w in enumerate(
+    "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen "
+    "sixteen seventeen eighteen nineteen twenty".split())}
+_NUM = r"(\d{1,2}|" + "|".join(sorted(_NUM_WORDS, key=len, reverse=True)) + r")"
+_NUM_PAREN = r"(?:\s*\(\d{1,2}\))?"
+# "3 years", "3+ yrs", "three (3) years", "3-5 years", "3 to 5 years", "five or more years", "5 years or more"
+_STATED_YEARS_RE = re.compile(
+    r"\b" + _NUM + _NUM_PAREN + r"(?:\s*(?:-|–|to)\s*" + _NUM + _NUM_PAREN + r")?"
+    r"\s*(?:\+|\bplus\b)?\s*(?:or\s+more\s+)?[-\s]*(?:years?|yrs?)\b['’]?(?!\s+(?:old|ago)\b)",
+    re.I)
+_EXP_WORD_RE = re.compile(r"\bexperience[ds]?\b|\bexp\b", re.I)
+# a number before "years" that cannot be a requirement: tenure of the employer, an age, a service award, a
+# contract term ("within three years of hire") or fiscal/calendar years
+_YEARS_NOT_REQ_AFTER_RE = re.compile(
+    r"^['’]?\s*(?:(?:college|university|degree|bachelor|undergraduate|program|plan|period|term|contract|cycle|"
+    r"horizon|track|accredited|institution|school|vision|strategy|roadmap|associate|master)\b|"
+    r"of\s+(?:age|service|history|operations?|growth|business|profitab|unbroken|heritage|legacy|"
+    r"success|innovation|tradition)|in\s+business|old|ago|from\s+(?:now|hire|the\s+date)|fiscal|calendar|"
+    r"after|since|prior|post)", re.I)
+_YEARS_NOT_REQ_BEFORE_RE = re.compile(
+    r"(?:within|after|every|each|per|during|for\s+the\s+(?:next|past|last)|over\s+the\s+(?:next|past|last)|"
+    r"next|past|last|previous|prior|fiscal|calendar|founded|established|since|for)\s+(?:the\s+)?(?:\w+\s+)?$", re.I)
+_ORG_WORDS_RE = re.compile(
+    r"\b(?:we|we've|our|firm|company|bank|organization|organisation|group|heritage|legacy|history|founded|"
+    r"established|serving|providing|leader|leading)\b", re.I)
+_DEGREE_WORD_RE = re.compile(r"degree|diploma|\bged\b|bachelor|master|\bmba\b|ph\.?d|doctorate|associate'?s|education", re.I)
+_PREFERRED_NEAR_RE = re.compile(
+    r"\bpreferred\b|\bdesired\b|\bdesirable\b|\ba plus\b|\bnice to have\b|\bbonus\b|\bideal(?:ly)?\b|\bbeneficial\b|"
+    r"\ban? (?:advantage|asset)\b|\bhelpful\b|\bfavou?rable\b", re.I)
+_PREF_HEADING_RE = re.compile(
+    r"\b(?:preferred|desired|nice[- ]to[- ]have|bonus|ideal|additional|plus)\s+(?:qualifications?|skills?|experience|"
+    r"requirements?|attributes|points)\b|\bbonus points\b|\bwhat would make you stand out\b|\bnice to haves?\b|"
+    r"\bit'?s a plus\b|\bpreferred:", re.I)
+_REQ_HEADING_RE = re.compile(
+    r"\b(?:required|minimum|basic|mandatory)\s+(?:qualifications?|skills?|experience|requirements?|education)\b|"
+    r"\byou'?ll need\b|\byou will need\b|\bmust have\b|\bwhat you'?ll bring\b|\bwe'?re looking for\b|"
+    r"\bwhat we look for\b|\brequirements?:|\bqualifications?\s*:|\bminimum:", re.I)
+# "Minimum Years of Work Experience: 3" (Workday-style structured field)
+_STRUCTURED_YEARS_RE = re.compile(r"\bminimum years of (?:work |related |relevant )?experience\s*:\s*(\d{1,2})\b", re.I)
+
+
+def _num_val(tok):
+    tok = tok.lower()
+    return int(tok) if tok.isdigit() else _NUM_WORDS[tok]
+
+
+def _stated_experience_years(text):
+    """Stated years-of-experience requirement the original regexes miss: number words, "(3)" parentheticals,
+    ranges, "or more", bare "N years of ... experience", "N years' experience", structured fields. Returns
+    (lower bound, snippet) or None. Conservative: the number must sit next to the word "experience", and
+    employer tenure ("over 30 years"), ages, service awards, fiscal years, preferred-only years, and
+    degree-or-experience alternatives are skipped (None = Unclear beats a wrong value)."""
+    if not text:
+        return None
+    for m in _STRUCTURED_YEARS_RE.finditer(text):
+        n = int(m.group(1))
+        if n <= 20 and n > 0:
+            return n, text[max(0, m.start() - 20):m.end() + 20].strip()
+    for m in _STATED_YEARS_RE.finditer(text):
+        try:
+            lo = _num_val(m.group(1))
+            hi = _num_val(m.group(2)) if m.group(2) else lo
+        except KeyError:
+            continue
+        if max(lo, hi) > 20 or min(lo, hi) == 0 and not m.group(2):
+            continue
+        before = text[max(0, m.start() - 90):m.start()]
+        sent_before = re.split(r"[.;!?]\s", before)[-1]
+        after = text[m.end():m.end() + 100]
+        if _YEARS_NOT_REQ_AFTER_RE.match(after) or _YEARS_NOT_REQ_BEFORE_RE.search(sent_before):
+            continue
+        if re.search(r"(?:over|more than|nearly|almost|for|with)\s*$", sent_before, re.I) and _ORG_WORDS_RE.search(
+                sent_before) and not re.search(r"\b(?:candidates?|applicants?|you|looking|seeking|require[sd]?|need)\b",
+                                               sent_before, re.I):
+            continue  # "a bank with more than 20 years of experience"
+        # must be talking about experience: right after ("years of relevant experience") or a label right before
+        after_sent = re.split(r"[.;!?]\s", after)[0]
+        near_after = _EXP_WORD_RE.search(after_sent[:80])
+        near_before = re.search(r"\bexperience\s*(?:required|level|needed)?\s*[:\-–]\s*(?:minimum\s+)?(?:of\s+)?"
+                                r"(?:at least\s+|more than\s+|over\s+)?$", sent_before, re.I)
+        if not (near_after or near_before):
+            continue
+        # preferred-only years are not a requirement
+        if _PREFERRED_NEAR_RE.search(sent_before[-30:]) or _PREFERRED_NEAR_RE.search(after_sent[:100]):
+            continue
+        head_ctx = text[max(0, m.start() - 700):m.start()]
+        pref = [h.end() for h in _PREF_HEADING_RE.finditer(head_ctx)]
+        req = [h.end() for h in _REQ_HEADING_RE.finditer(head_ctx)]
+        if pref and (not req or max(pref) > max(req)):
+            continue
+        # "Bachelor's degree or 4 years of experience" / "degree and/or 3 years": an alternative, not a floor
+        alt_before = re.split(r"[.!?]\s", before)[-1]  # keeps ';' so "university; or at least 5 years" stays one clause
+        if re.search(r"\b(?:or|and/or)\s+(?:(?:have|having|with|at least|minimum of|minimum|a|an|the equivalent of)\s+)*$",
+                     alt_before, re.I) and _DEGREE_WORD_RE.search(alt_before):
+            continue
+        if re.match(r"[^.;]{0,50}?\bor\s+(?:a|an|the)?\s*(?:bachelor|master|mba|ph\.?d|doctorate|advanced degree|degree)", after, re.I):
+            continue
+        n = min(lo, hi)
+        s, e = max(0, m.start() - 40), min(len(text), m.end() + 40)
+        return n, text[s:e].strip()
+    return None
 
 
 def classify_experience(title, text):
@@ -2123,10 +2230,17 @@ def classify_experience(title, text):
         min_years = min(int(g) for g in m.groups() if g)
         s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
         return min_years, hay[s:e].strip()
+    stated = _stated_experience_years(hay)
+    if stated:
+        return stated
     if _SENIOR_TITLE_RE.search(title or ""):
         return 6, f"inferred from title: {title}"
     if _MID_TITLE_RE.search(title or ""):
         return 3, f"inferred from title: {title}"
+    if _DIRECTOR_TITLE_RE.search(title or ""):
+        return 6, f"inferred from title: {title}"
+    if _ENTRY_TITLE_RE.search(title or ""):
+        return 0, f"inferred from title: {title}"
     return None, "No years-of-experience language found."
 
 
