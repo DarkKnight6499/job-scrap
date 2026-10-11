@@ -15496,32 +15496,6 @@
    ]
   },
   {
-   "name": "Manulife",
-   "ats": "workday",
-   "host": "manulife.wd3.myworkdayjobs.com",
-   "tenant": "manulife",
-   "site": "MFCJH_Jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Commerce Bank",
    "ats": "workday",
    "host": "commercebank.wd1.myworkdayjobs.com",
