@@ -610,8 +610,15 @@ def icims(c):
                 loc = (re.search(r"Job Locations</span>.*?<span[^>]*>\s*(.*?)\s*</span>", card, re.S)
                        or re.search(r">Locations?</span>\s*<span[^>]*>\s*(.*?)\s*</span>", card, re.S))  # Stifel-style cards
                 posted = re.search(r'<span title="(\d{1,2})/(\d{1,2})/(\d{4})', card)
+                where = _icims_location(strip_html(loc.group(1)) if loc else "")
+                if not where:
+                    # Lord Abbett / America First cards split the place into labelled City and State fields
+                    # ("Location : City", "State/Province (Full Name)"); join them so US sites read "Roy, Utah".
+                    parts = [strip_html(v) for lab, v in re.findall(
+                        r'field-label">([^<]*(?:City|State)[^<]*)</span>.*?<span[^>]*>\s*(.*?)\s*</span>', card, re.S)]
+                    where = ", ".join(dict.fromkeys(p for p in parts if p))
                 out.append(dict(id=m.group(2), title=strip_html(title.group(1)) if title else "",
-                                location=_icims_location(strip_html(loc.group(1)) if loc else ""),
+                                location=where,
                                 url=m.group(1),
                                 posted=f"{posted.group(3)}-{int(posted.group(1)):02d}-{int(posted.group(2)):02d}" if posted else ""))
             if not cards:
@@ -801,8 +808,11 @@ def avature(c):
                 continue
             seen.add(m.group(2))
             spans = re.findall(r'<span class="paragraph_inner-span">\s*(.*?)\s*</span>', a, re.S)
+            # Bloomberg-style cards have no paragraph spans; the location sits in <span class="list-item-location"> (verified 2026-10-11)
+            alt = re.search(r'class="list-item-location">\s*(.*?)\s*</span>', a, re.S)
             out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=html.unescape(m.group(1)),
-                            location=strip_html(spans[0]) if spans else "", posted=dates.get(m.group(2), "")))
+                            location=strip_html(spans[0]) if spans else strip_html(alt.group(1)) if alt else "",
+                            posted=dates.get(m.group(2), "")))
         offset += page
         if len(arts) < page:
             return out, True
