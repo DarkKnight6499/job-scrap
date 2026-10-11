@@ -39,3 +39,15 @@ def test_branch_titles_excluded(title):
 def test_adjacent_roles_kept(title):
     f = dict(FILTERS, title_include=[])
     assert js.matches(_job(title), f)
+
+
+@pytest.mark.parametrize("title", [
+    "Bilingual Jr Relationship Manager, Associate",
+    "Credit Associate (Bilingual Japanese/English Required)",
+    "Senior Treasury Analyst (Japanese Speaking)",
+    "Surveillance Associate, Japanese Language Position",
+    "Credit Risk Management Consultant with German",
+    "Associate, Core Service (Mandarin/Cantonese required)",
+])
+def test_language_required_titles_excluded(title):
+    assert not js.matches(_job(title), FILTERS)
