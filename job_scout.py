@@ -1624,6 +1624,8 @@ def describe(c, job):
         it = items[0]
         parts = [it.get(k) for k in ("ExternalDescriptionStr", "ExternalResponsibilitiesStr", "ExternalQualificationsStr")]
         return strip_html(" ".join(p for p in parts if p)), "", ""
+    if ats == "jibe":  # list rows are queued without desc; the job page JSON-LD carries it
+        return (_jsonld_description(job["url"]) if job.get("url") else ""), "", ""
     if ats == "icims":
         return _icims_description(job)
     if ats == "adp_wfn":
