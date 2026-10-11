@@ -16723,6 +16723,14 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "FHLBank Boston",
+   "ats": "taleo_cws",
+   "host": "phh.tbe.taleo.net",
+   "path": "phh01",
+   "org": "FHLBBOSTON",
+   "cws": "38"
   }
  ],
  "keywords": [

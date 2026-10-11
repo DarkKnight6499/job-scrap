@@ -1012,6 +1012,26 @@ def ukg(c):
     return out, False
 
 
+def taleo_cws(c):
+    """Oracle Taleo Business Edition Career Center v2 (CWS) boards on <host>/<path>/ats/careers/v2, e.g.
+    phh.tbe.taleo.net/phh01 for FHLBank Boston. A plain GET of searchResults?org=<org>&cws=<n> lists every open
+    requisition on one page (no session cookie needed): accordion rows with a viewJobLink title anchor (rid in the
+    URL) and the location in the next div. No posted date in the list. Needs host, path, org, cws. Verified live
+    2026-10-11 against FHLBank Boston (4 jobs)."""
+    base = f"https://{c['host']}/{c['path'].strip('/')}/ats/careers/v2"
+    page = http(f"{base}/searchResults?org={c['org']}&cws={c['cws']}", raw=True, headers={"User-Agent": BROWSER_UA})
+    page = page.decode("utf-8", "ignore") if isinstance(page, bytes) else page
+    out, seen = [], set()
+    for m in re.finditer(r'<h4 class="[^"]*head-title[^"]*"><a href="([^"]+)" class="viewJobLink">(.*?)</a></h4>\s*<div[^>]*>(.*?)</div>', page, re.S):
+        url = html.unescape(m.group(1))
+        rid = re.search(r"[?&]rid=(\d+)", url)
+        if not rid or rid.group(1) in seen:
+            continue
+        seen.add(rid.group(1))
+        out.append(dict(id=rid.group(1), title=strip_html(m.group(2)), url=url, location=strip_html(m.group(3)), posted=""))
+    return out, "oracletaleocwsv2" in page  # the Career Center chrome is present, so an empty list is a real empty board
+
+
 def taleo_be(c):
     """Oracle Taleo Business Edition career sites (TVAPP pages such as careers.zionsbancorp.com, job URLs
     /jobs/<slug>-<id>). The list is a saved search: POST /ajax/content/job_results?JobSearch.id=<id>&page_index=N
@@ -1462,7 +1482,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
