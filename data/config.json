@@ -15972,6 +15972,42 @@
    "host": "gka.fa.us1.oraclecloud.com",
    "site": "CX",
    "max_per_term": 200
+  },
+  {
+   "name": "Clearwater Analytics",
+   "ats": "workday",
+   "host": "clearwateranalytics.wd1.myworkdayjobs.com",
+   "tenant": "clearwateranalytics",
+   "site": "Clearwater_Analytics_Careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Farmer Mac",
+   "ats": "adp_wfn",
+   "cid": "324a4031-59fe-4b64-b9a3-ec4705312baf"
+  },
+  {
+   "name": "Amalgamated Bank",
+   "ats": "adp_wfn",
+   "cid": "1b4164c0-a7ce-4c7b-8525-41e0f23310d4"
   }
  ],
  "keywords": [
