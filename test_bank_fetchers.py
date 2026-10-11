@@ -125,3 +125,27 @@ def test_workday_fetches_later_pages_in_parallel_and_tracks_completeness():
     with mock.patch.object(js, "http", make(70, lose=40)):
         jobs, complete = js.workday(c)
     assert len(jobs) == 50 and not complete  # one page lost to a 429
+
+
+def test_workday_shares_one_worker_pool_across_terms_and_pages():
+    import threading
+    import time
+    state = dict(now=0, peak=0)
+    lock = threading.Lock()
+
+    def _http(url, data=None, headers=None, timeout=20, raw=False):
+        with lock:
+            state["now"] += 1
+            state["peak"] = max(state["peak"], state["now"])
+        time.sleep(0.01)
+        with lock:
+            state["now"] -= 1
+        off, term = data["offset"], data["searchText"]
+        total = 0 if term == "none" else 5000 if term == "" else 60  # the empty probe says big board
+        n = max(0, min(20, total - off))
+        return {"total": total, "jobPostings": [dict(externalPath=f"/{term}/{off + i}", title="T", locationsText="NY") for i in range(n)]}
+    c = dict(host="h", tenant="t", site="s", search=["a", "b", "none"], max_per_term=100, term_ceiling=100, term_workers=2, page_workers=2)
+    with mock.patch.object(js, "http", _http):
+        jobs, complete = js.workday(c)
+    assert len(jobs) == 120 and complete  # the empty term costs one request and adds nothing
+    assert 2 < state["peak"] <= 4  # more than term_workers, never above term_workers x page_workers
