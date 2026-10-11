@@ -16697,6 +16697,32 @@
    "name": "Flywire",
    "ats": "smartrecruiters",
    "slug": "Flywire1"
+  },
+  {
+   "name": "Apple Bank",
+   "ats": "workday",
+   "host": "applebank.wd5.myworkdayjobs.com",
+   "tenant": "applebank",
+   "site": "AppleBankCareers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
