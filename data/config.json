@@ -15492,6 +15492,138 @@
     "derivatives",
     "collateral"
    ]
+  },
+  {
+   "name": "East West Bank",
+   "ats": "icims",
+   "hosts": [
+    "careers-eastwestbank.icims.com"
+   ]
+  },
+  {
+   "name": "Fulton Financial",
+   "ats": "icims",
+   "hosts": [
+    "careers-fult.icims.com"
+   ]
+  },
+  {
+   "name": "United Community Bank",
+   "ats": "icims",
+   "hosts": [
+    "careers-ucbi.icims.com"
+   ]
+  },
+  {
+   "name": "Trustmark",
+   "ats": "icims",
+   "hosts": [
+    "jobs-trustmark.icims.com"
+   ]
+  },
+  {
+   "name": "Manulife",
+   "ats": "workday",
+   "host": "manulife.wd3.myworkdayjobs.com",
+   "tenant": "manulife",
+   "site": "MFCJH_Jobs",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Commerce Bank",
+   "ats": "workday",
+   "host": "commercebank.wd1.myworkdayjobs.com",
+   "tenant": "commercebank",
+   "site": "CommerceJobs",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Simmons Bank",
+   "ats": "workday",
+   "host": "simmonsbank.wd5.myworkdayjobs.com",
+   "tenant": "simmonsbank",
+   "site": "SimmonsCareers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Ameris Bank",
+   "ats": "workday",
+   "host": "amerisbank.wd108.myworkdayjobs.com",
+   "tenant": "amerisbank",
+   "site": "Ameris_Bank_Careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
