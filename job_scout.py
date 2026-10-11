@@ -1012,6 +1012,56 @@ def ukg(c):
     return out, False
 
 
+def peoplesoft_hrs(c):
+    """Oracle PeopleSoft HCM Candidate Gateway (Fluid) career sites, e.g. careers.federatedhermes.com. A session
+    GET of <host>/psc/EXT/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_SCHJOB&SiteId=<n>
+    yields ICSID/ICStateNum form state; a form POST with ICAction=HRS_SCH_WRK_FLU_HRS_SEARCH_BTN returns the first
+    50 rows as server-rendered HTML, and ICAction=HRS_AGNT_RSLT_I$hdown$0 on that state returns the rest. Rows carry
+    Job Title, Job ID, Location (city only), Department, Job Family and Posted Date (mm/dd/yyyy). The detail URL
+    (Page=HRS_APP_JBPST_FL&JobOpeningId=<id>&PostingSeq=1) works in a fresh cookie session. Needs host; optional
+    site (default 1), path. Verified live 2026-10-11 against Federated Hermes (65 jobs)."""
+    base = "https://{}/{}".format(c["host"], c.get("path", "psc/EXT/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL").strip("/"))
+    site = c.get("site", 1)
+    ua = {"User-Agent": BROWSER_UA}
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+
+    def get(url, form=None):
+        data = urllib.parse.urlencode(form).encode() if form is not None else None
+        return opener.open(urllib.request.Request(url, data=data, headers=ua), timeout=40).read().decode("utf-8", "ignore")
+
+    def state(page):
+        sid = re.search(r"name='ICSID'[^>]*value='([^']*)'", page)
+        num = re.search(r"name='ICStateNum'[^>]*value='(\d+)'", page)
+        return (sid.group(1), num.group(1)) if sid and num else None
+
+    try:
+        page = get(f"{base}?FOCUS=Applicant&Page=HRS_APP_SCHJOB&SiteId={site}")
+        st = state(page)
+        if not st:
+            return [], False
+        page = get(base, {"ICStateNum": st[1], "ICAction": "HRS_SCH_WRK_FLU_HRS_SEARCH_BTN", "ICSID": st[0], "HRS_SCH_WRK_HRS_SCH_TEXT100": ""})
+        total = re.search(r">\s*(\d+)\s*</span>\s*(?:<[^>]+>\s*)*jobs? found", page, re.I) or re.search(r"(\d+)\s*(?:<[^>]+>\s*)*jobs found", page, re.I)
+        total = int(total.group(1)) if total else None
+        if total and len(re.findall(r"id='SCH_JOB_TITLE\$\d+'", page)) < total and state(page):
+            st = state(page)
+            page = get(base, {"ICStateNum": st[1], "ICAction": "HRS_AGNT_RSLT_I$hdown$0", "ICSID": st[0]})
+    except Exception:  # noqa: BLE001
+        return [], False
+    out, seen = [], set()
+    for chunk in re.split(r"win0divSCH_JOB_TITLE\$\d+'", page)[1:]:
+        f = {k.strip(): html.unescape(v).strip() for k, v in
+             re.findall(r"class='ps-label'>([^<]+)</span></DIV><span class='ps_box-value'[^>]*>([^<]*)</span>", chunk[:4000])}
+        jid, title = f.get("Job ID"), f.get("Job Title")
+        if not jid or not title or jid in seen:
+            continue
+        seen.add(jid)
+        pd = re.match(r"(\d+)/(\d+)/(\d{4})", f.get("Posted Date", ""))
+        out.append(dict(id=jid, title=title, location=f.get("Location", ""),
+                        url=f"{base}?Page=HRS_APP_JBPST_FL&Action=U&FOCUS=Applicant&SiteId={site}&JobOpeningId={jid}&PostingSeq=1",
+                        posted=f"{pd.group(3)}-{int(pd.group(1)):02d}-{int(pd.group(2)):02d}" if pd else ""))
+    return out, bool(out) and (total is None or len(out) >= total)
+
+
 def csod(c):
     """Cornerstone OnDemand career sites (<corp>.csod.com/ux/ats/careersite/<site>/home?c=<corp>). The home page embeds
     a public bearer token and the API cloud ("token", "cloud" in its inline JSON); POST <cloud>rec-job-search/external/jobs
@@ -1524,7 +1574,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
