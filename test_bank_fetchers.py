@@ -83,6 +83,7 @@ def test_page_date_formats_and_describe_refines_posted():
 
 def test_taleo_custom_column_order():
     page = {"requisitionList": [{"contestNo": "9", "column": ["9", "Risk Analyst ", json.dumps(["OH-Fairfield"])]}], "pagingData": {"pageSize": 25}}
-    with mock.patch.object(js, "http", fake_http({"searchjobs": page})):
+    older = lambda body: page if not body["filterSelectionParam"]["searchFilterSelections"][0]["selectedValues"] else dict(page, requisitionList=[])
+    with mock.patch.object(js, "http", fake_http({"searchjobs": older})):  # no job falls in an age bucket, so none gets a date
         jobs, complete = js.taleo(dict(host="h.taleo.net", section="ex", portal="1", columns=[1, 2, -1]))
     assert complete and jobs[0]["title"] == "Risk Analyst" and jobs[0]["location"] == "OH-Fairfield" and jobs[0]["posted"] == ""
