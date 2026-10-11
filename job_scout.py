@@ -208,6 +208,52 @@ def http(url, data=None, headers=None, timeout=20, raw=False):
     return payload if raw else json.loads(payload)
 
 
+_PAY_UNITS = {"year": "per year", "hour": "per hour", "month": "per month", "week": "per week"}
+
+
+def _pay_text(currency, lo, hi, unit="year"):
+    """Structured pay (ATS API field, JSON-LD baseSalary) as a sentence classify_salary reads like any other
+    posted range: " Compensation: USD 150,000 - 225,000 per year." Empty when the figures are missing/zero
+    (several boards publish 0/0 placeholders), the currency is unknown, or the unit isn't a plain pay period."""
+    unit = (unit or "year").lower()
+    unit = next((u for u in _PAY_UNITS if u in unit), None)
+    try:
+        lo, hi = float(lo or 0), float(hi or 0)
+    except (TypeError, ValueError):
+        return ""
+    if not unit or not re.fullmatch(r"[A-Za-z]{3}", currency or "") or max(lo, hi) <= 0:
+        return ""
+    lo, hi = (min(lo, hi) or max(lo, hi)), max(lo, hi)
+    fmt = lambda x: f"{x:,.2f}".rstrip("0").rstrip(".") if unit == "hour" else f"{x:,.0f}"  # noqa: E731
+    span = fmt(lo) if lo == hi else f"{fmt(lo)} - {fmt(hi)}"
+    return f" Compensation: {currency.upper()} {span} {_PAY_UNITS[unit]}."
+
+
+def _jsonld_pay(raw):
+    """Pay text from schema.org JobPosting baseSalary (MonetaryAmount with QuantitativeValue min/max/unitText)
+    in any JSON-LD block of an HTML page; "" when the page carries none."""
+    out = ""
+    for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw or "", re.S):
+        try:
+            data = json.loads(m.group(1))
+        except ValueError:
+            continue
+        stack = [data]
+        while stack:
+            o = stack.pop()
+            if isinstance(o, list):
+                stack.extend(o)
+            elif isinstance(o, dict):
+                stack.extend(v for v in (o.get("@graph"),) if v)
+                sal = o.get("baseSalary")
+                if isinstance(sal, dict):
+                    val = sal.get("value") if isinstance(sal.get("value"), dict) else sal
+                    lo = val.get("minValue") or val.get("value")
+                    hi = val.get("maxValue") or val.get("value")
+                    out += _pay_text(sal.get("currency") or val.get("currency"), lo, hi, val.get("unitText"))
+    return out
+
+
 def strip_html(text):
     text = html.unescape(text or "")
     text = html.unescape(text)  # Greenhouse double-escapes
@@ -233,6 +279,8 @@ def lever(c):
         for lst in j.get("lists") or []:
             desc += " " + (lst.get("text") or "") + " " + strip_html(lst.get("content", ""))
         desc += " " + (j.get("additionalPlain") or "")
+        sr = j.get("salaryRange") or {}  # structured pay, only populated when the poster filled it in
+        desc += _pay_text(sr.get("currency"), sr.get("min"), sr.get("max"), (sr.get("interval") or "").replace("per-", ""))
         posted = ""
         ms = j.get("createdAt")
         if isinstance(ms, (int, float)):
@@ -246,10 +294,19 @@ def lever(c):
     return out, True  # single uncapped call: always the full board
 
 
+def _ashby_pay(j):
+    """Salary components of Ashby's compensation block (equity/commission/bonus components are ignored)."""
+    out = ""
+    for comp in (j.get("compensation") or {}).get("summaryComponents") or []:
+        if comp.get("compensationType") == "Salary":
+            out += _pay_text(comp.get("currencyCode"), comp.get("minValue"), comp.get("maxValue"), comp.get("interval"))
+    return out
+
+
 def ashby(c):
-    d = http(f"https://api.ashbyhq.com/posting-api/job-board/{c['slug']}")
+    d = http(f"https://api.ashbyhq.com/posting-api/job-board/{c['slug']}?includeCompensation=true")
     jobs = [dict(id=j["id"], title=j["title"], location=j.get("location", "") or "", url=j.get("jobUrl", ""),
-                 desc=j.get("descriptionPlain") or strip_html(j.get("descriptionHtml", "")),
+                 desc=(j.get("descriptionPlain") or strip_html(j.get("descriptionHtml", ""))) + _ashby_pay(j),
                  posted=(j.get("publishedAt") or "")[:10]) for j in d.get("jobs", [])]
     return jobs, True  # single uncapped call: always the full board
 
@@ -490,7 +547,7 @@ def goldman(c):
     page = 50
     query = ("query GetRoles($searchQueryInput: RoleSearchQueryInput!) { roleSearch(searchQueryInput: "
              "$searchQueryInput) { totalCount items { roleId jobTitle division descriptionHtml lastPostedDate createdDate "
-             "locations { city state country } externalSource { sourceId } } } }")
+             "compensation { minSalary maxSalary currency } locations { city state country } externalSource { sourceId } } } }")
     out, seen = [], set()
     complete = True
     for term in terms:
@@ -518,7 +575,9 @@ def goldman(c):
                 out.append(dict(id=jid, title=j.get("jobTitle", "") or "", location=" | ".join(locs),
                                 url=f"https://higher.gs.com/roles/{src}",
                                 posted=(j.get("lastPostedDate") or j.get("createdDate") or "")[:10],
-                                desc=strip_html(j.get("descriptionHtml", ""))))
+                                desc=strip_html(j.get("descriptionHtml", "")) + _pay_text(
+                                    (j.get("compensation") or {}).get("currency"), (j.get("compensation") or {}).get("minSalary"),
+                                    (j.get("compensation") or {}).get("maxSalary"))))
             offset += page
             if len(rows) < page or (total is not None and offset >= total):
                 term_complete = True
@@ -721,7 +780,7 @@ def _jsonld_description(url):
         except ValueError:
             continue
         if isinstance(data, dict) and data.get("description"):
-            return strip_html(data["description"])
+            return strip_html(data["description"]) + _jsonld_pay(raw)
     return ""
 
 
@@ -1856,7 +1915,12 @@ def describe(c, job):
         return _ukg_detail(c, job), "", ""
     if ats == "greenhouse":
         d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs/{job['id']}")
-        return strip_html(d.get("content", "")), "", ""
+        pay = ""
+        for r in d.get("pay_input_ranges") or []:  # the posted range is a structured field, often absent from the text
+            lo, hi = (r.get("min_cents") or 0) / 100, (r.get("max_cents") or 0) / 100
+            unit = "hour" if 0 < hi <= 400 else "year" if hi >= 20000 else ""  # Greenhouse states no unit; skip the ambiguous middle
+            pay += _pay_text(r.get("currency_type"), lo, hi, unit)
+        return strip_html(d.get("content", "")) + pay, "", ""
     if ats == "smartrecruiters":
         d = http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings/{job['id']}")
         secs = (d.get("jobAd") or {}).get("sections") or {}
@@ -1900,8 +1964,9 @@ def describe(c, job):
         posted = _page_date(raw)  # the JobPosting JSON-LD carries the real posting day the list cards lack
         if not posted and c.get("feed") and not job.get("posted"):
             posted = _avature_feed_date(c, job)  # Two Sigma pages have no JSON-LD; its feed does
+        pay = _jsonld_pay(raw)
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
-        return strip_html(raw)[:30000], posted, "exact" if posted else ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+        return strip_html(raw)[:30000] + pay, posted, "exact" if posted else ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
     if ats == "balyasny":  # the list call carries no description
         d = _balyasny_aura("rolePage", "getDescription", {"req": job["id"]}) or {}
         return strip_html(d.get("Description__c", "")), "", ""
@@ -1926,7 +1991,7 @@ def describe(c, job):
             except ValueError:
                 continue
             if len(text) > 200:  # the page also carries short site-level descriptions
-                return text, "", ""
+                return text + _jsonld_pay(raw), "", ""
         return _jsonld_description(job["url"]), "", ""
     if ats in ("talentbrew", "paylocity"):
         return _jsonld_description(job["url"]), "", ""
@@ -2244,16 +2309,66 @@ def classify_experience(title, text):
     return None, "No years-of-experience language found."
 
 
+_SAL_CUR = r"(?:US\$|CA\$|C\$|CAD\s?\$|USD\s?\$|\$|£|€|USD|CAD|GBP|EUR)"
+_SAL_NUM = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
+_SAL_TAIL = r"(?:\s?(?:USD|CAD|GBP|EUR)\b)?"
 _SALARY_RANGE_RE = re.compile(
-    r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\s*(?:usd\s*)?(?:-|–|to)\s*\$?\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?",
+    rf"(?<![\w,.])(?P<c1>{_SAL_CUR})?\s?(?P<n1>{_SAL_NUM})\s?(?P<k1>k\b)?(?P<t1>{_SAL_TAIL})(?:\s?/?\s?(?:hr|hrs|hour|yr|year)\b)?"
+    rf"\s*(?P<sep>[-‐-―−]|\bto\b|\bthrough\b|\band\b)\s*"
+    rf"(?P<c2>{_SAL_CUR})?\s?(?P<n2>{_SAL_NUM})\s?(?P<k2>k\b)?(?P<t2>{_SAL_TAIL})",
     re.I,
 )
-_SALARY_SINGLE_RE = re.compile(r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\b", re.I)
-_SALARY_CONTEXT_RE = re.compile(r"\b(?:salary|compensation|base pay|total comp|pay range|shift range)\b", re.I)
+_SAL_LABEL = r"(?:\s*/?\s*(?:salary|pay|pay range|base pay|base salary|rate|compensation|range))*"
+
+
+def _sal_amt(i):
+    return (rf"(?P<c{i}>{_SAL_CUR})\s?(?P<n{i}>{_SAL_NUM})\s?(?P<k{i}>k\b)?(?P<t{i}>{_SAL_TAIL})"
+            rf"\s*(?P<u{i}>/\s?(?:yr|year|hr|hour))?")
+
+
+# "Min USD $82,400.00/Yr. Max USD $109,867.00/Yr." / "Minimum Salary: $155,000 per year Maximum Salary: $225,000 per year"
+_SALARY_MINMAX_RE = re.compile(
+    rf"\bmin(?:imum)?\b{_SAL_LABEL}[\s:]*" + _sal_amt(1) + r"[^\d$\u00a3\u20ac]{0,45}?\bmax(?:imum)?\b" + _SAL_LABEL + r"[\s:]*" + _sal_amt(2),
+    re.I,
+)
+# "ranges from $200,000/year in our lowest geographic market up to $300,000" / "ranges from $138,771 and $208,156 USD"
+_SALARY_FROMTO_RE = re.compile(
+    r"\bfrom\s+" + _sal_amt(1) + r"[^\d$\u00a3\u20ac]{0,70}?\b(?:to|and)\s+" + _sal_amt(2),
+    re.I,
+)
+_SALARY_SINGLE_RE = re.compile(
+    rf"(?<![\w,.])(?P<c1>{_SAL_CUR})\s?(?P<n1>{_SAL_NUM})\s?(?P<k1>k\b)?(?P<t1>{_SAL_TAIL})", re.I)
+_SALARY_CONTEXT_RE = re.compile(
+    r"\b(?:salary|salaries|compensation|pay|base pay|base rate|pay range|pay ranges|pay rate|pay scale|pay band|"
+    r"base range|total comp|shift range|wage|wages|hourly|remuneration|on[- ]target earnings|"
+    r"(?:base|annual|starting|expected|estimated|current) (?:pay|salary)|range (?:is|for this|of)|"
+    r"estimate of the (?:current )?range)\b", re.I)
 # finance JDs are full of unrelated dollar figures ("$2B in assets", "$500M portfolio") - a nearby
 # context word alone isn't always enough, so also reject anything sitting next to an asset-scale word
 _SALARY_DISQUALIFY_RE = re.compile(
-    r"\b(million|billion|trillion|aum|assets under management|in assets|portfolio|book of business)\b", re.I)
+    r"\b(million|billion|trillion|aum|assets under management|in assets|portfolio|book of business|minimum wage|revenues?|valuation|funding|raised|deposits|loans?|transactions)\b", re.I)
+# the pay figure itself must not be a scale shorthand ("$500M", "$2B", "$2.5bn")
+_SALARY_SCALE_AFTER_RE = re.compile(r"^\s?(?:mm?|bn?|mn|tn|million|billion|trillion)\b", re.I)
+# non-base amounts: a bonus / sign-on / match / equity figure is not the salary. Checked on the words directly
+# before the amount ("sign-on bonus of $25,000", "401(k) match up to $5,000") and directly after it
+# ("$25,000 sign-on bonus"), but "excluding bonus: $150,000" or "$150,000 plus bonus" still pass.
+_SALARY_NONBASE_WORDS = (r"bonus|bonuses|sign[- ]?on|signing|retention|relocation|referral|stipend|401\s?\(?k\)?|"
+                         r"match(?:ing)?|equity|stock|rsus?|commissions?|incentive|ote|on[- ]target|target earnings|"
+                         r"variable|allowance|reimbursement|tuition|hsa|fsa|contribution|per diem|spot award|profit sharing")
+_SALARY_NONBASE_BEFORE_RE = re.compile(rf"\b(?:{_SALARY_NONBASE_WORDS})(?![a-z])[^.;\d$]{{0,22}}$", re.I)
+_SALARY_NONBASE_AFTER_RE = re.compile(rf"^\s{{0,2}}(?:usd\s*)?(?:annual\s+|cash\s+|one[- ]time\s+)?(?:{_SALARY_NONBASE_WORDS})", re.I)
+_SALARY_EXCLUDING_RE = re.compile(r"\b(?:excluding|exclusive of|not including|without|before|plus|in addition to)\b", re.I)
+_SALARY_PERIOD_RES = (
+    ("hour", re.compile(r"\b(?:per\s+hour|an\s+hour|each\s+hour|per\s+hr|hourly)\b|/\s?(?:hr|hour|h)\b", re.I)),
+    ("week", re.compile(r"\b(?:per\s+week|a\s+week|weekly)\b|/\s?(?:wk|week)\b", re.I)),
+    ("month", re.compile(r"\b(?:per\s+month|a\s+month|monthly)\b|/\s?(?:mo|month)\b", re.I)),
+    ("year", re.compile(r"\b(?:per\s+year|a\s+year|yearly|annual(?:ly)?|per\s+annum)\b|p\.a\.|/\s?(?:yr|year)\b", re.I)),
+)
+_SALARY_ANNUALIZE = {"hour": 2080, "week": 52, "month": 12, "year": 1}
+# plausible magnitude per period (before annualising), so "$30 per week" or "$4,000 per hour" never survive
+_SALARY_PERIOD_BOUNDS = {"hour": (10, 400), "week": (400, 12000), "month": (1700, 50000), "year": (20000, 600000)}
+_SALARY_CUR_SYMBOL = {"$": "$", "usd": "$", "us": "$", "ca": "C$", "c": "C$", "cad": "C$", "gbp": "£", "£": "£",
+                      "eur": "€", "€": "€"}
 
 
 def _salary_num(digits, k_suffix):
@@ -2261,33 +2376,189 @@ def _salary_num(digits, k_suffix):
     return n * 1000 if k_suffix else n
 
 
+def _salary_symbol(*marks):
+    """Display symbol from the currency marks seen on a range ("USD $" counts as "$", "CAD" as "C$"); first
+    informative one wins (so "$113,000 CAD - $163,000 CAD" is Canadian), a bare "$" meaning US dollars."""
+    for mark in marks:
+        mark = (mark or "").strip().lower()
+        key = re.sub(r"\s*\$$", "", mark) if len(mark) > 1 else mark
+        if key in _SALARY_CUR_SYMBOL and key != "$":
+            return _SALARY_CUR_SYMBOL[key]
+    return "$"
+
+
+def _salary_period(hay, end, start):
+    """Pay period named right after the amount ("per hour", "/yr", "USD Hourly") or, failing that, a short
+    "hourly rate:" style lead-in; the earliest mention wins. None when unstated."""
+    after = hay[end:end + 32]
+    best = None
+    for name, rx in _SALARY_PERIOD_RES:
+        m = rx.search(after)
+        if m and (best is None or m.start() < best[0]):
+            best = (m.start(), name)
+    if best:
+        return best[1]
+    before = hay[max(0, start - 30):start]
+    for name in ("hour",):
+        if re.search(r"\bhourly\b[^.]{0,22}$", before, re.I):
+            return name
+    for name, rx in (("month", re.compile(r"\bmonthly\b[^.]{0,22}$", re.I)), ("year", re.compile(r"\b(?:annual|yearly)\b[^.]{0,22}$", re.I))):
+        if rx.search(before):
+            return name
+    return None
+
+
+def _salary_fmt(x, sym):
+    return f"{sym}{x:,.0f}" if abs(x - round(x)) < 0.005 else f"{sym}{x:,.2f}"
+
+
+def _salary_k(x, sym):
+    return f"{sym}{x / 1000:.1f}k".replace(".0k", "k")
+
+
+_SALARY_MINWAGE_RE = re.compile(r"\bminimum wage\b[^.;\d$]{0,35}$", re.I)
+
+
+def _salary_nonbase(hay, start, end):
+    before = hay[max(0, start - 40):start]
+    if _SALARY_MINWAGE_RE.search(before):  # statutory minimum wage notices, not this role's pay
+        return True
+    if _SALARY_NONBASE_BEFORE_RE.search(before) and not _SALARY_EXCLUDING_RE.search(before):
+        return True
+    return bool(_SALARY_NONBASE_AFTER_RE.search(hay[end:end + 30]))
+
+
+def _salary_candidates(hay):
+    """Every plausible pay figure in document order as dicts (kind range|single, start, end, lo, hi, period,
+    sym), each already gated on a salary/compensation context word, the non-base/AUM guards and a plausible
+    magnitude for its pay period."""
+    out = []
+    rejected = []  # spans of ranges refused for what they are (bonus, AUM, no context): their halves must not resurface as singles
+    for is_minmax, m in [(True, x) for x in _SALARY_MINMAX_RE.finditer(hay)] + [(False, x) for x in _SALARY_FROMTO_RE.finditer(hay)]:
+        lo, hi = _salary_num(m.group("n1"), m.group("k1")), _salary_num(m.group("n2"), m.group("k2"))
+        unit = m.group("u1") or m.group("u2")
+        period = ("hour" if re.search(r"h", unit, re.I) else "year") if unit else (_salary_period(hay, m.end(), m.start()) or "year")
+        if lo > hi or not _salary_in_bounds(lo, hi, period):
+            continue
+        # a "/Yr." stated on Min/Max figures is structured pay and stands alone; every other pair needs the usual context
+        if not (unit and is_minmax) and (not _SALARY_CONTEXT_RE.search(hay[max(0, m.start() - 120):m.end() + 20])
+                         or _SALARY_DISQUALIFY_RE.search(hay[max(0, m.start() - 20):m.end() + 20])
+                         or _SALARY_SCALE_AFTER_RE.search(hay[m.end():m.end() + 12])):
+            rejected.append((m.start(), m.end()))
+            continue
+        out.append(dict(kind="range", start=m.start(), end=m.end(), lo=lo, hi=hi, period=period,
+                        sym=_salary_symbol(m.group("c1"), m.group("c2"), m.group("t1"), m.group("t2"))))
+    for m in _SALARY_RANGE_RE.finditer(hay):
+        sep = m.group("sep").lower()
+        c1, c2, t1, t2, k1, k2 = (m.group(g) for g in ("c1", "c2", "t1", "t2", "k1", "k2"))
+        if sep == "and" and not re.search(r"\bbetween\s*$", hay[max(0, m.start() - 12):m.start()], re.I):
+            continue
+        if not (c1 or c2 or (t1 or "").strip() or (t2 or "").strip() or (k1 and k2)):
+            continue  # "3 to 5 years", "2020 - 2024": a bare number pair is not money
+        n1, n2 = m.group("n1"), m.group("n2")
+        lo, hi = _salary_num(n1, k1 or k2 and float(n1.replace(",", "")) < 1000), _salary_num(n2, k2)
+        if hi < lo:
+            lo, hi = hi, lo
+        period = _salary_period(hay, m.end(), m.start())
+        if period is None:
+            if 12 <= lo and hi <= 150 and (c1 or c2) and re.search(
+                    r"\b(?:pay range|base pay|pay rate|wage|salary range|base range)\b", hay[max(0, m.start() - 60):m.start()], re.I):
+                period = "hour?"  # "Base Pay Range $31 - $36 USD": only an hourly figure is that small
+            else:
+                period = "year"
+        if not _salary_in_bounds(lo, hi, period.rstrip("?")):
+            continue
+        if period == "year" and lo < 1000 and not (k1 or k2):
+            continue
+        context = hay[max(0, m.start() - 200):m.end() + 40]
+        nearby = hay[max(0, m.start() - 20):m.end() + 20]
+        # a location table continues the previous accepted range, whose context word may be out of reach by now
+        continues = any(d["kind"] == "range" and 0 <= m.start() - d["end"] <= 250 for d in out)
+        if (not (_SALARY_CONTEXT_RE.search(context) or continues) or _SALARY_DISQUALIFY_RE.search(nearby)
+                or _SALARY_SCALE_AFTER_RE.search(hay[m.end():m.end() + 12]) or _salary_nonbase(hay, m.start(), m.end())):
+            rejected.append((m.start(), m.end()))
+            continue
+        out.append(dict(kind="range", start=m.start(), end=m.end(), lo=lo, hi=hi, period=period,
+                        sym=_salary_symbol(c1, c2, t1, t2)))
+    out.sort(key=lambda d: d["start"])
+    taken = [d for d in out if d["kind"] == "range"]
+    for m in _SALARY_SINGLE_RE.finditer(hay):
+        if any(d["start"] <= m.start() < d["end"] for d in taken) or any(a <= m.start() < b for a, b in rejected):
+            continue  # already part of a range
+        val = _salary_num(m.group("n1"), m.group("k1"))
+        period = _salary_period(hay, m.end(), m.start()) or "year"
+        if not _salary_in_bounds(val, val, period):
+            continue
+        if period == "year" and val < 1000:
+            continue
+        context = hay[max(0, m.start() - 60):m.end() + 15]
+        nearby = hay[max(0, m.start() - 20):m.end() + 20]
+        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
+            continue
+        if _SALARY_SCALE_AFTER_RE.search(hay[m.end():m.end() + 12]) or _salary_nonbase(hay, m.start(), m.end()):
+            continue
+        lead = hay[max(0, m.start() - 24):m.start()].lower()
+        qual = "up to " if re.search(r"\bup to\W*$", lead) else "from " if re.search(r"\b(?:starting (?:at|from)|from|minimum(?: salary| base)?(?: of)?|min)\W*$", lead) else ""
+        out.append(dict(kind="single", start=m.start(), end=m.end(), lo=val, hi=val, period=period, qual=qual,
+                        sym=_salary_symbol(m.group("c1"), m.group("t1"))))
+    out.sort(key=lambda d: d["start"])
+    return out
+
+
+def _salary_in_bounds(lo, hi, period):
+    a, b = _SALARY_PERIOD_BOUNDS[period.rstrip("?")]
+    return a <= lo <= b and a <= hi <= b
+
+
+def _salary_render(lo, hi, period, sym, qual=""):
+    """Display string. Annual keeps the plain "$120,000 - $150,000" form; other periods keep the stated rate and
+    add the annualised estimate so the conversion is visible ("$45 - $55/hr (~$93.6k - $114.4k/yr)")."""
+    p = period.rstrip("?")
+    single = lo == hi
+    if p == "year":  # whole dollars, as the original annual output always was
+        lo, hi = int(lo), int(hi)
+        return qual + (_salary_fmt(lo, sym) if single else f"{_salary_fmt(lo, sym)} - {_salary_fmt(hi, sym)}")
+    unit = {"hour": "hr", "week": "wk", "month": "mo"}[p]
+    f = _SALARY_ANNUALIZE[p]
+    rate = qual + (_salary_fmt(lo, sym) if single else f"{_salary_fmt(lo, sym)} - {_salary_fmt(hi, sym)}") + f"/{unit}"
+    ann = _salary_k(lo * f, sym) if single else f"{_salary_k(lo * f, sym)} - {_salary_k(hi * f, sym)}"
+    assumed = ", assumed hourly" if period.endswith("?") else ""
+    return f"{rate} (~{ann}/yr{assumed})"
+
+
 def classify_salary(text):
     """Best-effort salary range from explicit description text, gated on BOTH a nearby salary/
     compensation context word and a plausible annual-salary magnitude ($20k-$600k) - a raw dollar
-    regex alone would happily "find" a salary in "manages a $500M portfolio". Unclear when no
-    confident match, never guessed from title/company alone."""
-    hay = text or ""
-    for m in _SALARY_RANGE_RE.finditer(hay):
-        context = hay[max(0, m.start() - 80):m.end() + 20]
-        nearby = hay[max(0, m.start() - 20):m.end() + 20]
-        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
-            continue
-        lo, hi = _salary_num(m.group(1), m.group(2)), _salary_num(m.group(3), m.group(4))
-        lo, hi = min(lo, hi), max(lo, hi)
-        if not (20000 <= lo <= 600000 and 20000 <= hi <= 600000):
-            continue
-        evidence = hay[max(0, m.start() - 40):min(len(hay), m.end() + 40)].strip()
-        return f"${int(lo):,} - ${int(hi):,}", evidence
-    for m in _SALARY_SINGLE_RE.finditer(hay):
-        context = hay[max(0, m.start() - 40):m.end() + 10]
-        nearby = hay[max(0, m.start() - 20):m.end() + 20]
-        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
-            continue
-        val = _salary_num(m.group(1), m.group(2))
-        if not (20000 <= val <= 600000):
-            continue
-        evidence = hay[max(0, m.start() - 40):min(len(hay), m.end() + 40)].strip()
-        return f"${int(val):,}", evidence
+    regex alone would happily "find" a salary in "manages a $500M portfolio". Hourly / weekly / monthly
+    pay is converted to an annual estimate and labelled as such; bonus, sign-on, match and equity figures
+    and asset-scale amounts are rejected. When a posting lists several location ranges back to back the
+    widest span is reported (evidence says so). Unclear when no confident match, never guessed from
+    title/company alone."""
+    hay = re.sub(r"\s+", " ", (text or "").replace(" ", " "))
+    cands = _salary_candidates(hay)
+    ranges = [d for d in cands if d["kind"] == "range"]
+    if ranges:
+        first = ranges[0]
+        grp = [first]
+        for d in ranges[1:]:  # location tables: same period and symbol, each right after the previous one
+            if d["period"] == first["period"] and d["sym"] == first["sym"] and d["start"] - grp[-1]["end"] <= 400:
+                grp.append(d)
+        lo, hi = min(d["lo"] for d in grp), max(d["hi"] for d in grp)
+        distinct = {(d["lo"], d["hi"]) for d in grp}  # a structured field often repeats the range in the text
+        if len(distinct) > 1 and hi <= 2.2 * lo:
+            note = f"[{len(distinct)} ranges listed, widest shown] "
+        else:
+            grp, lo, hi, note = [first], first["lo"], first["hi"], ""
+        if first["period"] != "year" or note:
+            note = (f"[converted from {first['period'].rstrip('?')}ly pay] " if first["period"] != "year" else "") + note
+        s, e = grp[0]["start"], grp[-1]["end"]
+        evidence = (note + hay[max(0, s - 40):min(len(hay), e + 40)].strip())[:400]
+        return _salary_render(lo, hi, first["period"], first["sym"]), evidence
+    for d in cands:
+        evidence = hay[max(0, d["start"] - 40):min(len(hay), d["end"] + 40)].strip()
+        if d["period"] != "year":
+            evidence = f"[converted from {d['period'].rstrip('?')}ly pay] " + evidence
+        return _salary_render(d["lo"], d["hi"], d["period"], d["sym"], d.get("qual", "")), evidence
     return "Unclear", ""
 
 
