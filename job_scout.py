@@ -1582,7 +1582,41 @@ def tal(c):
     return [r for r in rows if r], ok and bool(entries)
 
 
-_BALYASNY_SITE ="https://bambusdev.my.site.com"  # BAM's careers app lives on its Salesforce Experience Cloud site
+def dayforce(c):
+    """Dayforce candidate portals (jobs.dayforcehcm.com/<culture>/<namespace>/<board>). The portal's own search call
+    POST /api/geo/<namespace>/jobposting/search pages 25 postings at a time (paginationStart = offset) with title,
+    full description, exact posting timestamp and structured locations. It wants the NextAuth CSRF token from
+    GET /api/auth/csrf (and its cookie) echoed in X-CSRF-Token, an ordinary session handshake. Needs namespace and
+    board (jobBoardCode). Job page is <portal>/jobs/<jobPostingId>. Verified live 2026-10-11 against Interactive
+    Brokers (182 jobs, about 77 with a US place)."""
+    host, ns, board = c.get("host", "jobs.dayforcehcm.com"), c["namespace"], c["board"]
+    portal = f"https://{host}/en-US/{ns}/{board}"
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+    hdr = {"User-Agent": BROWSER_UA, "Accept": "application/json, text/plain, */*", "Referer": portal}
+    tok = json.loads(opener.open(urllib.request.Request(f"https://{host}/api/auth/csrf", headers=hdr), timeout=40).read()).get("csrfToken", "")
+    out, seen, start = [], set(), 0
+    while start < int(c.get("max_jobs", 2000)):
+        body = {"clientNamespace": ns, "jobBoardCode": board, "cultureCode": "en-US", "distanceUnit": 0, "paginationStart": start}
+        d = json.loads(opener.open(urllib.request.Request(f"https://{host}/api/geo/{ns}/jobposting/search", data=json.dumps(body).encode(),
+                                                          headers=dict(hdr, **{"Content-Type": "application/json", "X-CSRF-Token": tok})), timeout=60).read())
+        rows = d.get("jobPostings") or []
+        for r in rows:
+            jid = str(r.get("jobPostingId") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            places = [l.get("formattedAddress") for l in r.get("postingLocations") or [] if l.get("formattedAddress")]
+            if r.get("hasVirtualLocation"):
+                places.append("Remote")
+            out.append(dict(id=jid, title=(r.get("jobTitle") or "").strip(), location=" | ".join(places), url=f"{portal}/jobs/{jid}",
+                            posted=str(r.get("postingStartTimestampUTC") or "")[:10], desc=strip_html(r.get("jobDescription") or "")))
+        start += len(rows)
+        if not rows or start >= int(d.get("maxCount") or 0):
+            return out, True
+    return out, False
+
+
+_BALYASNY_SITE = "https://bambusdev.my.site.com"  # BAM's careers app lives on its Salesforce Experience Cloud site
 
 
 def _balyasny_aura(classname, method, params):
@@ -1671,7 +1705,8 @@ def phenom(c):
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
              oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
-             balyasny=balyasny, tal=tal)
+             balyasny=balyasny, tal=tal,
+             dayforce=dayforce)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
