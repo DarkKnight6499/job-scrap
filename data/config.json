@@ -15841,6 +15841,79 @@
    "name": "Atlantic Union Bank",
    "ats": "ukg",
    "board": "https://recruiting.ultipro.com/UNI1046UFMB/JobBoard/d8f90aad-672e-4f0a-bbc1-a17aa8cf1111"
+  },
+  {
+   "name": "SouthState Bank",
+   "ats": "workday",
+   "host": "southstatebank.wd5.myworkdayjobs.com",
+   "tenant": "southstatebank",
+   "site": "External",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Rockland Trust (Independent Bank Corp)",
+   "ats": "oracle",
+   "host": "eehb.fa.us2.oraclecloud.com",
+   "site": "CX_2005",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Seacoast Bank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/SEA1007SEACO/JobBoard/7851737e-66c7-908f-77e9-6d69f4eb0ead"
+  },
+  {
+   "name": "TowneBank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/TOW1004/JobBoard/34f1c2d6-3076-1bf2-bd11-f311094865bd"
+  },
+  {
+   "name": "TowneBank Mortgage",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/TOW1004/JobBoard/4abdfb17-5535-42a8-bff7-f5bcf9b5f7ba"
+  },
+  {
+   "name": "WaFd Bank",
+   "ats": "icims",
+   "hosts": [
+    "careers-wafd.icims.com"
+   ]
   }
  ],
  "keywords": [
