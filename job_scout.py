@@ -183,7 +183,33 @@ def _terms(c):
     """Search terms for a search-capable fetcher. A company whose config has a `search` value is searched with the
     one global title list (filters.title_include), never a per-company list, so every site is queried for every
     title the user asked for. No `search` key means the fetcher pulls the whole board."""
+    if c.get("_terms"):  # a chunk handed down by _parallel_terms
+        return list(c["_terms"])
     return list(TITLE_TERMS) if (c.get("search") and TITLE_TERMS) else (c.get("search") or [""])
+
+
+def _parallel_terms(fetch):
+    """Runs a term-by-term fetcher over round-robin chunks of the title list in parallel threads and merges the rows
+    (first id wins, complete only if every chunk was). 78 sequential searches took 8 to 15 minutes on Deloitte, HSBC
+    and KPMG; config `term_workers` sets the thread count (default 3 above 20 terms, 1 otherwise)."""
+    def wrapped(c):
+        terms = _terms(c)
+        workers = max(1, min(int(c.get("term_workers", 3 if len(terms) > 20 else 1)), len(terms)))
+        if workers == 1 or terms == [""]:
+            return fetch(c)
+        chunks = [terms[i::workers] for i in range(workers)]
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            results = list(pool.map(lambda ch: fetch(dict(c, _terms=ch)), chunks))
+        out, seen, complete = [], set(), True
+        for rows, ok in results:
+            for j in rows:
+                if j["id"] not in seen:
+                    seen.add(j["id"])
+                    out.append(j)
+            complete = complete and ok
+        return out, complete
+    wrapped.__name__, wrapped.__doc__ = fetch.__name__, fetch.__doc__
+    return wrapped
 
 
 def _load_title_terms(cfg):
@@ -587,6 +613,7 @@ def goldman(c):
     return out, complete
 
 
+@_parallel_terms
 def successfactors(c):
     """SAP SuccessFactors Career Site Builder tenants that expose the public RSS job feed. Needs
     host and locale (e.g. jobs.scotiabank.com / en_US). Verified live 2026-10-02 against Scotiabank,
@@ -726,6 +753,7 @@ def _icims_description(job):
     return strip_html(data.get("description", "")), approx, "approx" if approx else ""
 
 
+@_parallel_terms
 def eightfold(c):
     """Eightfold career sites (static assets on static.vscdn.net) - public /api/apply/v2/jobs endpoint.
     Needs host and domain (e.g. careers.newyorklife.com / newyorklife.com). Verified live 2026-10-02
@@ -818,6 +846,7 @@ def talentbrew(c):
     return out, page > total_pages
 
 
+@_parallel_terms
 def avature(c):
     """Avature career sites with a server-rendered list page. Needs host and list_path (the tenant's
     job-list page, e.g. "careers/OpenRoles"; it differs per tenant). Verified live 2026-10-02 against
@@ -923,6 +952,7 @@ def _avature_feed_date(c, job):
     return ""
 
 
+@_parallel_terms
 def kpmg(c):
     """KPMG US careers (WordPress, server-rendered). /job-search/?keyword=<term>&spage=<n> returns 12 cards per
     page; each card links /jobdetail/?jobId=N and carries a "Practice | Location" line. Verified live

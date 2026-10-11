@@ -87,3 +87,19 @@ def test_taleo_custom_column_order():
     with mock.patch.object(js, "http", fake_http({"searchjobs": older})):  # no job falls in an age bucket, so none gets a date
         jobs, complete = js.taleo(dict(host="h.taleo.net", section="ex", portal="1", columns=[1, 2, -1]))
     assert complete and jobs[0]["title"] == "Risk Analyst" and jobs[0]["location"] == "OH-Fairfield" and jobs[0]["posted"] == ""
+
+
+def test_parallel_terms_splits_merges_and_ands_completeness():
+    calls = []
+
+    @js._parallel_terms
+    def fake(c):
+        terms = js._terms(c)
+        calls.append(terms)
+        return [dict(id=t) for t in terms] + [dict(id="shared")], "d" not in terms
+
+    c = dict(search=["x"], term_workers=2)
+    with mock.patch.object(js, "TITLE_TERMS", ["a", "b", "c", "d"]):
+        jobs, complete = fake(c)
+    assert sorted(map(tuple, calls)) == [("a", "c"), ("b", "d")]  # round-robin chunks, every term searched once
+    assert sorted(j["id"] for j in jobs) == ["a", "b", "c", "d", "shared"] and complete is False
