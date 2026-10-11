@@ -1004,6 +1004,31 @@ def talentsoft(c):
     return out, False
 
 
+def bpce(c):
+    """BPCE group WordPress career sites (recrutement.natixis.com). One POST to /app/wp-json/bpce/v1/search/jobs
+    with a large `size` returns every job with its full HTML description, posting date and city, so there is no
+    paging and describe() has nothing to fetch. Needs host. Country is "International" for non-French sites, in
+    which case the region field holds the real country (e.g. "United States"). Applications go to a shared Oracle
+    site whose public list is a stale subset, which is why the oracle fetcher is not used. Verified live
+    2026-10-11 against Natixis (174 jobs, 16 in New York)."""
+    base = f"https://{c['host']}"
+    body = {"lang": "en", "keyword": "", "tax_sector": "", "tax_contract": "", "tax_place": "", "tax_job": "", "tax_experience": "",
+            "tax_degree": "", "tax_brands": "", "tax_department": "", "tax_city": "", "tax_country": "", "tax_channel": "",
+            "jobcode": "", "tax_community_job": "", "external": False, "userID": "", "from": 0, "size": int(c.get("max_jobs", 1000))}
+    d = (http(f"{base}/app/wp-json/bpce/v1/search/jobs", data=body, timeout=60, headers={"User-Agent": BROWSER_UA}) or {}).get("data") or {}
+    items = d.get("items") or []
+    out = []
+    for it in items:
+        locs = []
+        for l in it.get("localisations") or []:
+            country = l.get("region") if l.get("country") == "International" else l.get("country")
+            locs.append(", ".join(x for x in (l.get("city"), country) if x))
+        out.append(dict(id=str(it.get("job_number") or it.get("post_id")), title=strip_html(it.get("title", "")),
+                        url=base + ((it.get("link") or {}).get("url") or ""), location=" | ".join(locs),
+                        posted=(it.get("date") or "")[:10], desc=strip_html(it.get("description", ""))))
+    return out, bool(items) and len(items) >= int(d.get("total") or 0)
+
+
 def deshaw(c):
     """D. E. Shaw's own careers site (Next.js, server-rendered). The job list is the set of
     /careers/<slug>-<id> links on /careers/choose-your-path; each job page embeds the full job as
@@ -1297,7 +1322,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, talentsoft=talentsoft, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, talentsoft=talentsoft, bpce=bpce, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
