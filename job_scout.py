@@ -1690,6 +1690,18 @@ def _page_date(raw):
     return ""
 
 
+def _ukg_detail(c, job):
+    """Full description for a UKG board posting: the detail page embeds the opportunity as JSON in a
+    CandidateOpportunityDetail({...}) call, with the HTML text in its Description field."""
+    req = urllib.request.Request(job["url"], headers={"User-Agent": BROWSER_UA})
+    page = urllib.request.urlopen(req, timeout=40).read().decode("utf-8", "ignore")
+    m = re.search(r"CandidateOpportunityDetail\(", page)
+    if not m:
+        return ""
+    obj, _ = json.JSONDecoder().raw_decode(page, m.end())
+    return strip_html(obj.get("Description") or "")
+
+
 def describe(c, job):
     """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
     posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate and the other
@@ -1704,6 +1716,8 @@ def describe(c, job):
         return job.get("desc") or strip_html(text), posted, "exact" if posted else ""
     if job.get("desc"):
         return job["desc"], "", ""
+    if ats == "ukg":
+        return _ukg_detail(c, job), "", ""
     if ats == "greenhouse":
         d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs/{job['id']}")
         return strip_html(d.get("content", "")), "", ""
