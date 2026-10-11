@@ -1441,6 +1441,22 @@ def load_fetched(directory, companies):
             for c in companies}
 
 
+def _page_date(raw):
+    """Posting date (YYYY-MM-DD) from a job page's datePosted field, ISO or "Oct 1, 2026"; "" if absent."""
+    m = re.search(r'"datePosted"\s*:\s*"([^"]+)"', raw)
+    if not m:
+        return ""
+    v = m.group(1).strip()
+    if re.match(r"\d{4}-\d\d-\d\d", v):
+        return v[:10]
+    for fmt in ("%b %d, %Y", "%B %d, %Y"):
+        try:
+            return datetime.strptime(v, fmt).date().isoformat()
+        except ValueError:
+            pass
+    return ""
+
+
 def describe(c, job):
     """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
     posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate, "approx"
@@ -1492,8 +1508,9 @@ def describe(c, job):
         return strip_html(d.get("requisitionDescription", "")), "", ""
     if ats in ("avature", "kpmg"):
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        posted = _page_date(raw)  # the JobPosting JSON-LD carries the real posting day the list cards lack
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
-        return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+        return strip_html(raw)[:30000], posted, "exact" if posted else ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
     if ats == "taleo_be":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
         i = raw.find('class="job_description"')

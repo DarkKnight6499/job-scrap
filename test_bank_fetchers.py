@@ -69,3 +69,13 @@ def test_paylocity_page_data_and_dates():
         jobs, complete = js.paylocity(dict(board="https://recruiting.paylocity.com/recruiting/jobs/All/g/x"))
     assert complete and jobs == [dict(id="7", title="Teller", location="Locust Valley, NY",
                                       url="https://recruiting.paylocity.com/Recruiting/Jobs/Details/7", posted="2026-10-07")]
+
+
+def test_page_date_formats_and_describe_refines_posted():
+    assert js._page_date('{"datePosted": "Oct 1, 2026"}') == "2026-10-01"
+    assert js._page_date('{"datePosted":"2026-08-18T10:00:00Z"}') == "2026-08-18"
+    assert js._page_date('{"datePosted": "soon"}') == "" and js._page_date("<html></html>") == ""
+    page = '<script>{"datePosted": "Oct 1, 2026"}</script><body>Analyst role</body>'
+    with mock.patch.object(js, "http", fake_http({"jobdetail": page})):
+        text, posted, source = js.describe(dict(ats="kpmg"), dict(url="https://k/jobdetail/?jobId=1", id="1"))
+    assert (posted, source) == ("2026-10-01", "exact") and "Analyst role" in text
