@@ -74,16 +74,24 @@ def test_goldman_missing_role_is_empty():
         assert js.describe({"ats": "goldman"}, {"id": "1_X", "url": "https://higher.gs.com/roles/1"})[0] == ""
 
 
+class _UkgResp:
+    def __init__(self, body):
+        self.body = body.encode()
+
+    def read(self):
+        return self.body
+
+
 def test_ukg_embedded_opportunity_description():
-    desc = json.dumps("<div>Description</div><div>People Drive Our Success</div><ul><li>Lead a branch</li></ul>")
-    page = f'<script>var opportunity = {{"Title":"BM","Description":"short"}}; var o2 = {{"Id":"x","Description":{desc}}};</script>'
-    with mock.patch.object(js, "http", fake_http({"OpportunityDetail": page})):
+    obj = json.dumps({"Id": "x", "Description": "<div>Description</div><ul><li>Lead a branch</li></ul>"})
+    page = f"<script>CandidateOpportunityDetail({obj});</script>"
+    with mock.patch.object(js.urllib.request, "urlopen", lambda req, timeout=None: _UkgResp(page)):
         text, _, _ = js.describe({"ats": "ukg"}, {"id": "x", "url": "https://t.rec.pro.ukg.net/C/JobBoard/u/OpportunityDetail?opportunityId=x"})
-    assert text == "Description People Drive Our Success Lead a branch"  # longest Description wins over short site-level ones
+    assert text == "Description Lead a branch"
 
 
 def test_ukg_page_without_description_is_empty():
-    with mock.patch.object(js, "http", fake_http({"OpportunityDetail": "<html>nothing</html>"})):
+    with mock.patch.object(js.urllib.request, "urlopen", lambda req, timeout=None: _UkgResp("<html>nothing</html>")):
         assert js.describe({"ats": "ukg"}, {"id": "x", "url": "https://t.rec.pro.ukg.net/C/JobBoard/u/OpportunityDetail?opportunityId=x"})[0] == ""
 
 

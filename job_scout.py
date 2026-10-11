@@ -208,6 +208,52 @@ def http(url, data=None, headers=None, timeout=20, raw=False):
     return payload if raw else json.loads(payload)
 
 
+_PAY_UNITS = {"year": "per year", "hour": "per hour", "month": "per month", "week": "per week"}
+
+
+def _pay_text(currency, lo, hi, unit="year"):
+    """Structured pay (ATS API field, JSON-LD baseSalary) as a sentence classify_salary reads like any other
+    posted range: " Compensation: USD 150,000 - 225,000 per year." Empty when the figures are missing/zero
+    (several boards publish 0/0 placeholders), the currency is unknown, or the unit isn't a plain pay period."""
+    unit = (unit or "year").lower()
+    unit = next((u for u in _PAY_UNITS if u in unit), None)
+    try:
+        lo, hi = float(lo or 0), float(hi or 0)
+    except (TypeError, ValueError):
+        return ""
+    if not unit or not re.fullmatch(r"[A-Za-z]{3}", currency or "") or max(lo, hi) <= 0:
+        return ""
+    lo, hi = (min(lo, hi) or max(lo, hi)), max(lo, hi)
+    fmt = lambda x: f"{x:,.2f}".rstrip("0").rstrip(".") if unit == "hour" else f"{x:,.0f}"  # noqa: E731
+    span = fmt(lo) if lo == hi else f"{fmt(lo)} - {fmt(hi)}"
+    return f" Compensation: {currency.upper()} {span} {_PAY_UNITS[unit]}."
+
+
+def _jsonld_pay(raw):
+    """Pay text from schema.org JobPosting baseSalary (MonetaryAmount with QuantitativeValue min/max/unitText)
+    in any JSON-LD block of an HTML page; "" when the page carries none."""
+    out = ""
+    for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw or "", re.S):
+        try:
+            data = json.loads(m.group(1))
+        except ValueError:
+            continue
+        stack = [data]
+        while stack:
+            o = stack.pop()
+            if isinstance(o, list):
+                stack.extend(o)
+            elif isinstance(o, dict):
+                stack.extend(v for v in (o.get("@graph"),) if v)
+                sal = o.get("baseSalary")
+                if isinstance(sal, dict):
+                    val = sal.get("value") if isinstance(sal.get("value"), dict) else sal
+                    lo = val.get("minValue") or val.get("value")
+                    hi = val.get("maxValue") or val.get("value")
+                    out += _pay_text(sal.get("currency") or val.get("currency"), lo, hi, val.get("unitText"))
+    return out
+
+
 def strip_html(text):
     text = html.unescape(text or "")
     text = html.unescape(text)  # Greenhouse double-escapes
@@ -233,6 +279,8 @@ def lever(c):
         for lst in j.get("lists") or []:
             desc += " " + (lst.get("text") or "") + " " + strip_html(lst.get("content", ""))
         desc += " " + (j.get("additionalPlain") or "")
+        sr = j.get("salaryRange") or {}  # structured pay, only populated when the poster filled it in
+        desc += _pay_text(sr.get("currency"), sr.get("min"), sr.get("max"), (sr.get("interval") or "").replace("per-", ""))
         posted = ""
         ms = j.get("createdAt")
         if isinstance(ms, (int, float)):
@@ -246,10 +294,19 @@ def lever(c):
     return out, True  # single uncapped call: always the full board
 
 
+def _ashby_pay(j):
+    """Salary components of Ashby's compensation block (equity/commission/bonus components are ignored)."""
+    out = ""
+    for comp in (j.get("compensation") or {}).get("summaryComponents") or []:
+        if comp.get("compensationType") == "Salary":
+            out += _pay_text(comp.get("currencyCode"), comp.get("minValue"), comp.get("maxValue"), comp.get("interval"))
+    return out
+
+
 def ashby(c):
-    d = http(f"https://api.ashbyhq.com/posting-api/job-board/{c['slug']}")
+    d = http(f"https://api.ashbyhq.com/posting-api/job-board/{c['slug']}?includeCompensation=true")
     jobs = [dict(id=j["id"], title=j["title"], location=j.get("location", "") or "", url=j.get("jobUrl", ""),
-                 desc=j.get("descriptionPlain") or strip_html(j.get("descriptionHtml", "")),
+                 desc=(j.get("descriptionPlain") or strip_html(j.get("descriptionHtml", ""))) + _ashby_pay(j),
                  posted=(j.get("publishedAt") or "")[:10]) for j in d.get("jobs", [])]
     return jobs, True  # single uncapped call: always the full board
 
@@ -490,7 +547,7 @@ def goldman(c):
     page = 50
     query = ("query GetRoles($searchQueryInput: RoleSearchQueryInput!) { roleSearch(searchQueryInput: "
              "$searchQueryInput) { totalCount items { roleId jobTitle division descriptionHtml lastPostedDate createdDate "
-             "locations { city state country } externalSource { sourceId } } } }")
+             "compensation { minSalary maxSalary currency } locations { city state country } externalSource { sourceId } } } }")
     out, seen = [], set()
     complete = True
     for term in terms:
@@ -518,7 +575,9 @@ def goldman(c):
                 out.append(dict(id=jid, title=j.get("jobTitle", "") or "", location=" | ".join(locs),
                                 url=f"https://higher.gs.com/roles/{src}",
                                 posted=(j.get("lastPostedDate") or j.get("createdDate") or "")[:10],
-                                desc=strip_html(j.get("descriptionHtml", ""))))
+                                desc=strip_html(j.get("descriptionHtml", "")) + _pay_text(
+                                    (j.get("compensation") or {}).get("currency"), (j.get("compensation") or {}).get("minSalary"),
+                                    (j.get("compensation") or {}).get("maxSalary"))))
             offset += page
             if len(rows) < page or (total is not None and offset >= total):
                 term_complete = True
@@ -721,7 +780,7 @@ def _jsonld_description(url):
         except ValueError:
             continue
         if isinstance(data, dict) and data.get("description"):
-            return strip_html(data["description"])
+            return strip_html(data["description"]) + _jsonld_pay(raw)
     return ""
 
 
@@ -1010,6 +1069,118 @@ def ukg(c):
             return out, True
         skip += len(rows)
     return out, False
+
+
+def peoplesoft_hrs(c):
+    """Oracle PeopleSoft HCM Candidate Gateway (Fluid) career sites, e.g. careers.federatedhermes.com. A session
+    GET of <host>/psc/EXT/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?FOCUS=Applicant&Page=HRS_APP_SCHJOB&SiteId=<n>
+    yields ICSID/ICStateNum form state; a form POST with ICAction=HRS_SCH_WRK_FLU_HRS_SEARCH_BTN returns the first
+    50 rows as server-rendered HTML, and ICAction=HRS_AGNT_RSLT_I$hdown$0 on that state returns the rest. Rows carry
+    Job Title, Job ID, Location (city only), Department, Job Family and Posted Date (mm/dd/yyyy). The detail URL
+    (Page=HRS_APP_JBPST_FL&JobOpeningId=<id>&PostingSeq=1) works in a fresh cookie session. Needs host; optional
+    site (default 1), path. Verified live 2026-10-11 against Federated Hermes (65 jobs)."""
+    base = "https://{}/{}".format(c["host"], c.get("path", "psc/EXT/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL").strip("/"))
+    site = c.get("site", 1)
+    ua = {"User-Agent": BROWSER_UA}
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+
+    def get(url, form=None):
+        data = urllib.parse.urlencode(form).encode() if form is not None else None
+        return opener.open(urllib.request.Request(url, data=data, headers=ua), timeout=40).read().decode("utf-8", "ignore")
+
+    def state(page):
+        sid = re.search(r"name='ICSID'[^>]*value='([^']*)'", page)
+        num = re.search(r"name='ICStateNum'[^>]*value='(\d+)'", page)
+        return (sid.group(1), num.group(1)) if sid and num else None
+
+    try:
+        page = get(f"{base}?FOCUS=Applicant&Page=HRS_APP_SCHJOB&SiteId={site}")
+        st = state(page)
+        if not st:
+            return [], False
+        page = get(base, {"ICStateNum": st[1], "ICAction": "HRS_SCH_WRK_FLU_HRS_SEARCH_BTN", "ICSID": st[0], "HRS_SCH_WRK_HRS_SCH_TEXT100": ""})
+        total = re.search(r">\s*(\d+)\s*</span>\s*(?:<[^>]+>\s*)*jobs? found", page, re.I) or re.search(r"(\d+)\s*(?:<[^>]+>\s*)*jobs found", page, re.I)
+        total = int(total.group(1)) if total else None
+        if total and len(re.findall(r"id='SCH_JOB_TITLE\$\d+'", page)) < total and state(page):
+            st = state(page)
+            page = get(base, {"ICStateNum": st[1], "ICAction": "HRS_AGNT_RSLT_I$hdown$0", "ICSID": st[0]})
+    except Exception:  # noqa: BLE001
+        return [], False
+    out, seen = [], set()
+    for chunk in re.split(r"win0divSCH_JOB_TITLE\$\d+'", page)[1:]:
+        f = {k.strip(): html.unescape(v).strip() for k, v in
+             re.findall(r"class='ps-label'>([^<]+)</span></DIV><span class='ps_box-value'[^>]*>([^<]*)</span>", chunk[:4000])}
+        jid, title = f.get("Job ID"), f.get("Job Title")
+        if not jid or not title or jid in seen:
+            continue
+        seen.add(jid)
+        pd = re.match(r"(\d+)/(\d+)/(\d{4})", f.get("Posted Date", ""))
+        out.append(dict(id=jid, title=title, location=f.get("Location", ""),
+                        url=f"{base}?Page=HRS_APP_JBPST_FL&Action=U&FOCUS=Applicant&SiteId={site}&JobOpeningId={jid}&PostingSeq=1",
+                        posted=f"{pd.group(3)}-{int(pd.group(1)):02d}-{int(pd.group(2)):02d}" if pd else ""))
+    return out, bool(out) and (total is None or len(out) >= total)
+
+
+def csod(c):
+    """Cornerstone OnDemand career sites (<corp>.csod.com/ux/ats/careersite/<site>/home?c=<corp>). The home page embeds
+    a public bearer token and the API cloud ("token", "cloud" in its inline JSON); POST <cloud>rec-job-search/external/jobs
+    with it returns requisitions (id, displayJobTitle, locations[{city,state,country}], postingEffectiveDate m/d/yyyy)
+    in pages of pageNumber/pageSize. Needs corp; optional site (default 1). Verified live 2026-10-11 against
+    FHLB Cincinnati (fhlbcin, 6 jobs, all Cincinnati OH)."""
+    corp, site = c["corp"], int(c.get("site", 1))
+    base = f"https://{corp}.csod.com"
+    page = http(f"{base}/ux/ats/careersite/{site}/home?c={corp}", raw=True, headers={"User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+    tok, cloud = re.search(r'"token"\s*:\s*"([^"]+)"', page), re.search(r'"cloud"\s*:\s*"([^"]+)"', page)
+    if not tok or not cloud:
+        return [], False
+    hdr = {"Authorization": f"Bearer {tok.group(1)}", "User-Agent": BROWSER_UA}
+    out, seen, pg, total = [], set(), 1, None
+    while pg <= int(c.get("max_pages", 40)):
+        body = dict(careerSiteId=site, careerSitePageId=site, pageNumber=pg, pageSize=25, cultureId=1, searchText="", cultureName="en-US",
+                    states=[], countryCodes=[], cities=[], placeID="", radius=None, postingsWithinDays=None,
+                    customFieldCheckboxKeys=[], customFieldDropdowns=[], customFieldRadios=[])
+        try:
+            d = (http(cloud.group(1).rstrip("/") + "/rec-job-search/external/jobs", data=body, headers=hdr) or {}).get("data") or {}
+        except Exception:  # noqa: BLE001
+            return out, False
+        total = d.get("totalCount", total)
+        reqs = d.get("requisitions") or []
+        for r in reqs:
+            rid = str(r.get("requisitionId"))
+            if rid in seen:
+                continue
+            seen.add(rid)
+            locs = ["{}, {}, {}".format(l.get("city") or "", l.get("state") or "", l.get("country") or "").replace(" ,", "").strip(" ,")
+                    for l in r.get("locations") or []]
+            pd = re.match(r"(\d+)/(\d+)/(\d{4})", r.get("postingEffectiveDate") or "")
+            out.append(dict(id=rid, title=(r.get("displayJobTitle") or "").strip(), location="; ".join(dict.fromkeys(locs)),
+                            url=f"{base}/ux/ats/careersite/{site}/home/requisition/{rid}?c={corp}",
+                            posted=f"{pd.group(3)}-{int(pd.group(1)):02d}-{int(pd.group(2)):02d}" if pd else "",
+                            desc=strip_html(r.get("externalDescription") or "")))
+        if not reqs or (total is not None and len(seen) >= total):
+            return out, True
+        pg += 1
+    return out, False
+
+
+def taleo_cws(c):
+    """Oracle Taleo Business Edition Career Center v2 (CWS) boards on <host>/<path>/ats/careers/v2, e.g.
+    phh.tbe.taleo.net/phh01 for FHLBank Boston. A plain GET of searchResults?org=<org>&cws=<n> lists every open
+    requisition on one page (no session cookie needed): accordion rows with a viewJobLink title anchor (rid in the
+    URL) and the location in the next div. No posted date in the list. Needs host, path, org, cws. Verified live
+    2026-10-11 against FHLBank Boston (4 jobs)."""
+    base = f"https://{c['host']}/{c['path'].strip('/')}/ats/careers/v2"
+    page = http(f"{base}/searchResults?org={c['org']}&cws={c['cws']}", raw=True, headers={"User-Agent": BROWSER_UA})
+    page = page.decode("utf-8", "ignore") if isinstance(page, bytes) else page
+    out, seen = [], set()
+    for m in re.finditer(r'<h4 class="[^"]*head-title[^"]*"><a href="([^"]+)" class="viewJobLink">(.*?)</a></h4>\s*<div[^>]*>(.*?)</div>', page, re.S):
+        url = html.unescape(m.group(1))
+        rid = re.search(r"[?&]rid=(\d+)", url)
+        if not rid or rid.group(1) in seen:
+            continue
+        seen.add(rid.group(1))
+        out.append(dict(id=rid.group(1), title=strip_html(m.group(2)), url=url, location=strip_html(m.group(3)), posted=""))
+    return out, "oracletaleocwsv2" in page  # the Career Center chrome is present, so an empty list is a real empty board
 
 
 def taleo_be(c):
@@ -1424,6 +1595,136 @@ def marketaxess(c):
     return out, True
 
 
+def _tal_fields(page):
+    """Label -> value for the read-only form fields on a Tal.net posting page (Region, Location, Group, ...), plus the
+    job description text (the field that follows the "Job description" label)."""
+    fields = {}
+    for m in re.finditer(r'hform_lbl_text"\s*>\s*(.*?)\s*</span>.*?form-control-static"[^>]*>\s*(.*?)\s*</div>', page, re.S):
+        fields.setdefault(strip_html(m.group(1)), strip_html(m.group(2)))
+    i = page.find("Job description")
+    fields["_desc"] = strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", page[i:]))[:30000] if i >= 0 else ""
+    return fields
+
+
+def tal(c):
+    """Tal.net (Oleeo) candidate job boards, e.g. evercore.tal.net. Each board (vacancy N) publishes a public Atom feed at
+    /vx/mobile-0/appcentre-1/candidate/jobboard/vacancy/N/feed (title, posting date, posting URL) and the career site's
+    ALTCHA gate only guards applying, not reading. The feed has no place, so each posting page is read once for its
+    Location (and Region) field and description, 8 at a time. Needs host and vacancies (board numbers, default [1]).
+    Verified live 2026-10-11 against Evercore (vacancies 2 and 3: 96 jobs)."""
+    base = f"https://{c['host']}"
+    ns = {"a": "http://www.w3.org/2005/Atom"}
+    entries, ok = {}, True
+    for n in c.get("vacancies") or [1]:
+        root = ET.fromstring(http(f"{base}/vx/mobile-0/appcentre-1/candidate/jobboard/vacancy/{n}/feed", raw=True, timeout=40,
+                                  headers={"User-Agent": BROWSER_UA}))
+        for e in root.findall("a:entry", ns):
+            url = (e.findtext("a:id", "", ns) or "").strip()
+            m = re.search(r"/opp/(\d+)-", url)
+            if m:
+                entries.setdefault(m.group(1), (url, (e.findtext("a:title", "", ns) or "").strip(), (e.findtext("a:published", "", ns) or "")[:10]))
+
+    def one(item):
+        jid, (url, title, posted) = item
+        try:
+            f = _tal_fields(http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore"))
+        except Exception:  # noqa: BLE001 - one bad posting page must not drop the board; flag the list incomplete instead
+            return None
+        loc = f.get("Location", "")
+        region = f.get("Region", "")
+        return dict(id=jid, title=title, url=url, posted=posted, desc=f["_desc"],
+                    location=loc if not region or region in loc else f"{loc}, {region}" if loc else region)
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        rows = list(pool.map(one, entries.items()))
+    ok = all(r is not None for r in rows)
+    return [r for r in rows if r], ok and bool(entries)
+
+
+def dayforce(c):
+    """Dayforce candidate portals (jobs.dayforcehcm.com/<culture>/<namespace>/<board>). The portal's own search call
+    POST /api/geo/<namespace>/jobposting/search pages 25 postings at a time (paginationStart = offset) with title,
+    full description, exact posting timestamp and structured locations. It wants the NextAuth CSRF token from
+    GET /api/auth/csrf (and its cookie) echoed in X-CSRF-Token, an ordinary session handshake. Needs namespace and
+    board (jobBoardCode). Job page is <portal>/jobs/<jobPostingId>. Verified live 2026-10-11 against Interactive
+    Brokers (182 jobs, about 77 with a US place)."""
+    host, ns, board = c.get("host", "jobs.dayforcehcm.com"), c["namespace"], c["board"]
+    portal = f"https://{host}/en-US/{ns}/{board}"
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+    hdr = {"User-Agent": BROWSER_UA, "Accept": "application/json, text/plain, */*", "Referer": portal}
+    tok = json.loads(opener.open(urllib.request.Request(f"https://{host}/api/auth/csrf", headers=hdr), timeout=40).read()).get("csrfToken", "")
+    out, seen, start = [], set(), 0
+    while start < int(c.get("max_jobs", 2000)):
+        body = {"clientNamespace": ns, "jobBoardCode": board, "cultureCode": "en-US", "distanceUnit": 0, "paginationStart": start}
+        d = json.loads(opener.open(urllib.request.Request(f"https://{host}/api/geo/{ns}/jobposting/search", data=json.dumps(body).encode(),
+                                                          headers=dict(hdr, **{"Content-Type": "application/json", "X-CSRF-Token": tok})), timeout=60).read())
+        rows = d.get("jobPostings") or []
+        for r in rows:
+            jid = str(r.get("jobPostingId") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            places = [l.get("formattedAddress") for l in r.get("postingLocations") or [] if l.get("formattedAddress")]
+            if r.get("hasVirtualLocation"):
+                places.append("Remote")
+            out.append(dict(id=jid, title=(r.get("jobTitle") or "").strip(), location=" | ".join(places), url=f"{portal}/jobs/{jid}",
+                            posted=str(r.get("postingStartTimestampUTC") or "")[:10], desc=strip_html(r.get("jobDescription") or "")))
+        start += len(rows)
+        if not rows or start >= int(d.get("maxCount") or 0):
+            return out, True
+    return out, False
+
+
+_BALYASNY_SITE = "https://bambusdev.my.site.com"  # BAM's careers app lives on its Salesforce Experience Cloud site
+
+
+def _balyasny_aura(classname, method, params):
+    """One anonymous Salesforce Aura call to an @AuraEnabled Apex method the public careers page itself makes.
+    The framework id (fwuid) and app build id are read from the /s/ page each time, so a Salesforce release
+    does not break the call."""
+    page = urllib.parse.unquote(http(_BALYASNY_SITE + "/s/", raw=True, timeout=40, headers={"User-Agent": BROWSER_UA}).decode("utf-8", "ignore"))
+    m = re.search(r'"fwuid":"([^"]+)","loaded":\{"APPLICATION@markup://siteforce:communityApp":"([^"]+)"', page)
+    if not m:
+        raise ValueError("Balyasny Aura context not found")
+    ctx = {"mode": "PROD", "fwuid": m.group(1), "app": "siteforce:communityApp", "dn": [], "globals": {}, "uad": True,
+           "loaded": {"APPLICATION@markup://siteforce:communityApp": m.group(2)}}
+    msg = {"actions": [{"id": "1;a", "descriptor": "aura://ApexActionController/ACTION$execute", "callingDescriptor": "UNKNOWN",
+                        "params": {"namespace": "", "classname": classname, "method": method, "params": params,
+                                   "cacheable": True, "isContinuation": False}}]}
+    body = urllib.parse.urlencode({"message": json.dumps(msg), "aura.context": json.dumps(ctx), "aura.pageURI": "/s/", "aura.token": "null"}).encode()
+    raw = http(_BALYASNY_SITE + "/s/sfsites/aura?r=2&aura.ApexAction.execute=1", data=body, raw=True, timeout=60,
+               headers={"User-Agent": BROWSER_UA, "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"})
+    act = (json.loads(raw).get("actions") or [{}])[0]
+    if act.get("state") != "SUCCESS":
+        raise ValueError(f"Balyasny Aura call failed: {act.get('error')}")
+    return (act.get("returnValue") or {}).get("returnValue")
+
+
+def balyasny(c):
+    """Balyasny Asset Management's careers site is a Salesforce Experience Cloud (Aura) app with no REST feed, but
+    its public Apex method BamJobRequisitionInfoDataService.searchJobRequisitions answers anonymous POSTs to
+    /s/sfsites/aura with every open requisition (title, REQ number, per-position cities, relative "Posted N Days
+    Ago"), so one call lists the lot. Job id is the Salesforce record id; describe() fetches the description with
+    rolePage.getDescription(id). Detail page is /s/details?jobReq=<url title>_<REQ>. Verified live 2026-10-11
+    (129 jobs, about 60 with a US city)."""
+    rows = _balyasny_aura("BamJobRequisitionInfoDataService", "searchJobRequisitions",
+                          {"isVendorPortal": False, "site": "BAM Website", "searchKey": "", "locationFilters": [],
+                           "departmentFilter": [], "availableLocations": [], "experienceLevelFilter": []}) or []
+    out = []
+    for r in rows:
+        cities = []
+        for pos in r.get("Job_Requisition_Positions__r") or []:  # a role can list several offices, including secondary ones
+            for loc in [pos.get("Location__r") or {}] + [(q.get("Location__r") or {}) for q in pos.get("Job_Requisition_Position_Locations__r") or []]:
+                name = loc.get("External_Name__c")
+                if name and name not in cities:
+                    cities.append(name)
+        req = r.get("Requisition_Number__c") or ""
+        out.append(dict(id=r["Id"], title=r.get("Publish_Title__c") or r.get("Name") or "", location=" | ".join(cities),
+                        url=f"{_BALYASNY_SITE}/s/details?jobReq={r.get('Job_Req_Title_in_URL__c') or ''}_{req}",
+                        posted=_workday_posted(r.get("Posted_Ago__c"))))  # relative text, so the date is approximate
+    return [j for j in out if j["title"]], bool(rows)
+
+
 def phenom(c):
     """Phenom People career sites. POST https://<host>/widgets with ddoKey "refineSearch" after one GET of the
     search page for the session cookie. Needs host, ref_num (the site's refNum), page_id (the search page's
@@ -1462,7 +1763,9 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
+             balyasny=balyasny, tal=tal,
+             dayforce=dayforce)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1600,6 +1903,22 @@ def _brassring_detail(c, jid):
                                if q.get("QuestionType") == "textarea"))[:30000]
 
 
+def _ukg_detail(c, job):
+    """Full description for a UKG board posting: the detail page embeds the opportunity as JSON in a
+    CandidateOpportunityDetail({...}) call, with the HTML text in its Description field."""
+    req = urllib.request.Request(job["url"], headers={"User-Agent": BROWSER_UA})
+    page = urllib.request.urlopen(req, timeout=40).read().decode("utf-8", "ignore")
+    m = re.search(r"CandidateOpportunityDetail\(", page)
+    if not m:
+        return ""
+    obj, _ = json.JSONDecoder().raw_decode(page, m.end())
+    text = strip_html(obj.get("Description") or "")
+    pay = obj.get("PayRange") or {}  # the posted range lives in its own field, not in the description text
+    if obj.get("PayRangeVisible") and pay.get("PayRangeMinimum") and pay.get("PayRangeMaximum"):
+        text += f" Pay range: ${float(pay['PayRangeMinimum']):,.0f} to ${float(pay['PayRangeMaximum']):,.0f}"
+    return text
+
+
 def describe(c, job):
     """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
     posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate and the other
@@ -1614,9 +1933,16 @@ def describe(c, job):
         return job.get("desc") or strip_html(text), posted, "exact" if posted else ""
     if job.get("desc"):
         return job["desc"], "", ""
+    if ats == "ukg":
+        return _ukg_detail(c, job), "", ""
     if ats == "greenhouse":
         d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs/{job['id']}")
-        return strip_html(d.get("content", "")), "", ""
+        pay = ""
+        for r in d.get("pay_input_ranges") or []:  # the posted range is a structured field, often absent from the text
+            lo, hi = (r.get("min_cents") or 0) / 100, (r.get("max_cents") or 0) / 100
+            unit = "hour" if 0 < hi <= 400 else "year" if hi >= 20000 else ""  # Greenhouse states no unit; skip the ambiguous middle
+            pay += _pay_text(r.get("currency_type"), lo, hi, unit)
+        return strip_html(d.get("content", "")) + pay, "", ""
     if ats == "smartrecruiters":
         d = http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings/{job['id']}")
         secs = (d.get("jobAd") or {}).get("sections") or {}
@@ -1660,8 +1986,12 @@ def describe(c, job):
         posted = _page_date(raw)  # the JobPosting JSON-LD carries the real posting day the list cards lack
         if not posted and c.get("feed") and not job.get("posted"):
             posted = _avature_feed_date(c, job)  # Two Sigma pages have no JSON-LD; its feed does
+        pay = _jsonld_pay(raw)
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
-        return strip_html(raw)[:30000], posted, "exact" if posted else ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+        return strip_html(raw)[:30000] + pay, posted, "exact" if posted else ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+    if ats == "balyasny":  # the list call carries no description
+        d = _balyasny_aura("rolePage", "getDescription", {"req": job["id"]}) or {}
+        return strip_html(d.get("Description__c", "")), "", ""
     if ats == "taleo_be":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
         i = raw.find('class="job_description"')
@@ -1683,7 +2013,7 @@ def describe(c, job):
             except ValueError:
                 continue
             if len(text) > 200:  # the page also carries short site-level descriptions
-                return text, "", ""
+                return text + _jsonld_pay(raw), "", ""
         return _jsonld_description(job["url"]), "", ""
     if ats in ("talentbrew", "paylocity"):
         return _jsonld_description(job["url"]), "", ""
@@ -1723,15 +2053,6 @@ def describe(c, job):
         d = http("https://api-higher.gs.com/gateway/api/v1/graphql", data={
             "query": "query GetRole($id: String!) { role(externalSourceId: $id) { descriptionHtml } }", "variables": {"id": src}})
         return strip_html(((d.get("data") or {}).get("role") or {}).get("descriptionHtml") or "")[:30000], "", ""
-    if ats == "ukg":  # the JS-rendered detail page embeds the opportunity JSON, whose Description is the full HTML text
-        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
-        best = ""
-        for m in re.finditer(r'"Description":"((?:[^"\\]|\\.)*)"', raw):
-            try:
-                best = max(best, strip_html(json.loads('"' + m.group(1) + '"')), key=len)
-            except ValueError:
-                continue
-        return best[:30000], "", ""
     if ats == "brassring":  # list rows carry desc but queue rows do not; the page's own JobDetails Ajax call has it
         return _brassring_detail(c, job["id"]), "", ""
     if ats == "bpce":  # job_number (our id) is not the WP post id: resolve it via the slug, then read the page JSON
@@ -1889,18 +2210,125 @@ def classify_sponsorship(text):
 
 
 _EXPERIENCE_YEARS_RE = re.compile(
-    r"(\d{1,2})\s*(?:-|to|–)\s*(\d{1,2})\s*\+?\s*years?|"      # "3-5 years" / "3 to 5 years"
-    r"(\d{1,2})\s*\+\s*years?|"                                     # "5+ years"
+    r"(?<![\d,.])(\d{1,2})\s*(?:-|to|–)\s*(\d{1,2})\s*\+?\s*years?|"      # "3-5 years" / "3 to 5 years"
+    r"(?<![\d,.])(\d{1,2})\s*\+\s*years?|"                                     # "5+ years"
     r"(?:minimum|min\.?|at least)\s*(?:of\s*)?(\d{1,2})\s*years?",  # "minimum of 3 years"
     re.I,
 )
 _ENTRY_PHRASE_RE = re.compile(
-    r"\bentry[- ]level\b|\bnew grad(?:uate)?s?\b|\brecent graduate\b|\bcampus hire\b|"
+    r"\bentry[- ]level\b(?!\s+(?:employees?|staff|to\s+(?:senior|executive|c-suite)))|\bnew grad(?:uate)?s?\b|\brecent graduate\b|\bcampus hire\b|"
     r"\bno (?:prior )?experience (?:required|necessary)\b",
     re.I,
 )
 _SENIOR_TITLE_RE = re.compile(r"\b(senior|sr\.?|vice president|vp|svp|principal|lead|staff)\b", re.I)
 _MID_TITLE_RE = re.compile(r"\bassociate\b", re.I)
+# Added after the two above so existing title-inferred values are unchanged ("Associate Director" stays 3).
+_DIRECTOR_TITLE_RE = re.compile(r"\b(?:managing director|director|head of)\b", re.I)
+_ENTRY_TITLE_RE = re.compile(
+    r"\bintern(?:ship)?s?\b|\bsummer analyst\b|\btrainee\b|\bapprentice(?:ship)?\b|\bgraduate (?:program|scheme|analyst)\b|"
+    r"\bentry[- ]level\b|\b(?:junior|jr\.?)\b", re.I)
+
+_NUM_WORDS = {w: i for i, w in enumerate(
+    "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen "
+    "sixteen seventeen eighteen nineteen twenty".split())}
+_NUM = r"(\d{1,2}|" + "|".join(sorted(_NUM_WORDS, key=len, reverse=True)) + r")"
+_NUM_PAREN = r"(?:\s*\(\d{1,2}\))?"
+# "3 years", "3+ yrs", "three (3) years", "3-5 years", "3 to 5 years", "five or more years", "5 years or more"
+_STATED_YEARS_RE = re.compile(
+    r"\b" + _NUM + _NUM_PAREN + r"(?:\s*(?:-|–|to)\s*" + _NUM + _NUM_PAREN + r")?"
+    r"\s*(?:\+|\bplus\b)?\s*(?:or\s+more\s+)?[-\s]*(?:years?|yrs?)\b['’]?(?!\s+(?:old|ago)\b)",
+    re.I)
+_EXP_WORD_RE = re.compile(r"\bexperience[ds]?\b|\bexp\b", re.I)
+# a number before "years" that cannot be a requirement: tenure of the employer, an age, a service award, a
+# contract term ("within three years of hire") or fiscal/calendar years
+_YEARS_NOT_REQ_AFTER_RE = re.compile(
+    r"^['’]?\s*(?:(?:college|university|degree|bachelor|undergraduate|program|plan|period|term|contract|cycle|"
+    r"horizon|track|accredited|institution|school|vision|strategy|roadmap|associate|master)\b|"
+    r"of\s+(?:age|service|history|operations?|growth|business|profitab|unbroken|heritage|legacy|"
+    r"success|innovation|tradition)|in\s+business|old|ago|from\s+(?:now|hire|the\s+date)|fiscal|calendar|"
+    r"after|since|prior|post)", re.I)
+_YEARS_NOT_REQ_BEFORE_RE = re.compile(
+    r"(?:within|after|every|each|per|during|for\s+the\s+(?:next|past|last)|over\s+the\s+(?:next|past|last)|"
+    r"next|past|last|previous|prior|fiscal|calendar|founded|established|since|for)\s+(?:the\s+)?(?:\w+\s+)?$", re.I)
+_ORG_WORDS_RE = re.compile(
+    r"\b(?:we|we've|our|firm|company|bank|organization|organisation|group|heritage|legacy|history|founded|"
+    r"established|serving|providing|leader|leading)\b", re.I)
+_DEGREE_WORD_RE = re.compile(r"degree|diploma|\bged\b|bachelor|master|\bmba\b|ph\.?d|doctorate|associate'?s|education", re.I)
+_PREFERRED_NEAR_RE = re.compile(
+    r"\bpreferred\b|\bdesired\b|\bdesirable\b|\ba plus\b|\bnice to have\b|\bbonus\b|\bideal(?:ly)?\b|\bbeneficial\b|"
+    r"\ban? (?:advantage|asset)\b|\bhelpful\b|\bfavou?rable\b", re.I)
+_PREF_HEADING_RE = re.compile(
+    r"\b(?:preferred|desired|nice[- ]to[- ]have|bonus|ideal|additional|plus)\s+(?:qualifications?|skills?|experience|"
+    r"requirements?|attributes|points)\b|\bbonus points\b|\bwhat would make you stand out\b|\bnice to haves?\b|"
+    r"\bit'?s a plus\b|\bpreferred:", re.I)
+_REQ_HEADING_RE = re.compile(
+    r"\b(?:required|minimum|basic|mandatory)\s+(?:qualifications?|skills?|experience|requirements?|education)\b|"
+    r"\byou'?ll need\b|\byou will need\b|\bmust have\b|\bwhat you'?ll bring\b|\bwe'?re looking for\b|"
+    r"\bwhat we look for\b|\brequirements?:|\bqualifications?\s*:|\bminimum:", re.I)
+# "Minimum Years of Work Experience: 3" (Workday-style structured field)
+_STRUCTURED_YEARS_RE = re.compile(r"\bminimum years of (?:work |related |relevant )?experience\s*:\s*(\d{1,2})\b", re.I)
+
+
+def _num_val(tok):
+    tok = tok.lower()
+    return int(tok) if tok.isdigit() else _NUM_WORDS[tok]
+
+
+def _stated_experience_years(text):
+    """Stated years-of-experience requirement the original regexes miss: number words, "(3)" parentheticals,
+    ranges, "or more", bare "N years of ... experience", "N years' experience", structured fields. Returns
+    (lower bound, snippet) or None. Conservative: the number must sit next to the word "experience", and
+    employer tenure ("over 30 years"), ages, service awards, fiscal years, preferred-only years, and
+    degree-or-experience alternatives are skipped (None = Unclear beats a wrong value)."""
+    if not text:
+        return None
+    for m in _STRUCTURED_YEARS_RE.finditer(text):
+        n = int(m.group(1))
+        if n <= 20 and n > 0:
+            return n, text[max(0, m.start() - 20):m.end() + 20].strip()
+    for m in _STATED_YEARS_RE.finditer(text):
+        try:
+            lo = _num_val(m.group(1))
+            hi = _num_val(m.group(2)) if m.group(2) else lo
+        except KeyError:
+            continue
+        if max(lo, hi) > 20 or min(lo, hi) == 0 and not m.group(2):
+            continue
+        before = text[max(0, m.start() - 90):m.start()]
+        sent_before = re.split(r"[.;!?]\s", before)[-1]
+        after = text[m.end():m.end() + 100]
+        if _YEARS_NOT_REQ_AFTER_RE.match(after) or _YEARS_NOT_REQ_BEFORE_RE.search(sent_before):
+            continue
+        if re.search(r"(?:over|more than|nearly|almost|for|with)\s*$", sent_before, re.I) and _ORG_WORDS_RE.search(
+                sent_before) and not re.search(r"\b(?:candidates?|applicants?|you|looking|seeking|require[sd]?|need)\b",
+                                               sent_before, re.I):
+            continue  # "a bank with more than 20 years of experience"
+        # must be talking about experience: right after ("years of relevant experience") or a label right before
+        after_sent = re.split(r"[.;!?]\s", after)[0]
+        near_after = _EXP_WORD_RE.search(after_sent[:80])
+        near_before = re.search(r"\bexperience\s*(?:required|level|needed)?\s*[:\-–]\s*(?:minimum\s+)?(?:of\s+)?"
+                                r"(?:at least\s+|more than\s+|over\s+)?$", sent_before, re.I)
+        if not (near_after or near_before):
+            continue
+        # preferred-only years are not a requirement
+        if _PREFERRED_NEAR_RE.search(sent_before[-30:]) or _PREFERRED_NEAR_RE.search(after_sent[:100]):
+            continue
+        head_ctx = text[max(0, m.start() - 700):m.start()]
+        pref = [h.end() for h in _PREF_HEADING_RE.finditer(head_ctx)]
+        req = [h.end() for h in _REQ_HEADING_RE.finditer(head_ctx)]
+        if pref and (not req or max(pref) > max(req)):
+            continue
+        # "Bachelor's degree or 4 years of experience" / "degree and/or 3 years": an alternative, not a floor
+        alt_before = re.split(r"[.!?]\s", before)[-1]  # keeps ';' so "university; or at least 5 years" stays one clause
+        if re.search(r"\b(?:or|and/or)\s+(?:(?:have|having|with|at least|minimum of|minimum|a|an|the equivalent of)\s+)*$",
+                     alt_before, re.I) and _DEGREE_WORD_RE.search(alt_before):
+            continue
+        if re.match(r"[^.;]{0,50}?\bor\s+(?:a|an|the)?\s*(?:bachelor|master|mba|ph\.?d|doctorate|advanced degree|degree)", after, re.I):
+            continue
+        n = min(lo, hi)
+        s, e = max(0, m.start() - 40), min(len(text), m.end() + 40)
+        return n, text[s:e].strip()
+    return None
 
 
 def classify_experience(title, text):
@@ -1922,23 +2350,80 @@ def classify_experience(title, text):
         min_years = min(int(g) for g in m.groups() if g)
         s, e = max(0, m.start() - 40), min(len(hay), m.end() + 40)
         return min_years, hay[s:e].strip()
+    stated = _stated_experience_years(hay)
+    if stated:
+        return stated
     if _SENIOR_TITLE_RE.search(title or ""):
         return 6, f"inferred from title: {title}"
     if _MID_TITLE_RE.search(title or ""):
         return 3, f"inferred from title: {title}"
+    if _DIRECTOR_TITLE_RE.search(title or ""):
+        return 6, f"inferred from title: {title}"
+    if _ENTRY_TITLE_RE.search(title or ""):
+        return 0, f"inferred from title: {title}"
     return None, "No years-of-experience language found."
 
 
+_SAL_CUR = r"(?:US\$|CA\$|C\$|CAD\s?\$|USD\s?\$|\$|£|€|USD|CAD|GBP|EUR)"
+_SAL_NUM = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
+_SAL_TAIL = r"(?:\s?(?:USD|CAD|GBP|EUR)\b)?"
 _SALARY_RANGE_RE = re.compile(
-    r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\s*(?:-|–|to)\s*\$?\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?",
+    rf"(?<![\w,.])(?P<c1>{_SAL_CUR})?\s?(?P<n1>{_SAL_NUM})\s?(?P<k1>k\b)?(?P<t1>{_SAL_TAIL})(?:\s?/?\s?(?:hr|hrs|hour|yr|year)\b)?"
+    rf"\s*(?P<sep>[-‐-―−]|\bto\b|\bthrough\b|\band\b)\s*"
+    rf"(?P<c2>{_SAL_CUR})?\s?(?P<n2>{_SAL_NUM})\s?(?P<k2>k\b)?(?P<t2>{_SAL_TAIL})",
     re.I,
 )
-_SALARY_SINGLE_RE = re.compile(r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\b", re.I)
-_SALARY_CONTEXT_RE = re.compile(r"\b(?:salary|compensation|base pay|total comp|pay range)\b", re.I)
+_SAL_LABEL = r"(?:\s*/?\s*(?:salary|pay|pay range|base pay|base salary|rate|compensation|range))*"
+
+
+def _sal_amt(i):
+    return (rf"(?P<c{i}>{_SAL_CUR})\s?(?P<n{i}>{_SAL_NUM})\s?(?P<k{i}>k\b)?(?P<t{i}>{_SAL_TAIL})"
+            rf"\s*(?P<u{i}>/\s?(?:yr|year|hr|hour))?")
+
+
+# "Min USD $82,400.00/Yr. Max USD $109,867.00/Yr." / "Minimum Salary: $155,000 per year Maximum Salary: $225,000 per year"
+_SALARY_MINMAX_RE = re.compile(
+    rf"\bmin(?:imum)?\b{_SAL_LABEL}[\s:]*" + _sal_amt(1) + r"[^\d$\u00a3\u20ac]{0,45}?\bmax(?:imum)?\b" + _SAL_LABEL + r"[\s:]*" + _sal_amt(2),
+    re.I,
+)
+# "ranges from $200,000/year in our lowest geographic market up to $300,000" / "ranges from $138,771 and $208,156 USD"
+_SALARY_FROMTO_RE = re.compile(
+    r"\bfrom\s+" + _sal_amt(1) + r"[^\d$\u00a3\u20ac]{0,70}?\b(?:to|and)\s+" + _sal_amt(2),
+    re.I,
+)
+_SALARY_SINGLE_RE = re.compile(
+    rf"(?<![\w,.])(?P<c1>{_SAL_CUR})\s?(?P<n1>{_SAL_NUM})\s?(?P<k1>k\b)?(?P<t1>{_SAL_TAIL})", re.I)
+_SALARY_CONTEXT_RE = re.compile(
+    r"\b(?:salary|salaries|compensation|pay|base pay|base rate|pay range|pay ranges|pay rate|pay scale|pay band|"
+    r"base range|total comp|shift range|wage|wages|hourly|remuneration|on[- ]target earnings|"
+    r"(?:base|annual|starting|expected|estimated|current) (?:pay|salary)|range (?:is|for this|of)|"
+    r"estimate of the (?:current )?range)\b", re.I)
 # finance JDs are full of unrelated dollar figures ("$2B in assets", "$500M portfolio") - a nearby
 # context word alone isn't always enough, so also reject anything sitting next to an asset-scale word
 _SALARY_DISQUALIFY_RE = re.compile(
-    r"\b(million|billion|trillion|aum|assets under management|in assets|portfolio|book of business)\b", re.I)
+    r"\b(million|billion|trillion|aum|assets under management|in assets|portfolio|book of business|minimum wage|revenues?|valuation|funding|raised|deposits|loans?|transactions)\b", re.I)
+# the pay figure itself must not be a scale shorthand ("$500M", "$2B", "$2.5bn")
+_SALARY_SCALE_AFTER_RE = re.compile(r"^\s?(?:mm?|bn?|mn|tn|million|billion|trillion)\b", re.I)
+# non-base amounts: a bonus / sign-on / match / equity figure is not the salary. Checked on the words directly
+# before the amount ("sign-on bonus of $25,000", "401(k) match up to $5,000") and directly after it
+# ("$25,000 sign-on bonus"), but "excluding bonus: $150,000" or "$150,000 plus bonus" still pass.
+_SALARY_NONBASE_WORDS = (r"bonus|bonuses|sign[- ]?on|signing|retention|relocation|referral|stipend|401\s?\(?k\)?|"
+                         r"match(?:ing)?|equity|stock|rsus?|commissions?|incentive|ote|on[- ]target|target earnings|"
+                         r"variable|allowance|reimbursement|tuition|hsa|fsa|contribution|per diem|spot award|profit sharing")
+_SALARY_NONBASE_BEFORE_RE = re.compile(rf"\b(?:{_SALARY_NONBASE_WORDS})(?![a-z])[^.;\d$]{{0,22}}$", re.I)
+_SALARY_NONBASE_AFTER_RE = re.compile(rf"^\s{{0,2}}(?:usd\s*)?(?:annual\s+|cash\s+|one[- ]time\s+)?(?:{_SALARY_NONBASE_WORDS})", re.I)
+_SALARY_EXCLUDING_RE = re.compile(r"\b(?:excluding|exclusive of|not including|without|before|plus|in addition to)\b", re.I)
+_SALARY_PERIOD_RES = (
+    ("hour", re.compile(r"\b(?:per\s+hour|an\s+hour|each\s+hour|per\s+hr|hourly)\b|/\s?(?:hr|hour|h)\b", re.I)),
+    ("week", re.compile(r"\b(?:per\s+week|a\s+week|weekly)\b|/\s?(?:wk|week)\b", re.I)),
+    ("month", re.compile(r"\b(?:per\s+month|a\s+month|monthly)\b|/\s?(?:mo|month)\b", re.I)),
+    ("year", re.compile(r"\b(?:per\s+year|a\s+year|yearly|annual(?:ly)?|per\s+annum)\b|p\.a\.|/\s?(?:yr|year)\b", re.I)),
+)
+_SALARY_ANNUALIZE = {"hour": 2080, "week": 52, "month": 12, "year": 1}
+# plausible magnitude per period (before annualising), so "$30 per week" or "$4,000 per hour" never survive
+_SALARY_PERIOD_BOUNDS = {"hour": (10, 400), "week": (400, 12000), "month": (1700, 50000), "year": (20000, 600000)}
+_SALARY_CUR_SYMBOL = {"$": "$", "usd": "$", "us": "$", "ca": "C$", "c": "C$", "cad": "C$", "gbp": "£", "£": "£",
+                      "eur": "€", "€": "€"}
 
 
 def _salary_num(digits, k_suffix):
@@ -1946,33 +2431,189 @@ def _salary_num(digits, k_suffix):
     return n * 1000 if k_suffix else n
 
 
+def _salary_symbol(*marks):
+    """Display symbol from the currency marks seen on a range ("USD $" counts as "$", "CAD" as "C$"); first
+    informative one wins (so "$113,000 CAD - $163,000 CAD" is Canadian), a bare "$" meaning US dollars."""
+    for mark in marks:
+        mark = (mark or "").strip().lower()
+        key = re.sub(r"\s*\$$", "", mark) if len(mark) > 1 else mark
+        if key in _SALARY_CUR_SYMBOL and key != "$":
+            return _SALARY_CUR_SYMBOL[key]
+    return "$"
+
+
+def _salary_period(hay, end, start):
+    """Pay period named right after the amount ("per hour", "/yr", "USD Hourly") or, failing that, a short
+    "hourly rate:" style lead-in; the earliest mention wins. None when unstated."""
+    after = hay[end:end + 32]
+    best = None
+    for name, rx in _SALARY_PERIOD_RES:
+        m = rx.search(after)
+        if m and (best is None or m.start() < best[0]):
+            best = (m.start(), name)
+    if best:
+        return best[1]
+    before = hay[max(0, start - 30):start]
+    for name in ("hour",):
+        if re.search(r"\bhourly\b[^.]{0,22}$", before, re.I):
+            return name
+    for name, rx in (("month", re.compile(r"\bmonthly\b[^.]{0,22}$", re.I)), ("year", re.compile(r"\b(?:annual|yearly)\b[^.]{0,22}$", re.I))):
+        if rx.search(before):
+            return name
+    return None
+
+
+def _salary_fmt(x, sym):
+    return f"{sym}{x:,.0f}" if abs(x - round(x)) < 0.005 else f"{sym}{x:,.2f}"
+
+
+def _salary_k(x, sym):
+    return f"{sym}{x / 1000:.1f}k".replace(".0k", "k")
+
+
+_SALARY_MINWAGE_RE = re.compile(r"\bminimum wage\b[^.;\d$]{0,35}$", re.I)
+
+
+def _salary_nonbase(hay, start, end):
+    before = hay[max(0, start - 40):start]
+    if _SALARY_MINWAGE_RE.search(before):  # statutory minimum wage notices, not this role's pay
+        return True
+    if _SALARY_NONBASE_BEFORE_RE.search(before) and not _SALARY_EXCLUDING_RE.search(before):
+        return True
+    return bool(_SALARY_NONBASE_AFTER_RE.search(hay[end:end + 30]))
+
+
+def _salary_candidates(hay):
+    """Every plausible pay figure in document order as dicts (kind range|single, start, end, lo, hi, period,
+    sym), each already gated on a salary/compensation context word, the non-base/AUM guards and a plausible
+    magnitude for its pay period."""
+    out = []
+    rejected = []  # spans of ranges refused for what they are (bonus, AUM, no context): their halves must not resurface as singles
+    for is_minmax, m in [(True, x) for x in _SALARY_MINMAX_RE.finditer(hay)] + [(False, x) for x in _SALARY_FROMTO_RE.finditer(hay)]:
+        lo, hi = _salary_num(m.group("n1"), m.group("k1")), _salary_num(m.group("n2"), m.group("k2"))
+        unit = m.group("u1") or m.group("u2")
+        period = ("hour" if re.search(r"h", unit, re.I) else "year") if unit else (_salary_period(hay, m.end(), m.start()) or "year")
+        if lo > hi or not _salary_in_bounds(lo, hi, period):
+            continue
+        # a "/Yr." stated on Min/Max figures is structured pay and stands alone; every other pair needs the usual context
+        if not (unit and is_minmax) and (not _SALARY_CONTEXT_RE.search(hay[max(0, m.start() - 120):m.end() + 20])
+                         or _SALARY_DISQUALIFY_RE.search(hay[max(0, m.start() - 20):m.end() + 20])
+                         or _SALARY_SCALE_AFTER_RE.search(hay[m.end():m.end() + 12])):
+            rejected.append((m.start(), m.end()))
+            continue
+        out.append(dict(kind="range", start=m.start(), end=m.end(), lo=lo, hi=hi, period=period,
+                        sym=_salary_symbol(m.group("c1"), m.group("c2"), m.group("t1"), m.group("t2"))))
+    for m in _SALARY_RANGE_RE.finditer(hay):
+        sep = m.group("sep").lower()
+        c1, c2, t1, t2, k1, k2 = (m.group(g) for g in ("c1", "c2", "t1", "t2", "k1", "k2"))
+        if sep == "and" and not re.search(r"\bbetween\s*$", hay[max(0, m.start() - 12):m.start()], re.I):
+            continue
+        if not (c1 or c2 or (t1 or "").strip() or (t2 or "").strip() or (k1 and k2)):
+            continue  # "3 to 5 years", "2020 - 2024": a bare number pair is not money
+        n1, n2 = m.group("n1"), m.group("n2")
+        lo, hi = _salary_num(n1, k1 or k2 and float(n1.replace(",", "")) < 1000), _salary_num(n2, k2)
+        if hi < lo:
+            lo, hi = hi, lo
+        period = _salary_period(hay, m.end(), m.start())
+        if period is None:
+            if 12 <= lo and hi <= 150 and (c1 or c2) and re.search(
+                    r"\b(?:pay range|base pay|pay rate|wage|salary range|base range)\b", hay[max(0, m.start() - 60):m.start()], re.I):
+                period = "hour?"  # "Base Pay Range $31 - $36 USD": only an hourly figure is that small
+            else:
+                period = "year"
+        if not _salary_in_bounds(lo, hi, period.rstrip("?")):
+            continue
+        if period == "year" and lo < 1000 and not (k1 or k2):
+            continue
+        context = hay[max(0, m.start() - 200):m.end() + 40]
+        nearby = hay[max(0, m.start() - 20):m.end() + 20]
+        # a location table continues the previous accepted range, whose context word may be out of reach by now
+        continues = any(d["kind"] == "range" and 0 <= m.start() - d["end"] <= 250 for d in out)
+        if (not (_SALARY_CONTEXT_RE.search(context) or continues) or _SALARY_DISQUALIFY_RE.search(nearby)
+                or _SALARY_SCALE_AFTER_RE.search(hay[m.end():m.end() + 12]) or _salary_nonbase(hay, m.start(), m.end())):
+            rejected.append((m.start(), m.end()))
+            continue
+        out.append(dict(kind="range", start=m.start(), end=m.end(), lo=lo, hi=hi, period=period,
+                        sym=_salary_symbol(c1, c2, t1, t2)))
+    out.sort(key=lambda d: d["start"])
+    taken = [d for d in out if d["kind"] == "range"]
+    for m in _SALARY_SINGLE_RE.finditer(hay):
+        if any(d["start"] <= m.start() < d["end"] for d in taken) or any(a <= m.start() < b for a, b in rejected):
+            continue  # already part of a range
+        val = _salary_num(m.group("n1"), m.group("k1"))
+        period = _salary_period(hay, m.end(), m.start()) or "year"
+        if not _salary_in_bounds(val, val, period):
+            continue
+        if period == "year" and val < 1000:
+            continue
+        context = hay[max(0, m.start() - 60):m.end() + 15]
+        nearby = hay[max(0, m.start() - 20):m.end() + 20]
+        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
+            continue
+        if _SALARY_SCALE_AFTER_RE.search(hay[m.end():m.end() + 12]) or _salary_nonbase(hay, m.start(), m.end()):
+            continue
+        lead = hay[max(0, m.start() - 24):m.start()].lower()
+        qual = "up to " if re.search(r"\bup to\W*$", lead) else "from " if re.search(r"\b(?:starting (?:at|from)|from|minimum(?: salary| base)?(?: of)?|min)\W*$", lead) else ""
+        out.append(dict(kind="single", start=m.start(), end=m.end(), lo=val, hi=val, period=period, qual=qual,
+                        sym=_salary_symbol(m.group("c1"), m.group("t1"))))
+    out.sort(key=lambda d: d["start"])
+    return out
+
+
+def _salary_in_bounds(lo, hi, period):
+    a, b = _SALARY_PERIOD_BOUNDS[period.rstrip("?")]
+    return a <= lo <= b and a <= hi <= b
+
+
+def _salary_render(lo, hi, period, sym, qual=""):
+    """Display string. Annual keeps the plain "$120,000 - $150,000" form; other periods keep the stated rate and
+    add the annualised estimate so the conversion is visible ("$45 - $55/hr (~$93.6k - $114.4k/yr)")."""
+    p = period.rstrip("?")
+    single = lo == hi
+    if p == "year":  # whole dollars, as the original annual output always was
+        lo, hi = int(lo), int(hi)
+        return qual + (_salary_fmt(lo, sym) if single else f"{_salary_fmt(lo, sym)} - {_salary_fmt(hi, sym)}")
+    unit = {"hour": "hr", "week": "wk", "month": "mo"}[p]
+    f = _SALARY_ANNUALIZE[p]
+    rate = qual + (_salary_fmt(lo, sym) if single else f"{_salary_fmt(lo, sym)} - {_salary_fmt(hi, sym)}") + f"/{unit}"
+    ann = _salary_k(lo * f, sym) if single else f"{_salary_k(lo * f, sym)} - {_salary_k(hi * f, sym)}"
+    assumed = ", assumed hourly" if period.endswith("?") else ""
+    return f"{rate} (~{ann}/yr{assumed})"
+
+
 def classify_salary(text):
     """Best-effort salary range from explicit description text, gated on BOTH a nearby salary/
     compensation context word and a plausible annual-salary magnitude ($20k-$600k) - a raw dollar
-    regex alone would happily "find" a salary in "manages a $500M portfolio". Unclear when no
-    confident match, never guessed from title/company alone."""
-    hay = text or ""
-    for m in _SALARY_RANGE_RE.finditer(hay):
-        context = hay[max(0, m.start() - 80):m.end() + 20]
-        nearby = hay[max(0, m.start() - 20):m.end() + 20]
-        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
-            continue
-        lo, hi = _salary_num(m.group(1), m.group(2)), _salary_num(m.group(3), m.group(4))
-        lo, hi = min(lo, hi), max(lo, hi)
-        if not (20000 <= lo <= 600000 and 20000 <= hi <= 600000):
-            continue
-        evidence = hay[max(0, m.start() - 40):min(len(hay), m.end() + 40)].strip()
-        return f"${int(lo):,} - ${int(hi):,}", evidence
-    for m in _SALARY_SINGLE_RE.finditer(hay):
-        context = hay[max(0, m.start() - 40):m.end() + 10]
-        nearby = hay[max(0, m.start() - 20):m.end() + 20]
-        if not _SALARY_CONTEXT_RE.search(context) or _SALARY_DISQUALIFY_RE.search(nearby):
-            continue
-        val = _salary_num(m.group(1), m.group(2))
-        if not (20000 <= val <= 600000):
-            continue
-        evidence = hay[max(0, m.start() - 40):min(len(hay), m.end() + 40)].strip()
-        return f"${int(val):,}", evidence
+    regex alone would happily "find" a salary in "manages a $500M portfolio". Hourly / weekly / monthly
+    pay is converted to an annual estimate and labelled as such; bonus, sign-on, match and equity figures
+    and asset-scale amounts are rejected. When a posting lists several location ranges back to back the
+    widest span is reported (evidence says so). Unclear when no confident match, never guessed from
+    title/company alone."""
+    hay = re.sub(r"\s+", " ", (text or "").replace(" ", " "))
+    cands = _salary_candidates(hay)
+    ranges = [d for d in cands if d["kind"] == "range"]
+    if ranges:
+        first = ranges[0]
+        grp = [first]
+        for d in ranges[1:]:  # location tables: same period and symbol, each right after the previous one
+            if d["period"] == first["period"] and d["sym"] == first["sym"] and d["start"] - grp[-1]["end"] <= 400:
+                grp.append(d)
+        lo, hi = min(d["lo"] for d in grp), max(d["hi"] for d in grp)
+        distinct = {(d["lo"], d["hi"]) for d in grp}  # a structured field often repeats the range in the text
+        if len(distinct) > 1 and hi <= 2.2 * lo:
+            note = f"[{len(distinct)} ranges listed, widest shown] "
+        else:
+            grp, lo, hi, note = [first], first["lo"], first["hi"], ""
+        if first["period"] != "year" or note:
+            note = (f"[converted from {first['period'].rstrip('?')}ly pay] " if first["period"] != "year" else "") + note
+        s, e = grp[0]["start"], grp[-1]["end"]
+        evidence = (note + hay[max(0, s - 40):min(len(hay), e + 40)].strip())[:400]
+        return _salary_render(lo, hi, first["period"], first["sym"]), evidence
+    for d in cands:
+        evidence = hay[max(0, d["start"] - 40):min(len(hay), d["end"] + 40)].strip()
+        if d["period"] != "year":
+            evidence = f"[converted from {d['period'].rstrip('?')}ly pay] " + evidence
+        return _salary_render(d["lo"], d["hi"], d["period"], d["sym"], d.get("qual", "")), evidence
     return "Unclear", ""
 
 
@@ -2130,6 +2771,87 @@ def _retry_enrichment(queue, cfg, keywords, dry=False):
     if fixed:
         print(f"retry: recovered {fixed} descriptions or posted dates")
     return fixed
+
+
+ID_DATE_MIN_ANCHORS = 6    # fewest dated neighbours before the id-to-date relation is trusted at all
+ID_DATE_MIN_SPEARMAN = 0.8  # rank correlation of numeric id vs date the anchors must show
+
+
+def _spearman(xs, ys):
+    """Spearman rank correlation (average ranks for ties); 0.0 when either side is constant."""
+    def ranks(v):
+        order = sorted(range(len(v)), key=lambda i: v[i])
+        out, i = [0.0] * len(v), 0
+        while i < len(order):
+            j = i
+            while j + 1 < len(order) and v[order[j + 1]] == v[order[i]]:
+                j += 1
+            for k in range(i, j + 1):
+                out[order[k]] = (i + j) / 2
+            i = j + 1
+        return out
+    rx, ry = ranks(xs), ranks(ys)
+    n = len(xs)
+    mx, my = sum(rx) / n, sum(ry) / n
+    den = (sum((a - mx) ** 2 for a in rx) * sum((b - my) ** 2 for b in ry)) ** 0.5
+    return sum((a - mx) * (b - my) for a, b in zip(rx, ry)) / den if den else 0.0
+
+
+def estimate_posted_from_id(job_id, first_seen, anchors):
+    """Approximate posting date (ISO) of a job with numeric `job_id` whose first_seen is the company's seed run, by
+    interpolating its id between the nearest lower and higher ids in `anchors` ([(numeric id, ISO date)], dates the
+    caller trusts). "" when no estimate is justified: non-numeric id, id already an anchor, a missing neighbour
+    (a single bound is not an interpolation; the lower one alone is used only when it predates first_seen), fewer than
+    ID_DATE_MIN_ANCHORS anchors, an id-vs-date rank correlation under ID_DATE_MIN_SPEARMAN, or neighbours whose dates
+    run backwards. The estimate never exceeds first_seen: the job was already live at the seed run."""
+    if not str(job_id).isdigit() or not first_seen:
+        return ""
+    jid = int(job_id)
+    pts = sorted({(int(i), date.fromisoformat(d[:10]).toordinal()) for i, d in anchors if str(i).isdigit() and d})
+    if len(pts) < ID_DATE_MIN_ANCHORS or any(i == jid for i, _ in pts):
+        return ""
+    if _spearman([i for i, _ in pts], [d for _, d in pts]) < ID_DATE_MIN_SPEARMAN:
+        return ""
+    lo = max((p for p in pts if p[0] < jid), default=None)
+    hi = min((p for p in pts if p[0] > jid), default=None)
+    cap = date.fromisoformat(first_seen[:10]).toordinal()
+    if lo and hi:
+        if lo[1] > hi[1]:
+            return ""
+        est = lo[1] + round((hi[1] - lo[1]) * (jid - lo[0]) / (hi[0] - lo[0]))
+    elif lo and lo[1] <= cap:
+        est = lo[1]
+    else:
+        return ""
+    return date.fromordinal(min(est, cap)).isoformat()
+
+
+def _fill_dates_from_id(queue, cfg):
+    """Gives undated seed-run entries of companies with `date_from_id: true` an approximate posted date from
+    estimate_posted_from_id (marked posted_source "approx" and posted_est so a later run may refine it). Anchors are
+    the company's rows with a real or approx posted date, plus rows first seen after the seed run, whose first_seen
+    is accurate to about a day. Never overrides a posted value that is not one of its own estimates."""
+    filled = 0
+    for c in cfg["companies"]:
+        if not c.get("date_from_id"):
+            continue
+        rows = [(e, e["id"].split(":", 1)[1]) for e in queue if e["company"] == c["name"]]
+        anchors = []
+        for e, jid in rows:
+            if e.get("posted") and not e.get("posted_est"):
+                anchors.append((jid, e["posted"]))
+            elif not e.get("first_run") and e.get("first_seen"):
+                anchors.append((jid, e["first_seen"]))
+        for e, jid in rows:
+            if not e.get("first_run") or (e.get("posted") and not e.get("posted_est")):
+                continue
+            est = estimate_posted_from_id(jid, e.get("first_seen"), anchors)
+            if est and est != e.get("posted"):
+                e["posted"], e["posted_source"], e["posted_est"] = est, "approx", True
+                filled += 1
+    if filled:
+        print(f"date_from_id: estimated {filled} posted dates from neighbouring ids")
+    return filled
 
 
 # --------------------------------------------------------------------- notify
@@ -2293,6 +3015,231 @@ ROLE_CATEGORIES = {
     "Wealth Management": ["wealth management", "registered client", "private banking"],
     "Equity Research": ["equity research"],
     "Corporate Finance/Development": ["corporate finance", "corporate development"],
+    # Added categories (derived from titles that fell in Other); terms are matched like the ones above.
+    "Commercial Banking/Lending": [
+        "commercial portfolio", "commercial banking", "commercial credit", "commercial lending",
+        "commercial loan", "relationship manager", "relationship banking", "relationship lending",
+        "corporate banker", "portfolio banker", "client banker", "relationship banker",
+        "commercial banker", "business banker", "community banker", "corporate banking",
+        "middle market", "market manager", "credit officer", "credit products", "credit delivery",
+        "credit administration", "credit underwriter", "loan officer", "loan portfolio",
+        "loan operations", "loan servicing", "loans", "workout", "special assets",
+        "loss mitigation", "collections", "dealer funding", "asset based lending",
+        "asset-based lending", "leveraged lending", "business banking", "lending specialist",
+        "lending group", "lending officer", "lending associate", "lending analyst",
+        "lending advisor", "home lending", "consumer lending", "direct lending",
+    ],
+    "Portfolio Manager/Analyst": [
+        "portfolio manager", "portfolio managers", "portfolio analyst", "portfolio specialist",
+        "portfolio associate", "portfolio analysts", "portfolio construction", "portfolio strategy",
+        "portfolio strategist", "portfolio consultant", "portfolio implementation",
+        "portfolio solutions", "portfolio director", "portfolio mgr", "portfolio research",
+    ],
+    "Accounting/Controllership/Tax": [
+        "accounting", "accountant", "controller", "controllers", "controllership",
+        "financial reporting", "external reporting", "management reporting", "tax",
+        "general ledger", "product control", "product controller", "fund accounting",
+        "consolidation",
+    ],
+    "Financial Analysis/Business Finance": [
+        "financial analyst", "financial analysis", "finance analyst", "finance manager",
+        "finance business partner", "business finance", "budget", "budgeting", "financial modeler",
+        "financial modeling", "planning and analysis", "planning & analysis", "financial planning",
+        "finance and business management", "finance & business management", "portfolio finance",
+        "finance lead", "forecasting", "finance control", "finance analytics",
+        "finance decision", "capital allocation", "capital mgmt", "capital controls",
+        "capital governance", "capital reporting", "capital optimization",
+    ],
+    "Compliance/Financial Crime": [
+        "compliance", "aml", "bsa", "kyc", "financial crime", "financial crimes",
+        "anti-money laundering", "sanctions", "fraud", "surveillance", "regulatory affairs", "cdd",
+    ],
+    "Audit/Assurance": [
+        "audit", "auditor", "internal audit", "risk assurance", "assurance associate",
+        "compliance assurance", "sox",
+    ],
+    "Risk Management (General)": [
+        "risk advisory", "risk analyst", "risk manager", "risk officer", "risk advisor",
+        "risk consultant", "risk lead", "risk partner", "risk associate", "risk analytics",
+        "risk engineer", "risk reporting", "risk and controls", "risk & controls",
+        "risk and control", "risk & control", "risk strategy", "risk policy", "portfolio risk",
+        "investment risk", "investments risk", "counterparty risk", "global markets risk",
+        "credit policy", "risk oversight", "risk operations", "tech risk", "technology & data risk",
+        "technology and data risk", "data risk", "risk and governance", "risk & governance",
+        "risk director", "risk specialist", "risk senior", "chief risk officer", "risk/compliance",
+        "risk and compliance", "risk & compliance", "business controls", "first line risk",
+        "business line risk", "control officer", "capital risk", "risk analysis", "risk program",
+        "risk policy management", "risk / policy management", "risk/policy management",
+        "risk business partner", "risk mitigation", "risk monitoring", "risk assessment",
+        "integrated risk", "emerging risk", "clearing risk", "resilience risk", "climate risk",
+        "environmental and social risk", "risk identification", "ai risk", "ai validation", "ai model validation",
+    ],
+    "Trading/Markets/Derivatives": [
+        "trader", "trading", "trade support", "derivatives", "global markets", "equity derivatives",
+        "swap", "swaps", "fx", "foreign exchange", "rates trading", "commodity trading",
+        "commodities trading", "sales and trading", "sales & trading", "equity structuring", "structuring desk", "structurer",
+        "prime brokerage", "market making", "xva", "us rates",
+        "swapclear", "prime services", "secured financing", "equity financing",
+    ],
+    "Structured Finance/Securitization": [
+        "structured finance", "structured credit", "structured products", "securitized",
+        "securitization", "asset backed", "asset-backed", "asset based", "mortgage backed",
+        "mortgage-backed", "backed securities", "clo", "clos", "abs", "rmbs", "cmbs", "abf",
+    ],
+    "M&A/Advisory": [
+        "m&a", "mergers", "mergers and acquisitions", "restructuring", "financial sponsor",
+        "financial sponsors", "coverage group", "industry coverage", "ib", "ecm", "dcm",
+        "debt capital markets", "leveraged finance associate", "leveraged finance analyst",
+        "leveraged finance origination", "capital markets leveraged finance",
+        "investment banking, leveraged finance", "investment banking & capital markets, leveraged finance", "capital solutions", "debt capital market", "capital market group", "capital structure advisory",
+        "corporate coverage", "financial institutions group", "global financial institutions",
+        "corporate advisory", "financial advisory",
+        "strategic advisory", "fig advisory",
+    ],
+    "Research/Investment Analysis": [
+        "research analyst", "research associate", "investment analyst", "investment associate",
+        "credit research", "global research", "fundamental", "investment research",
+        "research analysts", "quantitative research", "investment professional",
+    ],
+    "Quant/Modeling/Pricing": [
+        "quant", "quantitative", "financial engineering", "valuation", "valuations", "modeler",
+        "model development", "pricing analytics", "xva", "capital modeling",
+    ],
+    "Operations/Servicing": [
+        "operations associate", "operations analyst", "operations specialist", "operations manager",
+        "operations lead", "operations client", "operations senior", "operations officer",
+        "operations coordinator", "securities operations", "derivatives operations",
+        "derivative operations", "investor services", "asset services", "asset servicing",
+        "client order management", "client reporting", "letters of credit", "documentation negotiator",
+        "commodities documentation", "operations expert", "clearing",
+        "loan funding", "loan booking", "funding specialist", "loan management",
+        "credit facility management", "portfolio reporting",
+        "core operations", "deposit operations", "service operations", "conversion operations",
+        "banking services operations", "client operations", "fund operations", "middle office",
+        "back office", "settlements", "settlement", "servicing", "securities processing",
+        "processing", "onboarding", "client service", "client services", "fund services",
+        "corporate actions", "corporate action", "custody", "reconciliation", "document control",
+        "trade operations", "payment operations", "announcement capture", "collateral",
+        "process manager", "process associate",
+    ],
+    "Technology/Data": [
+        "software", "developer", "data engineer", "data analytics", "data analyst", "data product",
+        "data science", "data scientist", "data governance", "data management", "data architect",
+        "data and ai", "data & ai", "data and analytics", "data & analytics", "data platform",
+        "machine learning", "cloud engineer", "cloud architect", "cloud platform", "cloud security",
+        "solutions architect", "solution architect", "enterprise architect", "technical architect",
+        "ai architect", "platform architect", "application architect", "cyber", "cybersecurity",
+        "devops", "sre", "network engineer", "systems administrator", "systems engineer",
+        "salesforce", "technologist", "database", "etl", "information technology", "it analyst",
+        "it business analyst", "it infrastructure", "it service desk", "it support",
+        "it operations", "technology analyst", "technology associate", "technology director",
+        "technology operations", "technology infrastructure", "technology rotation",
+        "technology solutions", "technology support", "technology management", "technology integration",
+        "domain architect", "delivery architect",
+        "ai solutions", "ai engineer", "ai engineering", "genai", "gen ai", "generative ai",
+        "applied ai", "ai/ml", "ai automation", "ai platform", "advanced analytics",
+        "business intelligence", "business analytics", "analytics solutions", "decision science",
+        "product analytics", "healthcare analytics", "data protection", "data quality",
+        "data visualization", "data exchange", "data solutions", "data validation",
+        "data initiatives", "analytics engineer", "analytics engineering", "ml engineer",
+        "platform engineer", "front end engineer", "mobile engineer", "qa engineer",
+        "release engineer", "production engineer", "engineering manager", "director of engineering",
+        "director, engineering", "associate director engineering", "associate director, engineering",
+    ],
+    "Product Management": [
+        "product manager", "product management", "product owner", "product delivery",
+        "product analyst", "product lead", "product strategy", "product development",
+        "product specialist", "product director", "product marketing", "product operations",
+        "product associate",
+    ],
+    "Strategy/Consulting": [
+        "corporate strategy", "business strategy", "strategy and operations", "strategy & operations",
+        "strategy and insights", "strategy & insights",
+        "strategy and business development", "strategy and planning", "strategy & planning",
+        "growth strategy", "digital strategy", "finance & strategy", "finance and strategy",
+        "strategy specialist", "strategy enablement", "bank strategy", "strategy, associate",
+        "strategy, senior associate", "management & strategy", "leadership and strategy",
+        "strategic advisory", "strategic initiatives", "strategic planning", "strategic change",
+        "strategic partnerships", "strategic finance", "strategic intelligence", "senior consultant",
+        "associate consultant", "principal consultant", "business consultant",
+        "consulting", "management consulting", "engagement manager", "transformation", "chief of staff",
+    ],
+    "Program/Project/Business Analysis": [
+        "business analyst", "business analysis", "business systems analyst", "program manager",
+        "program management", "project manager", "project management", "pmo", "change management",
+        "process improvement", "business solutions", "business management", "implementation manager",
+        "implementation consultant", "implementation associate", "implementation lead",
+        "implementation officer", "implementation specialist", "implementation analyst",
+        "program control", "program controls", "business process",
+    ],
+    "Sales/Business Development": [
+        "sales", "business development", "account executive", "client solutions", "account manager",
+        "client success", "wholesaler", "distribution sales", "investor relations",
+        "consultant relations", "client advisor", "client partner", "solutions specialist",
+        "institutional client", "client specialist", "capital introduction", "capital formation",
+        "client coverage", "national accounts",
+        "client engagement",
+    ],
+    "Retail/Consumer Banking": [
+        "community banker", "branch", "banking center", "financial center", "personal banker",
+        "teller", "consumer banking", "retail banking", "retail management", "retail loan",
+        "retail credit", "retail lending", "retail operations", "retail application",
+        "retail and small business", "retail & small business", "home lending", "home loan", "home equity",
+        "mortgage loan", "mortgage lending", "mortgage servicing", "mortgage banker",
+        "mortgage business", "deposit operations", "deposit ops", "deposit admin", "mobile deposit",
+        "deposit acquisition", "deposit products", "auto lending", "auto finance",
+        "closing specialist",
+    ],
+    "Wealth/Trust/Advisory": [
+        "wealth advisor", "wealth adviser", "wealth planning", "wealth planner", "private wealth",
+        "wealth solutions", "wealth strategies", "wealth associate", "global wealth", "wealth studio",
+        "wealth mgmt", "wealth services", "wealth analyst", "trust administrator", "trust officer", "trust portfolio manager", "trust and estates",
+        "trust & estates", "trust company", "trust services", "fiduciary", "estate trust", "estate planning", "financial advisor",
+        "financial consultant", "private client", "philanthropic", "private bank", "family office",
+        "investment specialist", "ocio", "ayco", "financial planner",
+    ],
+    "Payments/Cash Management": [
+        "payments", "payment", "cash management", "merchant services", "merchant onboarding",
+        "merchant acquiring", "merchant solutions", "commercial card", "card sales", "card solutions",
+        "fintech",
+        "treasury services", "liquidity solutions",
+    ],
+    "Insurance/Actuarial": [
+        "insurance", "actuary", "actuarial", "claims", "reinsurance", "annuity", "annuities",
+        "employee benefits", "health & benefits", "retirement income", "absence consultant",
+        "benefits consultant", "associate, brokerage", "property casualty", "production underwriter", "personal lines",
+        "commercial lines", "excess & surplus", "excess and surplus",
+    ],
+    "Legal/HR/Marketing/Admin": [
+        "legal counsel", "legal analyst", "legal associate", "legal assistant", "legal operations",
+        "legal specialist", "legal due diligence", "counsel", "attorney", "paralegal", "recruiter", "recruiting", "human resources",
+        "hr", "training and development", "training & development", "learning and development",
+        "marketing", "global rewards", "pay equity", "deferred compensation",
+        "corporate communications", "communications associate", "communications manager",
+        "communications specialist", "communications director", "brand strategy", "brand manager",
+        "brand management", "external communications", "thought leadership", "social media", "content associate", "content analyst",
+        "content operations", "content manager", "public relations",
+        "executive assistant", "administrative assistant", "administrative", "office manager",
+    ],
+    "Early Careers/Internships": [
+        "intern", "internship", "summer analyst", "summer associate", "graduate", "analyst program",
+        "development program", "accelerated career track", "trainee", "rotation", "rotational",
+        "early careers", "early career", "talent program", "campus", "apprentice", "2027",
+    ],
+    "Energy/Construction/Infrastructure": [
+        "energy", "power & utilities", "power and utilities", "power finance", "power generation",
+        "power infrastructure", "capital projects", "capital project", "construction lending", "construction finance", "construction loan",
+        "construction management", "construction engineer", "project finance", "renewable", "utilities",
+        "oil and gas", "infrastructure finance", "infrastructure & project finance",
+    ],
+}
+
+# Titles containing any of these phrases never join the category, even when a term matches
+# (same word-boundary matching as the terms). Kept to the one case rewording cannot fix.
+ROLE_CATEGORY_EXCLUDE = {
+    "Treasury/ALM/Liquidity": ["sales"],  # "Treasury Management Sales Officer" sells treasury products; it belongs under Sales only
+    "Research/Investment Analysis": ["operations research"],
+    "Quant/Modeling/Pricing": ["valuation controller", "valuation control", "controllers", "valuation advisory"],
 }
 
 _EXTRA_SCRIPT = r"""
@@ -2354,11 +3301,12 @@ _EXTRA_SCRIPT = r"""
   function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
   CATEGORIES.forEach(function(c) {
     c.re = c.terms.length ? new RegExp('\\b(?:' + c.terms.map(function(t) { return escapeRegex(t.toLowerCase()); }).join('|') + ')\\b') : null;
+    c.ex = c.exclude.length ? new RegExp('\\b(?:' + c.exclude.map(function(t) { return escapeRegex(t.toLowerCase()); }).join('|') + ')\\b') : null;
   });
   rows.forEach(function(tr) {
     var role = textOf(tr, COL_ROLE).toLowerCase();
     var matched = [];
-    CATEGORIES.forEach(function(c) { if (c.re && c.re.test(role)) matched.push(c.key); });
+    CATEGORIES.forEach(function(c) { if (c.re && c.re.test(role) && !(c.ex && c.ex.test(role))) matched.push(c.key); });
     if (!matched.length) matched.push('other');
     tr.dataset.cats = matched.join(',');
   });
@@ -2504,8 +3452,9 @@ def _jd_company_map():
 
 
 def _extra_script():
-    cats = [dict(key=f"cat{i}", label=label, terms=terms) for i, (label, terms) in enumerate(ROLE_CATEGORIES.items())]
-    cats.append(dict(key="other", label="Other (no category)", terms=[]))
+    cats = [dict(key=f"cat{i}", label=label, terms=terms, exclude=ROLE_CATEGORY_EXCLUDE.get(label, []))
+            for i, (label, terms) in enumerate(ROLE_CATEGORIES.items())]
+    cats.append(dict(key="other", label="Other (no category)", terms=[], exclude=[]))
     return (_EXTRA_SCRIPT
             .replace("__CATEGORIES__", json.dumps(cats))
             .replace("__COMPANY__", json.dumps(HIDE_COMPANY))
@@ -2551,14 +3500,7 @@ def write_queue_html(q, path, updated_at=None):
         exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
         first_seen = e.get("first_seen") or ""
         opt_data = ' data-opt="1"' if e.get("sponsorship_status") == "OPT Only" else ""
-        # Same "never assert the positive, only flag with evidence" convention as sponsorship: a
-        # role that hasn't shown a repeat-posting pattern is N/A, not "clear" of it, since it just
-        # hasn't had the chance to repeat yet. Tagged red (see tr.ghost in the CSS) but never
-        # hidden or removed from its normal table/section - still fully visible and actionable.
-        is_ghost = e.get("ghost_status") == "Likely"
-        ghost_label = "Likely ghost" if is_ghost else "N/A"
-        ghost_evidence = html.escape(e.get("ghost_evidence") or "no repeat-posting pattern detected")
-        row_class = e["state"] + (" closed" if closed else "") + (" ghost" if is_ghost else "")
+        row_class = e["state"] + (" closed" if closed else "")
         if e.get("posted_source") == "approx":
             posted_title = "approximate - derived from Workday's relative posting-age text, not an exact timestamp"
         elif posted and e.get("posted_source") == "exact":
@@ -2570,7 +3512,6 @@ def write_queue_html(q, path, updated_at=None):
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
             f' data-posted-source="{html.escape(e.get("posted_source") or "")}"{opt_data}>'
             f'<td class="posted" title="{html.escape(posted_title)}">{html.escape(posted_label(e))}</td>'
-            f'<td title="{ghost_evidence}" class="ghost-cell">{html.escape(ghost_label)}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td>{role_cell}</td>'
             f'{"" if closed else ACTIONS_TD}'
@@ -2583,7 +3524,7 @@ def write_queue_html(q, path, updated_at=None):
             f'</tr>'
         )
 
-    head = ("<tr><th>Posted</th><th>Ghost</th><th>Company</th><th>Role</th><th>Actions</th><th>Location</th>"
+    head = ("<tr><th>Posted</th><th>Company</th><th>Role</th><th>Actions</th><th>Location</th>"
             "<th>Sponsorship</th><th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
     closed_head = head.replace("<th>Actions</th>", "").replace("</tr>", "<th>State</th></tr>")
 
@@ -2632,13 +3573,10 @@ table {{ border-collapse: collapse; width: 100%; margin-bottom: 1rem; }}
 th, td {{ padding: 6px 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 0.9rem; }}
 th {{ position: sticky; top: 0; background: #fafafa; }}
 tr.today {{ background: #eaffea; font-weight: 600; }}
-tr.ghost {{ border-left: 4px solid #c0392b; }}
-tr.ghost td.ghost-cell {{ color: #c0392b; font-weight: 700; }}
 tr.closed {{ color: #999; }}
 tr.closed a, tr.closed {{ text-decoration: line-through; }}
 td.posted {{ white-space: nowrap; }}
 .approx-marker {{ font-weight: 700; color: #b45309; }}
-td.ghost-cell {{ white-space: nowrap; color: #999; }}
 td.kw {{ color: #555; font-size: 0.85rem; }}
 td.salary {{ white-space: nowrap; }}
 span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decoration: none; }}
@@ -3012,6 +3950,7 @@ def run(args):
     if not args.dry_run:
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
         _retry_enrichment(queue, cfg, keywords)
+        _fill_dates_from_id(queue, cfg)
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
         _prune_stale(queue, counts, unverified, configured={c["name"] for c in cfg["companies"]})

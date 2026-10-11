@@ -15219,6 +15219,31 @@
    "ats": "marketaxess"
   },
   {
+   "name": "Balyasny",
+   "ats": "balyasny"
+  },
+  {
+   "name": "Interactive Brokers",
+   "ats": "dayforce",
+   "namespace": "ibgllc",
+   "board": "CANDIDATEPORTAL"
+  },
+  {
+   "name": "Tradeweb",
+   "ats": "oracle",
+   "host": "ecnf.fa.us2.oraclecloud.com",
+   "site": "CX"
+  },
+  {
+   "name": "Evercore",
+   "ats": "tal",
+   "host": "evercore.tal.net",
+   "vacancies": [
+    2,
+    3
+   ]
+  },
+  {
    "name": "Fitch Ratings",
    "ats": "successfactors",
    "host": "careers.fitch.group",
@@ -16697,6 +16722,82 @@
    "name": "Flywire",
    "ats": "smartrecruiters",
    "slug": "Flywire1"
+  },
+  {
+   "name": "Apple Bank",
+   "ats": "workday",
+   "host": "applebank.wd5.myworkdayjobs.com",
+   "tenant": "applebank",
+   "site": "AppleBankCareers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "FHLBank Boston",
+   "ats": "taleo_cws",
+   "host": "phh.tbe.taleo.net",
+   "path": "phh01",
+   "org": "FHLBBOSTON",
+   "cws": "38"
+  },
+  {
+   "name": "FHLBank Cincinnati",
+   "ats": "csod",
+   "corp": "fhlbcin"
+  },
+  {
+   "name": "Federated Hermes",
+   "ats": "peoplesoft_hrs",
+   "host": "careers.federatedhermes.com"
+  },
+  {
+   "name": "Provident Bank",
+   "ats": "successfactors",
+   "host": "careers.provident.bank",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Bread Financial",
+   "ats": "phenom",
+   "host": "careers.breadfinancial.com",
+   "ref_num": "BFBBFDUS",
+   "page_id": "page68"
   }
  ],
  "keywords": [
