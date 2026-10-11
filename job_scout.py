@@ -2068,6 +2068,87 @@ def _retry_enrichment(queue, cfg, keywords, dry=False):
     return fixed
 
 
+ID_DATE_MIN_ANCHORS = 6    # fewest dated neighbours before the id-to-date relation is trusted at all
+ID_DATE_MIN_SPEARMAN = 0.8  # rank correlation of numeric id vs date the anchors must show
+
+
+def _spearman(xs, ys):
+    """Spearman rank correlation (average ranks for ties); 0.0 when either side is constant."""
+    def ranks(v):
+        order = sorted(range(len(v)), key=lambda i: v[i])
+        out, i = [0.0] * len(v), 0
+        while i < len(order):
+            j = i
+            while j + 1 < len(order) and v[order[j + 1]] == v[order[i]]:
+                j += 1
+            for k in range(i, j + 1):
+                out[order[k]] = (i + j) / 2
+            i = j + 1
+        return out
+    rx, ry = ranks(xs), ranks(ys)
+    n = len(xs)
+    mx, my = sum(rx) / n, sum(ry) / n
+    den = (sum((a - mx) ** 2 for a in rx) * sum((b - my) ** 2 for b in ry)) ** 0.5
+    return sum((a - mx) * (b - my) for a, b in zip(rx, ry)) / den if den else 0.0
+
+
+def estimate_posted_from_id(job_id, first_seen, anchors):
+    """Approximate posting date (ISO) of a job with numeric `job_id` whose first_seen is the company's seed run, by
+    interpolating its id between the nearest lower and higher ids in `anchors` ([(numeric id, ISO date)], dates the
+    caller trusts). "" when no estimate is justified: non-numeric id, id already an anchor, a missing neighbour
+    (a single bound is not an interpolation; the lower one alone is used only when it predates first_seen), fewer than
+    ID_DATE_MIN_ANCHORS anchors, an id-vs-date rank correlation under ID_DATE_MIN_SPEARMAN, or neighbours whose dates
+    run backwards. The estimate never exceeds first_seen: the job was already live at the seed run."""
+    if not str(job_id).isdigit() or not first_seen:
+        return ""
+    jid = int(job_id)
+    pts = sorted({(int(i), date.fromisoformat(d[:10]).toordinal()) for i, d in anchors if str(i).isdigit() and d})
+    if len(pts) < ID_DATE_MIN_ANCHORS or any(i == jid for i, _ in pts):
+        return ""
+    if _spearman([i for i, _ in pts], [d for _, d in pts]) < ID_DATE_MIN_SPEARMAN:
+        return ""
+    lo = max((p for p in pts if p[0] < jid), default=None)
+    hi = min((p for p in pts if p[0] > jid), default=None)
+    cap = date.fromisoformat(first_seen[:10]).toordinal()
+    if lo and hi:
+        if lo[1] > hi[1]:
+            return ""
+        est = lo[1] + round((hi[1] - lo[1]) * (jid - lo[0]) / (hi[0] - lo[0]))
+    elif lo and lo[1] <= cap:
+        est = lo[1]
+    else:
+        return ""
+    return date.fromordinal(min(est, cap)).isoformat()
+
+
+def _fill_dates_from_id(queue, cfg):
+    """Gives undated seed-run entries of companies with `date_from_id: true` an approximate posted date from
+    estimate_posted_from_id (marked posted_source "approx" and posted_est so a later run may refine it). Anchors are
+    the company's rows with a real or approx posted date, plus rows first seen after the seed run, whose first_seen
+    is accurate to about a day. Never overrides a posted value that is not one of its own estimates."""
+    filled = 0
+    for c in cfg["companies"]:
+        if not c.get("date_from_id"):
+            continue
+        rows = [(e, e["id"].split(":", 1)[1]) for e in queue if e["company"] == c["name"]]
+        anchors = []
+        for e, jid in rows:
+            if e.get("posted") and not e.get("posted_est"):
+                anchors.append((jid, e["posted"]))
+            elif not e.get("first_run") and e.get("first_seen"):
+                anchors.append((jid, e["first_seen"]))
+        for e, jid in rows:
+            if not e.get("first_run") or (e.get("posted") and not e.get("posted_est")):
+                continue
+            est = estimate_posted_from_id(jid, e.get("first_seen"), anchors)
+            if est and est != e.get("posted"):
+                e["posted"], e["posted_source"], e["posted_est"] = est, "approx", True
+                filled += 1
+    if filled:
+        print(f"date_from_id: estimated {filled} posted dates from neighbouring ids")
+    return filled
+
+
 # --------------------------------------------------------------------- notify
 
 def notify(cfg, entry, dry):
@@ -2937,6 +3018,7 @@ def run(args):
     if not args.dry_run:
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
         _retry_enrichment(queue, cfg, keywords)
+        _fill_dates_from_id(queue, cfg)
     _classify_ghosts(queue)  # queue-wide, so it must run after every company's entries exist
     if not args.dry_run:
         _prune_stale(queue, counts, unverified, configured={c["name"] for c in cfg["companies"]})

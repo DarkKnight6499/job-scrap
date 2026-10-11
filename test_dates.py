@@ -139,3 +139,45 @@ def test_bloomberg_dates_come_from_its_searchjobs_feed():
     with mock.patch.object(js, "http", http):
         assert js.describe(c, job)[1:] == ("2026-10-06", "exact")
     assert any(u.startswith("https://bloomberg.avature.net/careers/SearchJobs/feed/?search=") for u in seen)
+
+
+# ---- id interpolation fallback (estimate_posted_from_id / _fill_dates_from_id)
+
+_ANCH = [("100", "2026-09-01"), ("110", "2026-09-11"), ("120", "2026-09-21"), ("130", "2026-10-01"), ("140", "2026-10-06"), ("150", "2026-10-09")]
+
+
+def test_id_interpolation_between_neighbours_and_cap():
+    assert js.estimate_posted_from_id("115", "2026-10-11", _ANCH) == "2026-09-16"
+    assert js.estimate_posted_from_id("145", "2026-10-11", _ANCH) == "2026-10-08"  # 2026-10-07.5 rounds to the even ordinal
+    assert js.estimate_posted_from_id("115", "2026-09-10", _ANCH) == "2026-09-10"  # never later than the seed run
+
+
+def test_id_interpolation_refuses_without_two_neighbours_or_clean_input():
+    assert js.estimate_posted_from_id("95", "2026-10-11", _ANCH) == ""  # only an upper bound
+    assert js.estimate_posted_from_id("155", "2026-10-11", _ANCH) == "2026-10-09"  # lower bound alone, predates seed
+    assert js.estimate_posted_from_id("155", "2026-10-05", _ANCH) == ""  # lower bound after the seed run: contradiction
+    assert js.estimate_posted_from_id("120", "2026-10-11", _ANCH) == ""  # id is itself an anchor
+    assert js.estimate_posted_from_id("REQ-7", "2026-10-11", _ANCH) == ""  # non-numeric id
+    assert js.estimate_posted_from_id("115", "2026-10-11", _ANCH[:4]) == ""  # too few anchors
+    assert js.estimate_posted_from_id("115", "2026-10-11", [(i, "2026-09-05") for i, _ in _ANCH]) == ""  # all anchors on one day: no id-to-date evidence
+    shuffled = [("100", "2026-10-01"), ("110", "2026-09-05"), ("120", "2026-09-28"), ("130", "2026-09-02"), ("140", "2026-10-06"), ("150", "2026-09-09")]
+    assert js.estimate_posted_from_id("115", "2026-10-11", shuffled) == ""  # ids are not monotonic in time here
+
+
+def test_fill_dates_from_id_never_overrides_real_dates():
+    def row(jid, **kw):
+        base = dict(id=f"Co:{jid}", company="Co", first_seen="2026-10-11", first_run=True, posted="", posted_source="")
+        return dict(base, **kw)
+    queue = [row("100", posted="2026-09-01", posted_source="exact"), row("110", posted="2026-09-11", posted_source="exact"),
+             row("120", posted="2026-09-21", posted_source="exact"), row("130", posted="2026-10-01", posted_source="exact"),
+             row("140", first_seen="2026-10-12", first_run=False), row("150", first_seen="2026-10-14", first_run=False),
+             row("105"), row("125", posted="2026-09-24", posted_source="exact")]
+    cfg = dict(companies=[dict(name="Co", ats="x", date_from_id=True), dict(name="Other", ats="x")])
+    assert js._fill_dates_from_id(queue, cfg) == 1
+    est = queue[6]
+    assert (est["posted"], est["posted_source"], est["posted_est"]) == ("2026-09-06", "approx", True)
+    assert queue[7]["posted"] == "2026-09-24" and "posted_est" not in queue[7]
+    assert js.posted_label(est) == "~2026-09-06"
+    cfg["companies"][0]["date_from_id"] = False
+    queue[6]["posted"] = ""
+    assert js._fill_dates_from_id(queue, cfg) == 0 and queue[6]["posted"] == ""
