@@ -84,7 +84,8 @@ FLOOD_FRACTION = 0.5       # matches) as new is almost surely an id-scheme or se
                            # them silently and send one summary instead of one alert per job
 ALERT_MAX_ATTEMPTS = 3     # failed alerts are retried on later runs until this many total attempts
 ALERT_CAP_PER_RUN = 30     # per-run ceiling on individual alerts; the rest queue silently and roll into one summary
-ENRICH_RETRY_BUDGET = 40    # per run: failed description fetches and undated Workday entries retried at most this many times
+ENRICH_RETRY_BUDGET = 40    # per run: failed description fetches and undated entries of DETAIL_DATED_ATS retried at most this many times
+DETAIL_DATED_ATS = frozenset({"workday", "icims", "avature", "kpmg", "adp_rm", "talentsoft"})  # describe() can supply the posting date
 ENRICH_MAX_ATTEMPTS = 5    # then the entry is left as it is (one try per day)
 RECALL_MAX = 150           # --recall queues at most this many never-queued matching roles per run
 PRUNE_AFTER_DAYS = 60      # queue.json only ever accumulates (matches() re-runs at intake, never
@@ -628,19 +629,40 @@ def icims(c):
     return out, complete
 
 
+_ICIMS_SITEMAPS = {}  # host -> {job id: lastmod date}; one sitemap fetch serves every describe() call of a run
+
+
+def _icims_sitemap_dates(host):
+    """{job id: YYYY-MM-DD} from the portal's /sitemap.xml lastmod values ({} if unreachable)."""
+    if host not in _ICIMS_SITEMAPS:
+        try:
+            raw = http(f"https://{host}/sitemap.xml", raw=True, timeout=40, headers={"Accept": "application/xml, */*"}).decode("utf-8", "ignore")
+        except Exception:  # noqa: BLE001  a bonus source: the missing date just stays blank
+            return {}
+        _ICIMS_SITEMAPS[host] = {m.group(1): m.group(2) for m in re.finditer(r"/jobs/(\d+)/[^<]*</loc>\s*<lastmod>(\d{4}-\d\d-\d\d)", raw)}
+    return _ICIMS_SITEMAPS[host]
+
+
 def _icims_description(job):
-    """(description, posted) from a job page's JSON-LD. The list card often has no posted date (Schwab's
-    doesn't), so describe() returns the JSON-LD datePosted, which refines it for each new match."""
+    """(description, posted, source) from a job page's JSON-LD. The list card often has no posted date
+    (Schwab's doesn't), so describe() returns the JSON-LD datePosted, which refines it for each new match.
+    Some tenants (East West Bank, verified live 2026-10-11) stamp datePosted with the render time minus two
+    years, which never lands on a whole minute while real values are midnight Eastern ("...T04:00:00.000Z");
+    those fall back to the portal sitemap's lastmod, an update date, so it is labeled "approx"."""
     raw = http(job["url"] + "?in_iframe=1", raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
     m = re.search(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw, re.S)
     if not m:
-        return "", ""
+        return "", "", ""
     try:
         data = json.loads(m.group(1))
     except ValueError:
-        return "", ""
-    posted = str(data.get("datePosted") or "")[:10]
-    return strip_html(data.get("description", "")), posted if re.match(r"\d{4}-\d\d-\d\d$", posted) else ""
+        return "", "", ""
+    stamp = str(data.get("datePosted") or "")
+    if re.match(r"\d{4}-\d\d-\d\dT\d\d:00:00(\.000)?Z?$", stamp) or re.match(r"\d{4}-\d\d-\d\d$", stamp):
+        return strip_html(data.get("description", "")), stamp[:10], "exact"
+    host = urllib.parse.urlparse(job["url"]).netloc
+    approx = _icims_sitemap_dates(host).get(str(job["id"]), "")
+    return strip_html(data.get("description", "")), approx, "approx" if approx else ""
 
 
 def eightfold(c):
@@ -747,7 +769,7 @@ def avature(c):
     dates = {}
     if c.get("feed"):
         # Two Sigma's RSS feed carries real pubDates but only its 20 oldest roles (paging params are ignored),
-        # so newer jobs keep a blank `posted` and fall back to first_seen.
+        # so newer jobs keep a blank `posted` here; describe() finds theirs with a quoted-title feed search (_avature_feed_date).
         try:
             for it in ET.fromstring(http(f"https://{c['host']}/{c['list_path']}/feed/", raw=True, timeout=40,
                                          headers={"Accept": "application/rss+xml, */*"})).findall("channel/item"):
@@ -819,6 +841,27 @@ def avature(c):
     return out, False
 
 
+def _avature_feed_date(c, job):
+    """Posting date of one job from the tenant's RSS feed, "" if absent. The feed ignores paging and sorting and
+    only ever returns its 20 oldest items, but its `search` filter is honored, so a quoted exact title narrows it
+    to the job itself (verified live 2026-10-11 on Two Sigma: 40 of 40 undated jobs found, pubDate = posting day)."""
+    title = re.sub(r"[^A-Za-z0-9 ]", " ", job.get("title") or "").strip()
+    if not title:
+        return ""
+    url = f"https://{c['host']}/{c['list_path']}/feed/?search={urllib.parse.quote(chr(34) + title + chr(34))}"
+    try:
+        root = ET.fromstring(http(url, raw=True, timeout=40, headers={"Accept": "application/rss+xml, */*"}))
+    except Exception:  # noqa: BLE001  a bonus source: the missing date just stays blank
+        return ""
+    for it in root.findall("channel/item"):
+        if (it.findtext("link", "") or "").rstrip("/").rsplit("/", 1)[-1] == str(job["id"]):
+            try:
+                return parsedate_to_datetime(it.findtext("pubDate", "")).date().isoformat()
+            except (TypeError, ValueError):
+                return ""
+    return ""
+
+
 def kpmg(c):
     """KPMG US careers (WordPress, server-rendered). /job-search/?keyword=<term>&spage=<n> returns 12 cards per
     page; each card links /jobdetail/?jobId=N and carries a "Practice | Location" line. Verified live
@@ -850,15 +893,33 @@ def kpmg(c):
     return out, complete
 
 
+def _adp_rm_headers(dom):
+    """Headers for the ADP RM job-requisitions API: the career-site endpoint hands out a short-lived myJobsToken."""
+    hdr = {"User-Agent": UA["User-Agent"], "Accept": "application/json"}
+    site = http(f"https://myjobs.adp.com/public/staffing/v1/career-site/{dom}", headers=hdr)
+    return dict(hdr, myjobstoken=site["myJobsToken"], rolecode="manager", Referer="https://myjobs.adp.com/")
+
+
+def _adp_rm_detail(c, job_id):
+    """(description html, posted) from the per-requisition search-meta endpoint (the one the job page itself calls).
+    The list's postingDate is always empty, but this carries postingInstructions[].timestampLastPosted, the date the
+    job page's "posted" age is computed from; it moves if the requisition is re-posted."""
+    d = http(f"https://my.adp.com/myadp_prefix/mycareer/public/staffing/v1/job-requisitions/search-meta/{job_id}?tz=America/New_York",
+             headers=_adp_rm_headers(c["domain"]))
+    req = (d.get("jobRequisitions") or [{}])[0]
+    stamps = [str(p.get("timestampLastPosted") or "")[:10] for p in req.get("postingInstructions") or []]
+    posted = max((x for x in stamps if re.match(r"\d{4}-\d\d-\d\d$", x)), default="")
+    return req.get("requisitionDescription") or "", posted
+
+
 def adp_rm(c):
     """ADP Recruiting Management career sites (myjobs.adp.com/<domain>/cx). The career-site endpoint hands out a
     short-lived myJobsToken that the job-requisitions API needs as a header (plus rolecode and Referer); the list call
-    already carries the description and postingDate, so describe() has nothing to fetch. Needs `domain` (e.g.
-    "vnbcareers"). Verified live 2026-10-11 against Valley National (187 jobs)."""
+    already carries the description but its postingDate is empty, so describe() reads the real posting date from the
+    requisition's search-meta endpoint (_adp_rm_detail). Needs `domain` (e.g. "vnbcareers"). Verified live 2026-10-11
+    against Valley National (187 jobs) and BankUnited (96 jobs)."""
     dom = c["domain"]
-    hdr = {"User-Agent": UA["User-Agent"], "Accept": "application/json"}
-    site = http(f"https://myjobs.adp.com/public/staffing/v1/career-site/{dom}", headers=hdr)
-    h2 = dict(hdr, myjobstoken=site["myJobsToken"], rolecode="manager", Referer="https://myjobs.adp.com/")
+    h2 = _adp_rm_headers(dom)
     out, seen, skip, top = [], set(), 0, 50
     sel = "reqId,jobTitle,publishedJobTitle,jobDescription,jobQualifications,postingDate,requisitionLocations"
     while skip < int(c.get("max_jobs", 1500)):
@@ -990,8 +1051,8 @@ def talentsoft(c):
     """Cegid Talentsoft career sites (e.g. jobs.ca-cib.com, job URLs /job/<slug>_<id>.aspx). Server-rendered list at
     <list_path>?LCID=2057&page=N (100 offer cards per page, each with contract, country and city items). Needs host
     and optional list_path (default /offre-de-emploi/liste-offres.aspx). No posted date is published (the page only
-    shows an update date), so first_seen stands in; describe() reads the detail page. Verified live 2026-10-11
-    against Credit Agricole CIB (332 jobs)."""
+    shows a "Date de mise a jour" that varies per job and is never earlier than the posting), so describe() reads
+    that from the detail page as an "approx" date. Verified live 2026-10-11 against Credit Agricole CIB (332 jobs)."""
     base = f"https://{c['host']}"
     path = c.get("list_path", "/offre-de-emploi/liste-offres.aspx")
     ua = {"User-Agent": BROWSER_UA, "Accept": "text/html, */*"}
@@ -1190,25 +1251,58 @@ def jibe(c):
     return out, False
 
 
+_TALEO_AGE_BUCKETS = {1: (0, 0), 2: (1, 1), 3: (2, 7), 4: (8, 14), 5: (15, 21), 6: (22, 28)}  # POSTING_DATE filter id -> age range in days
+
+
+def _taleo_page(c, page, age_bucket=None):
+    """One page of the section's searchjobs POST, optionally limited to a POSTING_DATE age bucket id."""
+    empty = lambda ids: [dict(id=i, selectedValues=[]) for i in ids]
+    sel = empty(["POSTING_DATE", "LOCATION", "JOB_FIELD", "JOB_TYPE", "JOB_SCHEDULE", "JOB_LEVEL"])
+    if age_bucket:
+        sel[0]["selectedValues"] = [str(age_bucket)]
+    body = {"multilineEnabled": False, "sortingSelection": {"sortBySelectionParam": "3", "ascendingSortingOrder": "false"},
+            "fieldData": {"fields": {"KEYWORD": "", "LOCATION": ""}, "valid": True},
+            "filterSelectionParam": {"searchFilterSelections": sel},
+            "advancedSearchFiltersSelectionParam": {"searchFilterSelections": empty(["ORGANIZATION", "LOCATION", "JOB_FIELD", "JOB_NUMBER", "URGENT_JOB", "EMPLOYEE_STATUS", "STUDY_LEVEL", "WILL_TRAVEL", "JOB_SHIFT"])},
+            "pageNo": page}
+    return http(f"https://{c['host']}/careersection/rest/jobboard/searchjobs?lang=en&portal={c['portal']}", data=body, timeout=40,
+                headers={"Accept": "application/json", "tz": "GMT-05:00", "tzname": "America/New_York", "X-Requested-With": "XMLHttpRequest"})
+
+
+def _taleo_age_dates(c):
+    """{job number: approx ISO date} for sections whose list has no date column. The POSTING_DATE filter (Today,
+    Yesterday, Last 7/14/21/28 Days; honored even when the section shows no such facet) buckets each job's age, so
+    the bucket midpoint is its date. Jobs older than 28 days stay undated. A failed call keeps what was found."""
+    out = {}
+    for bucket, (lo, hi) in _TALEO_AGE_BUCKETS.items():
+        mid = (date.today() - timedelta(days=(lo + hi) // 2)).isoformat()
+        for page in range(1, 9):
+            try:
+                d = _taleo_page(c, page, bucket)
+            except Exception:  # noqa: BLE001
+                return out
+            rows = d.get("requisitionList") or []
+            for r in rows:
+                out.setdefault(str(r.get("contestNo") or r.get("jobId") or ""), mid)  # buckets are cumulative: the smallest one wins
+            if len(rows) < int((d.get("pagingData") or {}).get("pageSize") or 25):
+                break
+    return out
+
+
 def taleo(c):
     """Oracle Taleo Enterprise career sections - POST /careersection/rest/jobboard/searchjobs (25 per page).
     Needs host, section and portal (the number in the section's jobsearch.ftl?portal= URL). The list
     columns are title, locations (JSON string) and an exact posted date. Verified live 2026-10-02
     against Equitable (equitable.taleo.net, section eqh_1) and 2026-10-11 against Cincinnati Financial. Sections
     that order the columns differently (Cincinnati: job number, title, locations, no date) set "columns":
-    [title, location, posted] indexes, -1 for a missing one."""
+    [title, location, posted] indexes, -1 for a missing one; with no date column the jobs get an "approx" date
+    from the POSTING_DATE age buckets (_taleo_age_dates, verified live 2026-10-11 on Cincinnati Financial; the
+    detail page carries no date either)."""
     ti, li, pi = c.get("columns", [0, 1, 2])
-    host, sec, portal = c["host"], c["section"], c["portal"]
-    empty = lambda ids: [dict(id=i, selectedValues=[]) for i in ids]
-    out, seen, page = [], set(), 1
+    host, sec = c["host"], c["section"]
+    out, seen, page, complete = [], set(), 1, False
     while page <= int(c.get("max_pages", 60)):
-        body = {"multilineEnabled": False, "sortingSelection": {"sortBySelectionParam": "3", "ascendingSortingOrder": "false"},
-                "fieldData": {"fields": {"KEYWORD": "", "LOCATION": ""}, "valid": True},
-                "filterSelectionParam": {"searchFilterSelections": empty(["POSTING_DATE", "LOCATION", "JOB_FIELD", "JOB_TYPE", "JOB_SCHEDULE", "JOB_LEVEL"])},
-                "advancedSearchFiltersSelectionParam": {"searchFilterSelections": empty(["ORGANIZATION", "LOCATION", "JOB_FIELD", "JOB_NUMBER", "URGENT_JOB", "EMPLOYEE_STATUS", "STUDY_LEVEL", "WILL_TRAVEL", "JOB_SHIFT"])},
-                "pageNo": page}
-        d = http(f"https://{host}/careersection/rest/jobboard/searchjobs?lang=en&portal={portal}", data=body, timeout=40,
-                 headers={"Accept": "application/json", "tz": "GMT-05:00", "tzname": "America/New_York", "X-Requested-With": "XMLHttpRequest"})
+        d = _taleo_page(c, page)
         rows = d.get("requisitionList") or []
         for r in rows:
             jid = str(r.get("contestNo") or r.get("jobId") or "")
@@ -1230,9 +1324,15 @@ def taleo(c):
             out.append(dict(id=jid, title=strip_html(at(ti)), location=loc,
                             url=f"https://{host}/careersection/{sec}/jobdetail.ftl?job={jid}&lang=en", posted=posted))
         if len(rows) < int((d.get("pagingData") or {}).get("pageSize") or 25):
-            return out, True
+            complete = True
+            break
         page += 1
-    return out, False
+    if pi < 0:
+        dates = _taleo_age_dates(c)
+        for j in out:
+            if dates.get(j["id"]):
+                j["posted"], j["posted_source"] = dates[j["id"]], "approx"
+    return out, complete
 
 
 def hrmdirect(c):
@@ -1473,13 +1573,18 @@ def _page_date(raw):
 
 def describe(c, job):
     """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
-    posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate, "approx"
-    for its relative-text fallback, and "" for every other ATS (their list call already returns an
-    exact native date, so there's nothing to refine - see the per-fetcher functions above). Lever/
+    posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate and the other
+    detail-page dates (iCIMS/Avature/KPMG JSON-LD, ADP RM search-meta, Two Sigma feed), "approx" for
+    Workday's relative-text fallback and update-date proxies (Talentsoft, iCIMS sitemap lastmod), and ""
+    otherwise (the list call already returns an exact native date, or the site publishes none - see the
+    per-fetcher functions above). Lever/
     Ashby already carry the description from the list call."""
+    ats = c["ats"]
+    if ats == "adp_rm":  # the list call carries the text, but only this endpoint has the posting date
+        text, posted = _adp_rm_detail(c, job["id"])
+        return job.get("desc") or strip_html(text), posted, "exact" if posted else ""
     if job.get("desc"):
         return job["desc"], "", ""
-    ats = c["ats"]
     if ats == "greenhouse":
         d = http(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs/{job['id']}")
         return strip_html(d.get("content", "")), "", ""
@@ -1513,8 +1618,7 @@ def describe(c, job):
         parts = [it.get(k) for k in ("ExternalDescriptionStr", "ExternalResponsibilitiesStr", "ExternalQualificationsStr")]
         return strip_html(" ".join(p for p in parts if p)), "", ""
     if ats == "icims":
-        text, posted = _icims_description(job)
-        return text, posted, "exact" if posted else ""
+        return _icims_description(job)
     if ats == "adp_wfn":
         d = http(f"https://workforcenow.adp.com/mascsr/default/careercenter/public/events/staffing/v1/job-requisitions/{job['id']}"
                  f"?cid={c['cid']}&ccId={c.get('ccId', '19000101_000001')}&lang=en_US&locale=en_US",
@@ -1523,6 +1627,8 @@ def describe(c, job):
     if ats in ("avature", "kpmg"):
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         posted = _page_date(raw)  # the JobPosting JSON-LD carries the real posting day the list cards lack
+        if not posted and c.get("feed") and not job.get("posted"):
+            posted = _avature_feed_date(c, job)  # Two Sigma pages have no JSON-LD; its feed does
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
         return strip_html(raw)[:30000], posted, "exact" if posted else ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
     if ats == "taleo_be":
@@ -1532,7 +1638,9 @@ def describe(c, job):
     if ats == "talentsoft":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
         i = raw.find("ts-offer-page__body")
-        return (strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[i:]))[:30000] if i >= 0 else ""), "", ""
+        upd = re.search(r'ts-offer-page__maj-date">\s*<h3>[^<]*</h3>\s*(\d\d)/(\d\d)/(\d{4})', raw)  # "Date de mise a jour", dd/mm/yyyy
+        posted = f"{upd.group(3)}-{upd.group(2)}-{upd.group(1)}" if upd else ""
+        return (strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[i:]))[:30000] if i >= 0 else ""), posted, "approx" if posted else ""
     if ats == "commerzbank":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw))[:30000], "", ""
@@ -1896,8 +2004,8 @@ def _reverify_recent_posted(queue, cfg):
 
 def _retry_enrichment(queue, cfg, keywords, dry=False):
     """Retries what failed at intake, a few per run and at most once a day per entry: (1) description fetches
-    that errored, which left sponsorship/experience/salary unchecked, and (2) undated Workday entries,
-    which fall outside the one-shot 1-to-3-day date recheck above. Success reclassifies the entry."""
+    that errored, which left sponsorship/experience/salary unchecked, and (2) undated entries of the ATSs in
+    DETAIL_DATED_ATS (their detail call carries the date), which fall outside the one-shot 1-to-3-day date recheck above. Success reclassifies the entry."""
     by_company = {c["name"]: c for c in cfg["companies"]}
     today = date.today().isoformat()
     budget, fixed = ENRICH_RETRY_BUDGET, 0
@@ -1910,8 +2018,8 @@ def _retry_enrichment(queue, cfg, keywords, dry=False):
         if not c:
             continue
         desc_failed = e.get("description_status") == "failed"
-        undated_workday = c.get("ats") == "workday" and not e.get("posted")
-        if not (desc_failed or undated_workday):
+        undated = c.get("ats") in DETAIL_DATED_ATS and not e.get("posted")
+        if not (desc_failed or undated):
             continue
         budget -= 1
         e["enrich_attempts"] = e.get("enrich_attempts", 0) + 1
