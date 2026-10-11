@@ -15914,6 +15914,64 @@
    "hosts": [
     "careers-wafd.icims.com"
    ]
+  },
+  {
+   "name": "NBT Bank",
+   "ats": "workday",
+   "host": "nbtbancorp.wd12.myworkdayjobs.com",
+   "tenant": "nbtbancorp",
+   "site": "NBT-B",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Dime Community Bank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/BRI1012TBNB/JobBoard/e22afb71-1464-5de7-5bd7-02f2c92421b2"
+  },
+  {
+   "name": "First Commonwealth Bank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/FIR1042FCW/JobBoard/4a7e0dd8-8227-42d8-baa0-4e909292dcf1"
+  },
+  {
+   "name": "BancFirst",
+   "ats": "adp_wfn",
+   "cid": "1da3e70c-e60a-466c-a367-419990b1b80f"
+  },
+  {
+   "name": "ServisFirst Bank",
+   "ats": "adp_wfn",
+   "cid": "53296056-3592-4360-ac74-363cc7c14384"
+  },
+  {
+   "name": "Amerant Bank",
+   "ats": "adp_wfn",
+   "cid": "8202065c-4cb8-4e7a-b928-16c249d1859b"
+  },
+  {
+   "name": "Eastern Bank",
+   "ats": "oracle",
+   "host": "gka.fa.us1.oraclecloud.com",
+   "site": "CX",
+   "max_per_term": 200
   }
  ],
  "keywords": [
