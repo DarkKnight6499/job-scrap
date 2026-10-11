@@ -3,7 +3,6 @@
  "companies": [
   {"name": "BNP Paribas", "reason": "Akamai bot block"},
   {"name": "Citadel", "reason": "Cloudflare block"},
-  {"name": "Balyasny", "reason": "Salesforce Aura site, no public list"},
   {"name": "Evercore", "reason": "captcha on job board"},
   {"name": "Tradeweb", "reason": "Cloudflare challenge"},
   {"name": "Interactive Brokers", "reason": "Dayforce 403"},

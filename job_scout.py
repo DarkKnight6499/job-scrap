@@ -1536,6 +1536,56 @@ def marketaxess(c):
     return out, True
 
 
+_BALYASNY_SITE = "https://bambusdev.my.site.com"  # BAM's careers app lives on its Salesforce Experience Cloud site
+
+
+def _balyasny_aura(classname, method, params):
+    """One anonymous Salesforce Aura call to an @AuraEnabled Apex method the public careers page itself makes.
+    The framework id (fwuid) and app build id are read from the /s/ page each time, so a Salesforce release
+    does not break the call."""
+    page = urllib.parse.unquote(http(_BALYASNY_SITE + "/s/", raw=True, timeout=40, headers={"User-Agent": BROWSER_UA}).decode("utf-8", "ignore"))
+    m = re.search(r'"fwuid":"([^"]+)","loaded":\{"APPLICATION@markup://siteforce:communityApp":"([^"]+)"', page)
+    if not m:
+        raise ValueError("Balyasny Aura context not found")
+    ctx = {"mode": "PROD", "fwuid": m.group(1), "app": "siteforce:communityApp", "dn": [], "globals": {}, "uad": True,
+           "loaded": {"APPLICATION@markup://siteforce:communityApp": m.group(2)}}
+    msg = {"actions": [{"id": "1;a", "descriptor": "aura://ApexActionController/ACTION$execute", "callingDescriptor": "UNKNOWN",
+                        "params": {"namespace": "", "classname": classname, "method": method, "params": params,
+                                   "cacheable": True, "isContinuation": False}}]}
+    body = urllib.parse.urlencode({"message": json.dumps(msg), "aura.context": json.dumps(ctx), "aura.pageURI": "/s/", "aura.token": "null"}).encode()
+    raw = http(_BALYASNY_SITE + "/s/sfsites/aura?r=2&aura.ApexAction.execute=1", data=body, raw=True, timeout=60,
+               headers={"User-Agent": BROWSER_UA, "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"})
+    act = (json.loads(raw).get("actions") or [{}])[0]
+    if act.get("state") != "SUCCESS":
+        raise ValueError(f"Balyasny Aura call failed: {act.get('error')}")
+    return (act.get("returnValue") or {}).get("returnValue")
+
+
+def balyasny(c):
+    """Balyasny Asset Management's careers site is a Salesforce Experience Cloud (Aura) app with no REST feed, but
+    its public Apex method BamJobRequisitionInfoDataService.searchJobRequisitions answers anonymous POSTs to
+    /s/sfsites/aura with every open requisition (title, REQ number, per-position cities, relative "Posted N Days
+    Ago"), so one call lists the lot. Job id is the Salesforce record id; describe() fetches the description with
+    rolePage.getDescription(id). Detail page is /s/details?jobReq=<url title>_<REQ>. Verified live 2026-10-11
+    (129 jobs, about 60 with a US city)."""
+    rows = _balyasny_aura("BamJobRequisitionInfoDataService", "searchJobRequisitions",
+                          {"isVendorPortal": False, "site": "BAM Website", "searchKey": "", "locationFilters": [],
+                           "departmentFilter": [], "availableLocations": [], "experienceLevelFilter": []}) or []
+    out = []
+    for r in rows:
+        cities = []
+        for pos in r.get("Job_Requisition_Positions__r") or []:  # a role can list several offices, including secondary ones
+            for loc in [pos.get("Location__r") or {}] + [(q.get("Location__r") or {}) for q in pos.get("Job_Requisition_Position_Locations__r") or []]:
+                name = loc.get("External_Name__c")
+                if name and name not in cities:
+                    cities.append(name)
+        req = r.get("Requisition_Number__c") or ""
+        out.append(dict(id=r["Id"], title=r.get("Publish_Title__c") or r.get("Name") or "", location=" | ".join(cities),
+                        url=f"{_BALYASNY_SITE}/s/details?jobReq={r.get('Job_Req_Title_in_URL__c') or ''}_{req}",
+                        posted=_workday_posted(r.get("Posted_Ago__c"))))  # relative text, so the date is approximate
+    return [j for j in out if j["title"]], bool(rows)
+
+
 def phenom(c):
     """Phenom People career sites. POST https://<host>/widgets with ddoKey "refineSearch" after one GET of the
     search page for the session cookie. Needs host, ref_num (the site's refNum), page_id (the search page's
@@ -1574,7 +1624,8 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
+             balyasny=balyasny)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1766,6 +1817,9 @@ def describe(c, job):
             posted = _avature_feed_date(c, job)  # Two Sigma pages have no JSON-LD; its feed does
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
         return strip_html(raw)[:30000], posted, "exact" if posted else ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+    if ats == "balyasny":  # the list call carries no description
+        d = _balyasny_aura("rolePage", "getDescription", {"req": job["id"]}) or {}
+        return strip_html(d.get("Description__c", "")), "", ""
     if ats == "taleo_be":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
         i = raw.find('class="job_description"')
