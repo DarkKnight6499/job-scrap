@@ -148,6 +148,7 @@ BLOCK_RES = [re.compile(p, re.I) for p in BLOCK_PATTERNS]
 # explicit OPT/CPT exclusion). Anything else in BLOCK_PATTERNS only refuses employer sponsorship, which
 # a candidate on F-1 OPT / STEM OPT does not need, so it classifies as "OPT Only" instead of "Blocked".
 HARD_BLOCK_PATTERNS = [
+    r"\bbe\s+(?:an?\s+)?EU\s+citizen",
     r"\bITAR\b",
     r"\b(?:active|current)\s+(?:top\s+secret|secret|ts/sci)\b",
     r"must\s+be\s+a\s+u[.\s]{0,2}s[.\s]{0,2}\s*citizen",  # abbreviation periods are already spaces after normalization
