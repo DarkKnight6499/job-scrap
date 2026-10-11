@@ -168,7 +168,7 @@ def test_kpmg_reads_whole_board_in_parallel_pages_else_falls_back_to_terms():
     fake, calls = _counting(handler)
     with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
         jobs, complete = js.kpmg(dict(search=["x"]))
-    assert complete and len(jobs) == 29 and len(calls) == 3 and all("keyword=&" in u for u in calls)  # one empty-keyword board, not per term
+    assert complete and len(jobs) == 29 and len(calls) == 6 and all("keyword=&" in u for u in calls)  # empty-keyword board read twice (3 pages), not per term
     fake, calls = _counting(handler)
     with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
         js.kpmg(dict(search=["x"], full_board_max=10, term_workers=1))

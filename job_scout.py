@@ -43,7 +43,6 @@ import random
 import re
 import secrets
 import sys
-import threading
 import time
 import unicodedata
 import urllib.error
@@ -967,14 +966,14 @@ def _avature_board(c):
     if c.get("variant") != "results":
         return None
     page, limit = int(c.get("page_size", 10)), int(c.get("full_board_max", 1900))
-    done = threading.Event()
+    end = []  # offsets of short pages seen so far; any page after the first of them is past the board
 
     def get(off):
-        if done.is_set():
-            return ""  # the board ended on an earlier page
+        if end and off > min(end):
+            return ""
         raw = _avature_results_page(c, "", off)
         if raw.count('class="article--result') < page:
-            done.set()
+            end.append(off)
         return raw
 
     out, seen = [], set()
@@ -1125,10 +1124,15 @@ def _kpmg_board(c):
     if not m or int(m.group(1)) > int(c.get("full_board_max", 1900)):
         return None
     out, seen = [], set()
-    _kpmg_cards(first, seen, out)
-    pages = _pool_map(lambda pg: _kpmg_page("", pg), range(2, -(-int(m.group(1)) // 12) + 1), c.get("page_workers", 4))
-    for raw in pages:  # a failed page raises, so the caller falls back to the term search rather than returning a partial board
-        _kpmg_cards(raw, seen, out)
+    n_pages = -(-int(m.group(1)) // 12)
+    # The list repeats some jobs (870 cards, 786 distinct) and now and then one read moves a repeat across a page
+    # boundary and drops a distinct job (1 read in 6), so the board is read board_passes (default 2) times and merged.
+    for p in range(int(c.get("board_passes", 2))):
+        pages = [first] if p == 0 else []
+        # a failed page raises, so the caller falls back to the term search rather than returning a partial board
+        pages += _pool_map(lambda pg: _kpmg_page("", pg), range(1 if p else 2, n_pages + 1), c.get("page_workers", 4))
+        for raw in pages:
+            _kpmg_cards(raw, seen, out)
     return out, True
 
 
