@@ -32,3 +32,19 @@ def test_icims_joins_split_city_and_state_labels():
         jobs, complete = js.icims(dict(hosts=["p.example"]))
     assert complete and len(jobs) == 1
     assert jobs[0]["location"] == "Roy, Utah" and jobs[0]["id"] == "21151"
+
+
+def test_icims_wafd_header_label_and_berkley_primary_location():
+    def page(header, extra):
+        card = (f'<div class="row"><div class="col-xs-6 header left">{header}</div>'
+                '<div class="col-xs-12 title"><a href="https://p.example/jobs/5181/branch-manager/job?in_iframe=1" class="iCIMS_Anchor">'
+                '<span class="sr-only field-label">Title</span><h3 > Branch Manager</h3></a></div>'
+                f'{extra}</div></li>')
+        return '<ul><li><div class="iCIMS_JobCardItem"' + card
+    wafd = page('<span class="sr-only field-label">Location : Location</span> <span > US-WA-Bremerton</span>', "")
+    berkley = page('<span class="sr-only field-label">Company</span> <span > Berkley One</span>',
+                   '<dl><div><dt><span class="sr-only field-label">Primary Location</span></dt><dd class="d"><span > US-DE-Wilmington</span></dd></div></dl>')
+    for html, want in ((wafd, "Bremerton, WA, US"), (berkley, "Wilmington, DE, US")):
+        with mock.patch.object(js, "http", fake_http({"pr=0": html, "pr=1": ""})):
+            jobs, _ = js.icims(dict(hosts=["p.example"]))
+        assert jobs[0]["location"] == want

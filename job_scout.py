@@ -609,9 +609,13 @@ def icims(c):
                 seen.add(m.group(2))
                 title = re.search(r"<h3[^>]*>\s*(.*?)\s*</h3>", card, re.S)
                 loc = (re.search(r"Job Locations</span>.*?<span[^>]*>\s*(.*?)\s*</span>", card, re.S)
-                       or re.search(r">Locations?</span>\s*<span[^>]*>\s*(.*?)\s*</span>", card, re.S))  # Stifel-style cards
+                       or re.search(r">Locations?</span>\s*<span[^>]*>\s*(.*?)\s*</span>", card, re.S)  # Stifel-style cards
+                       or re.search(r'field-label">Location : Location</span>\s*<span[^>]*>\s*(.*?)\s*</span>', card, re.S))  # WaFd header label
                 posted = re.search(r'<span title="(\d{1,2})/(\d{1,2})/(\d{4})', card)
                 where = _icims_location(strip_html(loc.group(1)) if loc else "")
+                if not where:  # Berkley cards carry only a company name up top; the place sits in "Primary Location"
+                    pl = re.search(r"Primary Location.*?<dd[^>]*>\s*<span[^>]*>\s*(.*?)\s*</span>", card, re.S)
+                    where = _icims_location(strip_html(pl.group(1)) if pl else "")
                 if not where:
                     # Lord Abbett / America First cards split the place into labelled City and State fields
                     # ("Location : City", "State/Province (Full Name)"); join them so US sites read "Roy, Utah".
