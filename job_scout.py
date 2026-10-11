@@ -1796,7 +1796,11 @@ def _ukg_detail(c, job):
     if not m:
         return ""
     obj, _ = json.JSONDecoder().raw_decode(page, m.end())
-    return strip_html(obj.get("Description") or "")
+    text = strip_html(obj.get("Description") or "")
+    pay = obj.get("PayRange") or {}  # the posted range lives in its own field, not in the description text
+    if obj.get("PayRangeVisible") and pay.get("PayRangeMinimum") and pay.get("PayRangeMaximum"):
+        text += f" Pay range: ${float(pay['PayRangeMinimum']):,.0f} to ${float(pay['PayRangeMaximum']):,.0f}"
+    return text
 
 
 def describe(c, job):
@@ -2092,11 +2096,11 @@ def classify_experience(title, text):
 
 
 _SALARY_RANGE_RE = re.compile(
-    r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\s*(?:-|–|to)\s*\$?\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?",
+    r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\s*(?:usd\s*)?(?:-|–|to)\s*\$?\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?",
     re.I,
 )
 _SALARY_SINGLE_RE = re.compile(r"\$\s?(\d{2,3}(?:,\d{3})*(?:\.\d+)?)\s*(k)?\b", re.I)
-_SALARY_CONTEXT_RE = re.compile(r"\b(?:salary|compensation|base pay|total comp|pay range)\b", re.I)
+_SALARY_CONTEXT_RE = re.compile(r"\b(?:salary|compensation|base pay|total comp|pay range|shift range)\b", re.I)
 # finance JDs are full of unrelated dollar figures ("$2B in assets", "$500M portfolio") - a nearby
 # context word alone isn't always enough, so also reject anything sitting next to an asset-scale word
 _SALARY_DISQUALIFY_RE = re.compile(
