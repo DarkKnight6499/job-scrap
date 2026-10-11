@@ -2487,14 +2487,7 @@ def write_queue_html(q, path, updated_at=None):
         exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
         first_seen = e.get("first_seen") or ""
         opt_data = ' data-opt="1"' if e.get("sponsorship_status") == "OPT Only" else ""
-        # Same "never assert the positive, only flag with evidence" convention as sponsorship: a
-        # role that hasn't shown a repeat-posting pattern is N/A, not "clear" of it, since it just
-        # hasn't had the chance to repeat yet. Tagged red (see tr.ghost in the CSS) but never
-        # hidden or removed from its normal table/section - still fully visible and actionable.
-        is_ghost = e.get("ghost_status") == "Likely"
-        ghost_label = "Likely ghost" if is_ghost else "N/A"
-        ghost_evidence = html.escape(e.get("ghost_evidence") or "no repeat-posting pattern detected")
-        row_class = e["state"] + (" closed" if closed else "") + (" ghost" if is_ghost else "")
+        row_class = e["state"] + (" closed" if closed else "")
         if e.get("posted_source") == "approx":
             posted_title = "approximate - derived from Workday's relative posting-age text, not an exact timestamp"
         elif posted and e.get("posted_source") == "exact":
@@ -2506,7 +2499,6 @@ def write_queue_html(q, path, updated_at=None):
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
             f' data-posted-source="{html.escape(e.get("posted_source") or "")}"{opt_data}>'
             f'<td class="posted" title="{html.escape(posted_title)}">{html.escape(posted_label(e))}</td>'
-            f'<td title="{ghost_evidence}" class="ghost-cell">{html.escape(ghost_label)}</td>'
             f'<td>{html.escape(e["company"])}</td>'
             f'<td>{role_cell}</td>'
             f'{"" if closed else ACTIONS_TD}'
@@ -2519,7 +2511,7 @@ def write_queue_html(q, path, updated_at=None):
             f'</tr>'
         )
 
-    head = ("<tr><th>Posted</th><th>Ghost</th><th>Company</th><th>Role</th><th>Actions</th><th>Location</th>"
+    head = ("<tr><th>Posted</th><th>Company</th><th>Role</th><th>Actions</th><th>Location</th>"
             "<th>Sponsorship</th><th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
     closed_head = head.replace("<th>Actions</th>", "").replace("</tr>", "<th>State</th></tr>")
 
@@ -2568,13 +2560,10 @@ table {{ border-collapse: collapse; width: 100%; margin-bottom: 1rem; }}
 th, td {{ padding: 6px 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 0.9rem; }}
 th {{ position: sticky; top: 0; background: #fafafa; }}
 tr.today {{ background: #eaffea; font-weight: 600; }}
-tr.ghost {{ border-left: 4px solid #c0392b; }}
-tr.ghost td.ghost-cell {{ color: #c0392b; font-weight: 700; }}
 tr.closed {{ color: #999; }}
 tr.closed a, tr.closed {{ text-decoration: line-through; }}
 td.posted {{ white-space: nowrap; }}
 .approx-marker {{ font-weight: 700; color: #b45309; }}
-td.ghost-cell {{ white-space: nowrap; color: #999; }}
 td.kw {{ color: #555; font-size: 0.85rem; }}
 td.salary {{ white-space: nowrap; }}
 span.repost {{ color: #b45309; font-weight: 600; font-size: 0.8rem; text-decoration: none; }}
