@@ -844,7 +844,8 @@ def avature(c):
 def _avature_feed_date(c, job):
     """Posting date of one job from the tenant's RSS feed, "" if absent. The feed ignores paging and sorting and
     only ever returns its 20 oldest items, but its `search` filter is honored, so a quoted exact title narrows it
-    to the job itself (verified live 2026-10-11 on Two Sigma: 40 of 40 undated jobs found, pubDate = posting day)."""
+    to the job itself (verified live 2026-10-11 on Two Sigma: 40 of 40 undated jobs found, pubDate = posting day;
+    Bloomberg's /careers/SearchJobs/feed/ behaves the same, 40 of 40 found and dates rise with job id)."""
     title = re.sub(r"[^A-Za-z0-9 ]", " ", job.get("title") or "").strip()
     if not title:
         return ""

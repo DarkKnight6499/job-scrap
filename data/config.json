@@ -16110,7 +16110,8 @@
    "name": "Bloomberg",
    "ats": "avature",
    "host": "bloomberg.avature.net",
-   "list_path": "careers/SearchJobs"
+   "list_path": "careers/SearchJobs",
+   "feed": true
   },
   {
    "name": "Securian Financial",

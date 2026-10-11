@@ -123,3 +123,19 @@ def test_retry_enrichment_dates_undated_detail_ats_entries(monkeypatch):
              description_status="ok", site=None)
     js._retry_enrichment([e], dict(companies=[dict(name="Valley", ats="adp_rm")]), [])
     assert (e["posted"], e["posted_source"]) == ("2026-10-09", "approx")
+
+
+def test_bloomberg_dates_come_from_its_searchjobs_feed():
+    c = next(x for x in json.load(open("data/config.json"))["companies"] if x["name"] == "Bloomberg")
+    assert c.get("feed") and c["list_path"] == "careers/SearchJobs"  # Bloomberg pages carry no JSON-LD; the feed has the posting day
+    feed = ('<rss><channel><item><title>eFX Sales</title><link>https://bloomberg.avature.net/careers/JobDetail/eFX-Sales/45118</link>'
+            '<pubDate>Tue, 06 Oct 2026 00:00:00 +0000</pubDate></item></channel></rss>')
+    seen = []
+
+    def http(url, **kw):
+        seen.append(url)
+        return feed.encode() if "/feed/" in url else b"<html><body>Sales role</body></html>"
+    job = dict(id="45118", title="eFX Sales", url="https://bloomberg.avature.net/careers/JobDetail/eFX-Sales/45118", posted="")
+    with mock.patch.object(js, "http", http):
+        assert js.describe(c, job)[1:] == ("2026-10-06", "exact")
+    assert any(u.startswith("https://bloomberg.avature.net/careers/SearchJobs/feed/?search=") for u in seen)
