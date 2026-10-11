@@ -453,11 +453,9 @@ def oracle(c):
     cap = int(c.get("max_per_term", 60))
     ceiling = int(c.get("term_ceiling", 1000))
     page = 50
-    out, seen = [], set()
-    complete = True  # AND across terms: one truncated term makes the whole listing untrustworthy for removal
-    for term in terms:
-        offset, limit, total = 0, cap, None
-        term_complete = False
+
+    def fetch_term(term, cap, ceiling):
+        rows_all, offset, limit, total = [], 0, cap, None
         while offset < limit:
             finder = f"findReqs;siteNumber={c['site']},limit={page},offset={offset}"
             if term:
@@ -466,21 +464,45 @@ def oracle(c):
             d = http(url)
             items = d.get("items") or [{}]
             rows = items[0].get("requisitionList") or []
+            rows_all.extend(rows)
             if offset == 0 and isinstance(items[0].get("TotalJobsCount"), int):
                 total = items[0]["TotalJobsCount"]
                 limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
-            for j in rows:
-                jid = str(j.get("Id") or "")
-                if not jid or jid in seen:
-                    continue
-                seen.add(jid)
-                out.append(dict(id=jid, title=j.get("Title", "") or "", location=j.get("PrimaryLocation", "") or "",
-                                url=f"https://{c['host']}/hcmUI/CandidateExperience/en/sites/{c['site']}/job/{jid}",
-                                posted=(j.get("PostedDate") or "")[:10]))
             offset += page
             if len(rows) < page or (total is not None and offset >= total):
-                term_complete = True  # ran out of rows before hitting the limit
-                break
+                return rows_all, True  # ran out of rows before hitting the limit
+        return rows_all, False
+
+    if len(terms) > 1 and terms != [""]:
+        # A board small enough to read whole is cheaper than one query per term and returns a superset, so the
+        # title list is then applied only by the page filter (same trade as workday()).
+        try:
+            d = http(base + "?" + urllib.parse.urlencode({"onlyData": "true", "expand": "requisitionList",
+                                                          "finder": f"findReqs;siteNumber={c['site']},limit=1,offset=0"}))
+            tot = ((d.get("items") or [{}])[0]).get("TotalJobsCount")
+        except Exception:  # noqa: BLE001  probe failed: fall back to the term search
+            tot = None
+        if isinstance(tot, int) and tot <= int(c.get("full_board_max", 1900)):
+            combos = [("", max(cap, 2000), 2000)]
+        else:
+            # 78 terms x deep paging took over 30 min on JPMorgan, so big boards page shallower and run terms in parallel
+            combos = [(t, cap, min(ceiling, int(c.get("big_board_ceiling", 300)))) for t in terms]
+    else:
+        combos = [(t, cap, ceiling) for t in terms]
+    workers = max(1, min(int(c.get("term_workers", 3 if len(combos) > 20 else 1)), len(combos)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        results = list(pool.map(lambda x: fetch_term(*x), combos))
+    out, seen = [], set()
+    complete = True  # AND across terms: one truncated term makes the whole listing untrustworthy for removal
+    for rows, term_complete in results:
+        for j in rows:
+            jid = str(j.get("Id") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            out.append(dict(id=jid, title=j.get("Title", "") or "", location=j.get("PrimaryLocation", "") or "",
+                            url=f"https://{c['host']}/hcmUI/CandidateExperience/en/sites/{c['site']}/job/{jid}",
+                            posted=(j.get("PostedDate") or "")[:10]))
         complete = complete and term_complete
     return out, complete
 
