@@ -2373,6 +2373,15 @@ def write_queue_html(q, path, updated_at=None):
 
     updated_label = updated_at.strftime("%Y-%m-%d %H:%M %Z") if updated_at else "unknown"
     updated_iso = updated_at.isoformat(timespec="seconds") if updated_at else ""
+    # Employers the scout cannot poll yet, from data/unsupported.json; empty file means no dropdown
+    uns = [c for c in load_json(HOME / "unsupported.json", {}).get("companies", []) if c.get("name")]
+    unsupported_html = ""
+    if uns:
+        items = "".join(f"<li>{html.escape(c['name'])}<span>{html.escape(c.get('reason', ''))}</span></li>"
+                        for c in sorted(uns, key=lambda c: c["name"].lower()))
+        unsupported_html = (f'<details id="unsupported"><summary title="Employers this scout cannot read yet">Not covered ({len(uns)})</summary>'
+                            f'<div class="uns-panel"><p>Postings from these employers will not appear here. Check their sites directly.</p>'
+                            f'<ul>{items}</ul></div></details>')
 
     page = f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>Jobs Tracker</title>
@@ -2413,6 +2422,16 @@ label.chip:has(input:checked) {{ background: #e6f0fb; border-color: #6aa5e0; }}
 tr.hidden-by-filter {{ display: none; }}
 .exp-filter {{ margin-top: 6px; font-size: 0.85rem; color: #333; }}
 .exp-filter select {{ padding: 3px 6px; font-size: 0.85rem; margin: 0 4px; }}
+#unsupported {{ margin: 0 0 0 auto; position: relative; order: 98; }}
+#unsupported summary {{ list-style: none; padding: 5px 14px; font-size: 0.9rem; font-weight: 400; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; color: #555; }}
+#unsupported summary::-webkit-details-marker {{ display: none; }}
+#unsupported[open] summary {{ background: #f1f1f1; }}
+#unsupported .uns-panel {{ position: absolute; right: 0; top: 34px; width: 340px; max-height: 340px; overflow-y: auto; background: #fff; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,.15); padding: 8px 12px; z-index: 5; font-size: 0.85rem; }}
+#unsupported .uns-panel p {{ margin: 0 0 6px; color: #666; font-size: 0.78rem; }}
+#unsupported .uns-panel ul {{ margin: 0; padding: 0; list-style: none; }}
+#unsupported .uns-panel li {{ display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; border-top: 1px solid #eee; }}
+#unsupported .uns-panel li span {{ color: #777; text-align: right; }}
+#expReset {{ order: 99; margin-left: 8px; }}
 </style></head>
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
@@ -2438,6 +2457,7 @@ tr.hidden-by-filter {{ display: none; }}
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
 <button type="button" id="optOnlyBtn" aria-pressed="false" title="Show only roles that refuse employer sponsorship but do not exclude OPT or STEM OPT">OPT allowed</button>
+{unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
 </div>
 <div class="fb-row">

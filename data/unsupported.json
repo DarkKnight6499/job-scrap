@@ -1,0 +1,27 @@
+{
+ "note": "Employers the scout cannot poll yet. Shown in the page's 'Not covered' dropdown. Remove an entry once its fetcher is live.",
+ "companies": [
+  {"name": "BNP Paribas", "reason": "Akamai bot block"},
+  {"name": "Citadel", "reason": "Cloudflare block"},
+  {"name": "Bloomberg", "reason": "captcha"},
+  {"name": "Balyasny", "reason": "Salesforce Aura site, no public list"},
+  {"name": "Evercore", "reason": "captcha on job board"},
+  {"name": "Tradeweb", "reason": "Cloudflare challenge"},
+  {"name": "Interactive Brokers", "reason": "Dayforce 403"},
+  {"name": "Federated Hermes", "reason": "job system not found"},
+  {"name": "Comerica", "reason": "site blocks automated browsers"},
+  {"name": "Rabobank", "reason": "403 to scripts"},
+  {"name": "UniCredit", "reason": "SSL error"},
+  {"name": "ABN AMRO", "reason": "no US hiring found, not checked"},
+  {"name": "NatWest", "reason": "no US hiring found, not checked"},
+  {"name": "Bank of Hope", "reason": "job system not found yet"},
+  {"name": "FHLB Boston", "reason": "Taleo BE, list not extracted"},
+  {"name": "FHLB Atlanta", "reason": "job system not found"},
+  {"name": "FHLB Cincinnati", "reason": "job system not found"},
+  {"name": "Farmer Mac", "reason": "ADP Workforce Now, not added yet"},
+  {"name": "Provident Bank", "reason": "job system not found"},
+  {"name": "Apple Bank", "reason": "job system not found"},
+  {"name": "Amalgamated Bank", "reason": "job system not found"},
+  {"name": "Bread Financial", "reason": "job system not found"}
+ ]
+}
