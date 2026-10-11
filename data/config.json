@@ -16013,6 +16013,95 @@
    "name": "ConnectOne Bank",
    "ats": "paylocity",
    "board": "https://recruiting.paylocity.com/recruiting/jobs/All/a2c643af-a96f-4130-80e6-00242d7db314/ConnectOne-Bank"
+  },
+  {
+   "name": "Cincinnati Financial",
+   "ats": "taleo",
+   "host": "cinfin.taleo.net",
+   "section": "ex",
+   "portal": "101430233",
+   "columns": [
+    1,
+    2,
+    -1
+   ]
+  },
+  {
+   "name": "Intercontinental Exchange",
+   "ats": "jibe",
+   "host": "careers.ice.com",
+   "job_path": "jobs"
+  },
+  {
+   "name": "Verisk",
+   "ats": "oracle",
+   "host": "fa-ewmy-saasfaprod1.fa.ocs.oraclecloud.com",
+   "site": "CX_1",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "W. R. Berkley",
+   "ats": "icims",
+   "hosts": [
+    "careers-berkley.icims.com"
+   ]
+  },
+  {
+   "name": "RGA (Reinsurance Group of America)",
+   "ats": "phenom",
+   "host": "www.rgarecareers.com",
+   "ref_num": "RGORGOUS",
+   "page_id": "page3"
+  },
+  {
+   "name": "Liberty Mutual",
+   "ats": "eightfold",
+   "host": "searchjobs.libertymutualgroup.com",
+   "domain": "libertymutual.com",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Radian",
+   "ats": "phenom",
+   "host": "careers.radian.com",
+   "ref_num": "RADIUS",
+   "page_id": "page14"
   }
  ],
  "keywords": [
