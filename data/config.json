@@ -16741,6 +16741,38 @@
    "name": "Federated Hermes",
    "ats": "peoplesoft_hrs",
    "host": "careers.federatedhermes.com"
+  },
+  {
+   "name": "Provident Bank",
+   "ats": "successfactors",
+   "host": "careers.provident.bank",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Bread Financial",
+   "ats": "phenom",
+   "host": "careers.breadfinancial.com",
+   "ref_num": "BFBBFDUS",
+   "page_id": "page68"
   }
  ],
  "keywords": [
