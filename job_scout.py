@@ -839,6 +839,101 @@ def kpmg(c):
     return out, complete
 
 
+def adp_rm(c):
+    """ADP Recruiting Management career sites (myjobs.adp.com/<domain>/cx). The career-site endpoint hands out a
+    short-lived myJobsToken that the job-requisitions API needs as a header (plus rolecode and Referer); the list call
+    already carries the description and postingDate, so describe() has nothing to fetch. Needs `domain` (e.g.
+    "vnbcareers"). Verified live 2026-10-11 against Valley National (187 jobs)."""
+    dom = c["domain"]
+    hdr = {"User-Agent": UA["User-Agent"], "Accept": "application/json"}
+    site = http(f"https://myjobs.adp.com/public/staffing/v1/career-site/{dom}", headers=hdr)
+    h2 = dict(hdr, myjobstoken=site["myJobsToken"], rolecode="manager", Referer="https://myjobs.adp.com/")
+    out, seen, skip, top = [], set(), 0, 50
+    sel = "reqId,jobTitle,publishedJobTitle,jobDescription,jobQualifications,postingDate,requisitionLocations"
+    while skip < int(c.get("max_jobs", 1500)):
+        d = http("https://my.adp.com/myadp_prefix/mycareer/public/staffing/v1/job-requisitions/apply-custom-filters"
+                 f"?$orderby=postingDate%20desc&$select={sel}&$top={top}&$skip={skip}&tz=America/New_York", headers=h2)
+        rows = d.get("jobRequisitions") or []
+        for r in rows:
+            rid = str(r.get("reqId"))
+            if rid in seen:
+                continue
+            seen.add(rid)
+            locs = []
+            for l in r.get("requisitionLocations") or []:
+                a = l.get("address") or {}
+                parts = [a.get("cityName"), (a.get("countrySubdivisionLevel1") or {}).get("codeValue"), (a.get("country") or {}).get("codeValue")]
+                locs.append(", ".join(p for p in parts if p))
+            out.append(dict(id=rid, title=r.get("publishedJobTitle") or r.get("jobTitle") or "",
+                            url=f"https://myjobs.adp.com/{dom}/cx/job-details?reqId={rid}", location=" | ".join(locs),
+                            posted=(r.get("postingDate") or "")[:10],
+                            desc=strip_html((r.get("jobDescription") or "") + " " + (r.get("jobQualifications") or ""))))
+        if len(rows) < top:
+            return out, True
+        skip += top
+    return out, False
+
+
+def adp_wfn(c):
+    """ADP Workforce Now recruitment sites (workforcenow.adp.com/mascsr/.../recruitment.html?cid=...). The public
+    job-requisitions API needs no token: list pages ($top/$skip) carry title, postDate and locations, and the
+    description comes from the per-requisition detail call in describe(). Needs `cid` (from the careers page's ADP
+    link) and optional ccId. Verified live 2026-10-11 against Prosperity Bank (212 jobs) and Hanmi (14)."""
+    cid, cc = c["cid"], c.get("ccId", "19000101_000001")
+    base = "https://workforcenow.adp.com/mascsr/default/careercenter/public/events/staffing/v1/job-requisitions"
+    hdr = {"User-Agent": UA["User-Agent"], "Accept": "application/json"}
+    out, seen, skip, top = [], set(), 0, 20
+    while skip < int(c.get("max_jobs", 1500)):
+        d = http(f"{base}?cid={cid}&ccId={cc}&lang=en_US&locale=en_US&$top={top}&$skip={skip}", headers=hdr)
+        rows = d.get("jobRequisitions") or []
+        for r in rows:
+            rid = str(r.get("itemID"))
+            if rid in seen:
+                continue
+            seen.add(rid)
+            locs = [((l.get("nameCode") or {}).get("shortName") or "") for l in r.get("requisitionLocations") or []]
+            out.append(dict(id=rid, title=r.get("requisitionTitle", ""),
+                            url=f"https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid={cid}&ccId={cc}&jobId={r.get('clientRequisitionID')}&lang=en_US",
+                            location=" | ".join(x for x in locs if x), posted=(r.get("postDate") or "")[:10]))
+        if not rows:
+            return out, True
+        skip += len(rows)
+    return out, False
+
+
+def ukg(c):
+    """UKG Pro Recruiting job boards (<tenant>.rec.pro.ukg.net/<code>/JobBoard/<uuid>). POST JobBoardView/LoadSearchResults
+    pages {Top, Skip} and returns title, locations, PostedDate and a BriefDescription (all describe() gets; the full text
+    sits behind the JS-rendered detail page). Needs `board` (the JobBoard URL without trailing slash). Verified live
+    2026-10-11 against Cathay Bank (112 jobs)."""
+    board = c["board"].rstrip("/")
+    out, seen, skip, top = [], set(), 0, 50
+    while skip < int(c.get("max_jobs", 1500)):
+        body = {"opportunitySearch": {"Top": top, "Skip": skip, "QueryString": "",
+                                      "OrderBy": [{"Value": "postedDateDesc", "PropertyName": "PostedDate", "Ascending": False}],
+                                      "Filters": []},
+                "matchCriteria": {"PreferredJobs": [], "Educations": [], "LicenseAndCertifications": [], "Skills": [],
+                                  "hasNoLicenses": False, "SkippedSkills": []}}
+        d = http(f"{board}/JobBoardView/LoadSearchResults", data=body, headers={"Accept": "application/json"}, timeout=40)
+        rows = d.get("opportunities") or []
+        for r in rows:
+            rid = str(r.get("Id"))
+            if rid in seen:
+                continue
+            seen.add(rid)
+            locs = []
+            for l in r.get("Locations") or []:
+                a = l.get("Address") or {}
+                locs.append(", ".join(p for p in (a.get("City"), (a.get("State") or {}).get("Code"), (a.get("Country") or {}).get("Code")) if p))
+            out.append(dict(id=rid, title=r.get("Title", ""), url=f"{board}/OpportunityDetail?opportunityId={rid}",
+                            location=" | ".join(x for x in locs if x), posted=(r.get("PostedDate") or "")[:10],
+                            desc=strip_html(r.get("BriefDescription") or "")))
+        if not rows:
+            return out, True
+        skip += len(rows)
+    return out, False
+
+
 def deshaw(c):
     """D. E. Shaw's own careers site (Next.js, server-rendered). The job list is the set of
     /careers/<slug>-<id> links on /careers/choose-your-path; each job page embeds the full job as
@@ -1132,7 +1227,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1276,6 +1371,11 @@ def describe(c, job):
     if ats == "icims":
         text, posted = _icims_description(job)
         return text, posted, "exact" if posted else ""
+    if ats == "adp_wfn":
+        d = http(f"https://workforcenow.adp.com/mascsr/default/careercenter/public/events/staffing/v1/job-requisitions/{job['id']}"
+                 f"?cid={c['cid']}&ccId={c.get('ccId', '19000101_000001')}&lang=en_US&locale=en_US",
+                 headers={"User-Agent": UA["User-Agent"], "Accept": "application/json"})
+        return strip_html(d.get("requisitionDescription", "")), "", ""
     if ats in ("avature", "kpmg"):
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)

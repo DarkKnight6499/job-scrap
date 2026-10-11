@@ -15714,6 +15714,44 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Valley National Bank",
+   "ats": "adp_rm",
+   "domain": "vnbcareers"
+  },
+  {
+   "name": "Prosperity Bank",
+   "ats": "adp_wfn",
+   "cid": "009d7dae-06f5-4976-bb97-c97601e32efe"
+  },
+  {
+   "name": "Hanmi Bank",
+   "ats": "adp_wfn",
+   "cid": "710c291d-c0ce-4dd5-803b-c6c744395a76"
+  },
+  {
+   "name": "Cathay Bank",
+   "ats": "ukg",
+   "board": "https://cathaygbcp.rec.pro.ukg.net/CAT1503CATB/JobBoard/2a99c4a3-52c4-4648-8537-aaad00b3ef01"
+  },
+  {
+   "name": "Bank OZK",
+   "ats": "jibe",
+   "host": "careers.ozk.com",
+   "job_path": "careers-home/jobs"
+  },
+  {
+   "name": "First Citizens Bank",
+   "ats": "jibe",
+   "host": "jobs.firstcitizens.com",
+   "job_path": "jobs"
+  },
+  {
+   "name": "City National Bank",
+   "ats": "jibe",
+   "host": "careers.cnb.com",
+   "job_path": "jobs"
   }
  ],
  "keywords": [
