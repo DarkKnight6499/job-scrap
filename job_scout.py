@@ -64,6 +64,7 @@ from keyword_matching import contains_term  # noqa: E402
 
 HOME = Path(os.environ.get("JOB_SCOUT_HOME", REPO_DIR / "data"))
 UA = {"User-Agent": "job-scout/1.0", "Accept": "application/json"}
+BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 RETRY_429_MAX = 4  # Workday 429s on bursts; a short backoff clears them (40 of 40 recovered in testing)
 QUEUE_STATES = ("new", "shortlisted", "applied", "dismissed", "opt_only", "auto_blocked")
 
@@ -934,6 +935,47 @@ def ukg(c):
     return out, False
 
 
+def taleo_be(c):
+    """Oracle Taleo Business Edition career sites (TVAPP pages such as careers.zionsbancorp.com, job URLs
+    /jobs/<slug>-<id>). The list is a saved search: POST /ajax/content/job_results?JobSearch.id=<id>&page_index=N
+    returns JSON whose Result is the HTML of 10 job rows (title link, location, category). The AJAX layer rejects
+    requests without a session cookie and the page's hidden #tsstoken sent as header tss-token, so one GET of the
+    search page comes first. Needs host, search_id, site_name (TVAPP.property.site.short_name in the page source).
+    No posted date is published. Verified live 2026-10-11 against Zions Bancorporation (101 jobs)."""
+    base = f"https://{c['host']}"
+    ua = {"User-Agent": BROWSER_UA}  # the site answers 403 to non-browser user agents
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+    page = opener.open(urllib.request.Request(f"{base}/jobs/search/{c['search_id']}", headers=ua), timeout=40).read().decode("utf-8", "ignore")
+    m = re.search(r'id\s*=\s*"tsstoken"\s*value\s*=\s*"([^"]+)"', page)
+    if not m:
+        return [], False
+    hdr = dict(ua, **{"tss-token": m.group(1), "X-Requested-With": "XMLHttpRequest", "Referer": f"{base}/jobs/search/{c['search_id']}"})
+    out, seen = [], set()
+    max_pages, pg = int(c.get("max_pages", 60)), 0
+    while pg < max_pages:
+        pg += 1
+        url = f"{base}/ajax/content/job_results?JobSearch.id={c['search_id']}&page_index={pg}&site-name={c['site_name']}&include_site=true"
+        try:
+            res = json.loads(opener.open(urllib.request.Request(url, data=b"", headers=hdr), timeout=40).read())
+        except Exception:  # noqa: BLE001
+            return out, False
+        html_rows = res.get("Result") or ""
+        rows = re.split(r'<div id="job_list_(\d+)"', html_rows)[1:]
+        if not rows:
+            return out, True
+        total = re.search(r'id="jPaginateNumPages"[^>]*>(\d+)', html_rows)  # past the last page the server errors instead of returning nothing
+        max_pages = min(max_pages, int(total.group(1))) if total else max_pages
+        for jid, body in zip(rows[0::2], rows[1::2]):
+            lm = re.search(r'<a href="([^"]+)" class="job_link[^"]*">(.*?)</a>', body, re.S)
+            if not lm or jid in seen:
+                continue
+            seen.add(jid)
+            loc = re.search(r'<span class="location">(.*?)</span>', body, re.S)
+            out.append(dict(id=jid, title=strip_html(lm.group(2)), url=html.unescape(lm.group(1)),
+                            location=strip_html(loc.group(1)) if loc else "", posted=""))
+    return out, pg >= max_pages and bool(total)
+
+
 def deshaw(c):
     """D. E. Shaw's own careers site (Next.js, server-rendered). The job list is the set of
     /careers/<slug>-<id> links on /careers/choose-your-path; each job page embeds the full job as
@@ -1227,7 +1269,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1380,6 +1422,10 @@ def describe(c, job):
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
         return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
+    if ats == "taleo_be":
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+        i = raw.find('class="job_description"')
+        return (strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[i:]))[:30000] if i >= 0 else ""), "", ""
     if ats == "commerzbank":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw))[:30000], "", ""
