@@ -1605,7 +1605,8 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "term_ceiling": 2500
+   "term_ceiling": 100,
+   "term_workers": 6
   },
   {
    "name": "Bank of America",
