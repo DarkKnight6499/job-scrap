@@ -976,6 +976,34 @@ def taleo_be(c):
     return out, pg >= max_pages and bool(total)
 
 
+def talentsoft(c):
+    """Cegid Talentsoft career sites (e.g. jobs.ca-cib.com, job URLs /job/<slug>_<id>.aspx). Server-rendered list at
+    <list_path>?LCID=2057&page=N (100 offer cards per page, each with contract, country and city items). Needs host
+    and optional list_path (default /offre-de-emploi/liste-offres.aspx). No posted date is published (the page only
+    shows an update date), so first_seen stands in; describe() reads the detail page. Verified live 2026-10-11
+    against Credit Agricole CIB (332 jobs)."""
+    base = f"https://{c['host']}"
+    path = c.get("list_path", "/offre-de-emploi/liste-offres.aspx")
+    ua = {"User-Agent": BROWSER_UA, "Accept": "text/html, */*"}
+    out, seen = [], set()
+    for pg in range(1, int(c.get("max_pages", 30)) + 1):
+        raw = http(f"{base}{path}?LCID=2057&page={pg}", raw=True, timeout=40, headers=ua).decode("utf-8", "ignore")
+        cards = raw.split('class="ts-offer-card Layer"')[1:]
+        fresh = 0
+        for card in cards:
+            m = re.search(r'ts-offer-card__title-link[^>]*href="([^"]+_(\d+)\.aspx)[^>]*>(.*?)</a>', card, re.S)
+            if not m or m.group(2) in seen:
+                continue
+            seen.add(m.group(2))
+            fresh += 1
+            items = [strip_html(x) for x in re.findall(r"<li[^>]*>(.*?)</li>", card, re.S)]
+            loc = ", ".join(x for x in reversed(items[1:3]) if x)  # items are contract, country, city
+            out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=base + html.unescape(m.group(1)), location=loc, posted=""))
+        if not fresh:  # past the last page the site repeats or empties the list
+            return out, True
+    return out, False
+
+
 def deshaw(c):
     """D. E. Shaw's own careers site (Next.js, server-rendered). The job list is the set of
     /careers/<slug>-<id> links on /careers/choose-your-path; each job page embeds the full job as
@@ -1269,7 +1297,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, talentsoft=talentsoft, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1425,6 +1453,10 @@ def describe(c, job):
     if ats == "taleo_be":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
         i = raw.find('class="job_description"')
+        return (strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[i:]))[:30000] if i >= 0 else ""), "", ""
+    if ats == "talentsoft":
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+        i = raw.find("ts-offer-page__body")
         return (strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[i:]))[:30000] if i >= 0 else ""), "", ""
     if ats == "commerzbank":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
