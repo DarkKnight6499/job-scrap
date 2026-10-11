@@ -1733,6 +1733,12 @@ _ISO3_DASH_RE = re.compile(
 _ISO2_SUBDIV_RE = re.compile(
     r"^(?:ca-(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe|yt|nt|nu)-[a-z]|(?:de|fr|it|nl|es|au|jp|cn|br|mx|ie|sg|se|pl)-[a-z]{2,3}-[a-z])"
 )
+# EY writes "City, region, CC, postcode" ("Adelaide, SA, AU, 5000"; US rows say "US") and sometimes "City, CC, postcode"
+# with a non-ZIP postcode ("Diegem, BE, 1831"); a 5-digit ZIP or "US" keeps the US rows.
+_EY_NON_US_RE = re.compile(
+    r"^[^,]+,\s*[a-z]{1,3},(?!\s*us\b)\s*[a-z]{2},\s*[a-z0-9][a-z0-9 -]*$"
+    r"|^[^,]+,\s*[a-z]{2},(?!\s*\d{5}(?:-\d{4})?$)\s*[a-z0-9 -]*\d[a-z0-9 -]*$"
+)
 _CA_POSTAL_RE = re.compile(r"\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEGHJ-NPRSTV-Z]\d\b")
 _CA_PROVINCE_CODE_RE = re.compile(r",\s*(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe)\s*(?:,|$)", re.I)
 
@@ -1775,6 +1781,8 @@ def matches(job, f):
     if _VANCOUVER_RE.search(loc_folded):
         return False
     if _COUNTRY_CODE_SITE_RE.match(loc_folded):
+        return False
+    if _EY_NON_US_RE.match(loc_folded):
         return False
     if (_ISO3_DASH_RE.match(loc_folded) or _ISO2_SUBDIV_RE.match(loc_folded)
             or _CA_POSTAL_RE.search(job["location"]) or _CA_PROVINCE_CODE_RE.search(job["location"])):
