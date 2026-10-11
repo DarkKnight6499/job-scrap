@@ -1068,7 +1068,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "posted": "2026-09-09",
   "last_seen_live": "2026-10-11",
@@ -4511,7 +4511,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "posted": "2026-09-21",
   "last_seen_live": "2026-10-11",
@@ -4566,7 +4566,7 @@
   "sponsorship_status": "Unclear",
   "sponsorship_evidence": "No sponsorship language in the description.",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "posted": "2026-09-23",
   "last_seen_live": "2026-10-11",
@@ -4592,7 +4592,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "posted": "2026-09-09",
   "last_seen_live": "2026-10-11",
@@ -4618,7 +4618,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "posted": "2026-09-02",
   "last_seen_live": "2026-10-11",
@@ -4700,7 +4700,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "posted": "2026-09-01",
   "last_seen_live": "2026-10-11",
@@ -7933,7 +7933,7 @@
    "fixed income",
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "posted": "2026-09-18",
   "last_seen_live": "2026-10-11",
@@ -10431,7 +10431,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -11053,7 +11053,7 @@
    "bloomberg",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -12430,7 +12430,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -12464,7 +12464,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -12498,7 +12498,7 @@
    "capital",
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -12534,7 +12534,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -12570,7 +12570,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -12642,7 +12642,7 @@
    "business analyst",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -18399,7 +18399,7 @@
    "capital",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -18797,7 +18797,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -19186,7 +19186,7 @@
    "credit risk",
    "counterparty credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -19411,7 +19411,7 @@
    "quantitative",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -19520,7 +19520,7 @@
   "kw_hits": [
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -27217,7 +27217,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -27285,7 +27285,7 @@
   "kw_hits": [
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -27320,7 +27320,7 @@
   "kw_hits": [
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -27501,7 +27501,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -27579,7 +27579,7 @@
    "credit risk",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -27938,7 +27938,7 @@
    "quantitative",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -28457,7 +28457,7 @@
    "capital",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -28493,7 +28493,7 @@
    "capital",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -38276,7 +38276,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -45773,7 +45773,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -45808,7 +45808,7 @@
   "kw_hits": [
    "bloomberg"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -45926,7 +45926,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -45959,7 +45959,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -46111,7 +46111,7 @@
   "kw_hits": [
    "fixed income"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -46147,7 +46147,7 @@
    "capital",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -47817,7 +47817,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -47961,7 +47961,7 @@
   "kw_hits": [
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -48067,7 +48067,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -48100,7 +48100,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -48135,7 +48135,7 @@
   "kw_hits": [
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59301,7 +59301,7 @@
    "equity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59339,7 +59339,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59416,7 +59416,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59455,7 +59455,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59568,7 +59568,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59603,7 +59603,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59638,7 +59638,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59673,7 +59673,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59708,7 +59708,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59747,7 +59747,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59786,7 +59786,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -59978,7 +59978,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60017,7 +60017,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60094,7 +60094,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60130,7 +60130,7 @@
    "treasury",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60166,7 +60166,7 @@
    "treasury",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60242,7 +60242,7 @@
    "cfa",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60279,7 +60279,7 @@
    "cfa",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60316,7 +60316,7 @@
    "cfa",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60422,7 +60422,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -60455,7 +60455,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -95761,7 +95761,7 @@
    "sql",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -115706,7 +115706,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -116114,7 +116114,7 @@
    "cfa",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -116533,7 +116533,7 @@
    "cfa",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117315,7 +117315,7 @@
    "capital",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117352,7 +117352,7 @@
    "capital",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117423,7 +117423,7 @@
    "capital",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117458,7 +117458,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117494,7 +117494,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117599,7 +117599,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117634,7 +117634,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117669,7 +117669,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -117849,7 +117849,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 19,
@@ -118077,7 +118077,7 @@
    "business analyst",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -118117,7 +118117,7 @@
    "equity",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -118376,7 +118376,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -118960,7 +118960,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -119105,7 +119105,7 @@
    "market risk",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -119679,7 +119679,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -122899,7 +122899,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -123258,7 +123258,7 @@
    "liquidity",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -124933,7 +124933,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -125073,7 +125073,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -125109,7 +125109,7 @@
    "capital",
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -125399,7 +125399,7 @@
    "capital markets",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -125437,7 +125437,7 @@
    "capital markets",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -127013,7 +127013,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -128365,7 +128365,7 @@
    "capital",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -128400,7 +128400,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -128977,7 +128977,7 @@
   "salary": "$129,500 - $232,400",
   "salary_evidence": "Pay and benefits information Pay range $129,500.00 - $232,400.00 annualized salary, offers to be determin",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -131151,7 +131151,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -131467,7 +131467,7 @@
   "salary": "$110,000 - $188,750",
   "salary_evidence": "ses to senior leadership. Salary Range: $110,000 - $188,750 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -131500,7 +131500,7 @@
   "salary": "$41,600 - $66,560",
   "salary_evidence": "t StateStreet.com/careers Salary Range: $41,600 - $66,560 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -132206,7 +132206,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -132422,7 +132422,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -132455,7 +132455,7 @@
   "salary": "$41,600 - $66,560",
   "salary_evidence": "nancial services industry Salary Range: $41,600 - $66,560 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -132663,7 +132663,7 @@
   "salary": "$120,000 - $217,500",
   "salary_evidence": "dvanced degree preferred. Salary Range: $120,000 - $217,500 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -132803,7 +132803,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -133127,7 +133127,7 @@
    "capital",
    "rates"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -133269,7 +133269,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -133666,7 +133666,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -133736,7 +133736,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-05",
   "miss_count": 10,
@@ -134031,7 +134031,7 @@
   "salary": "$120,000 - $202,500",
   "salary_evidence": "dvanced degree preferred. Salary Range: $120,000 - $202,500 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -134422,7 +134422,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -134637,7 +134637,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -134741,7 +134741,7 @@
    "capital",
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -135680,7 +135680,7 @@
    "equity",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -135716,7 +135716,7 @@
    "fixed income",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -135751,7 +135751,7 @@
   "kw_hits": [
    "fixed income"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -136201,7 +136201,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -137716,7 +137716,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -138072,7 +138072,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -138367,7 +138367,7 @@
    "capital markets",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -138402,7 +138402,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -139385,7 +139385,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -139500,7 +139500,7 @@
    "enterprise risk",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -139535,7 +139535,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -139865,7 +139865,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -140254,7 +140254,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141005,7 +141005,7 @@
    "quantitative",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141042,7 +141042,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141116,7 +141116,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141199,7 +141199,7 @@
    "cfa",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141236,7 +141236,7 @@
    "cfa",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141348,7 +141348,7 @@
    "capital",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141424,7 +141424,7 @@
    "structured finance",
    "stress testing"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -141995,7 +141995,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -142177,7 +142177,7 @@
   "salary": "$110,000 - $130,000",
   "salary_evidence": "annual base salary for this position is $110,000 - $130,000. Additional incentive pay is available",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -143616,7 +143616,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -143721,7 +143721,7 @@
    "capital",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -143756,7 +143756,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -144826,7 +144826,7 @@
   "salary": "$100,000 - $130,000",
   "salary_evidence": "e, the expected base salary ranges from $100,000 to $130,000. It is not typical for offers to be mad",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -146248,7 +146248,7 @@
    "equity",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -146638,7 +146638,7 @@
    "fixed income",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -146676,7 +146676,7 @@
    "cfa",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -147297,7 +147297,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -147989,7 +147989,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -148610,7 +148610,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -148800,7 +148800,7 @@
    "operational risk",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -149425,7 +149425,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -149465,7 +149465,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -150217,7 +150217,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -150254,7 +150254,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -150621,7 +150621,7 @@
    "counterparty credit risk",
    "frtb"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -151088,7 +151088,7 @@
    "treasury",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -165286,7 +165286,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -165322,7 +165322,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -165358,7 +165358,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -165570,7 +165570,7 @@
    "capital",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -172216,7 +172216,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -185425,7 +185425,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -185812,7 +185812,7 @@
    "operational risk",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -186930,7 +186930,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -186966,7 +186966,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187002,7 +187002,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187038,7 +187038,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187270,7 +187270,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187310,7 +187310,7 @@
    "credit risk",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187347,7 +187347,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187614,7 +187614,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187730,7 +187730,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187767,7 +187767,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -187843,7 +187843,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188079,7 +188079,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188157,7 +188157,7 @@
    "quantitative",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188195,7 +188195,7 @@
    "quantitative",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188269,7 +188269,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188305,7 +188305,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188341,7 +188341,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188378,7 +188378,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188414,7 +188414,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188450,7 +188450,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188486,7 +188486,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188522,7 +188522,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188559,7 +188559,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188595,7 +188595,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188632,7 +188632,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188706,7 +188706,7 @@
    "capital",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188743,7 +188743,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188781,7 +188781,7 @@
    "quantitative",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188890,7 +188890,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188926,7 +188926,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188962,7 +188962,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -188999,7 +188999,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189035,7 +189035,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189072,7 +189072,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189111,7 +189111,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189149,7 +189149,7 @@
    "quantitative",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189332,7 +189332,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189370,7 +189370,7 @@
    "quantitative",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189445,7 +189445,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189559,7 +189559,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189596,7 +189596,7 @@
    "capital",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189674,7 +189674,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189711,7 +189711,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189749,7 +189749,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189864,7 +189864,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -189903,7 +189903,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192157,7 +192157,7 @@
   "kw_hits": [
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192229,7 +192229,7 @@
   "kw_hits": [
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192658,7 +192658,7 @@
    "cfa",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192694,7 +192694,7 @@
   "kw_hits": [
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192728,7 +192728,7 @@
   "salary": "$41,600 - $66,560",
   "salary_evidence": "firmative action employer Salary Range: $41,600 - $66,560 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192762,7 +192762,7 @@
   "salary": "$41,600 - $66,560",
   "salary_evidence": "firmative action employer Salary Range: $41,600 - $66,560 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192796,7 +192796,7 @@
   "salary": "$120,000 - $217,500",
   "salary_evidence": ". Salary Range & Benefits Salary Range: $120,000 - $217,500 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192830,7 +192830,7 @@
   "salary": "$120,000 - $202,500",
   "salary_evidence": "up for weak fundamentals. Salary Range: $120,000 - $202,500 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192866,7 +192866,7 @@
   "kw_hits": [
    "sql"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -192900,7 +192900,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194294,7 +194294,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194330,7 +194330,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194404,7 +194404,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194512,7 +194512,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194587,7 +194587,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194623,7 +194623,7 @@
   "kw_hits": [
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194659,7 +194659,7 @@
   "kw_hits": [
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194693,7 +194693,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194761,7 +194761,7 @@
   "salary": "$200,000 - $275,000",
   "salary_evidence": "Pay and benefits information Pay range $200,000.00 - $275,000.00 annualized salary, offers to be determin",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194799,7 +194799,7 @@
    "quantitative",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -194835,7 +194835,7 @@
   "kw_hits": [
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -198302,7 +198302,7 @@
    "capital",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206063,7 +206063,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206099,7 +206099,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206135,7 +206135,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206171,7 +206171,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206207,7 +206207,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206279,7 +206279,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206318,7 +206318,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206354,7 +206354,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206390,7 +206390,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206429,7 +206429,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206468,7 +206468,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206504,7 +206504,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206576,7 +206576,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206612,7 +206612,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206685,7 +206685,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206723,7 +206723,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206759,7 +206759,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206795,7 +206795,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206831,7 +206831,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206867,7 +206867,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206903,7 +206903,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206939,7 +206939,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -206976,7 +206976,7 @@
    "capital",
    "vba"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207014,7 +207014,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207050,7 +207050,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207087,7 +207087,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207125,7 +207125,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207161,7 +207161,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207198,7 +207198,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207271,7 +207271,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207307,7 +207307,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207343,7 +207343,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207379,7 +207379,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207415,7 +207415,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207451,7 +207451,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207487,7 +207487,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207525,7 +207525,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207563,7 +207563,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207599,7 +207599,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207671,7 +207671,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207707,7 +207707,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207743,7 +207743,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207779,7 +207779,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207815,7 +207815,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207851,7 +207851,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207888,7 +207888,7 @@
    "capital",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207925,7 +207925,7 @@
    "capital",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207961,7 +207961,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -207997,7 +207997,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208033,7 +208033,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208069,7 +208069,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208105,7 +208105,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208142,7 +208142,7 @@
    "capital",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208178,7 +208178,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208214,7 +208214,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208250,7 +208250,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208286,7 +208286,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208323,7 +208323,7 @@
    "capital",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208360,7 +208360,7 @@
    "capital",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208470,7 +208470,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208508,7 +208508,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208581,7 +208581,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208617,7 +208617,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208727,7 +208727,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208763,7 +208763,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -208836,7 +208836,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -222736,7 +222736,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -222770,7 +222770,7 @@
   "salary": "$110,000 - $179,000",
   "salary_evidence": "Pay Range : Minneapolis, MN-Pay Range: $110,000-$179,000 Chicago, IL-Pay Range: $120,000-$196,000",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -222810,7 +222810,7 @@
    "quantitative",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -223107,7 +223107,7 @@
    "operational risk",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -223630,7 +223630,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -224571,7 +224571,7 @@
    "python",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -224897,7 +224897,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -225006,7 +225006,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -225399,7 +225399,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -225512,7 +225512,7 @@
    "capital",
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -226538,7 +226538,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -226646,7 +226646,7 @@
   "kw_hits": [
    "liquidity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -226767,7 +226767,7 @@
    "counterparty",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -228701,7 +228701,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -228999,7 +228999,7 @@
    "liquidity",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -229036,7 +229036,7 @@
    "liquidity",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -229070,7 +229070,7 @@
   "salary": "$62,000 - $108,000",
   "salary_evidence": "Pay and benefits information Pay range $62,000.00 - $108,000.00 annualized salary, offers to be determin",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -229433,7 +229433,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -229509,7 +229509,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -229955,7 +229955,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -230483,7 +230483,7 @@
   "salary": "$52,000 - $87,880",
   "salary_evidence": "sset servicing solutions. Salary Range: $52,000 - $87,880 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -230595,7 +230595,7 @@
    "python",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -230784,7 +230784,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -231122,7 +231122,7 @@
    "vba",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -231506,7 +231506,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -231795,7 +231795,7 @@
    "sql",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -231908,7 +231908,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -231942,7 +231942,7 @@
   "salary": "$41,600 - $66,560",
   "salary_evidence": "t StateStreet.com/careers Salary Range: $41,600 - $66,560 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -232016,7 +232016,7 @@
    "liquidity",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -232050,7 +232050,7 @@
   "salary": "$144,000 - $180,000",
   "salary_evidence": "annual base salary for this position is $144,000-$180,000. General Description of Available Benef",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -232195,7 +232195,7 @@
   "kw_hits": [
    "sql"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -232229,7 +232229,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -232705,7 +232705,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -233468,7 +233468,7 @@
    "quantitative",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -233615,7 +233615,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -233921,7 +233921,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -234102,7 +234102,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -234377,7 +234377,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -234818,7 +234818,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -236120,7 +236120,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -236417,7 +236417,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -236834,7 +236834,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -236947,7 +236947,7 @@
   "kw_hits": [
    "fixed income"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -237068,7 +237068,7 @@
    "equity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -237105,7 +237105,7 @@
    "liquidity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -238106,7 +238106,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -238142,7 +238142,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -238178,7 +238178,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -239344,7 +239344,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -239759,7 +239759,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -240279,7 +240279,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -240875,7 +240875,7 @@
   "kw_hits": [
    "liquidity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -241061,7 +241061,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -241513,7 +241513,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -241550,7 +241550,7 @@
    "sql",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -241621,7 +241621,7 @@
   "salary": "$180,000 - $200,000",
   "salary_evidence": "annual base salary for this position is $180,000-$200,000.** General Description of Available Ben",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -241655,7 +241655,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -242371,7 +242371,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -242407,7 +242407,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -242445,7 +242445,7 @@
    "capital",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -242902,7 +242902,7 @@
    "market risk",
    "operational risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -243915,7 +243915,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -243952,7 +243952,7 @@
    "capital",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -245886,7 +245886,7 @@
    "liquidity",
    "fixed income"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -246835,7 +246835,7 @@
    "quantitative",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -246872,7 +246872,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -246906,7 +246906,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -247067,7 +247067,7 @@
    "capital",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -248205,7 +248205,7 @@
    "capital",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -248348,7 +248348,7 @@
    "capital",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -249502,7 +249502,7 @@
    "cfa",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -249540,7 +249540,7 @@
    "cfa",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -250269,7 +250269,7 @@
    "capital",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -250345,7 +250345,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -250379,7 +250379,7 @@
   "salary": "$120,000 - $217,500",
   "salary_evidence": "aningful business impact. Salary Range: $120,000 - $217,500 Annual The range quoted above applies to",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -250966,7 +250966,7 @@
    "python",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -251302,7 +251302,7 @@
    "model risk",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -251907,7 +251907,7 @@
    "capital",
    "rates"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -252288,7 +252288,7 @@
    "derivatives",
    "vba"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -253184,7 +253184,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -253951,7 +253951,7 @@
   "salary": "$110,000 - $179,000",
   "salary_evidence": "ion: Minneapolis - Minnesota Pay Range: $110,000-$179,000 USD annually (this range may not be appl",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -254103,7 +254103,7 @@
    "quantitative",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -254249,7 +254249,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -254808,7 +254808,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -254883,7 +254883,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -254922,7 +254922,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -255107,7 +255107,7 @@
    "treasury",
    "var"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -255967,7 +255967,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -256006,7 +256006,7 @@
    "capital markets",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -257656,7 +257656,7 @@
    "counterparty",
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259086,7 +259086,7 @@
    "credit risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259365,7 +259365,7 @@
    "quantitative",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259621,7 +259621,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259662,7 +259662,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259700,7 +259700,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259810,7 +259810,7 @@
    "operational risk",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259846,7 +259846,7 @@
   "kw_hits": [
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259884,7 +259884,7 @@
    "model risk",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -259991,7 +259991,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -260467,7 +260467,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -260819,7 +260819,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -260898,7 +260898,7 @@
    "python",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -261044,7 +261044,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -261402,7 +261402,7 @@
    "capital",
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -261483,7 +261483,7 @@
    "operational risk",
    "enterprise risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -261709,7 +261709,7 @@
   "salary": "$85,500 - $114,100",
   "salary_evidence": "Pay and benefits information Pay range $85,500.00 - $114,100.00 annualized salary, offers to be determin",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -262189,7 +262189,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -262704,7 +262704,7 @@
   "kw_hits": [
    "liquidity"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -262740,7 +262740,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -262778,7 +262778,7 @@
    "credit risk",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -262815,7 +262815,7 @@
    "sql",
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -263540,7 +263540,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -263574,7 +263574,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -263739,7 +263739,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -263773,7 +263773,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -263815,7 +263815,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -263853,7 +263853,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -264007,7 +264007,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -264351,7 +264351,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "opt_only",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -264431,7 +264431,7 @@
    "treasury",
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -265029,7 +265029,7 @@
    "operational risk",
    "stress testing"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -265661,7 +265661,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -265859,7 +265859,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -265895,7 +265895,7 @@
   "kw_hits": [
    "business analyst"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -266076,7 +266076,7 @@
    "treasury",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281113,7 +281113,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281265,7 +281265,7 @@
    "market risk",
    "cfa"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281301,7 +281301,7 @@
   "kw_hits": [
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281421,7 +281421,7 @@
    "equity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281463,7 +281463,7 @@
    "sql",
    "vba"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281571,7 +281571,7 @@
   "salary": "$52,500 - $84,000",
   "salary_evidence": "ning The pay range for this position is $52,500 - $84,000 with anticipated pay for new hires betwe",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281642,7 +281642,7 @@
    "python",
    "sql"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281676,7 +281676,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281710,7 +281710,7 @@
   "salary": "$80,000 - $168,000",
   "salary_evidence": "ning The pay range for this position is $80,000 - $168,000 with anticipated pay for new hires betwe",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -281746,7 +281746,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282573,7 +282573,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282609,7 +282609,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282643,7 +282643,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282677,7 +282677,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282711,7 +282711,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282745,7 +282745,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282779,7 +282779,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282852,7 +282852,7 @@
    "equity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282888,7 +282888,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282922,7 +282922,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282956,7 +282956,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -282992,7 +282992,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283026,7 +283026,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283062,7 +283062,7 @@
   "kw_hits": [
    "quantitative"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283096,7 +283096,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283130,7 +283130,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283164,7 +283164,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283201,7 +283201,7 @@
    "equity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283237,7 +283237,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283419,7 +283419,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283453,7 +283453,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283489,7 +283489,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283525,7 +283525,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283561,7 +283561,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283597,7 +283597,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283633,7 +283633,7 @@
   "kw_hits": [
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283669,7 +283669,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283703,7 +283703,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283737,7 +283737,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283771,7 +283771,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283805,7 +283805,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283839,7 +283839,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283873,7 +283873,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283907,7 +283907,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283941,7 +283941,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -283977,7 +283977,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284013,7 +284013,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284372,7 +284372,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284555,7 +284555,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284591,7 +284591,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284629,7 +284629,7 @@
    "capital",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284665,7 +284665,7 @@
   "kw_hits": [
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284742,7 +284742,7 @@
    "capital markets",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284778,7 +284778,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284855,7 +284855,7 @@
    "equity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284892,7 +284892,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -284931,7 +284931,7 @@
    "equity",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285043,7 +285043,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285079,7 +285079,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285117,7 +285117,7 @@
    "credit risk",
    "equity"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285154,7 +285154,7 @@
    "liquidity",
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285190,7 +285190,7 @@
   "kw_hits": [
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285224,7 +285224,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285260,7 +285260,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285296,7 +285296,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285332,7 +285332,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285366,7 +285366,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285402,7 +285402,7 @@
   "kw_hits": [
    "credit risk"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285438,7 +285438,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285474,7 +285474,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285511,7 +285511,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -285551,7 +285551,7 @@
    "stress testing",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -286889,7 +286889,7 @@
    "rwa",
    "balance sheet"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -286967,7 +286967,7 @@
    "rates",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -287003,7 +287003,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -287039,7 +287039,7 @@
   "kw_hits": [
    "treasury"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -287077,7 +287077,7 @@
    "cfa",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -287153,7 +287153,7 @@
    "credit risk",
    "collateral"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -287296,7 +287296,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
@@ -287333,7 +287333,7 @@
    "capital",
    "capital markets"
   ],
-  "state": "dismissed",
+  "state": "new",
   "first_run": true,
   "last_seen_live": "2026-10-11",
   "miss_count": 0,
