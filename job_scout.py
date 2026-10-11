@@ -188,13 +188,36 @@ def _terms(c):
     return list(TITLE_TERMS) if (c.get("search") and TITLE_TERMS) else (c.get("search") or [""])
 
 
-def _parallel_terms(fetch):
+def _pool_map(fn, items, workers):
+    """fn over items side by side, results in item order (pages are independent once the page offsets are known)."""
+    items = list(items)
+    if not items:
+        return []
+    with ThreadPoolExecutor(max_workers=max(1, min(int(workers), len(items)))) as pool:
+        return list(pool.map(fn, items))
+
+
+def _parallel_terms(fetch=None, board=None, default_workers=3):
     """Runs a term-by-term fetcher over round-robin chunks of the title list in parallel threads and merges the rows
     (first id wins, complete only if every chunk was). 78 sequential searches took 8 to 15 minutes on Deloitte, HSBC
-    and KPMG; config `term_workers` sets the thread count (default 3 above 20 terms, 1 otherwise)."""
+    and KPMG; config `term_workers` sets the thread count (default 3 above 20 terms, 1 otherwise).
+    `board(c)` is an optional whole-board reader tried first when there are several terms: it returns (rows, complete)
+    when the board fits under config `full_board_max` (default 1900), or None to fall back to the term search. A
+    board read in a few parallel pages is far cheaper than 78 searches and returns a superset, so the title list is
+    then applied only by the page filter (same trade as workday())."""
+    if fetch is None:
+        return lambda f: _parallel_terms(f, board, default_workers)
+
     def wrapped(c):
         terms = _terms(c)
-        workers = max(1, min(int(c.get("term_workers", 3 if len(terms) > 20 else 1)), len(terms)))
+        if board and len(terms) > 1 and terms != [""]:
+            try:
+                got = board(c)
+            except Exception:  # noqa: BLE001  probe failed: fall back to the term search
+                got = None
+            if got is not None:
+                return got
+        workers = max(1, min(int(c.get("term_workers", default_workers if len(terms) > 20 else 1)), len(terms)))
         if workers == 1 or terms == [""]:
             return fetch(c)
         chunks = [terms[i::workers] for i in range(workers)]
@@ -600,16 +623,29 @@ def goldman(c):
     query = ("query GetRoles($searchQueryInput: RoleSearchQueryInput!) { roleSearch(searchQueryInput: "
              "$searchQueryInput) { totalCount items { roleId jobTitle division descriptionHtml lastPostedDate createdDate "
              "locations { city state country } externalSource { sourceId } } } }")
+
+    def call(term, size, number):
+        return http("https://api-higher.gs.com/gateway/api/v1/graphql", data={
+            "operationName": "GetRoles", "query": query, "variables": {"searchQueryInput": {
+                "page": {"pageSize": size, "pageNumber": number},
+                "sort": {"sortStrategy": "RELEVANCE", "sortOrder": "DESC"}, "filters": [],
+                "experiences": ["PROFESSIONAL", "EARLY_CAREER"], "searchTerm": term}}})
+
+    if len(terms) > 1:
+        # The whole board (649 roles on 2026-10-11) is 4 calls at pageSize 200 (the gateway's maximum), against 78 term
+        # searches of up to 4 pages each, and is a superset: the title list is then applied only by the page filter.
+        try:
+            tot = (((call("", 1, 0).get("data") or {}).get("roleSearch") or {}).get("totalCount"))
+        except Exception:  # noqa: BLE001  probe failed: fall back to the term search
+            tot = None
+        if isinstance(tot, int) and tot <= int(c.get("full_board_max", 1900)):
+            terms, page, cap, ceiling = [""], 200, 2000, 2000
     out, seen = [], set()
     complete = True
     for term in terms:
         offset, term_complete, limit, total = 0, False, cap, None
         while offset < limit:
-            body = {"operationName": "GetRoles", "query": query, "variables": {"searchQueryInput": {
-                "page": {"pageSize": page, "pageNumber": offset // page},
-                "sort": {"sortStrategy": "RELEVANCE", "sortOrder": "DESC"}, "filters": [],
-                "experiences": ["PROFESSIONAL", "EARLY_CAREER"], "searchTerm": term}}}
-            d = http("https://api-higher.gs.com/gateway/api/v1/graphql", data=body)
+            d = call(term, page, offset // page)
             if d.get("errors"):
                 raise RuntimeError(f"goldman graphql: {d['errors'][0].get('message')}")
             rows = ((d.get("data") or {}).get("roleSearch") or {}).get("items") or []
@@ -636,6 +672,9 @@ def goldman(c):
     return out, complete
 
 
+_SF_NO_PAGING = set()  # hosts whose RSS feed ignores startrow (page 2 repeated page 1), so a full first page is all a term gives
+
+
 @_parallel_terms
 def successfactors(c):
     """SAP SuccessFactors Career Site Builder tenants that expose the public RSS job feed. Needs
@@ -653,6 +692,9 @@ def successfactors(c):
     for term in terms:
         offset, term_complete, term_seen = 0, False, set()
         while offset < cap:
+            if offset and c["host"] in _SF_NO_PAGING:
+                term_complete = True  # the feed would only repeat page 1 (Scotiabank and Fitch, verified live 2026-10-11)
+                break
             q = {"locale": c.get("locale", "en_US"), "startrow": offset}
             if term:
                 q["keywords"] = f"({term})"
@@ -682,6 +724,8 @@ def successfactors(c):
                     posted = ""
                 out.append(dict(id=jid, title=title, location=loc, url=link, posted=posted,
                                 desc=strip_html(it.findtext("description", ""))))
+            if offset and items and not fresh:
+                _SF_NO_PAGING.add(c["host"])  # a whole page of repeats: startrow is ignored, skip page 2 for the other terms
             offset += page
             if len(items) < page or not fresh:
                 term_complete = True
@@ -776,14 +820,51 @@ def _icims_description(job):
     return strip_html(data.get("description", "")), approx, "approx" if approx else ""
 
 
-@_parallel_terms
+def _eightfold_page(c, term, start):
+    q = urllib.parse.urlencode({"domain": c["domain"], "start": start, "num": 10, "query": term})
+    return http(f"https://{c['host']}/api/apply/v2/jobs?{q}", headers={"Accept": "application/json"})
+
+
+def _eightfold_rows(c, rows, seen, out):
+    """Appends the new positions of one Eightfold list page to out."""
+    for j in rows:
+        jid = str(j.get("id") or "")
+        if not jid or jid in seen:
+            continue
+        seen.add(jid)
+        locs = j.get("locations") or [j.get("location") or ""]
+        posted = ""
+        if j.get("t_create"):
+            posted = datetime.fromtimestamp(int(j["t_create"]), timezone.utc).date().isoformat()
+        out.append(dict(id=jid, title=j.get("name", "") or "", location=" | ".join(str(x) for x in locs if x),
+                        url=j.get("canonicalPositionUrl") or f"https://{c['host']}/careers/job/{jid}", posted=posted))
+
+
+def _eightfold_board(c):
+    """Whole board: an empty query lists every position and page 1 states the count (HSBC 1364 on 2026-10-11, 137
+    pages), so the other pages are fetched page_workers (default 3) at a time. 78 term searches of up to 10 pages each
+    cost about 800 requests and 43 to 51 HTTP 429s on HSBC; the board read is 137 requests. None when the board is
+    over full_board_max."""
+    first = _eightfold_page(c, "", 0)
+    total = first.get("count")
+    if not isinstance(total, int) or total > int(c.get("full_board_max", 1900)):
+        return None
+    out, seen = [], set()
+    _eightfold_rows(c, first.get("positions") or [], seen, out)
+    for d in _pool_map(lambda st: _eightfold_page(c, "", st), range(10, total, 10), c.get("page_workers", 3)):
+        _eightfold_rows(c, d.get("positions") or [], seen, out)  # a failed page raises: caller falls back to the term search
+    return out, len(seen) >= total
+
+
+@_parallel_terms(board=_eightfold_board)
 def eightfold(c):
     """Eightfold career sites (static assets on static.vscdn.net) - public /api/apply/v2/jobs endpoint.
     Needs host and domain (e.g. careers.newyorklife.com / newyorklife.com). Verified live 2026-10-02
     against New York Life (279 jobs, whole board) and HSBC (portal.careers.hsbc.com, thousands of jobs,
     so it opts into 'search' terms). The endpoint caps every page at 10 results whatever `num` says,
     so it pages with start += 10, once per search term (no 'search' key = the whole board, capped by
-    max_per_term). The list rows carry no description; describe() reads it from the per-job endpoint."""
+    max_per_term). With several terms a board under full_board_max is read whole instead (_eightfold_board).
+    The list rows carry no description; describe() reads it from the per-job endpoint."""
     page = 10
     terms = _terms(c)
     terms = [terms] if isinstance(terms, str) else terms
@@ -794,23 +875,12 @@ def eightfold(c):
     for term in terms:
         start, term_complete, limit = 0, False, cap
         while start < limit:
-            q = urllib.parse.urlencode({"domain": c["domain"], "start": start, "num": page, "query": term})
-            d = http(f"https://{c['host']}/api/apply/v2/jobs?{q}", headers={"Accept": "application/json"})
+            d = _eightfold_page(c, term, start)
             total = d.get("count")
             if start == 0 and isinstance(total, int):
                 limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
             rows = d.get("positions") or []
-            for j in rows:
-                jid = str(j.get("id") or "")
-                if not jid or jid in seen:
-                    continue
-                seen.add(jid)
-                locs = j.get("locations") or [j.get("location") or ""]
-                posted = ""
-                if j.get("t_create"):
-                    posted = datetime.fromtimestamp(int(j["t_create"]), timezone.utc).date().isoformat()
-                out.append(dict(id=jid, title=j.get("name", "") or "", location=" | ".join(str(x) for x in locs if x),
-                                url=j.get("canonicalPositionUrl") or f"https://{c['host']}/careers/job/{jid}", posted=posted))
+            _eightfold_rows(c, rows, seen, out)
             start += page
             if len(rows) < page or (total is not None and start >= total):
                 term_complete = True
@@ -869,7 +939,42 @@ def talentbrew(c):
     return out, page > total_pages
 
 
-@_parallel_terms
+def _avature_results_page(c, term_path, off):
+    return http(f"https://{c['host']}/{c['list_path']}/{term_path}?jobOffset={off}", raw=True, timeout=40,
+                headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+
+
+def _avature_result_cards(raw, seen, out):
+    """Appends the Deloitte-style cards of one list page to out (new ids only); returns the page's card count."""
+    arts = raw.split('class="article--result')[1:]
+    for a in arts:
+        m = re.search(r'<a href="([^"]+/JobDetail/[^"]+/(\d+))"[^>]*>\s*(.*?)\s*</a>', a, re.S)
+        if not m or m.group(2) in seen:
+            continue
+        seen.add(m.group(2))
+        spans = [strip_html(x) for x in re.findall(r'<span>\s*(.*?)\s*</span>', a, re.S)]
+        out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=html.unescape(m.group(1)),
+                        location=spans[-1] if spans else "", posted=""))
+    return len(arts)
+
+
+def _avature_board(c):
+    """Whole board of a Deloitte-style tenant: the blank search lists every job (about 1400 on 2026-10-11, 140 pages
+    of 10, while the page only says "999+"), so pages are fetched page_workers (default 8) at a time until one comes
+    up short. None when the tenant is another variant or has more than full_board_max jobs."""
+    if c.get("variant") != "results":
+        return None
+    page, workers, limit = int(c.get("page_size", 10)), int(c.get("page_workers", 8)), int(c.get("full_board_max", 1900))
+    out, seen = [], set()
+    for start in range(0, limit, workers * page):
+        offs = range(start, min(start + workers * page, limit), page)
+        raws = _pool_map(lambda off: _avature_results_page(c, "", off), offs, workers)  # a failed page raises: caller falls back
+        if any([_avature_result_cards(raw, seen, out) < page for raw in raws]):
+            return out, True
+    return None
+
+
+@_parallel_terms(board=_avature_board)
 def avature(c):
     """Avature career sites with a server-rendered list page. Needs host and list_path (the tenant's
     job-list page, e.g. "careers/OpenRoles"; it differs per tenant). Verified live 2026-10-02 against
@@ -900,26 +1005,29 @@ def avature(c):
         for term in _terms(c):
             for off in range(0, int(c.get("max_per_term", 200)), page):
                 try:
-                    raw = http(f"https://{c['host']}/{c['list_path']}/{urllib.parse.quote(term)}?jobOffset={off}", raw=True, timeout=40,
-                               headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+                    raw = _avature_results_page(c, urllib.parse.quote(term), off)
                 except Exception:  # noqa: BLE001
                     complete = False
                     break
-                arts = raw.split('class="article--result')[1:]
-                for a in arts:
-                    m = re.search(r'<a href="([^"]+/JobDetail/[^"]+/(\d+))"[^>]*>\s*(.*?)\s*</a>', a, re.S)
-                    if not m or m.group(2) in seen:
-                        continue
-                    seen.add(m.group(2))
-                    spans = [strip_html(x) for x in re.findall(r'<span>\s*(.*?)\s*</span>', a, re.S)]
-                    out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=html.unescape(m.group(1)),
-                                    location=spans[-1] if spans else "", posted=""))
-                if len(arts) < page:
+                if _avature_result_cards(raw, seen, out) < page:
                     break
         return out, complete
+
+    def get(off):
+        return http(f"https://{c['host']}/{c['list_path']}?jobOffset={off}", raw=True, timeout=40,
+                    headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+
+    pages = {}  # offset -> html already fetched
+    if c.get("variant") == "details":
+        # Macquarie states its total on page 1 (591 results, 9 per page: 66 pages took 140s one after another), so
+        # the other pages are independent: fetch them side by side (page_workers, default 4), then parse in order.
+        pages[0] = get(0)
+        total = re.search(r'(\d+) results"', pages[0])
+        if total:
+            offs = list(range(page, min(int(total.group(1)), cap), page))
+            pages.update(zip(offs, _pool_map(get, offs, c.get("page_workers", 4))))
     while offset < cap:
-        raw = http(f"https://{c['host']}/{c['list_path']}?jobOffset={offset}", raw=True, timeout=40,
-                   headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        raw = pages.pop(offset, None) or get(offset)
         arts = raw.split('class="article article--result')[1:]
         for a in arts:
             if c.get("variant") == "details":
@@ -975,34 +1083,60 @@ def _avature_feed_date(c, job):
     return ""
 
 
-@_parallel_terms
+def _kpmg_cards(raw, seen, out):
+    """Appends the job cards of one KPMG list page to out (new ids only); returns (cards on the page, new ones)."""
+    cards = raw.split('<a href="/jobdetail/?jobId=')[1:]
+    new = 0
+    for a in cards:
+        jid = re.match(r"(\d+)", a)
+        if not jid or jid.group(1) in seen:
+            continue
+        seen.add(jid.group(1))
+        new += 1
+        t = re.search(r'<div class="h5 text-dark-grey">\s*(.*?)\s*</div>', a, re.S)
+        l = re.search(r'<div class="text-xs text-dark-grey">\s*([^<]*?\|[^<]*?)\s*</div>', a, re.S)
+        out.append(dict(id=jid.group(1), title=strip_html(t.group(1)) if t else "",
+                        url=f"https://www.kpmguscareers.com/jobdetail/?jobId={jid.group(1)}",
+                        location=strip_html(l.group(1)).split("|", 1)[-1].strip() if l else "", posted=""))
+    return len(cards), new
+
+
+def _kpmg_page(term, pg):
+    return http(f"https://www.kpmguscareers.com/job-search/?keyword={urllib.parse.quote(term)}&spage={pg}",
+                raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+
+
+def _kpmg_board(c):
+    """Whole KPMG board: an empty keyword lists every job (870 on 2026-10-11, 73 pages of 12) and page 1 states the
+    total in <span data-action="count">, so the other pages are fetched side by side (page_workers, default 4)."""
+    first = _kpmg_page("", 1)
+    m = re.search(r'data-action="count">(\d+)<', first)
+    if not m or int(m.group(1)) > int(c.get("full_board_max", 1900)):
+        return None
+    out, seen = [], set()
+    _kpmg_cards(first, seen, out)
+    pages = _pool_map(lambda pg: _kpmg_page("", pg), range(2, -(-int(m.group(1)) // 12) + 1), c.get("page_workers", 4))
+    for raw in pages:  # a failed page raises, so the caller falls back to the term search rather than returning a partial board
+        _kpmg_cards(raw, seen, out)
+    return out, True
+
+
+@_parallel_terms(board=_kpmg_board)
 def kpmg(c):
     """KPMG US careers (WordPress, server-rendered). /job-search/?keyword=<term>&spage=<n> returns 12 cards per
     page; each card links /jobdetail/?jobId=N and carries a "Practice | Location" line. Verified live
-    2026-10-11. `posted` stays blank (cards show no date)."""
+    2026-10-11. `posted` stays blank (cards show no date). With several terms the whole board is read first
+    (_kpmg_board) and the term search is only the fallback for a board over full_board_max."""
     out, seen, complete = [], set(), True
     for term in _terms(c):
         for pg in range(1, int(c.get("max_pages", 12)) + 1):
             try:
-                raw = http(f"https://www.kpmguscareers.com/job-search/?keyword={urllib.parse.quote(term)}&spage={pg}",
-                           raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+                raw = _kpmg_page(term, pg)
             except Exception:  # noqa: BLE001
                 complete = False
                 break
-            cards = raw.split('<a href="/jobdetail/?jobId=')[1:]
-            new = 0
-            for a in cards:
-                jid = re.match(r"(\d+)", a)
-                if not jid or jid.group(1) in seen:
-                    continue
-                seen.add(jid.group(1))
-                new += 1
-                t = re.search(r'<div class="h5 text-dark-grey">\s*(.*?)\s*</div>', a, re.S)
-                l = re.search(r'<div class="text-xs text-dark-grey">\s*([^<]*?\|[^<]*?)\s*</div>', a, re.S)
-                out.append(dict(id=jid.group(1), title=strip_html(t.group(1)) if t else "",
-                                url=f"https://www.kpmguscareers.com/jobdetail/?jobId={jid.group(1)}",
-                                location=strip_html(l.group(1)).split("|", 1)[-1].strip() if l else "", posted=""))
-            if len(cards) < 12 or not new:
+            n_cards, new = _kpmg_cards(raw, seen, out)
+            if n_cards < 12 or not new:
                 break
     return out, complete
 

@@ -149,3 +149,85 @@ def test_workday_shares_one_worker_pool_across_terms_and_pages():
         jobs, complete = js.workday(c)
     assert len(jobs) == 120 and complete  # the empty term costs one request and adds nothing
     assert 2 < state["peak"] <= 4  # more than term_workers, never above term_workers x page_workers
+
+
+def _counting(handler):
+    calls = []
+
+    def _http(url, data=None, headers=None, timeout=20, raw=False):
+        calls.append(url if data is None else (url, data))
+        out = handler(url, data)
+        return (out.encode() if isinstance(out, str) else out) if raw else out
+    return _http, calls
+
+
+def test_kpmg_reads_whole_board_in_parallel_pages_else_falls_back_to_terms():
+    card = lambda i: f'<a href="/jobdetail/?jobId={i}"><div class="h5 text-dark-grey">Role {i}</div></a>'
+    page = lambda pg, n, total: f'<span data-action="count">{total}</span> Results' + "".join(card(pg * 100 + k) for k in range(n))
+    handler = lambda url, data: page(int(url.rsplit("spage=", 1)[1]), 12 if "spage=3" not in url else 5, 29)
+    fake, calls = _counting(handler)
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
+        jobs, complete = js.kpmg(dict(search=["x"]))
+    assert complete and len(jobs) == 29 and len(calls) == 3 and all("keyword=&" in u for u in calls)  # one empty-keyword board, not per term
+    fake, calls = _counting(handler)
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
+        js.kpmg(dict(search=["x"], full_board_max=10, term_workers=1))
+    assert any("keyword=a" in u for u in calls) and any("keyword=b" in u for u in calls)  # board over the limit: every term still searched
+
+
+def test_avature_results_board_stops_at_first_short_page_and_macquarie_prefetches_pages():
+    card = lambda i: f'<article class="article--result "><a href="https://h/JobDetail/T-{i}/{i}">T {i}</a><span>Loc {i}</span></article>'
+    off = lambda url: int(url.split("jobOffset=")[1])
+    fake, calls = _counting(lambda url, data: "".join(card(i) for i in range(off(url), min(23, off(url) + 10))))
+    c = dict(host="h", list_path="p", variant="results", search=["x"], page_workers=2)
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
+        jobs, complete = js.avature(c)
+    assert complete and len(jobs) == 23 and all("/p/?jobOffset=" in u for u in calls)  # blank search, no per-term path
+
+    mq = lambda i: (f'<article class="article article--result"><a class="link" href="https://h/JobDetail?jobId={i}">Job {i}</a>'
+                    f'<img alt="Office Location:"><p>Sydney</p></article>')
+    fake, calls = _counting(lambda url, data: '<h2>25 results" x</h2>' + "".join(mq(i) for i in range(off(url), min(25, off(url) + 9))))
+    with mock.patch.object(js, "http", fake):
+        jobs, complete = js.avature(dict(host="h", list_path="p", variant="details", page_size=9))
+    assert complete and len(jobs) == 25 and len(calls) == 3  # 9 + 9 + 7, none fetched twice
+
+
+def test_eightfold_reads_whole_board_with_empty_query_else_searches_terms():
+    start = lambda url: int(url.split("start=")[1].split("&")[0])
+    board = lambda url, data: {"count": 25, "positions": [dict(id=i + 1, name=f"Job {i}", locations=["London"]) for i in range(start(url), min(25, start(url) + 10))]}
+    fake, calls = _counting(board)
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
+        jobs, complete = js.eightfold(dict(host="h", domain="d", search=["x"]))
+    assert complete and len(jobs) == 25 and len(calls) == 3 and all(u.endswith("query=") for u in calls)
+    fake, calls = _counting(board)
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
+        js.eightfold(dict(host="h", domain="d", search=["x"], full_board_max=10, term_workers=1))
+    assert {u.rsplit("query=", 1)[1] for u in calls} == {"", "a", "b"}  # the probe, then both terms
+
+
+def test_goldman_reads_whole_board_at_page_size_200_else_searches_terms():
+    role = lambda i: dict(roleId=f"R{i}_x", jobTitle=f"T{i}", descriptionHtml="<p>d</p>", lastPostedDate="2026-10-01", locations=[], externalSource=None)
+
+    def gql(url, data):
+        v = data["variables"]["searchQueryInput"]
+        size, num = v["page"]["pageSize"], v["page"]["pageNumber"]
+        return {"data": {"roleSearch": {"totalCount": 450, "items": [role(i) for i in range(num * size, min(450, (num + 1) * size))]}}}
+    sizes = lambda calls: [d["variables"]["searchQueryInput"]["page"]["pageSize"] for _, d in calls]
+    fake, calls = _counting(gql)
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
+        jobs, complete = js.goldman(dict(search=["x"]))
+    assert complete and len(jobs) == 450 and sizes(calls) == [1, 200, 200, 200]
+    fake, calls = _counting(gql)
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b"]):
+        js.goldman(dict(search=["x"], full_board_max=100))
+    assert {d["variables"]["searchQueryInput"]["searchTerm"] for _, d in calls} == {"", "a", "b"}
+
+
+def test_successfactors_skips_page_two_once_a_feed_is_seen_to_ignore_startrow():
+    item = lambda i: f"<item><title>Role {i} (NY)</title><link>https://h/job/NY/Role/{i}/</link><description>d</description></item>"
+    fake, calls = _counting(lambda url, data: "<rss><channel>" + "".join(item(i) for i in range(20)) + "</channel></rss>")  # startrow ignored
+    js._SF_NO_PAGING.discard("h")
+    with mock.patch.object(js, "http", fake), mock.patch.object(js, "TITLE_TERMS", ["a", "b", "c"]):
+        jobs, complete = js.successfactors(dict(host="h", search=["x"], term_workers=1))
+    js._SF_NO_PAGING.discard("h")
+    assert complete and len(jobs) == 20 and len(calls) == 4  # term a: page 1 and the repeat; b and c: page 1 only
