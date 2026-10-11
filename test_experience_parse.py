@@ -112,3 +112,9 @@ def test_title_fallback_is_labelled_and_conservative(title, expected):
     assert val == expected
     if expected is not None:
         assert ev == f"inferred from title: {title}"
+
+
+def test_maximum_years_is_not_a_requirement():
+    assert classify_experience("Analyst", "If you have no more than three years of professional experience and fit this profile, apply.")[0] is None
+    assert classify_experience("Analyst", "Candidates have at most 2 years of relevant experience.")[0] is None
+    assert classify_experience("Analyst", "Requires three years of professional experience.")[0] == 3

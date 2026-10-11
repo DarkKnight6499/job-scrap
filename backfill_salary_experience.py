@@ -162,7 +162,7 @@ def fetch_one(row, c, limiter):
     return dict(rec, status="ok", salary=salary, salary_evidence=sev, experience=exp, experience_evidence=eev)
 
 
-def apply_cached(row, rec):
+def apply_cached(row, rec, stated_only=False):
     """Changes proposed for one row from its cache record."""
     changes = []
     if rec.get("status") != "ok":
@@ -173,14 +173,15 @@ def apply_cached(row, rec):
             changes.append(dict(kind=reason, field="salary", old=row.get("salary"), new=rec["salary"],
                                 evidence=rec.get("salary_evidence", ""),
                                 extra={"salary_evidence": rec.get("salary_evidence", "")}))
-    if wants_experience(row) and rec.get("experience") is not None:
+    guessed = str(rec.get("experience_evidence") or "").startswith("inferred from title")  # a title guess, not stated years
+    if wants_experience(row) and rec.get("experience") is not None and not (stated_only and guessed):
         changes.append(dict(kind="experience N/A->value", field="experience", old=row.get("experience"),
                             new=rec["experience"], evidence=rec.get("experience_evidence", ""),
                             extra={"experience_evidence": rec.get("experience_evidence", "")}))
     return changes
 
 
-def run(queue_path, config_path, out_dir, limit=None, all_states=False, threads=3, apply=False, rate=MAX_REQ_PER_S):
+def run(queue_path, config_path, out_dir, limit=None, all_states=False, threads=3, apply=False, rate=MAX_REQ_PER_S, stated_only=False):
     queue_path, out_dir = Path(queue_path), Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     cfg = json.loads(Path(config_path).read_text(encoding="utf-8"))
@@ -230,7 +231,7 @@ def run(queue_path, config_path, out_dir, limit=None, all_states=False, threads=
             continue
         counts["fetched" if rec["status"] == "ok" else rec["status"]] += 1
         by_ats[ats][rec["status"]] += 1
-        for ch in apply_cached(row, rec):
+        for ch in apply_cached(row, rec, stated_only):
             counts[ch["kind"]] += 1
             by_ats[ats][ch["kind"]] += 1
             changes.append(dict(id=row["id"], company=row["company"], field=ch["field"], old=ch["old"],
@@ -274,11 +275,13 @@ def main():
     ap.add_argument("--all-states", action="store_true", help="Also process applied/dismissed rows")
     ap.add_argument("--threads", type=int, default=3)
     ap.add_argument("--dry-run", action="store_true", help="Default behaviour; accepted for symmetry")
+    ap.add_argument("--stated-only", action="store_true",
+                    help="Skip experience values inferred from the title; write only years the description states")
     ap.add_argument("--apply", action="store_true", help="Rewrite --queue with the patched rows (default: dry run)")
     a = ap.parse_args()
     if a.apply and a.dry_run:
         ap.error("--apply and --dry-run are mutually exclusive")
-    run(a.queue, a.config, a.out, a.limit, a.all_states, a.threads, a.apply)
+    run(a.queue, a.config, a.out, a.limit, a.all_states, a.threads, a.apply, stated_only=a.stated_only)
 
 
 if __name__ == "__main__":

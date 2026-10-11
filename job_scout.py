@@ -2219,6 +2219,9 @@ def _num_val(tok):
     return int(tok) if tok.isdigit() else _NUM_WORDS[tok]
 
 
+_YEARS_MAX_BEFORE_RE = re.compile(r"(?:no more than|not more than|at most|up to|less than|fewer than|under|maximum of|a maximum of)\s+(?:about\s+)?$", re.I)
+
+
 def _stated_experience_years(text):
     """Stated years-of-experience requirement the original regexes miss: number words, "(3)" parentheticals,
     ranges, "or more", bare "N years of ... experience", "N years' experience", structured fields. Returns
@@ -2244,6 +2247,8 @@ def _stated_experience_years(text):
         after = text[m.end():m.end() + 100]
         if _YEARS_NOT_REQ_AFTER_RE.match(after) or _YEARS_NOT_REQ_BEFORE_RE.search(sent_before):
             continue
+        if _YEARS_MAX_BEFORE_RE.search(sent_before):
+            continue  # "no more than three years of experience" is a ceiling (an entry-level pitch), not a floor
         if re.search(r"(?:over|more than|nearly|almost|for|with)\s*$", sent_before, re.I) and _ORG_WORDS_RE.search(
                 sent_before) and not re.search(r"\b(?:candidates?|applicants?|you|looking|seeking|require[sd]?|need)\b",
                                                sent_before, re.I):

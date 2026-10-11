@@ -121,3 +121,12 @@ def test_only_target_fields_change(env):
     for k, v in r.items():
         if k not in ("salary", "salary_evidence", "experience", "experience_evidence"):
             assert p[k] == v
+
+
+def test_stated_only_skips_title_guesses():
+    rec = dict(status="ok", salary="Unclear", salary_evidence="", experience=6, experience_evidence="inferred from title: VP")
+    r = row("g")
+    assert [c["field"] for c in bse.apply_cached(r, rec)] == ["experience"]
+    assert bse.apply_cached(r, rec, stated_only=True) == []
+    rec["experience_evidence"] = "5+ years of experience required"
+    assert [c["field"] for c in bse.apply_cached(r, rec, stated_only=True)] == ["experience"]
