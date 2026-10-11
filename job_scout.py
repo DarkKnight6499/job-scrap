@@ -1578,6 +1578,28 @@ def _page_date(raw):
     return ""
 
 
+def _brassring_detail(c, jid):
+    """Description for one BrassRing req: same cookie + RFT session as brassring(), then the page's own
+    Ajax/JobDetails call, whose textarea answers (responsibilities, skills, about us...) are the posting body."""
+    import http.cookiejar
+    base = f"https://{c['host']}"
+    pid, sid = str(c["partnerid"]), str(c["siteid"])
+    ref = f"{base}/TGnewUI/Search/home/HomeWithPreLoad?partnerid={pid}&siteid={sid}&PageType=JobDetails&jobid={jid}"
+    cj = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+    page = opener.open(urllib.request.Request(ref, headers={"User-Agent": BROWSER_UA}), timeout=60).read().decode("utf-8", "ignore")
+    tok = next(ck.value for ck in cj if ck.name == f"tg_session_{pid}_{sid}")
+    rft = re.search(r'name="__RequestVerificationToken"[^>]*value="([^"]+)"', page).group(1)
+    body = {"partnerId": pid, "siteId": sid, "jobid": str(jid), "configMode": "", "jobSiteId": sid, "encryptedSessionValue": tok}
+    req = urllib.request.Request(base + "/TgNewUI/Search/Ajax/JobDetails", data=json.dumps(body).encode(), headers={
+        "User-Agent": BROWSER_UA, "Content-Type": "application/json; charset=UTF-8", "X-Requested-With": "XMLHttpRequest",
+        "Accept": "application/json, text/javascript, */*; q=0.01", "Referer": ref, "Origin": base, "RFT": rft})
+    d = json.loads(opener.open(req, timeout=60).read())
+    qs = ((d.get("ServiceResponse") or {}).get("Jobdetails") or {}).get("JobDetailQuestions") or []
+    return strip_html(" ".join(f"{q.get('QuestionName') or ''} {q.get('AnswerValue') or ''}" for q in qs
+                               if q.get("QuestionType") == "textarea"))[:30000]
+
+
 def describe(c, job):
     """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
     posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate and the other
@@ -1679,6 +1701,48 @@ def describe(c, job):
         if i < 0:
             return "", "", ""
         return strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[raw.find(">", i) + 1:]))[:30000], "", ""
+    if ats == "lever":  # queue rows carry no desc; the single-posting API returns the fields lever() builds it from
+        host = "api.eu.lever.co" if c.get("region") == "eu" else "api.lever.co"
+        j = http(f"https://{host}/v0/postings/{c['slug']}/{job['id']}")
+        text = j.get("descriptionPlain") or strip_html(j.get("description", ""))
+        for lst in j.get("lists") or []:
+            text += " " + (lst.get("text") or "") + " " + strip_html(lst.get("content", ""))
+        return " ".join((text + " " + (j.get("additionalPlain") or "")).split())[:30000], "", ""
+    if ats == "deshaw":  # JSON-LD holds only the intro paragraph; the full text is in __NEXT_DATA__ jobDescription
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', raw, re.S)
+        if not m:
+            return "", "", ""
+        desc = (((json.loads(m.group(1)).get("props") or {}).get("pageProps") or {}).get("jobData") or {}).get("jobDescription") or {}
+        return " ".join(strip_html(desc.get(k) or "") for k in ("websiteDescription", "responsibilitiesHtml", "peopleWeAreLookingForStr")).strip()[:30000], "", ""
+    if ats == "hrmdirect":  # static detail page; body text minus scripts/styles, as hrmdirect() reads it
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw))[:30000], "", ""
+    if ats == "goldman":  # the list call returns descriptionHtml but queue rows drop it; role() takes the numeric id from the URL
+        src = job["url"].rstrip("/").rsplit("/", 1)[-1] if job.get("url") else str(job["id"]).split("_")[0]
+        d = http("https://api-higher.gs.com/gateway/api/v1/graphql", data={
+            "query": "query GetRole($id: String!) { role(externalSourceId: $id) { descriptionHtml } }", "variables": {"id": src}})
+        return strip_html(((d.get("data") or {}).get("role") or {}).get("descriptionHtml") or "")[:30000], "", ""
+    if ats == "ukg":  # the JS-rendered detail page embeds the opportunity JSON, whose Description is the full HTML text
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        best = ""
+        for m in re.finditer(r'"Description":"((?:[^"\\]|\\.)*)"', raw):
+            try:
+                best = max(best, strip_html(json.loads('"' + m.group(1) + '"')), key=len)
+            except ValueError:
+                continue
+        return best[:30000], "", ""
+    if ats == "brassring":  # list rows carry desc but queue rows do not; the page's own JobDetails Ajax call has it
+        return _brassring_detail(c, job["id"]), "", ""
+    if ats == "bpce":  # job_number (our id) is not the WP post id: resolve it via the slug, then read the page JSON
+        slug = job["url"].rstrip("/").rsplit("/", 1)[-1]
+        base = f"https://{c['host']}/app/wp-json"
+        hdr = {"User-Agent": BROWSER_UA}
+        hit = http(f"{base}/wp/v2/job?slug={urllib.parse.quote(slug)}&lang=en", headers=hdr)
+        if not hit:
+            return "", "", ""
+        d = http(f"{base}/bpce/v1/posts/?lang=en&_uid=job-{hit[0]['id']}-x", headers=hdr, timeout=60)
+        return strip_html(((d.get("content") or {}).get("main") or {}).get("text") or "")[:30000], "", ""
     if ats == "eightfold":
         d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
                  headers={"Accept": "application/json"})
