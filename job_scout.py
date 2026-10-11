@@ -408,24 +408,41 @@ def workday(c):
 
     def fetch_term(site, term):
         base = f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs"
-        rows_all, offset, term_complete, limit, total = [], 0, False, cap, None
-        while offset < limit:
+
+        def get(offset):
+            return http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
+
+        d = get(0)  # raises on failure: nothing fetched yet, so the caller's error handling applies
+        rows_all = list(d.get("jobPostings", []))
+        total = d.get("total") if isinstance(d.get("total"), int) else None  # only the first page reliably carries total
+        limit = max(cap, min(total, ceiling)) if total is not None else cap  # page past cap, up to ceiling, so a broad term can still complete
+        if len(rows_all) < page or (total is not None and page >= total):
+            return rows_all, True
+        offsets = list(range(page, limit, page))
+        # The remaining pages are independent once total is known, so fetch them side by side (page_workers per term).
+        pw = max(1, min(int(c.get("page_workers", 3)), len(offsets) or 1))
+
+        def safe(offset):
             try:
-                d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
+                return get(offset)
             except urllib.error.HTTPError as e:
-                if e.code != 429 or not rows_all:
+                if e.code != 429:
                     raise
-                return rows_all, False  # keep what this term already returned; incomplete blocks removals
-            rows = d.get("jobPostings", [])
-            rows_all.extend(rows)
-            if offset == 0 and isinstance(d.get("total"), int):
-                total = d["total"]  # only the first page reliably carries total
-                limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
-            offset += page
-            if len(rows) < page or (total is not None and offset >= total):
-                term_complete = True  # ran out of rows before hitting the limit
-                break
-        return rows_all, term_complete
+                return None  # a page lost to rate limiting: keep the rest, mark the term incomplete
+
+        lost = exhausted = False
+        with ThreadPoolExecutor(max_workers=pw) as pool:
+            for offset, d in zip(offsets, pool.map(safe, offsets)):
+                if d is None:
+                    lost = True
+                    continue
+                rows = d.get("jobPostings", [])
+                rows_all.extend(rows)
+                if len(rows) < page:
+                    exhausted = True  # ran out of rows before hitting the limit
+                    break
+        # complete only if no page was lost and we reached the term's last result (not just the cap/ceiling)
+        return rows_all, (not lost) and (exhausted or (total is not None and limit >= total))
 
     # Slow tenants opt in via config "term_workers" (RBC answers in ~5s per request, so 16 sequential
     # multi-page terms took 4 min). Default stays 1: running every tenant's terms in parallel got

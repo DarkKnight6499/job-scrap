@@ -103,3 +103,25 @@ def test_parallel_terms_splits_merges_and_ands_completeness():
         jobs, complete = fake(c)
     assert sorted(map(tuple, calls)) == [("a", "c"), ("b", "d")]  # round-robin chunks, every term searched once
     assert sorted(j["id"] for j in jobs) == ["a", "b", "c", "d", "shared"] and complete is False
+
+
+def test_workday_fetches_later_pages_in_parallel_and_tracks_completeness():
+    rows = lambda n, off: [dict(externalPath=f"/job/{off + i}", title=f"T{off + i}", locationsText="NY") for i in range(n)]
+
+    def make(total, lose=None):
+        def _http(url, data=None, headers=None, timeout=20, raw=False):
+            off = data["offset"]
+            if lose is not None and off == lose:
+                raise js.urllib.error.HTTPError(url, 429, "slow down", {}, None)
+            return {"total": total, "jobPostings": rows(max(0, min(20, total - off)), off)}
+        return _http
+    c = dict(host="h", tenant="t", site="s", search=["x"], max_per_term=100, term_ceiling=100, page_workers=3)
+    with mock.patch.object(js, "http", make(70)):
+        jobs, complete = js.workday(c)
+    assert len(jobs) == 70 and complete  # 4 pages, last one short
+    with mock.patch.object(js, "http", make(500)):
+        jobs, complete = js.workday(c)
+    assert len(jobs) == 100 and not complete  # stopped at the ceiling
+    with mock.patch.object(js, "http", make(70, lose=40)):
+        jobs, complete = js.workday(c)
+    assert len(jobs) == 50 and not complete  # one page lost to a 429
