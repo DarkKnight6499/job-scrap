@@ -9294,32 +9294,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Danaher",
-   "ats": "workday",
-   "host": "danaher.wd1.myworkdayjobs.com",
-   "tenant": "danaher",
-   "site": "DanaherJobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Leidos",
    "ats": "workday",
    "host": "leidos.wd5.myworkdayjobs.com",
