@@ -2145,6 +2145,28 @@ def _page_date(raw):
     return ""
 
 
+def _brassring_detail(c, jid):
+    """Description for one BrassRing req: same cookie + RFT session as brassring(), then the page's own
+    Ajax/JobDetails call, whose textarea answers (responsibilities, skills, about us...) are the posting body."""
+    import http.cookiejar
+    base = f"https://{c['host']}"
+    pid, sid = str(c["partnerid"]), str(c["siteid"])
+    ref = f"{base}/TGnewUI/Search/home/HomeWithPreLoad?partnerid={pid}&siteid={sid}&PageType=JobDetails&jobid={jid}"
+    cj = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+    page = opener.open(urllib.request.Request(ref, headers={"User-Agent": BROWSER_UA}), timeout=60).read().decode("utf-8", "ignore")
+    tok = next(ck.value for ck in cj if ck.name == f"tg_session_{pid}_{sid}")
+    rft = re.search(r'name="__RequestVerificationToken"[^>]*value="([^"]+)"', page).group(1)
+    body = {"partnerId": pid, "siteId": sid, "jobid": str(jid), "configMode": "", "jobSiteId": sid, "encryptedSessionValue": tok}
+    req = urllib.request.Request(base + "/TgNewUI/Search/Ajax/JobDetails", data=json.dumps(body).encode(), headers={
+        "User-Agent": BROWSER_UA, "Content-Type": "application/json; charset=UTF-8", "X-Requested-With": "XMLHttpRequest",
+        "Accept": "application/json, text/javascript, */*; q=0.01", "Referer": ref, "Origin": base, "RFT": rft})
+    d = json.loads(opener.open(req, timeout=60).read())
+    qs = ((d.get("ServiceResponse") or {}).get("Jobdetails") or {}).get("JobDetailQuestions") or []
+    return strip_html(" ".join(f"{q.get('QuestionName') or ''} {q.get('AnswerValue') or ''}" for q in qs
+                               if q.get("QuestionType") == "textarea"))[:30000]
+
+
 def _ukg_detail(c, job):
     """Full description for a UKG board posting: the detail page embeds the opportunity as JSON in a
     CandidateOpportunityDetail({...}) call, with the HTML text in its Description field."""
@@ -2273,6 +2295,39 @@ def describe(c, job):
         if i < 0:
             return "", "", ""
         return strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", raw[raw.find(">", i) + 1:]))[:30000], "", ""
+    if ats == "lever":  # queue rows carry no desc; the single-posting API returns the fields lever() builds it from
+        host = "api.eu.lever.co" if c.get("region") == "eu" else "api.lever.co"
+        j = http(f"https://{host}/v0/postings/{c['slug']}/{job['id']}")
+        text = j.get("descriptionPlain") or strip_html(j.get("description", ""))
+        for lst in j.get("lists") or []:
+            text += " " + (lst.get("text") or "") + " " + strip_html(lst.get("content", ""))
+        return " ".join((text + " " + (j.get("additionalPlain") or "")).split())[:30000], "", ""
+    if ats == "deshaw":  # JSON-LD holds only the intro paragraph; the full text is in __NEXT_DATA__ jobDescription
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', raw, re.S)
+        if not m:
+            return "", "", ""
+        desc = (((json.loads(m.group(1)).get("props") or {}).get("pageProps") or {}).get("jobData") or {}).get("jobDescription") or {}
+        return " ".join(strip_html(desc.get(k) or "") for k in ("websiteDescription", "responsibilitiesHtml", "peopleWeAreLookingForStr")).strip()[:30000], "", ""
+    if ats == "hrmdirect":  # static detail page; body text minus scripts/styles, as hrmdirect() reads it
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        return strip_html(re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw))[:30000], "", ""
+    if ats == "goldman":  # the list call returns descriptionHtml but queue rows drop it; role() takes the numeric id from the URL
+        src = job["url"].rstrip("/").rsplit("/", 1)[-1] if job.get("url") else str(job["id"]).split("_")[0]
+        d = http("https://api-higher.gs.com/gateway/api/v1/graphql", data={
+            "query": "query GetRole($id: String!) { role(externalSourceId: $id) { descriptionHtml } }", "variables": {"id": src}})
+        return strip_html(((d.get("data") or {}).get("role") or {}).get("descriptionHtml") or "")[:30000], "", ""
+    if ats == "brassring":  # list rows carry desc but queue rows do not; the page's own JobDetails Ajax call has it
+        return _brassring_detail(c, job["id"]), "", ""
+    if ats == "bpce":  # job_number (our id) is not the WP post id: resolve it via the slug, then read the page JSON
+        slug = job["url"].rstrip("/").rsplit("/", 1)[-1]
+        base = f"https://{c['host']}/app/wp-json"
+        hdr = {"User-Agent": BROWSER_UA}
+        hit = http(f"{base}/wp/v2/job?slug={urllib.parse.quote(slug)}&lang=en", headers=hdr)
+        if not hit:
+            return "", "", ""
+        d = http(f"{base}/bpce/v1/posts/?lang=en&_uid=job-{hit[0]['id']}-x", headers=hdr, timeout=60)
+        return strip_html(((d.get("content") or {}).get("main") or {}).get("text") or "")[:30000], "", ""
     if ats == "eightfold":
         d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
                  headers={"Accept": "application/json"})
@@ -2483,6 +2538,9 @@ def _num_val(tok):
     return int(tok) if tok.isdigit() else _NUM_WORDS[tok]
 
 
+_YEARS_MAX_BEFORE_RE = re.compile(r"(?:no more than|not more than|at most|up to|less than|fewer than|under|maximum of|a maximum of)\s+(?:about\s+)?$", re.I)
+
+
 def _stated_experience_years(text):
     """Stated years-of-experience requirement the original regexes miss: number words, "(3)" parentheticals,
     ranges, "or more", bare "N years of ... experience", "N years' experience", structured fields. Returns
@@ -2508,6 +2566,8 @@ def _stated_experience_years(text):
         after = text[m.end():m.end() + 100]
         if _YEARS_NOT_REQ_AFTER_RE.match(after) or _YEARS_NOT_REQ_BEFORE_RE.search(sent_before):
             continue
+        if _YEARS_MAX_BEFORE_RE.search(sent_before):
+            continue  # "no more than three years of experience" is a ceiling (an entry-level pitch), not a floor
         if re.search(r"(?:over|more than|nearly|almost|for|with)\s*$", sent_before, re.I) and _ORG_WORDS_RE.search(
                 sent_before) and not re.search(r"\b(?:candidates?|applicants?|you|looking|seeking|require[sd]?|need)\b",
                                                sent_before, re.I):
@@ -3228,8 +3288,9 @@ ROLE_CATEGORIES = {
     "Commercial Banking/Lending": [
         "commercial portfolio", "commercial banking", "commercial credit", "commercial lending",
         "commercial loan", "relationship manager", "relationship banking", "relationship lending",
-        "banker", "banking associate", "community banker", "corporate banking", "middle market",
-        "market manager", "commercial risk", "credit officer", "credit products", "credit delivery",
+        "corporate banker", "portfolio banker", "client banker", "relationship banker",
+        "commercial banker", "business banker", "community banker", "corporate banking",
+        "middle market", "market manager", "credit officer", "credit products", "credit delivery",
         "credit administration", "credit underwriter", "loan officer", "loan portfolio",
         "loan operations", "loan servicing", "loans", "workout", "special assets",
         "loss mitigation", "collections", "dealer funding", "asset based lending",
@@ -3239,7 +3300,9 @@ ROLE_CATEGORIES = {
     ],
     "Portfolio Manager/Analyst": [
         "portfolio manager", "portfolio managers", "portfolio analyst", "portfolio specialist",
-        "portfolio associate", "portfolio analysts",
+        "portfolio associate", "portfolio analysts", "portfolio construction", "portfolio strategy",
+        "portfolio strategist", "portfolio consultant", "portfolio implementation",
+        "portfolio solutions", "portfolio director", "portfolio mgr", "portfolio research",
     ],
     "Accounting/Controllership/Tax": [
         "accounting", "accountant", "controller", "controllers", "controllership",
@@ -3252,7 +3315,9 @@ ROLE_CATEGORIES = {
         "finance business partner", "business finance", "budget", "budgeting", "financial modeler",
         "financial modeling", "planning and analysis", "planning & analysis", "financial planning",
         "finance and business management", "finance & business management", "portfolio finance",
-        "finance lead", "forecasting",
+        "finance lead", "forecasting", "finance control", "finance analytics",
+        "finance decision", "capital allocation", "capital mgmt", "capital controls",
+        "capital governance", "capital reporting", "capital optimization",
     ],
     "Compliance/Financial Crime": [
         "compliance", "aml", "bsa", "kyc", "financial crime", "financial crimes",
@@ -3271,13 +3336,19 @@ ROLE_CATEGORIES = {
         "credit policy", "risk oversight", "risk operations", "tech risk", "technology & data risk",
         "technology and data risk", "data risk", "risk and governance", "risk & governance",
         "risk director", "risk specialist", "risk senior", "chief risk officer", "risk/compliance",
-        "risk and compliance", "risk & compliance",
+        "risk and compliance", "risk & compliance", "business controls", "first line risk",
+        "business line risk", "control officer", "capital risk", "risk analysis", "risk program",
+        "risk policy management", "risk / policy management", "risk/policy management",
+        "risk business partner", "risk mitigation", "risk monitoring", "risk assessment",
+        "integrated risk", "emerging risk", "clearing risk", "resilience risk", "climate risk",
+        "environmental and social risk", "risk identification", "ai risk", "ai validation", "ai model validation",
     ],
     "Trading/Markets/Derivatives": [
         "trader", "trading", "trade support", "derivatives", "global markets", "equity derivatives",
         "swap", "swaps", "fx", "foreign exchange", "rates trading", "commodity trading",
-        "commodities trading", "sales and trading", "sales & trading", "structuring", "structurer",
-        "prime brokerage", "market making", "xva",
+        "commodities trading", "sales and trading", "sales & trading", "equity structuring", "structuring desk", "structurer",
+        "prime brokerage", "market making", "xva", "us rates",
+        "swapclear", "prime services", "secured financing", "equity financing",
     ],
     "Structured Finance/Securitization": [
         "structured finance", "structured credit", "structured products", "securitized",
@@ -3287,7 +3358,11 @@ ROLE_CATEGORIES = {
     "M&A/Advisory": [
         "m&a", "mergers", "mergers and acquisitions", "restructuring", "financial sponsor",
         "financial sponsors", "coverage group", "industry coverage", "ib", "ecm", "dcm",
-        "debt capital markets", "leveraged finance", "corporate advisory", "financial advisory",
+        "debt capital markets", "leveraged finance associate", "leveraged finance analyst",
+        "leveraged finance origination", "capital markets leveraged finance",
+        "investment banking, leveraged finance", "investment banking & capital markets, leveraged finance", "capital solutions", "debt capital market", "capital market group", "capital structure advisory",
+        "corporate coverage", "financial institutions group", "global financial institutions",
+        "corporate advisory", "financial advisory",
         "strategic advisory", "fig advisory",
     ],
     "Research/Investment Analysis": [
@@ -3303,6 +3378,11 @@ ROLE_CATEGORIES = {
         "operations associate", "operations analyst", "operations specialist", "operations manager",
         "operations lead", "operations client", "operations senior", "operations officer",
         "operations coordinator", "securities operations", "derivatives operations",
+        "derivative operations", "investor services", "asset services", "asset servicing",
+        "client order management", "client reporting", "letters of credit", "documentation negotiator",
+        "commodities documentation", "operations expert", "clearing",
+        "loan funding", "loan booking", "funding specialist", "loan management",
+        "credit facility management", "portfolio reporting",
         "core operations", "deposit operations", "service operations", "conversion operations",
         "banking services operations", "client operations", "fund operations", "middle office",
         "back office", "settlements", "settlement", "servicing", "securities processing",
@@ -3314,10 +3394,26 @@ ROLE_CATEGORIES = {
     "Technology/Data": [
         "software", "developer", "data engineer", "data analytics", "data analyst", "data product",
         "data science", "data scientist", "data governance", "data management", "data architect",
-        "data and ai", "data & ai", "data platform", "machine learning", "cloud", "architect",
-        "cyber", "cybersecurity", "devops", "network engineer", "systems administrator",
-        "systems engineer", "salesforce", "technology", "technologist", "it", "ai", "engineering",
-        "database", "etl", "analytics",
+        "data and ai", "data & ai", "data and analytics", "data & analytics", "data platform",
+        "machine learning", "cloud engineer", "cloud architect", "cloud platform", "cloud security",
+        "solutions architect", "solution architect", "enterprise architect", "technical architect",
+        "ai architect", "platform architect", "application architect", "cyber", "cybersecurity",
+        "devops", "sre", "network engineer", "systems administrator", "systems engineer",
+        "salesforce", "technologist", "database", "etl", "information technology", "it analyst",
+        "it business analyst", "it infrastructure", "it service desk", "it support",
+        "it operations", "technology analyst", "technology associate", "technology director",
+        "technology operations", "technology infrastructure", "technology rotation",
+        "technology solutions", "technology support", "technology management", "technology integration",
+        "domain architect", "delivery architect",
+        "ai solutions", "ai engineer", "ai engineering", "genai", "gen ai", "generative ai",
+        "applied ai", "ai/ml", "ai automation", "ai platform", "advanced analytics",
+        "business intelligence", "business analytics", "analytics solutions", "decision science",
+        "product analytics", "healthcare analytics", "data protection", "data quality",
+        "data visualization", "data exchange", "data solutions", "data validation",
+        "data initiatives", "analytics engineer", "analytics engineering", "ml engineer",
+        "platform engineer", "front end engineer", "mobile engineer", "qa engineer",
+        "release engineer", "production engineer", "engineering manager", "director of engineering",
+        "director, engineering", "associate director engineering", "associate director, engineering",
     ],
     "Product Management": [
         "product manager", "product management", "product owner", "product delivery",
@@ -3326,47 +3422,72 @@ ROLE_CATEGORIES = {
         "product associate",
     ],
     "Strategy/Consulting": [
-        "strategy", "strategic", "strategic advisory", "strategic initiatives",
-        "strategic planning", "strategic change", "consultant", "consulting",
-        "management consulting", "transformation", "chief of staff",
+        "corporate strategy", "business strategy", "strategy and operations", "strategy & operations",
+        "strategy and insights", "strategy & insights",
+        "strategy and business development", "strategy and planning", "strategy & planning",
+        "growth strategy", "digital strategy", "finance & strategy", "finance and strategy",
+        "strategy specialist", "strategy enablement", "bank strategy", "strategy, associate",
+        "strategy, senior associate", "management & strategy", "leadership and strategy",
+        "strategic advisory", "strategic initiatives", "strategic planning", "strategic change",
+        "strategic partnerships", "strategic finance", "strategic intelligence", "senior consultant",
+        "associate consultant", "principal consultant", "business consultant",
+        "consulting", "management consulting", "engagement manager", "transformation", "chief of staff",
     ],
     "Program/Project/Business Analysis": [
         "business analyst", "business analysis", "business systems analyst", "program manager",
         "program management", "project manager", "project management", "pmo", "change management",
-        "process improvement", "business solutions", "business management", "implementation",
+        "process improvement", "business solutions", "business management", "implementation manager",
+        "implementation consultant", "implementation associate", "implementation lead",
+        "implementation officer", "implementation specialist", "implementation analyst",
         "program control", "program controls", "business process",
     ],
     "Sales/Business Development": [
         "sales", "business development", "account executive", "client solutions", "account manager",
-        "client success", "wholesaler", "distribution", "investor relations",
+        "client success", "wholesaler", "distribution sales", "investor relations",
         "consultant relations", "client advisor", "client partner", "solutions specialist",
-        "institutional client", "client specialist",
+        "institutional client", "client specialist", "capital introduction", "capital formation",
+        "client coverage", "national accounts",
+        "client engagement",
     ],
     "Retail/Consumer Banking": [
         "community banker", "branch", "banking center", "financial center", "personal banker",
-        "teller", "consumer banking", "retail", "home lending", "home loan", "home equity",
+        "teller", "consumer banking", "retail banking", "retail management", "retail loan",
+        "retail credit", "retail lending", "retail operations", "retail application",
+        "retail and small business", "retail & small business", "home lending", "home loan", "home equity",
         "mortgage loan", "mortgage lending", "mortgage servicing", "mortgage banker",
-        "mortgage business", "deposit", "deposits", "auto lending", "auto finance",
+        "mortgage business", "deposit operations", "deposit ops", "deposit admin", "mobile deposit",
+        "deposit acquisition", "deposit products", "auto lending", "auto finance",
         "closing specialist",
     ],
     "Wealth/Trust/Advisory": [
-        "wealth", "trust", "fiduciary", "estate trust", "estate planning", "financial advisor",
+        "wealth advisor", "wealth adviser", "wealth planning", "wealth planner", "private wealth",
+        "wealth solutions", "wealth strategies", "wealth associate", "global wealth", "wealth studio",
+        "wealth mgmt", "wealth services", "wealth analyst", "trust administrator", "trust officer", "trust portfolio manager", "trust and estates",
+        "trust & estates", "trust company", "trust services", "fiduciary", "estate trust", "estate planning", "financial advisor",
         "financial consultant", "private client", "philanthropic", "private bank", "family office",
         "investment specialist", "ocio", "ayco", "financial planner",
     ],
     "Payments/Cash Management": [
-        "payments", "payment", "cash management", "merchant", "commercial card", "card", "fintech",
+        "payments", "payment", "cash management", "merchant services", "merchant onboarding",
+        "merchant acquiring", "merchant solutions", "commercial card", "card sales", "card solutions",
+        "fintech",
         "treasury services", "liquidity solutions",
     ],
     "Insurance/Actuarial": [
         "insurance", "actuary", "actuarial", "claims", "reinsurance", "annuity", "annuities",
-        "associate, brokerage", "property casualty", "production underwriter", "personal lines",
+        "employee benefits", "health & benefits", "retirement income", "absence consultant",
+        "benefits consultant", "associate, brokerage", "property casualty", "production underwriter", "personal lines",
         "commercial lines", "excess & surplus", "excess and surplus",
     ],
     "Legal/HR/Marketing/Admin": [
-        "legal", "counsel", "attorney", "paralegal", "recruiter", "recruiting", "human resources",
+        "legal counsel", "legal analyst", "legal associate", "legal assistant", "legal operations",
+        "legal specialist", "legal due diligence", "counsel", "attorney", "paralegal", "recruiter", "recruiting", "human resources",
         "hr", "training and development", "training & development", "learning and development",
-        "marketing", "communications", "brand", "social media", "content", "public relations",
+        "marketing", "global rewards", "pay equity", "deferred compensation",
+        "corporate communications", "communications associate", "communications manager",
+        "communications specialist", "communications director", "brand strategy", "brand manager",
+        "brand management", "external communications", "thought leadership", "social media", "content associate", "content analyst",
+        "content operations", "content manager", "public relations",
         "executive assistant", "administrative assistant", "administrative", "office manager",
     ],
     "Early Careers/Internships": [
@@ -3375,9 +3496,19 @@ ROLE_CATEGORIES = {
         "early careers", "early career", "talent program", "campus", "apprentice", "2027",
     ],
     "Energy/Construction/Infrastructure": [
-        "energy", "power", "construction", "project finance", "renewable", "utilities",
+        "energy", "power & utilities", "power and utilities", "power finance", "power generation",
+        "power infrastructure", "capital projects", "capital project", "construction lending", "construction finance", "construction loan",
+        "construction management", "construction engineer", "project finance", "renewable", "utilities",
         "oil and gas", "infrastructure finance", "infrastructure & project finance",
     ],
+}
+
+# Titles containing any of these phrases never join the category, even when a term matches
+# (same word-boundary matching as the terms). Kept to the one case rewording cannot fix.
+ROLE_CATEGORY_EXCLUDE = {
+    "Treasury/ALM/Liquidity": ["sales"],  # "Treasury Management Sales Officer" sells treasury products; it belongs under Sales only
+    "Research/Investment Analysis": ["operations research"],
+    "Quant/Modeling/Pricing": ["valuation controller", "valuation control", "controllers", "valuation advisory"],
 }
 
 _EXTRA_SCRIPT = r"""
@@ -3439,11 +3570,12 @@ _EXTRA_SCRIPT = r"""
   function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
   CATEGORIES.forEach(function(c) {
     c.re = c.terms.length ? new RegExp('\\b(?:' + c.terms.map(function(t) { return escapeRegex(t.toLowerCase()); }).join('|') + ')\\b') : null;
+    c.ex = c.exclude.length ? new RegExp('\\b(?:' + c.exclude.map(function(t) { return escapeRegex(t.toLowerCase()); }).join('|') + ')\\b') : null;
   });
   rows.forEach(function(tr) {
     var role = textOf(tr, COL_ROLE).toLowerCase();
     var matched = [];
-    CATEGORIES.forEach(function(c) { if (c.re && c.re.test(role)) matched.push(c.key); });
+    CATEGORIES.forEach(function(c) { if (c.re && c.re.test(role) && !(c.ex && c.ex.test(role))) matched.push(c.key); });
     if (!matched.length) matched.push('other');
     tr.dataset.cats = matched.join(',');
   });
@@ -3589,8 +3721,9 @@ def _jd_company_map():
 
 
 def _extra_script():
-    cats = [dict(key=f"cat{i}", label=label, terms=terms) for i, (label, terms) in enumerate(ROLE_CATEGORIES.items())]
-    cats.append(dict(key="other", label="Other (no category)", terms=[]))
+    cats = [dict(key=f"cat{i}", label=label, terms=terms, exclude=ROLE_CATEGORY_EXCLUDE.get(label, []))
+            for i, (label, terms) in enumerate(ROLE_CATEGORIES.items())]
+    cats.append(dict(key="other", label="Other (no category)", terms=[], exclude=[]))
     return (_EXTRA_SCRIPT
             .replace("__CATEGORIES__", json.dumps(cats))
             .replace("__COMPANY__", json.dumps(HIDE_COMPANY))

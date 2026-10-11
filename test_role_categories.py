@@ -25,12 +25,18 @@ _RES = {
     c["label"]: re.compile(r"\b(?:" + "|".join(re.escape(t.lower()) for t in c["terms"]) + r")\b")
     for c in _CATS if c["terms"]
 }
+# Optional per-category exclusion phrases (same matching): a title containing one never joins the category.
+_EXCL = {
+    c["label"]: re.compile(r"\b(?:" + "|".join(re.escape(t.lower()) for t in c["exclude"]) + r")\b")
+    for c in _CATS if c.get("exclude")
+}
 
 
 def categories_for(role):
     """Labels matched by a role title, or ['Other (no category)'] when none match (mirrors the JS)."""
     text = role.lower()
-    hits = [label for label, rx in _RES.items() if rx.search(text)]
+    hits = [label for label, rx in _RES.items()
+            if rx.search(text) and not (label in _EXCL and _EXCL[label].search(text))]
     return hits or ["Other (no category)"]
 
 
@@ -205,3 +211,122 @@ def test_unmatched_title_stays_in_other():
 def test_multiple_categories_allowed():
     cats = categories_for("Credit Risk Manager")
     assert "Credit Risk" in cats and "Risk Management (General)" in cats
+
+
+# Terms tightened from bare words to multi-word terms (or excluded): each entry is
+# (label, titles that must still match, near-miss titles that must not match that label).
+TIGHTENED = [
+    ("Technology/Data",
+     ["Software Engineer", "Applied AI/ML Senior Associate", "Associate Director, Lead Cloud Architect",
+      "Staff IT Analyst II", "Business Intelligence Developer", "Associate Director Engineering"],
+     ["IT Risk Associate II", "AI Risk Management Manager", "Equity Research Associate - Medical Technology",
+      "Technology Risk Management Specialist", "Credit Risk Strategy and Analytics", "Senior FP&A Analyst - Public Cloud",
+      "Portfolio Construction & Risk, Senior Analyst", "Senior Risk Engineer", "Investment Banking Associate - Technology M&A"]),
+    ("Strategy/Consulting",
+     ["Corporate Strategy Associate", "Associate Manager, Strategy & Operations", "Oliver Wyman Senior Consultant",
+      "Senior Associate, Strategic Initiatives", "Associate, Growth Strategy"],
+     ["Credit Risk Strategy Manager I", "Portfolio Strategy Analyst", "Treasury Management Consultant III",
+      "Trading Strategy Associate", "Regional Consultant - US Wealth", "Strategic Analytics - Senior Associate"]),
+    ("Commercial Banking/Lending",
+     ["Corporate Banker", "Commercial Banking Associate", "Portfolio Banker - Middle Market"],
+     ["Investment Banking Associate - Equity Capital Markets", "Investment Banking and Capital Markets-Banker-Healthcare Analyst",
+      "Global Lead, Commercial Risk Strategy"]),
+    ("Retail/Consumer Banking",
+     ["Retail Management Associate", "Deposit Operations Associate", "Retail Loan Credit Risk Reviewer"],
+     ["Investment & Corporate Banking - Consumer & Retail, Associate", "Equity Research Associate, Food Retail",
+      "Deposit & Liquidity Product Management", "Senior Lead Product Manager, Deposit Pricing"]),
+    ("Wealth/Trust/Advisory",
+     ["Wealth Advisor", "Private Wealth Associate", "Trust Administrator Associate", "Trust Portfolio Manager"],
+     ["Asset & Wealth Management, Investment Risk Management, Equities, Associate", "Quant Analytics Senior Associate - Trust & Security",
+      "Equity Research Associate - Trust Banks"]),
+    ("Legal/HR/Marketing/Admin",
+     ["Corporate Communications Associate", "Legal Due Diligence Associate", "Brand Strategy Associate"],
+     ["Investment Banking Associate - Media & Communications", "Legal Entity Controller Associate",
+      "Quantitative Analytics Associate - Co-brand Card Data Analytics", "Credit Analyst, Director (Legal)"]),
+    ("Energy/Construction/Infrastructure",
+     ["Associate, Construction Lending", "Power & Utilities Investment Banking Associate", "Coordinator Capital Projects I"],
+     ["Portfolio Construction Analyst", "Air Power Defense Portfolio Director"]),
+    ("Payments/Cash Management",
+     ["Merchant Services Analyst", "Card Solutions Product Manager"],
+     ["Senior Business Analyst - Card Loss Forecasting", "Merchant Banking Associate", "Merchant Strategy & Operations"]),
+    ("Program/Project/Business Analysis",
+     ["Implementation Manager", "Senior Implementation Consultant"],
+     ["Analyst, Portfolio Implementation", "Director, Implementation Risk"]),
+    ("Sales/Business Development",
+     ["Distribution Sales Associate"],
+     ["Distribution Center Associate", "Associate Director, Warehousing & Distribution"]),
+    ("Trading/Markets/Derivatives",
+     ["Equity Derivatives Structuring Associate", "Equity Structuring Associate"],
+     ["Corporate Structuring Associate", "Alternatives Fund Structuring, Associate"]),
+    ("M&A/Advisory",
+     ["Leveraged Finance Associate", "Capital Solutions Group Vice President", "Debt Capital Market Analyst"],
+     ["Leveraged Finance Portfolio Manager", "Credit Analyst - Leveraged Finance Portfolio Management"]),
+]
+
+# Known false positives fixed with the exclusion list or rewording.
+def test_operations_research_is_not_research_analysis():
+    assert "Research/Investment Analysis" not in categories_for("Operations Research Analyst, Senior")
+    assert "Research/Investment Analysis" in categories_for("Senior Research Analyst")
+
+
+def test_valuation_controller_is_not_quant():
+    assert "Quant/Modeling/Pricing" not in categories_for("Valuation Controller - Vice President - Rates")
+    assert "Accounting/Controllership/Tax" in categories_for("Valuation Controller - Vice President - Rates")
+    assert "Quant/Modeling/Pricing" in categories_for("Senior Associate - Valuation")
+
+
+def test_floor_broker_stays_in_trading():
+    assert "Trading/Markets/Derivatives" in categories_for("Equities Electronic Trading - J.P. Morgan NYSE Floor Broker - Associate")
+
+
+def test_tightened_terms_keep_positives_and_reject_near_misses():
+    for label, hits, misses in TIGHTENED:
+        for title in hits:
+            assert label in categories_for(title), (label, title, categories_for(title))
+        for title in misses:
+            assert label not in categories_for(title), (label, title, categories_for(title))
+
+
+def test_bare_ambiguous_terms_are_gone():
+    # These bare words matched far too broadly; only multi-word forms are allowed now.
+    bare = {
+        "Technology/Data": {"it", "ai", "analytics", "technology", "engineering", "cloud", "architect", "engineer"},
+        "Strategy/Consulting": {"strategy", "strategic", "consultant"},
+        "Retail/Consumer Banking": {"retail", "deposit", "deposits"},
+        "Wealth/Trust/Advisory": {"wealth", "trust"},
+        "Legal/HR/Marketing/Admin": {"legal", "communications", "content", "brand"},
+        "Energy/Construction/Infrastructure": {"power", "construction"},
+        "Payments/Cash Management": {"card", "merchant"},
+        "Commercial Banking/Lending": {"banker", "banking associate", "commercial risk"},
+        "Program/Project/Business Analysis": {"implementation"},
+        "Sales/Business Development": {"distribution"},
+        "Trading/Markets/Derivatives": {"structuring"},
+        "M&A/Advisory": {"leveraged finance"},
+    }
+    for label, words in bare.items():
+        assert not words & set(job_scout.ROLE_CATEGORIES[label]), label
+
+
+def test_new_family_terms_catch_leftover_titles():
+    cases = {
+        "Portfolio Manager/Analyst": ["Portfolio Construction Analyst", "Portfolio Strategy Analyst"],
+        "Risk Management (General)": ["Risk Analysis Specialist II", "Vice President, Risk / Policy Management", "Capital Risk Vice President"],
+        "Operations/Servicing": ["Associate, Derivative Operations", "Loan Funding Specialist", "Associate - Investor Services"],
+        "Financial Analysis/Business Finance": ["Director, Capital Controls & Planning", "Finance Control Manager - Senior Associate"],
+        "M&A/Advisory": ["Vice President, Capital Solutions"],
+        "Insurance/Actuarial": ["Health & Benefits Consultant, Senior Associate"],
+        "Technology/Data": ["Data Protection Associate", "Data Visualization Senior Associate"],
+    }
+    for label, titles in cases.items():
+        for title in titles:
+            assert label in categories_for(title), (label, title, categories_for(title))
+
+
+def test_treasury_sales_roles_are_sales_not_treasury():
+    for title in ["Treasury Management Sales Officer Senior", "Sales Executive, Treasury Solutions",
+                  "Pre-Sales Solution Specialist, Treasury & Payments (Quantum)", "Director, Treasury Management Sales"]:
+        hits = categories_for(title)
+        assert "Sales/Business Development" in hits and "Treasury/ALM/Liquidity" not in hits, (title, hits)
+    # real treasury roles keep their chip
+    for title in ["Treasury Analyst", "Treasury Manager", "Liquidity Risk Manager, Treasury"]:
+        assert "Treasury/ALM/Liquidity" in categories_for(title), title
