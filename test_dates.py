@@ -141,7 +141,7 @@ def test_bloomberg_dates_come_from_its_searchjobs_feed():
     assert any(u.startswith("https://bloomberg.avature.net/careers/SearchJobs/feed/?search=") for u in seen)
 
 
-# ---- id interpolation fallback (estimate_posted_from_id / _fill_dates_from_id)
+# id interpolation fallback (estimate_posted_from_id / _fill_dates_from_id)
 
 _ANCH = [("100", "2026-09-01"), ("110", "2026-09-11"), ("120", "2026-09-21"), ("130", "2026-10-01"), ("140", "2026-10-06"), ("150", "2026-10-09")]
 
