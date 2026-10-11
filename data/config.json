@@ -16600,6 +16600,56 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Navy Federal Credit Union",
+   "ats": "oracle",
+   "host": "fa-etbx-saasfaprod1.fa.ocs.oraclecloud.com",
+   "site": "CX_1001",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Onity Group",
+   "ats": "oracle",
+   "host": "ebhz.fa.us2.oraclecloud.com",
+   "site": "Onity",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
