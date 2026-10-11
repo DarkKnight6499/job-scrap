@@ -101,6 +101,22 @@ def test_taleo_age_bucket_failure_keeps_list_and_dates_found():
     assert complete and jobs[0]["posted"] == date.today().isoformat()  # bucket 1 (Today) answered before the failure
 
 
+def test_brassring_lastupdated_is_labeled_approx():
+    from types import SimpleNamespace
+    job = {"Link": "https://j/x", "Questions": [{"QuestionName": k, "Value": v} for k, v in
+                                                  dict(reqid="9", lastupdated="11-Oct-2026", jobtitle="Quant", formtext23="UK", jobdescription="<p>D</p>").items()]}
+
+    class Opener:
+        def open(self, req, timeout=None):
+            body = {"JobsCount": 1, "Jobs": {"Job": [job]}}
+            return SimpleNamespace(read=lambda: b'<input name="__RequestVerificationToken" value="R">' if "HomeWithPreLoad" in req.full_url
+                                   else json.dumps(body).encode())
+    with mock.patch.object(js.urllib.request, "build_opener", return_value=Opener()), \
+            mock.patch("http.cookiejar.CookieJar", lambda: [SimpleNamespace(name="tg_session_1_2", value="S")]):
+        jobs, complete = js.brassring(dict(host="j", partnerid=1, siteid=2))
+    assert complete and (jobs[0]["posted"], jobs[0]["posted_source"]) == ("2026-10-11", "approx")  # an update date, not a posting date
+
+
 def test_retry_enrichment_dates_undated_detail_ats_entries(monkeypatch):
     monkeypatch.setattr(js, "describe", lambda c, j: ("text", "2026-10-09", "approx"))
     e = dict(id="Valley:5001", company="Valley", link="https://x", role="Analyst", location="NY", posted="", state="new",

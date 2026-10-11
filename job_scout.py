@@ -1219,7 +1219,8 @@ def brassring(c):
         except ValueError:
             pass
         out.append(dict(id=jid, title=strip_html(q.get("jobtitle") or ""), location=strip_html(q.get("formtext23") or ""),
-                        url=j.get("Link") or ref, posted=posted, desc=strip_html(q.get("jobdescription") or "")))
+                        url=j.get("Link") or ref, posted=posted, desc=strip_html(q.get("jobdescription") or ""),
+                        posted_source="approx" if posted else ""))  # lastupdated is an update date: the detail page has no PostDate value
     return out, len(rows) >= total
 
 
