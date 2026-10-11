@@ -1065,7 +1065,8 @@
    ],
    "max_per_term": 100,
    "term_ceiling": 2000,
-   "term_workers": 4
+   "term_workers": 4,
+   "big_board_ceiling": 2000
   },
   {
    "name": "Citi",
@@ -1632,7 +1633,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 60
+   "max_per_term": 60,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "Morgan Stanley",
@@ -4286,7 +4290,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "Ardent Mills",
@@ -7212,7 +7219,9 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 800,
+   "term_workers": 4
   },
   {
    "name": "AIA Group",
@@ -7316,7 +7325,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "GlobalFoundries",
@@ -7420,7 +7432,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "Prudential plc",
@@ -7576,7 +7591,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 1000,
+   "term_ceiling": 1000,
+   "term_workers": 4
   },
   {
    "name": "FIS",
@@ -7784,7 +7802,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "Hancock Whitney",
@@ -7966,7 +7987,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "C.H. Robinson",
@@ -9214,7 +9238,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "General Motors",
@@ -9266,7 +9293,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2400,
+   "term_ceiling": 2400,
+   "term_workers": 4
   },
   {
    "name": "Shell",
@@ -9552,7 +9582,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 6500,
+   "term_ceiling": 6500,
+   "term_workers": 4
   },
   {
    "name": "Sonoco",
@@ -9760,7 +9793,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 7000,
+   "term_ceiling": 7000,
+   "term_workers": 4
   },
   {
    "name": "Gartner",
@@ -9969,8 +10005,9 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "term_ceiling": 2000,
-   "term_workers": 4
+   "term_ceiling": 3700,
+   "term_workers": 4,
+   "big_board_ceiling": 3700
   },
   {
    "name": "BorgWarner",
@@ -10282,7 +10319,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 4100,
+   "term_ceiling": 4100,
+   "term_workers": 4
   },
   {
    "name": "Workday",
@@ -10387,7 +10427,11 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 3,
+   "page_workers": 4
   },
   {
    "name": "FTI Consulting",
@@ -12025,7 +12069,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "MGIC",
@@ -12753,7 +12800,9 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000
   },
   {
    "name": "Air Products",
@@ -13689,7 +13738,10 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100
+   "max_per_term": 100,
+   "big_board_ceiling": 2000,
+   "term_ceiling": 2000,
+   "term_workers": 4
   },
   {
    "name": "Premera Blue Cross",
