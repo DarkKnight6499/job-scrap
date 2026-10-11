@@ -1070,7 +1070,7 @@
   {
    "name": "Citi",
    "ats": "workday",
-   "term_workers": 4,
+   "term_workers": 3, "page_workers": 4, "big_board_ceiling": 400,
    "host": "citi.wd5.myworkdayjobs.com",
    "tenant": "citi",
    "site": "2",
@@ -1126,7 +1126,7 @@
   {
    "name": "RBC",
    "ats": "workday",
-   "term_workers": 4,
+   "term_workers": 1, "page_workers": 10,
    "host": "rbc.wd3.myworkdayjobs.com",
    "tenant": "rbc",
    "site": "RBCGLOBAL1",
@@ -1233,7 +1233,7 @@
   {
    "name": "PNC",
    "ats": "workday",
-   "term_workers": 4,
+   "term_workers": 3, "page_workers": 4, "big_board_ceiling": 800,
    "host": "pnc.wd5.myworkdayjobs.com",
    "tenant": "pnc",
    "site": "External",
@@ -4088,7 +4088,7 @@
   },
   {
    "name": "Abbott",
-   "ats": "workday",
+   "ats": "workday", "term_workers": 3, "page_workers": 4, "big_board_ceiling": 2000,
    "host": "abbott.wd5.myworkdayjobs.com",
    "tenant": "abbott",
    "site": "abbottcareers",
@@ -7346,7 +7346,7 @@
   },
   {
    "name": "PwC",
-   "ats": "workday",
+   "ats": "workday", "term_workers": 3, "page_workers": 4, "big_board_ceiling": 2000,
    "host": "pwc.wd3.myworkdayjobs.com",
    "tenant": "pwc",
    "site": "Global_Experienced_Careers",
@@ -9088,7 +9088,7 @@
   },
   {
    "name": "JLL",
-   "ats": "workday",
+   "ats": "workday", "term_workers": 3, "page_workers": 4, "big_board_ceiling": 2000,
    "host": "jll.wd1.myworkdayjobs.com",
    "tenant": "jll",
    "site": "jllcareers",
@@ -9296,7 +9296,7 @@
   },
   {
    "name": "Leidos",
-   "ats": "workday",
+   "ats": "workday", "term_workers": 3, "page_workers": 4, "big_board_ceiling": 2000,
    "host": "leidos.wd5.myworkdayjobs.com",
    "tenant": "leidos",
    "site": "External",
