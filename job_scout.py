@@ -1012,6 +1012,48 @@ def ukg(c):
     return out, False
 
 
+def csod(c):
+    """Cornerstone OnDemand career sites (<corp>.csod.com/ux/ats/careersite/<site>/home?c=<corp>). The home page embeds
+    a public bearer token and the API cloud ("token", "cloud" in its inline JSON); POST <cloud>rec-job-search/external/jobs
+    with it returns requisitions (id, displayJobTitle, locations[{city,state,country}], postingEffectiveDate m/d/yyyy)
+    in pages of pageNumber/pageSize. Needs corp; optional site (default 1). Verified live 2026-10-11 against
+    FHLB Cincinnati (fhlbcin, 6 jobs, all Cincinnati OH)."""
+    corp, site = c["corp"], int(c.get("site", 1))
+    base = f"https://{corp}.csod.com"
+    page = http(f"{base}/ux/ats/careersite/{site}/home?c={corp}", raw=True, headers={"User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+    tok, cloud = re.search(r'"token"\s*:\s*"([^"]+)"', page), re.search(r'"cloud"\s*:\s*"([^"]+)"', page)
+    if not tok or not cloud:
+        return [], False
+    hdr = {"Authorization": f"Bearer {tok.group(1)}", "User-Agent": BROWSER_UA}
+    out, seen, pg, total = [], set(), 1, None
+    while pg <= int(c.get("max_pages", 40)):
+        body = dict(careerSiteId=site, careerSitePageId=site, pageNumber=pg, pageSize=25, cultureId=1, searchText="", cultureName="en-US",
+                    states=[], countryCodes=[], cities=[], placeID="", radius=None, postingsWithinDays=None,
+                    customFieldCheckboxKeys=[], customFieldDropdowns=[], customFieldRadios=[])
+        try:
+            d = (http(cloud.group(1).rstrip("/") + "/rec-job-search/external/jobs", data=body, headers=hdr) or {}).get("data") or {}
+        except Exception:  # noqa: BLE001
+            return out, False
+        total = d.get("totalCount", total)
+        reqs = d.get("requisitions") or []
+        for r in reqs:
+            rid = str(r.get("requisitionId"))
+            if rid in seen:
+                continue
+            seen.add(rid)
+            locs = ["{}, {}, {}".format(l.get("city") or "", l.get("state") or "", l.get("country") or "").replace(" ,", "").strip(" ,")
+                    for l in r.get("locations") or []]
+            pd = re.match(r"(\d+)/(\d+)/(\d{4})", r.get("postingEffectiveDate") or "")
+            out.append(dict(id=rid, title=(r.get("displayJobTitle") or "").strip(), location="; ".join(dict.fromkeys(locs)),
+                            url=f"{base}/ux/ats/careersite/{site}/home/requisition/{rid}?c={corp}",
+                            posted=f"{pd.group(3)}-{int(pd.group(1)):02d}-{int(pd.group(2)):02d}" if pd else "",
+                            desc=strip_html(r.get("externalDescription") or "")))
+        if not reqs or (total is not None and len(seen) >= total):
+            return out, True
+        pg += 1
+    return out, False
+
+
 def taleo_cws(c):
     """Oracle Taleo Business Edition Career Center v2 (CWS) boards on <host>/<path>/ats/careers/v2, e.g.
     phh.tbe.taleo.net/phh01 for FHLBank Boston. A plain GET of searchResults?org=<org>&cws=<n> lists every open
@@ -1482,7 +1524,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
