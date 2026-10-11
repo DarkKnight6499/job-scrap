@@ -3,7 +3,6 @@
  "companies": [
   {"name": "BNP Paribas", "reason": "Akamai bot block"},
   {"name": "Citadel", "reason": "Cloudflare block"},
-  {"name": "Tradeweb", "reason": "Cloudflare challenge"},
   {"name": "Interactive Brokers", "reason": "Dayforce 403"},
   {"name": "Rabobank", "reason": "403 to scripts"},
   {"name": "UniCredit", "reason": "SSL error"},
