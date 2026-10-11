@@ -175,6 +175,22 @@ def _normalize_abbreviations(text):
 
 # ---------------------------------------------------------------- http / text
 
+TITLE_TERMS = []  # filters.title_include, set from config at startup; every search-based fetcher queries these same terms
+
+
+def _terms(c):
+    """Search terms for a search-capable fetcher. A company whose config has a `search` value is searched with the
+    one global title list (filters.title_include), never a per-company list, so every site is queried for every
+    title the user asked for. No `search` key means the fetcher pulls the whole board."""
+    return list(TITLE_TERMS) if (c.get("search") and TITLE_TERMS) else (c.get("search") or [""])
+
+
+def _load_title_terms(cfg):
+    global TITLE_TERMS
+    TITLE_TERMS = [t for t in dict.fromkeys((cfg.get("filters") or {}).get("title_include", [])) if t]
+
+
+
 def http(url, data=None, headers=None, timeout=20, raw=False):
     h = dict(UA)
     body = None
@@ -355,7 +371,7 @@ def workday(c):
     them as one company lets the existing repost-fingerprint matching recognize that instead of
     silently double-counting it as two unrelated postings under two different company names."""
     sites = c["site"] if isinstance(c["site"], list) else [c["site"]]
-    terms = c.get("search") or [""]
+    terms = _terms(c)
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 60))
     ceiling = int(c.get("term_ceiling", 1000))
@@ -367,7 +383,12 @@ def workday(c):
         base = f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs"
         rows_all, offset, term_complete, limit, total = [], 0, False, cap, None
         while offset < limit:
-            d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
+            try:
+                d = http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
+            except urllib.error.HTTPError as e:
+                if e.code != 429 or not rows_all:
+                    raise
+                return rows_all, False  # keep what this term already returned; incomplete blocks removals
             rows = d.get("jobPostings", [])
             rows_all.extend(rows)
             if offset == 0 and isinstance(d.get("total"), int):
@@ -382,8 +403,26 @@ def workday(c):
     # Slow tenants opt in via config "term_workers" (RBC answers in ~5s per request, so 16 sequential
     # multi-page terms took 4 min). Default stays 1: running every tenant's terms in parallel got
     # 429s on unrelated tenants from the shared per-IP load. map() keeps term order, so output is unchanged.
-    combos = [(site, term) for site in sites for term in terms]
-    workers = max(1, min(int(c.get("term_workers", 1)), len(combos)))
+    if len(terms) > 1 and terms != [""]:
+        # A board that fits under Workday's 2000-result cap is cheaper to read whole than to query term by term,
+        # and returns a superset, so the title list is then applied only by the page filter.
+        small = []
+        for site in sites:
+            try:
+                tot = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs",
+                           data={"appliedFacets": {}, "limit": 1, "offset": 0, "searchText": ""}).get("total")
+                if isinstance(tot, int) and tot <= int(c.get("full_board_max", 1900)):
+                    small.append(site)
+            except Exception:  # noqa: BLE001  probe failed: fall back to the term search for this site
+                pass
+        if small:
+            cap, ceiling = 2000, 2000
+        elif len(small) < len(sites):
+            ceiling = min(ceiling, int(c.get("big_board_ceiling", 300)))  # 78 terms x deep paging is slow and trips 429s
+        combos = [(site, term) for site in sites for term in ([""] if site in small else terms)]
+    else:
+        combos = [(site, term) for site in sites for term in terms]
+    workers = max(1, min(int(c.get("term_workers", 3 if len(combos) > 20 else 1)), len(combos)))
     with ThreadPoolExecutor(max_workers=workers) as pool:
         results = list(pool.map(lambda st: fetch_term(*st), combos))
     for (site, _term), (rows, term_complete) in zip(combos, results):
@@ -409,7 +448,7 @@ def oracle(c):
         top-level query params and always returns a fixed first page of 25;
       - expand=requisitionList is required or the response has only facet metadata, no jobs."""
     base = f"https://{c['host']}/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
-    terms = c.get("search") or [""]
+    terms = _terms(c)
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 60))
     ceiling = int(c.get("term_ceiling", 1000))
@@ -481,7 +520,7 @@ def goldman(c):
     and verified live 2026-10-02 (not in any doc). No config beyond 'search' terms. `experiences` must
     be non-empty (an empty list is a validation error); the list call already returns descriptionHtml,
     so describe() needs no goldman branch. `posted` is lastPostedDate (the real posting day; createdDate trails it by a day)."""
-    terms = c.get("search") or [""]
+    terms = _terms(c)
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 100))
     ceiling = int(c.get("term_ceiling", 1000))
@@ -532,7 +571,7 @@ def successfactors(c):
     20 items per page, each with the full description, link, guid and pubDate; the location is the
     trailing parenthetical of the title. Only tenants using the Career Site Builder front end have
     this feed (Moody's career8 login pages do not), so verify a host by curl before adding it."""
-    terms = c.get("search") or [""]
+    terms = _terms(c)
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 60))
     page = 20
@@ -644,7 +683,7 @@ def eightfold(c):
     so it pages with start += 10, once per search term (no 'search' key = the whole board, capped by
     max_per_term). The list rows carry no description; describe() reads it from the per-job endpoint."""
     page = 10
-    terms = c.get("search") or [""]
+    terms = _terms(c)
     terms = [terms] if isinstance(terms, str) else terms
     cap = int(c.get("max_per_term", 1500))
     ceiling = int(c.get("term_ceiling", 1000))
@@ -755,7 +794,7 @@ def avature(c):
         # Deloitte-style: <article class="article--result "> cards (title link, then Org | Entity | Location spans),
         # 10 per page, about 1000 jobs firm-wide, so each search term is paged separately (verified live 2026-10-11).
         complete = True
-        for term in c.get("search") or [""]:
+        for term in _terms(c):
             for off in range(0, int(c.get("max_per_term", 200)), page):
                 try:
                     raw = http(f"https://{c['host']}/{c['list_path']}/{urllib.parse.quote(term)}?jobOffset={off}", raw=True, timeout=40,
@@ -814,7 +853,7 @@ def kpmg(c):
     page; each card links /jobdetail/?jobId=N and carries a "Practice | Location" line. Verified live
     2026-10-11. `posted` stays blank (cards show no date)."""
     out, seen, complete = [], set(), True
-    for term in c.get("search") or [""]:
+    for term in _terms(c):
         for pg in range(1, int(c.get("max_pages", 12)) + 1):
             try:
                 raw = http(f"https://www.kpmguscareers.com/job-search/?keyword={urllib.parse.quote(term)}&spage={pg}",
@@ -1382,7 +1421,7 @@ def _fetch_cost(c):
     if c["ats"] != "workday":
         return 1
     sites = c["site"] if isinstance(c["site"], list) else [c["site"]]
-    terms = c.get("search") or [""]
+    terms = _terms(c)
     return len(sites) * (1 if isinstance(terms, str) else len(terms))
 
 
@@ -1420,6 +1459,7 @@ def cmd_fetch_shard(args):
     cfg = load_json(HOME / "config.json", None)
     if cfg is None:
         sys.exit(f"No config at {HOME / 'config.json'}.")
+    _load_title_terms(cfg)
     index, total = (int(x) for x in args.fetch_shard.split("/"))
     mine = shard_companies(cfg["companies"], index, total, load_json(FETCH_TIMES_PATH, {}))
     fetched, secs = fetch_all(mine)
@@ -2710,6 +2750,7 @@ def run(args):
     cfg = load_json(HOME / "config.json", None)
     if cfg is None:
         sys.exit(f"No config at {HOME / 'config.json'}. Run: python job_scout.py --init")
+    _load_title_terms(cfg)
     filters = cfg.get("filters", {})
     keywords = cfg.get("keywords", [])
     state = load_json(HOME / "state.json", {})
