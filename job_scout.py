@@ -43,6 +43,7 @@ import random
 import re
 import secrets
 import sys
+import threading
 import time
 import unicodedata
 import urllib.error
@@ -960,16 +961,26 @@ def _avature_result_cards(raw, seen, out):
 
 def _avature_board(c):
     """Whole board of a Deloitte-style tenant: the blank search lists every job (about 1400 on 2026-10-11, 140 pages
-    of 10, while the page only says "999+"), so pages are fetched page_workers (default 8) at a time until one comes
-    up short. None when the tenant is another variant or has more than full_board_max jobs."""
+    of 10, while the page only says "999+"). Every page up to full_board_max is queued on page_workers (default 12)
+    threads and the queue stops at the first short page, so one stalled request (they hang for 30s now and then)
+    never holds a whole round back. None when the tenant is another variant or the board is over full_board_max."""
     if c.get("variant") != "results":
         return None
-    page, workers, limit = int(c.get("page_size", 10)), int(c.get("page_workers", 8)), int(c.get("full_board_max", 1900))
+    page, limit = int(c.get("page_size", 10)), int(c.get("full_board_max", 1900))
+    done = threading.Event()
+
+    def get(off):
+        if done.is_set():
+            return ""  # the board ended on an earlier page
+        raw = _avature_results_page(c, "", off)
+        if raw.count('class="article--result') < page:
+            done.set()
+        return raw
+
     out, seen = [], set()
-    for start in range(0, limit, workers * page):
-        offs = range(start, min(start + workers * page, limit), page)
-        raws = _pool_map(lambda off: _avature_results_page(c, "", off), offs, workers)  # a failed page raises: caller falls back
-        if any([_avature_result_cards(raw, seen, out) < page for raw in raws]):
+    # a failed page raises, so the caller falls back to the term search
+    for raw in _pool_map(get, range(0, limit, page), c.get("page_workers", 12)):
+        if _avature_result_cards(raw, seen, out) < page:
             return out, True
     return None
 
