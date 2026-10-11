@@ -17,6 +17,7 @@ OPT_ONLY = [
     "We will not sponsor now or in the future.",
 ]
 HARD_BLOCKED = [
+    "To be eligible for a VIE: Be less than 28 years old. Be graduated of Master Degree. Be EU citizen",
     "Must be a U.S. citizen. We do not sponsor visas.",
     "Active secret clearance required. No sponsorship.",
     "This position is subject to ITAR. We cannot sponsor.",

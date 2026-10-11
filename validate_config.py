@@ -18,9 +18,9 @@ REQUIRED_FIELDS = {
     "brassring": ("host", "partnerid", "siteid"),
     "jibe": ("host",), "taleo": ("host", "section", "portal"),
     "hrmdirect": ("host",), "goldman": (), "deshaw": (),
-    "commerzbank": (), "dzbank": (), "marketaxess": (), "phenom": ("host", "ref_num", "page_id"),
+    "commerzbank": (), "dzbank": (), "marketaxess": (), "balyasny": (), "tal": ("host",), "dayforce": ("namespace", "board"), "phenom": ("host", "ref_num", "page_id"),
     "kpmg": (), "adp_rm": ("domain",), "adp_wfn": ("cid",), "ukg": ("board",),
-    "taleo_be": ("host", "search_id", "site_name"), "talentsoft": ("host",), "bpce": ("host",), "paylocity": ("board",),
+    "taleo_be": ("host", "search_id", "site_name"), "taleo_cws": ("host", "path", "org", "cws"), "csod": ("corp",), "peoplesoft_hrs": ("host",), "talentsoft": ("host",), "bpce": ("host",), "paylocity": ("board",),
 }
 ROOT = Path(__file__).resolve().parent
 
@@ -68,9 +68,9 @@ def endpoints(company):
         return {(ats, _host(company["host"]), str(company["portal"]).strip())}
     fields = {
         "oracle": ("site",), "eightfold": ("domain",),
-        "avature": ("list_path",), "taleo_be": ("search_id",), "brassring": ("partnerid", "siteid"),
+        "avature": ("list_path",), "taleo_be": ("search_id",), "taleo_cws": ("path", "org", "cws"), "brassring": ("partnerid", "siteid"),
     }.get(ats, ())
-    if ats in ("adp_rm", "adp_wfn", "ukg", "paylocity"):  # host-less boards keyed by their own id
+    if ats in ("adp_rm", "adp_wfn", "ukg", "paylocity", "csod"):  # host-less boards keyed by their own id
         return {(ats, _path(str(company[REQUIRED_FIELDS[ats][0]])))}
     if "host" in REQUIRED_FIELDS[ats]:
         return {(ats, _host(company["host"]), *(_path(str(company[f])) for f in fields))}
