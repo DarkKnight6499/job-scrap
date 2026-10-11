@@ -18,7 +18,7 @@ REQUIRED_FIELDS = {
     "brassring": ("host", "partnerid", "siteid"),
     "jibe": ("host",), "taleo": ("host", "section", "portal"),
     "hrmdirect": ("host",), "goldman": (), "deshaw": (),
-    "commerzbank": (), "dzbank": (), "marketaxess": (), "balyasny": (), "phenom": ("host", "ref_num", "page_id"),
+    "commerzbank": (), "dzbank": (), "marketaxess": (), "balyasny": (), "tal": ("host",), "phenom": ("host", "ref_num", "page_id"),
     "kpmg": (), "adp_rm": ("domain",), "adp_wfn": ("cid",), "ukg": ("board",),
     "taleo_be": ("host", "search_id", "site_name"), "taleo_cws": ("host", "path", "org", "cws"), "csod": ("corp",), "peoplesoft_hrs": ("host",), "talentsoft": ("host",), "bpce": ("host",), "paylocity": ("board",),
 }

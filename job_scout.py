@@ -1536,7 +1536,53 @@ def marketaxess(c):
     return out, True
 
 
-_BALYASNY_SITE = "https://bambusdev.my.site.com"  # BAM's careers app lives on its Salesforce Experience Cloud site
+def _tal_fields(page):
+    """Label -> value for the read-only form fields on a Tal.net posting page (Region, Location, Group, ...), plus the
+    job description text (the field that follows the "Job description" label)."""
+    fields = {}
+    for m in re.finditer(r'hform_lbl_text"\s*>\s*(.*?)\s*</span>.*?form-control-static"[^>]*>\s*(.*?)\s*</div>', page, re.S):
+        fields.setdefault(strip_html(m.group(1)), strip_html(m.group(2)))
+    i = page.find("Job description")
+    fields["_desc"] = strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", page[i:]))[:30000] if i >= 0 else ""
+    return fields
+
+
+def tal(c):
+    """Tal.net (Oleeo) candidate job boards, e.g. evercore.tal.net. Each board (vacancy N) publishes a public Atom feed at
+    /vx/mobile-0/appcentre-1/candidate/jobboard/vacancy/N/feed (title, posting date, posting URL) and the career site's
+    ALTCHA gate only guards applying, not reading. The feed has no place, so each posting page is read once for its
+    Location (and Region) field and description, 8 at a time. Needs host and vacancies (board numbers, default [1]).
+    Verified live 2026-10-11 against Evercore (vacancies 2 and 3: 96 jobs)."""
+    base = f"https://{c['host']}"
+    ns = {"a": "http://www.w3.org/2005/Atom"}
+    entries, ok = {}, True
+    for n in c.get("vacancies") or [1]:
+        root = ET.fromstring(http(f"{base}/vx/mobile-0/appcentre-1/candidate/jobboard/vacancy/{n}/feed", raw=True, timeout=40,
+                                  headers={"User-Agent": BROWSER_UA}))
+        for e in root.findall("a:entry", ns):
+            url = (e.findtext("a:id", "", ns) or "").strip()
+            m = re.search(r"/opp/(\d+)-", url)
+            if m:
+                entries.setdefault(m.group(1), (url, (e.findtext("a:title", "", ns) or "").strip(), (e.findtext("a:published", "", ns) or "")[:10]))
+
+    def one(item):
+        jid, (url, title, posted) = item
+        try:
+            f = _tal_fields(http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore"))
+        except Exception:  # noqa: BLE001 - one bad posting page must not drop the board; flag the list incomplete instead
+            return None
+        loc = f.get("Location", "")
+        region = f.get("Region", "")
+        return dict(id=jid, title=title, url=url, posted=posted, desc=f["_desc"],
+                    location=loc if not region or region in loc else f"{loc}, {region}" if loc else region)
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        rows = list(pool.map(one, entries.items()))
+    ok = all(r is not None for r in rows)
+    return [r for r in rows if r], ok and bool(entries)
+
+
+_BALYASNY_SITE ="https://bambusdev.my.site.com"  # BAM's careers app lives on its Salesforce Experience Cloud site
 
 
 def _balyasny_aura(classname, method, params):
@@ -1625,7 +1671,7 @@ def phenom(c):
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
              oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
-             balyasny=balyasny)
+             balyasny=balyasny, tal=tal)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
