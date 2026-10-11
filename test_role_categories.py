@@ -320,3 +320,13 @@ def test_new_family_terms_catch_leftover_titles():
     for label, titles in cases.items():
         for title in titles:
             assert label in categories_for(title), (label, title, categories_for(title))
+
+
+def test_treasury_sales_roles_are_sales_not_treasury():
+    for title in ["Treasury Management Sales Officer Senior", "Sales Executive, Treasury Solutions",
+                  "Pre-Sales Solution Specialist, Treasury & Payments (Quantum)", "Director, Treasury Management Sales"]:
+        hits = categories_for(title)
+        assert "Sales/Business Development" in hits and "Treasury/ALM/Liquidity" not in hits, (title, hits)
+    # real treasury roles keep their chip
+    for title in ["Treasury Analyst", "Treasury Manager", "Liquidity Risk Manager, Treasury"]:
+        assert "Treasury/ALM/Liquidity" in categories_for(title), title

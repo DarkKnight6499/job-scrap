@@ -3182,6 +3182,7 @@ ROLE_CATEGORIES = {
 # Titles containing any of these phrases never join the category, even when a term matches
 # (same word-boundary matching as the terms). Kept to the one case rewording cannot fix.
 ROLE_CATEGORY_EXCLUDE = {
+    "Treasury/ALM/Liquidity": ["sales"],  # "Treasury Management Sales Officer" sells treasury products; it belongs under Sales only
     "Research/Investment Analysis": ["operations research"],
     "Quant/Modeling/Pricing": ["valuation controller", "valuation control", "controllers", "valuation advisory"],
 }
