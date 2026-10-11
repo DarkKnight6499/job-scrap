@@ -13223,32 +13223,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Webster Bank",
-   "ats": "workday",
-   "host": "wbs.wd108.myworkdayjobs.com",
-   "tenant": "wbs",
-   "site": "wbscareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Wealth Enhancement Group",
    "ats": "workday",
    "host": "weg.wd501.myworkdayjobs.com",
@@ -15445,6 +15419,79 @@
    "host": "careers.marsh.com",
    "ref_num": "MAMCGLOBAL",
    "page_id": "page21"
+  },
+  {
+   "name": "Deloitte",
+   "ats": "avature",
+   "host": "apply.deloitte.com",
+   "list_path": "en_US/careers/SearchJobs",
+   "variant": "results",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "EY",
+   "ats": "successfactors",
+   "host": "careers.ey.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "KPMG",
+   "ats": "kpmg",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ]
   }
  ],
  "keywords": [

@@ -750,6 +750,30 @@ def avature(c):
                     pass
         except Exception:  # noqa: BLE001  the feed is a bonus; the list pages are the source of truth
             pass
+    if c.get("variant") == "results":
+        # Deloitte-style: <article class="article--result "> cards (title link, then Org | Entity | Location spans),
+        # 10 per page, about 1000 jobs firm-wide, so each search term is paged separately (verified live 2026-10-11).
+        complete = True
+        for term in c.get("search") or [""]:
+            for off in range(0, int(c.get("max_per_term", 200)), page):
+                try:
+                    raw = http(f"https://{c['host']}/{c['list_path']}/{urllib.parse.quote(term)}?jobOffset={off}", raw=True, timeout=40,
+                               headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+                except Exception:  # noqa: BLE001
+                    complete = False
+                    break
+                arts = raw.split('class="article--result')[1:]
+                for a in arts:
+                    m = re.search(r'<a href="([^"]+/JobDetail/[^"]+/(\d+))"[^>]*>\s*(.*?)\s*</a>', a, re.S)
+                    if not m or m.group(2) in seen:
+                        continue
+                    seen.add(m.group(2))
+                    spans = [strip_html(x) for x in re.findall(r'<span>\s*(.*?)\s*</span>', a, re.S)]
+                    out.append(dict(id=m.group(2), title=strip_html(m.group(3)), url=html.unescape(m.group(1)),
+                                    location=spans[-1] if spans else "", posted=""))
+                if len(arts) < page:
+                    break
+        return out, complete
     while offset < cap:
         raw = http(f"https://{c['host']}/{c['list_path']}?jobOffset={offset}", raw=True, timeout=40,
                    headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
@@ -782,6 +806,37 @@ def avature(c):
         if len(arts) < page:
             return out, True
     return out, False
+
+
+def kpmg(c):
+    """KPMG US careers (WordPress, server-rendered). /job-search/?keyword=<term>&spage=<n> returns 12 cards per
+    page; each card links /jobdetail/?jobId=N and carries a "Practice | Location" line. Verified live
+    2026-10-11. `posted` stays blank (cards show no date)."""
+    out, seen, complete = [], set(), True
+    for term in c.get("search") or [""]:
+        for pg in range(1, int(c.get("max_pages", 12)) + 1):
+            try:
+                raw = http(f"https://www.kpmguscareers.com/job-search/?keyword={urllib.parse.quote(term)}&spage={pg}",
+                           raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+            except Exception:  # noqa: BLE001
+                complete = False
+                break
+            cards = raw.split('<a href="/jobdetail/?jobId=')[1:]
+            new = 0
+            for a in cards:
+                jid = re.match(r"(\d+)", a)
+                if not jid or jid.group(1) in seen:
+                    continue
+                seen.add(jid.group(1))
+                new += 1
+                t = re.search(r'<div class="h5 text-dark-grey">\s*(.*?)\s*</div>', a, re.S)
+                l = re.search(r'<div class="text-xs text-dark-grey">\s*([^<]*?\|[^<]*?)\s*</div>', a, re.S)
+                out.append(dict(id=jid.group(1), title=strip_html(t.group(1)) if t else "",
+                                url=f"https://www.kpmguscareers.com/jobdetail/?jobId={jid.group(1)}",
+                                location=strip_html(l.group(1)).split("|", 1)[-1].strip() if l else "", posted=""))
+            if len(cards) < 12 or not new:
+                break
+    return out, complete
 
 
 def deshaw(c):
@@ -1077,7 +1132,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1221,7 +1276,7 @@ def describe(c, job):
     if ats == "icims":
         text, posted = _icims_description(job)
         return text, posted, "exact" if posted else ""
-    if ats == "avature":
+    if ats in ("avature", "kpmg"):
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
         raw = re.sub(r"(?is)<(script|style|nav|header|footer)\b.*?</\1>", " ", raw)
         return strip_html(raw)[:30000], "", ""  # Avature job pages carry no JSON-LD; whole-page text is enough for the sponsorship/experience regexes
