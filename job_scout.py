@@ -1184,7 +1184,10 @@ def taleo(c):
     """Oracle Taleo Enterprise career sections - POST /careersection/rest/jobboard/searchjobs (25 per page).
     Needs host, section and portal (the number in the section's jobsearch.ftl?portal= URL). The list
     columns are title, locations (JSON string) and an exact posted date. Verified live 2026-10-02
-    against Equitable (equitable.taleo.net, section eqh_1)."""
+    against Equitable (equitable.taleo.net, section eqh_1) and 2026-10-11 against Cincinnati Financial. Sections
+    that order the columns differently (Cincinnati: job number, title, locations, no date) set "columns":
+    [title, location, posted] indexes, -1 for a missing one."""
+    ti, li, pi = c.get("columns", [0, 1, 2])
     host, sec, portal = c["host"], c["section"], c["portal"]
     empty = lambda ids: [dict(id=i, selectedValues=[]) for i in ids]
     out, seen, page = [], set(), 1
@@ -1203,17 +1206,18 @@ def taleo(c):
                 continue
             seen.add(jid)
             col = r.get("column") or []
+            at = lambda i: col[i] if 0 <= i < len(col) else ""
             try:
-                locs = json.loads(col[1]) if len(col) > 1 else []
+                locs = json.loads(at(li)) if at(li) else []
                 loc = "; ".join(locs) if isinstance(locs, list) else str(locs)
             except ValueError:
-                loc = col[1] if len(col) > 1 else ""
+                loc = at(li)
             posted = ""
             try:
-                posted = datetime.strptime(col[2].strip(), "%b %d, %Y").date().isoformat() if len(col) > 2 else ""
+                posted = datetime.strptime(at(pi).strip(), "%b %d, %Y").date().isoformat() if at(pi) else ""
             except ValueError:
                 pass
-            out.append(dict(id=jid, title=strip_html(col[0]) if col else "", location=loc,
+            out.append(dict(id=jid, title=strip_html(at(ti)), location=loc,
                             url=f"https://{host}/careersection/{sec}/jobdetail.ftl?job={jid}&lang=en", posted=posted))
         if len(rows) < int((d.get("pagingData") or {}).get("pageSize") or 25):
             return out, True
