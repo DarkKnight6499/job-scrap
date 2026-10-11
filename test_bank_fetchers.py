@@ -60,3 +60,12 @@ def test_bpce_locations_dates_and_completeness():
     data["data"]["total"] = 5
     with mock.patch.object(js, "http", fake_http({"search/jobs": data})):
         assert js.bpce(dict(host="r.example.com"))[1] is False  # fewer items than the site's total
+
+
+def test_paylocity_page_data_and_dates():
+    page = ('<script>window.pageData = {"Jobs": [{"JobId": 7, "JobTitle": "Teller", "LocationName": "Locust Valley", "PublishedDate": "2026-10-07T14:56:00-05:00",'
+            ' "JobLocation": {"City": "Locust Valley", "State": "NY"}}]};\n</script>')
+    with mock.patch.object(js, "http", fake_http({"paylocity.com/recruiting/jobs": page})):
+        jobs, complete = js.paylocity(dict(board="https://recruiting.paylocity.com/recruiting/jobs/All/g/x"))
+    assert complete and jobs == [dict(id="7", title="Teller", location="Locust Valley, NY",
+                                      url="https://recruiting.paylocity.com/Recruiting/Jobs/Details/7", posted="2026-10-07")]

@@ -1029,6 +1029,25 @@ def bpce(c):
     return out, bool(items) and len(items) >= int(d.get("total") or 0)
 
 
+def paylocity(c):
+    """Paylocity Recruiting job boards (recruiting.paylocity.com/recruiting/jobs/All/<guid>/<name>). The board page
+    embeds every job in window.pageData ("Jobs": id, title, city/state, ISO PublishedDate, 110-char snippet), so one
+    GET lists the lot with real posting dates; describe() reads the detail page's JSON-LD. Needs `board` (the board
+    URL). Verified live 2026-10-11 against ConnectOne Bank (36 jobs)."""
+    raw = http(c["board"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+    m = re.search(r"window\.pageData\s*=\s*(\{.*?\});\s*\n", raw, re.S)
+    if not m:
+        return [], False
+    out = []
+    for j in json.loads(m.group(1)).get("Jobs") or []:
+        loc = j.get("JobLocation") or {}
+        place = ", ".join(x for x in (loc.get("City") or j.get("LocationName"), loc.get("State")) if x)
+        out.append(dict(id=str(j["JobId"]), title=j.get("JobTitle", ""), location=place,
+                        url=f"https://recruiting.paylocity.com/Recruiting/Jobs/Details/{j['JobId']}",
+                        posted=(j.get("PublishedDate") or "")[:10]))
+    return out, True
+
+
 def deshaw(c):
     """D. E. Shaw's own careers site (Next.js, server-rendered). The job list is the set of
     /careers/<slug>-<id> links on /careers/choose-your-path; each job page embeds the full job as
@@ -1322,7 +1341,7 @@ def phenom(c):
 
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, talentsoft=talentsoft, bpce=bpce, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
+             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -1496,7 +1515,7 @@ def describe(c, job):
             if len(text) > 200:  # the page also carries short site-level descriptions
                 return text, "", ""
         return _jsonld_description(job["url"]), "", ""
-    if ats == "talentbrew":
+    if ats in ("talentbrew", "paylocity"):
         return _jsonld_description(job["url"]), "", ""
     if ats == "taleo":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
