@@ -1105,16 +1105,12 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "term_ceiling": 2000,
-   "term_workers": 4,
-   "big_board_ceiling": 2000
+   "term_workers": 4
   },
   {
    "name": "Citi",
    "ats": "workday",
    "term_workers": 3,
-   "page_workers": 4,
-   "big_board_ceiling": 400,
    "host": "citi.wd5.myworkdayjobs.com",
    "tenant": "citi",
    "site": "2",
@@ -1136,8 +1132,7 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100,
-   "term_ceiling": 2000
+   "max_per_term": 100
   },
   {
    "name": "Wells Fargo",
@@ -1279,8 +1274,6 @@
    "name": "PNC",
    "ats": "workday",
    "term_workers": 3,
-   "page_workers": 4,
-   "big_board_ceiling": 800,
    "host": "pnc.wd5.myworkdayjobs.com",
    "tenant": "pnc",
    "site": "External",
@@ -1302,8 +1295,7 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100,
-   "term_ceiling": 2000
+   "max_per_term": 100
   },
   {
    "name": "Northern Trust",
@@ -1680,8 +1672,6 @@
     "collateral"
    ],
    "max_per_term": 60,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -4140,8 +4130,6 @@
    "name": "Abbott",
    "ats": "workday",
    "term_workers": 3,
-   "page_workers": 4,
-   "big_board_ceiling": 2000,
    "host": "abbott.wd5.myworkdayjobs.com",
    "tenant": "abbott",
    "site": "abbottcareers",
@@ -4340,8 +4328,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -7269,7 +7255,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 800,
    "term_workers": 4
   },
   {
@@ -7375,8 +7360,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -7409,8 +7392,6 @@
    "name": "PwC",
    "ats": "workday",
    "term_workers": 3,
-   "page_workers": 4,
-   "big_board_ceiling": 2000,
    "host": "pwc.wd3.myworkdayjobs.com",
    "tenant": "pwc",
    "site": "Global_Experienced_Careers",
@@ -7485,8 +7466,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -7644,8 +7623,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 1000,
-   "term_ceiling": 1000,
    "term_workers": 4
   },
   {
@@ -7855,8 +7832,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -8040,8 +8015,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -9166,8 +9139,6 @@
    "name": "JLL",
    "ats": "workday",
    "term_workers": 3,
-   "page_workers": 4,
-   "big_board_ceiling": 2000,
    "host": "jll.wd1.myworkdayjobs.com",
    "tenant": "jll",
    "site": "jllcareers",
@@ -9294,8 +9265,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -9349,8 +9318,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2400,
-   "term_ceiling": 2400,
    "term_workers": 4
   },
   {
@@ -9383,8 +9350,6 @@
    "name": "Leidos",
    "ats": "workday",
    "term_workers": 3,
-   "page_workers": 4,
-   "big_board_ceiling": 2000,
    "host": "leidos.wd5.myworkdayjobs.com",
    "tenant": "leidos",
    "site": "External",
@@ -9641,8 +9606,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 6500,
-   "term_ceiling": 6500,
    "term_workers": 4
   },
   {
@@ -9852,8 +9815,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 7000,
-   "term_ceiling": 7000,
    "term_workers": 4
   },
   {
@@ -10063,9 +10024,7 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "term_ceiling": 3700,
-   "term_workers": 4,
-   "big_board_ceiling": 3700
+   "term_workers": 4
   },
   {
    "name": "BorgWarner",
@@ -10378,8 +10337,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 4100,
-   "term_ceiling": 4100,
    "term_workers": 4
   },
   {
@@ -10486,10 +10443,7 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
-   "term_workers": 3,
-   "page_workers": 4
+   "term_workers": 3
   },
   {
    "name": "FTI Consulting",
@@ -12128,8 +12082,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {
@@ -12858,9 +12810,7 @@
     "derivatives",
     "collateral"
    ],
-   "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000
+   "max_per_term": 100
   },
   {
    "name": "Air Products",
@@ -13797,8 +13747,6 @@
     "collateral"
    ],
    "max_per_term": 100,
-   "big_board_ceiling": 2000,
-   "term_ceiling": 2000,
    "term_workers": 4
   },
   {

@@ -525,19 +525,18 @@ def _facet_parts(post, part_max=1900, max_depth=3):
                 out.append((param, vals))
         return out
 
-    def stats(gs):
-        """(group, sum) pairs without the outliers: a facet whose values overlap (a posting in two states) sums far
-        past the posting count, so groups above 1.1x the median sum are not trusted."""
-        sums = sorted(sum(v["count"] for v in g[1]) for g in gs)
-        med = sums[len(sums) // 2]
-        return [(g, sum(v["count"] for v in g[1])) for g in gs if sum(v["count"] for v in g[1]) <= 1.1 * med]
-
     def best(gs):
-        """The group to slice by and the posting count a complete read must reach. Among the groups that cover
-        (nearly) every posting, the one with the smallest biggest slice splits best."""
-        ok = stats(gs)
-        top = max(n for _, n in ok)
-        g = min((g for g, n in ok if n >= 0.995 * top), key=lambda g: max(v["count"] for v in g[1]))
+        """The group to slice by and the posting count a complete read must reach. Facets that cover every posting
+        once agree on their sum (jobFamilyGroup, workerSubType and timeType all say 2066), so the highest sum shared
+        by two groups is the board size; without one, the highest sum within 1.1x the median (a facet whose values
+        overlap, like states, sums far past the posting count). Among the groups that reach it, the one with the
+        smallest biggest slice splits best."""
+        sums = [sum(v["count"] for v in g[1]) for g in gs]
+        shared = [n for n in set(sums) if sums.count(n) > 1]
+        med = sorted(sums)[len(sums) // 2]
+        top = max(shared) if shared else max(n for n in sums if n <= 1.1 * med)
+        g = min((g for g, n in zip(gs, sums) if 0.995 * top <= n <= 1.1 * top),
+                key=lambda g: max(v["count"] for v in g[1]))
         return g, top
 
     def split(applied, d, depth):
@@ -623,7 +622,7 @@ def workday(c):
         for site in sites:
             try:
                 tot = post(site, "", 0, limit=1).get("total")
-                if isinstance(tot, int) and tot <= int(c.get("full_board_max", 1900)):
+                if isinstance(tot, int) and tot <= int(c.get("full_board_max", 1999)):  # below 2000 the total is real
                     small.append(site)
                 elif isinstance(tot, int) and tot >= 2000:
                     bmax = int(c.get("board_read_max", 25000))
