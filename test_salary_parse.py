@@ -64,8 +64,6 @@ def test_annual_shapes(text, expected):
     ("Pay rate: $45/hr", "$45/hr (~$93.6k/yr)"),
     ("salary of $8,000 - $10,000 per month", "$8,000 - $10,000/mo (~$96k - $120k/yr)"),
     ("Base salary $2,000 - $2,500 per week", "$2,000 - $2,500/wk (~$104k - $130k/yr)"),
-    # a bare small pair under an explicit pay-range label can only be hourly; labelled as an assumption
-    ("compensation programs. Base Pay Range $31 \u2014 $36 USD Benefits: competitive", "$31 - $36/hr (~$64.5k - $74.9k/yr, assumed hourly)"),
 ])
 def test_period_conversion_is_labelled(text, expected):
     assert sal(text) == expected
@@ -197,3 +195,8 @@ def test_ashby_salary_component_only(monkeypatch):
     assert sal(jobs[0]["desc"]) == "$211,400 - $290,600"
     comp["summaryComponents"] = comp["summaryComponents"][:2]
     assert sal(js.ashby(dict(slug="x"))[0][0]["desc"]) == "Unclear"  # bonus-only is never reported as salary
+
+
+def test_unlabelled_small_pay_pair_is_not_guessed_as_hourly():
+    # no stated pay period: never assume hourly, leave it Unclear
+    assert sal("compensation programs. Base Pay Range $31 \u2014 $36 USD Benefits: competitive") == "Unclear"

@@ -2604,11 +2604,9 @@ def classify_experience(title, text):
     """Best-effort years-of-experience, keyed off the LOWER bound stated (e.g. "5+ years" or "3-5
     years" both key off 3/5, not an average or the upper end) since that's the number that actually
     gates whether someone can apply. Returns (years, evidence): years is an exact integer whenever
-    the description states one, or a representative anchor (0 for entry-level phrasing, 3/6 for a
-    title-inferred guess) when it doesn't. Explicit numbers in the description win over title words,
-    since a title alone ("Analyst") says less than a description that actually states "3-5 years
-    required". No signal at all is (None, ...) - Unclear, not assumed entry-level - same "never
-    guess beyond the evidence" rule as sponsorship classification."""
+    the description states one, or 0 for explicit entry-level phrasing. The title is never used: no
+    signal in the description is (None, ...) - Unclear, not assumed from the title or entry-level - same
+    "never guess beyond the evidence" rule as sponsorship classification."""
     hay = text or ""
     m = _ENTRY_PHRASE_RE.search(hay)
     if m:
@@ -2622,14 +2620,6 @@ def classify_experience(title, text):
     stated = _stated_experience_years(hay)
     if stated:
         return stated
-    if _SENIOR_TITLE_RE.search(title or ""):
-        return 6, f"inferred from title: {title}"
-    if _MID_TITLE_RE.search(title or ""):
-        return 3, f"inferred from title: {title}"
-    if _DIRECTOR_TITLE_RE.search(title or ""):
-        return 6, f"inferred from title: {title}"
-    if _ENTRY_TITLE_RE.search(title or ""):
-        return 0, f"inferred from title: {title}"
     return None, "No years-of-experience language found."
 
 
@@ -2785,11 +2775,7 @@ def _salary_candidates(hay):
             lo, hi = hi, lo
         period = _salary_period(hay, m.end(), m.start())
         if period is None:
-            if 12 <= lo and hi <= 150 and (c1 or c2) and re.search(
-                    r"\b(?:pay range|base pay|pay rate|wage|salary range|base range)\b", hay[max(0, m.start() - 60):m.start()], re.I):
-                period = "hour?"  # "Base Pay Range $31 - $36 USD": only an hourly figure is that small
-            else:
-                period = "year"
+            period = "year"  # no stated pay period: read as annual, so a small figure like "$31 - $36" fails the bounds check instead of being guessed as hourly
         if not _salary_in_bounds(lo, hi, period.rstrip("?")):
             continue
         if period == "year" and lo < 1000 and not (k1 or k2):

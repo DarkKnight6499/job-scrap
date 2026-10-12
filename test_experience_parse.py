@@ -90,28 +90,20 @@ def test_entry_boilerplate_not_entry_level():
     assert years("From entry-level employees to senior leaders, we grow talent.") is None
 
 
-def test_stated_years_beat_title_inference():
+def test_stated_years_are_read_and_the_title_is_never_used():
     val, ev = classify_experience("Senior Associate, Audit", "Qualifications: Minimum three years of recent experience")
     assert val == 3 and "three years" in ev
-    # existing title inference unchanged when nothing is stated
-    assert classify_experience("Senior Analyst", "Great team.") == (6, "inferred from title: Senior Analyst")
-    assert classify_experience("Associate Director, Ops", "Great team.")[0] == 3
 
 
-@pytest.mark.parametrize("title, expected", [
-    ("Summer Analyst Intern", 0),
-    ("Jr Asset Liability Management Analyst", 0),
-    ("Underwriting Trainee June 2027", 0),
-    ("Graduate Program, Markets", 0),
-    ("Managing Director, Credit", 6),
-    ("Director, Underwriting", 6),
-    ("Credit Analyst", None),
+@pytest.mark.parametrize("title", [
+    "Summer Analyst Intern", "Jr Asset Liability Management Analyst", "Underwriting Trainee June 2027",
+    "Graduate Program, Markets", "Managing Director, Credit", "Director, Underwriting", "Senior Analyst",
+    "Associate Director, Ops", "Credit Analyst",
 ])
-def test_title_fallback_is_labelled_and_conservative(title, expected):
+def test_title_alone_never_yields_a_value(title):
+    # never guess: seniority words in the title say nothing about a stated requirement
     val, ev = classify_experience(title, "No years mentioned.")
-    assert val == expected
-    if expected is not None:
-        assert ev == f"inferred from title: {title}"
+    assert val is None and "inferred" not in ev
 
 
 def test_maximum_years_is_not_a_requirement():
