@@ -37,8 +37,9 @@ _EXCL = {
 # the former labels; _n() maps one to the label now on the page. Quantitative Risk/Analytics and
 # Quant/Modeling/Pricing stay separate on purpose: Quant/Modeling/Pricing carries exclusions ("valuation
 # control", "controllers") that would wrongly drop a "Quantitative Analyst, Valuation Control" title that
-# Quantitative Risk/Analytics used to keep.
+# Quantitative Risk/Analytics used to keep. Quantitative Risk/Analytics and Model Risk/Validation share one chip.
 MERGES = {
+    "Model & Quantitative Risk": ["Quantitative Risk/Analytics", "Model Risk/Validation"],
     "Risk Management (General)": ["Risk & Controls (General)", "Risk Management (General)"],
     "Compliance/Audit": ["Compliance/Financial Crime", "Audit/Assurance"],
     "Fixed Income/Trading/Markets": ["Fixed Income", "Trading/Markets/Derivatives"],
@@ -229,7 +230,7 @@ def test_chip_list_is_the_merged_list_in_first_member_order_then_other():
     labels = [c["label"] for c in _CATS]
     assert labels[-1] == "Other (no category)"
     assert labels[:-1] == list(dict.fromkeys(_n(l) for l in OLD_ROLE_CATEGORIES))
-    assert len(labels) == 26
+    assert len(labels) == 25
 
 
 def _expected_present(old_label, title):
@@ -304,7 +305,7 @@ def test_merge_table_reproduces_old_membership_on_sample_titles():
 
 
 def test_quantitative_title_with_valuation_control_keeps_quantitative_risk_chip():
-    assert "Quantitative Risk/Analytics" in categories_for("Quantitative Analyst, Valuation Control")
+    assert "Model & Quantitative Risk" in categories_for("Quantitative Analyst, Valuation Control")
 
 
 def test_unmatched_title_stays_in_other():

@@ -3258,15 +3258,13 @@ ROLE_CATEGORIES = {
         "operational risk", "business risk", "internal controls", "enterprise risk", "risk governance",
         "governance risk",
     ],
-    "Quantitative Risk/Analytics": [
+    "Model & Quantitative Risk": [
         "quantitative risk", "quantitative analyst", "quant analyst", "quantitative analytics",
+        "model risk", "model validation", "model risk management",
     ],
     "Capital Planning": [
         "capital planning", "resolution planning", "ccar", "icaap", "basel", "rwa", "pillar 3", "capital adequacy",
         "stress testing", "regulatory reporting",
-    ],
-    "Model Risk/Validation": [
-        "model risk", "model validation", "model risk management",
     ],
     "Market Risk": [
         "market risk", "value at risk", "var", "trading risk",
