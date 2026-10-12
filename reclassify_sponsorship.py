@@ -24,7 +24,7 @@ refusal to sponsor) and "Blocked" (citizenship, clearance, permanent authorizati
 `--blocked` re-checks entries already marked Blocked and moves those that are really "OPT Only" to
 state "opt_only" (only from state auto_blocked or new; any other state is left as it is).
 
-Usage: py -3 reclassify_sponsorship.py [--dry-run] [--blocked] [--limit N]
+Usage: py -3 reclassify_sponsorship.py [--dry-run] [--blocked | --opt-only] [--limit N]
 """
 import sys
 import argparse
@@ -43,6 +43,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dry-run", action="store_true", help="Report what would change, write nothing")
     ap.add_argument("--blocked", action="store_true", help="Re-check Blocked entries instead of Unclear ones")
+    ap.add_argument("--opt-only", action="store_true", help="Re-check OPT Only entries; moves those that are really Blocked to auto_blocked")
     ap.add_argument("--limit", type=int, default=None, help="Only check the first N Unclear entries (testing)")
     args = ap.parse_args()
 
@@ -52,7 +53,7 @@ def main():
     company_by_name = {c["name"]: c for c in cfg["companies"]}
 
     queue = job_scout.load_json(HOME / "queue.json", [])
-    from_status = "Blocked" if args.blocked else "Unclear"
+    from_status = "OPT Only" if args.opt_only else "Blocked" if args.blocked else "Unclear"
     targets = [e for e in queue if e.get("sponsorship_status") == from_status]
     if args.limit:
         targets = targets[:args.limit]
@@ -89,7 +90,7 @@ def main():
                 print(f"! {entry['company']} - {entry['role']}: {err}", file=sys.stderr)
                 continue
             spons, evidence = result
-            if args.blocked and spons == "Unclear":
+            if (args.blocked or args.opt_only) and spons == "Unclear":
                 unchanged += 1  # a re-fetch that finds no wording proves nothing; keep the earlier Blocked verdict
                 continue
             if spons != entry["sponsorship_status"]:

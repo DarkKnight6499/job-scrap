@@ -159,8 +159,10 @@ HARD_BLOCK_PATTERNS = [
     r"not\s+eligible\s+for[^.]{0,150}\b(?:opt|cpt)\b",
 ]
 HARD_BLOCK_RES = [re.compile(p, re.I) for p in HARD_BLOCK_PATTERNS]
-_OPT_WORD_RE = re.compile(r"\b(?:opt|cpt|stem|f-?1)\b", re.I)
-OPT_WINDOW_CHARS = 200  # an OPT/STEM/F-1 mention this close to a no-sponsorship phrase is read as an OPT exclusion
+_OPT_WORD_RE = re.compile(r"\b(?:opt|cpt|f-?1)\b", re.I)  # bare "stem" is a degree field, not an OPT mention
+# "won't sign OPT/CPT paperwork" (JPMorgan, Mizuho) is a corner case kept as OPT Only; a bare OPT exclusion list blocks.
+_SIGNOFF_RE = re.compile(r"documentation|sign|execut|administrative assistance|any assistance", re.I)
+OPT_WINDOW_CHARS = 400  # an OPT/STEM/F-1 mention this close to a no-sponsorship phrase is read as an OPT exclusion
 
 # Abbreviations whose internal periods break the "[^.]{0,N}" same-sentence
 # windows above (a period-based window can't span "U.S." without this) -
@@ -2788,11 +2790,15 @@ def classify_sponsorship(text):
         m = rx.search(normalized)
         if m:
             return "Blocked", evidence(m)
+    first = None
     for rx in BLOCK_RES:
-        m = rx.search(normalized)
-        if m:
+        for m in rx.finditer(normalized):  # every match: the OPT list can follow a later sentence, not the first hit
+            first = first or m
             window = normalized[max(0, m.start() - OPT_WINDOW_CHARS):m.end() + OPT_WINDOW_CHARS]
-            return ("Blocked" if _OPT_WORD_RE.search(window) else "OPT Only"), evidence(m)
+            if any(not _SIGNOFF_RE.search(window[max(0, k.start() - 300):k.start()]) for k in _OPT_WORD_RE.finditer(window)):
+                return "Blocked", evidence(m)
+    if first:
+        return "OPT Only", evidence(first)
     return "Unclear", "No sponsorship language in the description."
 
 

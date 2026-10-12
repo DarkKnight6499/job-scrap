@@ -6,6 +6,7 @@ import job_scout as js
 BLOCKED = [
     "USAA does not provide visa sponsorship for this role. Please do not apply for this role if at any time (now or in the future) you will need immigration support (i.e., H-1B, TN, STEM OPT Training Plans, etc.).",
     "Candidates requiring immigration support, such as H-1B or STEM OPT, will not be considered.",
+    "Toyota does not offer support or sponsorship of job applicants for employment-based visas or any other work authorization for this role now or in the future. You must have the right to work in the United States and not require Toyota support or sponsorship for immigration-related employment (e.g., H-1B, O-1, E-3, H-1B1, TN, F-1 OPT, F-1 STEM OPT, F-1 CPT, etc.) now or in the future.",
     "This role is limited to persons with an indefinite right to work in the United States.",
 ]
 OPT_ONLY = [
@@ -13,6 +14,8 @@ OPT_ONLY = [
     "We are unable to provide immigration support for this role.",
     "This role is not eligible for visa assistance.",
     "No immigration support is available for this position.",
+    "We do not offer any type of employment-based immigration sponsorship for this role. Likewise, the firm will not provide any assistance or sign any documentation in support of any other form of immigration sponsorship or benefit, including optional practical training (OPT) or curricular practical training (CPT).",
+    "Bachelor's degree in Finance, STEM, or a related field. We do not provide visa sponsorship for this role.",
     "Applicants must be authorized to work in the U.S. without current or future employer support.",
     "We will not sponsor now or in the future.",
 ]
