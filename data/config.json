@@ -17059,6 +17059,44 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Marathon Asset Management",
+   "ats": "icims",
+   "hosts": [
+    "careers-marathonfund.icims.com"
+   ]
+  },
+  {
+   "name": "Bayview",
+   "ats": "jibe",
+   "host": "careers.bayview.com",
+   "job_path": "bam/jobs"
+  },
+  {
+   "name": "ExxonMobil",
+   "ats": "successfactors",
+   "host": "jobs.exxonmobil.com",
+   "locale": "en_US",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
