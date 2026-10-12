@@ -17034,6 +17034,31 @@
    "name": "Karbone",
    "ats": "greenhouse",
    "slug": "karbone"
+  },
+  {
+   "name": "Citco",
+   "ats": "oracle",
+   "host": "fa-euxc-saasfaprod1.fa.ocs.oraclecloud.com",
+   "site": "CX_1",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
