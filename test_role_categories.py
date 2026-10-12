@@ -11,6 +11,7 @@ import json
 import re
 
 import job_scout
+from role_categories_premerge import OLD_ROLE_CATEGORIES, OLD_ROLE_CATEGORY_EXCLUDE
 
 
 def _page_categories():
@@ -30,6 +31,58 @@ _EXCL = {
     c["label"]: re.compile(r"\b(?:" + "|".join(re.escape(t.lower()) for t in c["exclude"]) + r")\b")
     for c in _CATS if c.get("exclude")
 }
+
+
+# Consolidation of the chips: merged label -> the former chips it absorbed. Sample tests below are keyed by
+# the former labels; _n() maps one to the label now on the page. Quantitative Risk/Analytics and
+# Quant/Modeling/Pricing stay separate on purpose: Quant/Modeling/Pricing carries exclusions ("valuation
+# control", "controllers") that would wrongly drop a "Quantitative Analyst, Valuation Control" title that
+# Quantitative Risk/Analytics used to keep.
+MERGES = {
+    "Risk Management (General)": ["Risk & Controls (General)", "Risk Management (General)"],
+    "Compliance/Audit": ["Compliance/Financial Crime", "Audit/Assurance"],
+    "Fixed Income/Trading/Markets": ["Fixed Income", "Trading/Markets/Derivatives"],
+    "Investment Banking/M&A": ["Capital Markets/IB", "M&A/Advisory", "Corporate Finance/Development"],
+    "Portfolio/Asset Management & Research": [
+        "Portfolio/Asset Management", "Portfolio Manager/Analyst", "Research/Investment Analysis", "Equity Research"],
+    "Private Markets/Real Estate/Structured Finance": [
+        "Private Equity/Credit", "Real Estate Finance", "Structured Finance/Securitization",
+        "Energy/Construction/Infrastructure"],
+    "Banking/Lending/Underwriting": ["Commercial Banking/Lending", "Retail/Consumer Banking", "Underwriting"],
+    "Wealth/Trust": ["Wealth Management", "Wealth/Trust/Advisory"],
+    "FP&A/Financial Analysis": ["FP&A", "Financial Analysis/Business Finance"],
+    "Operations/Payments": ["Operations/Servicing", "Payments/Cash Management"],
+    "Product/Program/Strategy": ["Product Management", "Program/Project/Business Analysis", "Strategy/Consulting"],
+}
+_TO_NEW = {old: new for new, olds in MERGES.items() for old in olds}
+
+
+def _n(old_label):
+    return _TO_NEW.get(old_label, old_label)
+
+
+def _old_regexes():
+    out = {}
+    for label, terms in OLD_ROLE_CATEGORIES.items():
+        rx = re.compile(r"\b(?:" + "|".join(re.escape(t.lower()) for t in terms) + r")\b")
+        ex = OLD_ROLE_CATEGORY_EXCLUDE.get(label)
+        exrx = re.compile(r"\b(?:" + "|".join(re.escape(t.lower()) for t in ex) + r")\b") if ex else None
+        out[label] = (rx, exrx)
+    return out
+
+
+_OLD = _old_regexes()
+
+
+def old_categories_for(role):
+    """Membership under the pre-merge chips (frozen in role_categories_premerge.py)."""
+    text = role.lower()
+    hits = [label for label, (rx, ex) in _OLD.items() if rx.search(text) and not (ex and ex.search(text))]
+    return hits or ["Other (no category)"]
+
+
+def mapped_old_categories_for(role):
+    return sorted({_n(l) for l in old_categories_for(role)})
 
 
 def categories_for(role):
@@ -167,40 +220,91 @@ EXISTING_SAMPLES = {
 }
 
 
-def test_every_new_category_is_covered_by_a_sample():
-    original = set(EXISTING_SAMPLES)
-    labels = {c["label"] for c in _CATS if c["terms"]}
-    assert labels - original == set(NEW_CATEGORY_SAMPLES)
+def test_every_category_is_covered_by_a_sample():
+    assert set(EXISTING_SAMPLES) | set(NEW_CATEGORY_SAMPLES) == set(OLD_ROLE_CATEGORIES)
+    assert set(EXISTING_SAMPLES).isdisjoint(NEW_CATEGORY_SAMPLES)
 
 
-def test_new_categories_sit_after_existing_and_before_other():
+def test_chip_list_is_the_merged_list_in_first_member_order_then_other():
     labels = [c["label"] for c in _CATS]
     assert labels[-1] == "Other (no category)"
-    assert labels[: len(EXISTING_SAMPLES)] == list(EXISTING_SAMPLES)
+    assert labels[:-1] == list(dict.fromkeys(_n(l) for l in OLD_ROLE_CATEGORIES))
+    assert len(labels) == 26
 
 
-def test_new_category_representative_titles_match():
+def _expected_present(old_label, title):
+    """The merged chip holds the title iff any former member chip did."""
+    return _n(old_label) in mapped_old_categories_for(title)
+
+
+def test_category_representative_titles_match():
     for label, (hits, _misses) in NEW_CATEGORY_SAMPLES.items():
         for title in hits:
-            assert label in categories_for(title), (label, title, categories_for(title))
+            assert _n(label) in categories_for(title), (label, title, categories_for(title))
 
 
-def test_new_category_near_misses_do_not_match():
+def test_category_near_misses_do_not_match():
+    # A near miss for one former chip may legitimately belong to a sibling that was merged into the same
+    # chip; so the merged chip must hold it exactly when some former member did.
     for label, (_hits, misses) in NEW_CATEGORY_SAMPLES.items():
         for title in misses:
-            assert label not in categories_for(title), (label, title, categories_for(title))
+            assert label not in old_categories_for(title), (label, title)
+            assert (_n(label) in categories_for(title)) == _expected_present(label, title), (label, title)
 
 
 def test_existing_category_samples_still_map():
     for label, title in EXISTING_SAMPLES.items():
-        assert label in categories_for(title), (label, title, categories_for(title))
+        assert _n(label) in categories_for(title), (label, title, categories_for(title))
 
 
-def test_existing_terms_are_unchanged():
-    # Spot-check that the original term lists were not edited while adding categories.
-    assert job_scout.ROLE_CATEGORIES["Underwriting"] == ["underwriting"]
-    assert job_scout.ROLE_CATEGORIES["Fixed Income"] == ["fixed income"]
-    assert job_scout.ROLE_CATEGORIES["Equity Research"] == ["equity research"]
+def test_no_term_was_lost_in_the_merge():
+    for old_label, old_terms in OLD_ROLE_CATEGORIES.items():
+        new_terms = job_scout.ROLE_CATEGORIES[_n(old_label)]
+        assert set(old_terms) <= set(new_terms), old_label
+    for new_label, olds in MERGES.items():
+        union = set()
+        for o in olds:
+            union |= set(OLD_ROLE_CATEGORIES[o])
+        assert set(job_scout.ROLE_CATEGORIES[new_label]) == union, new_label
+        assert len(job_scout.ROLE_CATEGORIES[new_label]) == len(union)  # deduped
+    for label in OLD_ROLE_CATEGORIES:
+        if label not in _TO_NEW:
+            assert job_scout.ROLE_CATEGORIES[label] == OLD_ROLE_CATEGORIES[label], label
+
+
+def test_exclusions_moved_to_merged_labels_and_only_cover_one_member():
+    # An exclusion must not be able to hide another member's terms: it is only moved onto a merged chip
+    # when that chip's other members share no title with the excluded phrase.
+    assert job_scout.ROLE_CATEGORY_EXCLUDE == {
+        "Treasury/ALM/Liquidity": ["sales"],
+        "Portfolio/Asset Management & Research": ["operations research"],
+        "Quant/Modeling/Pricing": ["valuation controller", "valuation control", "controllers", "valuation advisory"],
+    }
+    assert set(job_scout.ROLE_CATEGORY_EXCLUDE) <= set(job_scout.ROLE_CATEGORIES)
+
+
+def test_merge_table_reproduces_old_membership_on_sample_titles():
+    titles = set()
+    for hits, misses in NEW_CATEGORY_SAMPLES.values():
+        titles.update(hits)
+        titles.update(misses)
+    titles.update(EXISTING_SAMPLES.values())
+    for _label, hits, misses in TIGHTENED:
+        titles.update(hits)
+        titles.update(misses)
+    titles.update([
+        "Operations Research Analyst, Senior", "Valuation Controller - Vice President - Rates",
+        "Senior Associate - Valuation", "Treasury Management Sales Officer Senior", "Treasury Analyst",
+        "Equities Electronic Trading - J.P. Morgan NYSE Floor Broker - Associate", "Credit Risk Manager",
+        "Zamboni Driver", "Quantitative Analyst, Valuation Control",
+    ])
+    assert len(titles) > 100
+    for title in sorted(titles):
+        assert sorted(categories_for(title)) == mapped_old_categories_for(title), (title, categories_for(title), mapped_old_categories_for(title))
+
+
+def test_quantitative_title_with_valuation_control_keeps_quantitative_risk_chip():
+    assert "Quantitative Risk/Analytics" in categories_for("Quantitative Analyst, Valuation Control")
 
 
 def test_unmatched_title_stays_in_other():
@@ -265,8 +369,8 @@ TIGHTENED = [
 
 # Known false positives fixed with the exclusion list or rewording.
 def test_operations_research_is_not_research_analysis():
-    assert "Research/Investment Analysis" not in categories_for("Operations Research Analyst, Senior")
-    assert "Research/Investment Analysis" in categories_for("Senior Research Analyst")
+    assert "Portfolio/Asset Management & Research" not in categories_for("Operations Research Analyst, Senior")
+    assert "Portfolio/Asset Management & Research" in categories_for("Senior Research Analyst")
 
 
 def test_valuation_controller_is_not_quant():
@@ -276,15 +380,16 @@ def test_valuation_controller_is_not_quant():
 
 
 def test_floor_broker_stays_in_trading():
-    assert "Trading/Markets/Derivatives" in categories_for("Equities Electronic Trading - J.P. Morgan NYSE Floor Broker - Associate")
+    assert "Fixed Income/Trading/Markets" in categories_for("Equities Electronic Trading - J.P. Morgan NYSE Floor Broker - Associate")
 
 
 def test_tightened_terms_keep_positives_and_reject_near_misses():
     for label, hits, misses in TIGHTENED:
         for title in hits:
-            assert label in categories_for(title), (label, title, categories_for(title))
+            assert _n(label) in categories_for(title), (label, title, categories_for(title))
         for title in misses:
-            assert label not in categories_for(title), (label, title, categories_for(title))
+            assert label not in old_categories_for(title), (label, title)
+            assert (_n(label) in categories_for(title)) == _expected_present(label, title), (label, title)
 
 
 def test_bare_ambiguous_terms_are_gone():
@@ -304,7 +409,7 @@ def test_bare_ambiguous_terms_are_gone():
         "M&A/Advisory": {"leveraged finance"},
     }
     for label, words in bare.items():
-        assert not words & set(job_scout.ROLE_CATEGORIES[label]), label
+        assert not words & set(job_scout.ROLE_CATEGORIES[_n(label)]), label
 
 
 def test_new_family_terms_catch_leftover_titles():
@@ -319,7 +424,7 @@ def test_new_family_terms_catch_leftover_titles():
     }
     for label, titles in cases.items():
         for title in titles:
-            assert label in categories_for(title), (label, title, categories_for(title))
+            assert _n(label) in categories_for(title), (label, title, categories_for(title))
 
 
 def test_treasury_sales_roles_are_sales_not_treasury():
