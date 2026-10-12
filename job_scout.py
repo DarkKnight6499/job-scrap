@@ -702,7 +702,7 @@ def workday(c):
                             posted=_workday_posted(j.get("postedOn"))))
         complete = complete and term_complete
     for site, want in expected.items():  # facet slices must add up to the board: a short count means postings the
-        if per_site.get(site, 0) < 0.99 * want:  # facet does not cover (or a mid-read change), never a complete read
+        if per_site.get(site, 0) < 0.998 * want:  # facet does not cover (or a mid-read change), never a complete read
             complete = False
     return out, complete
 
