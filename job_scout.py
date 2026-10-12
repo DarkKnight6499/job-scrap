@@ -2560,6 +2560,23 @@ _CA_POSTAL_RE = re.compile(r"\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s?\d[ABCEG
 _CA_PROVINCE_CODE_RE = re.compile(r",\s*(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe)\s*(?:,|$)", re.I)
 
 
+_WORKDAY_SLUG_RE = re.compile(r"/job/([^/]+)/", re.I)
+_TITLE_TAIL_RE = re.compile(r"\(([^()]*(?:\([^()]*\)[^()]*)*)\)\s*$")
+
+
+def effective_location(job):
+    """Blank-location rows (Fidelity International, Moderna, EY Germany) hide the site in the Workday link slug
+    ("Kronberg-Office", "Warsaw---Poland") or in the title's last parenthetical, so the location filters read those."""
+    loc = (job.get("location") or "").strip()
+    if loc:
+        return job["location"]
+    m = _WORKDAY_SLUG_RE.search(job.get("link") or "")
+    if m and "myworkdayjobs" in (job.get("link") or ""):
+        return re.sub(r"-+", " ", m.group(1)).strip()
+    m = _TITLE_TAIL_RE.search(job.get("title") or "")
+    return m.group(1) if m else ""
+
+
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
     # term like "intern" doesn't false-positive inside "Internal"/"International". locations_include
@@ -2573,7 +2590,8 @@ def matches(job, f):
     # word-boundary anchoring alone can tell those apart. "Georgia" (also a real US state name) and
     # "Jersey" (a Channel Island, also a real US state's shorthand) are deliberately left out of
     # locations_exclude for the same reason and aren't worth the collision risk.
-    t, loc = " ".join(job["title"].split()), job["location"].lower()  # collapse double spaces so excludes match
+    job_loc = effective_location(job)
+    t, loc = " ".join(job["title"].split()), job_loc.lower()  # collapse double spaces so excludes match
     loc_folded = _fold_accents(loc)
     inc = f.get("title_include", [])
     exc = f.get("title_exclude", [])
@@ -2604,7 +2622,7 @@ def matches(job, f):
     if _EY_NON_US_RE.match(loc_folded):
         return False
     if (_ISO3_DASH_RE.match(loc_folded) or _ISO2_SUBDIV_RE.match(loc_folded)
-            or _CA_POSTAL_RE.search(job["location"]) or _CA_PROVINCE_CODE_RE.search(job["location"])):
+            or _CA_POSTAL_RE.search(job_loc) or _CA_PROVINCE_CODE_RE.search(job_loc)):
         return False
     if locs and not any(x in loc for x in locs):
         return False
@@ -4331,7 +4349,7 @@ def _drop_location_filtered(queue, filters, counts):
     not tombstoned: if a term is later loosened the row simply comes back on the next fetch."""
     loc_only = {"title_include": [], "title_exclude": [], "locations_include": filters.get("locations_include", []),
                 "locations_exclude": filters.get("locations_exclude", [])}
-    keep = [e for e in queue if e.get("state") != "new" or matches({"title": "x", "location": e.get("location", "")}, loc_only)]
+    keep = [e for e in queue if e.get("state") != "new" or matches({"title": e.get("role", "x"), "location": e.get("location", ""), "link": e.get("link", "")}, loc_only)]
     counts["location_dropped"] = len(queue) - len(keep)
     queue[:] = keep
 

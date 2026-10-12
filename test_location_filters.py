@@ -54,3 +54,13 @@ def test_drop_location_filtered_removes_only_non_us_new_rows():
     js._drop_location_filtered(queue, CFG, counts)
     assert [e["id"] for e in queue] == ["b", "c"]
     assert counts["location_dropped"] == 1
+
+
+def test_blank_location_recovers_site_from_link_or_title():
+    fid = {"title": "Credit Analyst", "location": "", "link": "https://fil.wd3.myworkdayjobs.com/001/job/Gurgaon-Office/Credit-Analyst_J1"}
+    mod = {"title": "Associate", "location": "", "link": "https://modernatx.wd1.myworkdayjobs.com/M_tx/job/Warsaw---Poland/Associate_R1"}
+    ey = {"title": "Consultant (Eschborn / Frankfurt (Main), HE, DE, 65760)", "location": "", "link": "https://careers.ey.com/ey/job/x/1/"}
+    us = {"title": "Associate", "location": "", "link": "https://modernatx.wd1.myworkdayjobs.com/M_tx/job/Cambridge-Massachusetts/Associate_R2"}
+    for job in (fid, mod, ey):
+        assert not js.matches(job, FILTERS)
+    assert js.matches(us, FILTERS)
