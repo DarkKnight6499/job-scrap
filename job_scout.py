@@ -2394,6 +2394,23 @@ def describe(c, job):
         return strip_html(" ".join(p for p in parts if p)), "", ""
     if ats == "jibe":  # list rows are queued without desc; the job page JSON-LD carries it
         return (_jsonld_description(job["url"]) if job.get("url") else ""), "", ""
+    if ats == "tal":  # list rows keep no description; the posting page carries it (same parser tal() uses)
+        if not job.get("url"):
+            return "", "", ""
+        page = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+        return _tal_fields(page).get("_desc", "")[:30000], "", ""
+    if ats == "dayforce":  # the search call returns each posting's description; pick ours out of the board list
+        rows, _ = dayforce(c)
+        hit = next((r for r in rows if str(r["id"]) == str(job["id"])), None)
+        return ((hit or {}).get("desc", "") or "")[:30000], ((hit or {}).get("posted", "") or ""), ("exact" if hit and hit.get("posted") else "")
+    if ats == "peoplesoft_hrs":  # the detail page opens in a fresh cookie session; the posting text starts at "JOB OPENING"
+        if not job.get("url"):
+            return "", "", ""
+        opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
+        page = opener.open(urllib.request.Request(job["url"], headers={"User-Agent": BROWSER_UA}), timeout=40).read().decode("utf-8", "ignore")
+        text = strip_html(re.sub(r"(?is)<(script|style).*?</>", " ", page))
+        i = text.find("JOB OPENING")
+        return (text[i:] if i >= 0 else "")[:30000], "", ""
     if ats == "taleo_cws":  # list rows have no description or date; the requisition page JSON-LD carries both
         url = job.get("url") or ""
         if not url:
