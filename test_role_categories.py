@@ -11,7 +11,11 @@ import json
 import re
 
 import job_scout
-from role_categories_premerge import OLD_ROLE_CATEGORIES, OLD_ROLE_CATEGORY_EXCLUDE
+from role_categories_premerge import OLD_ROLE_CATEGORIES as _ALL_OLD_ROLE_CATEGORIES, OLD_ROLE_CATEGORY_EXCLUDE
+
+# Legal/HR/Marketing/Admin was dropped on purpose: its roles are now excluded by title_exclude instead of filed in a chip.
+REMOVED_CHIPS = {"Legal/HR/Marketing/Admin"}
+OLD_ROLE_CATEGORIES = {k: v for k, v in _ALL_OLD_ROLE_CATEGORIES.items() if k not in REMOVED_CHIPS}
 
 
 def _page_categories():
@@ -184,10 +188,6 @@ NEW_CATEGORY_SAMPLES = {
         ["Associate Actuary", "Property Claims Manager", "Insurance Associate"],
         ["Financial Analyst", "Credit Analyst", "Risk Manager"],
     ),
-    "Legal/HR/Marketing/Admin": (
-        ["Communications Associate", "Corporate Counsel", "Executive Assistant"],
-        ["Financial Analyst", "Credit Analyst", "Software Developer"],
-    ),
     "Early Careers/Internships": (
         ["Summer Analyst Program", "2027 Associate Development Program", "Software Engineering Intern"],
         ["Senior Financial Analyst", "Vice President, Credit", "Director of Operations"],
@@ -230,7 +230,7 @@ def test_chip_list_is_the_merged_list_in_first_member_order_then_other():
     labels = [c["label"] for c in _CATS]
     assert labels[-1] == "Other (no category)"
     assert labels[:-1] == list(dict.fromkeys(_n(l) for l in OLD_ROLE_CATEGORIES))
-    assert len(labels) == 25
+    assert len(labels) == 24
 
 
 def _expected_present(old_label, title):
@@ -344,10 +344,6 @@ TIGHTENED = [
      ["Wealth Advisor", "Private Wealth Associate", "Trust Administrator Associate", "Trust Portfolio Manager"],
      ["Asset & Wealth Management, Investment Risk Management, Equities, Associate", "Quant Analytics Senior Associate - Trust & Security",
       "Equity Research Associate - Trust Banks"]),
-    ("Legal/HR/Marketing/Admin",
-     ["Corporate Communications Associate", "Legal Due Diligence Associate", "Brand Strategy Associate"],
-     ["Investment Banking Associate - Media & Communications", "Legal Entity Controller Associate",
-      "Quantitative Analytics Associate - Co-brand Card Data Analytics", "Credit Analyst, Director (Legal)"]),
     ("Energy/Construction/Infrastructure",
      ["Associate, Construction Lending", "Power & Utilities Investment Banking Associate", "Coordinator Capital Projects I"],
      ["Portfolio Construction Analyst", "Air Power Defense Portfolio Director"]),
@@ -400,7 +396,6 @@ def test_bare_ambiguous_terms_are_gone():
         "Strategy/Consulting": {"strategy", "strategic", "consultant"},
         "Retail/Consumer Banking": {"retail", "deposit", "deposits"},
         "Wealth/Trust/Advisory": {"wealth", "trust"},
-        "Legal/HR/Marketing/Admin": {"legal", "communications", "content", "brand"},
         "Energy/Construction/Infrastructure": {"power", "construction"},
         "Payments/Cash Management": {"card", "merchant"},
         "Commercial Banking/Lending": {"banker", "banking associate", "commercial risk"},
@@ -436,3 +431,16 @@ def test_treasury_sales_roles_are_sales_not_treasury():
     # real treasury roles keep their chip
     for title in ["Treasury Analyst", "Treasury Manager", "Liquidity Risk Manager, Treasury"]:
         assert "Treasury/ALM/Liquidity" in categories_for(title), title
+
+
+def test_admin_hr_marketing_roles_are_excluded_by_title_not_filed_in_a_chip():
+    import json
+    from keyword_matching import contains_term
+    exc = json.load(open("data/config.json"))["filters"]["title_exclude"]
+    for title in ["Executive Assistant, Capital Markets", "Administrative Assistant III- Risk", "Corporate Communications Associate",
+                  "Senior Associate, Global Rewards", "Consultant, Pay Equity", "Associate, Legal Operations",
+                  "Social Media Coordinator", "Training and Development Associate", "Senior Associate - Recruiting Events"]:
+        assert any(contains_term(title, t) for t in exc), title
+    for title in ["Treasury Analyst", "Credit Risk Associate", "Legal Entity Controller Associate", "Quantitative Analyst"]:
+        assert not any(contains_term(title, t) for t in exc), title
+    assert "Legal/HR/Marketing/Admin" not in job_scout.ROLE_CATEGORIES

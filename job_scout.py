@@ -3423,16 +3423,6 @@ ROLE_CATEGORIES = {
         "property casualty", "production underwriter", "personal lines", "commercial lines", "excess & surplus",
         "excess and surplus",
     ],
-    "Legal/HR/Marketing/Admin": [
-        "legal counsel", "legal analyst", "legal associate", "legal assistant", "legal operations",
-        "legal specialist", "legal due diligence", "counsel", "attorney", "paralegal", "recruiter", "recruiting",
-        "human resources", "hr", "training and development", "training & development", "learning and development",
-        "marketing", "global rewards", "pay equity", "deferred compensation", "corporate communications",
-        "communications associate", "communications manager", "communications specialist", "communications director",
-        "brand strategy", "brand manager", "brand management", "external communications", "thought leadership",
-        "social media", "content associate", "content analyst", "content operations", "content manager",
-        "public relations", "executive assistant", "administrative assistant", "administrative", "office manager",
-    ],
     "Early Careers/Internships": [
         "intern", "internship", "summer analyst", "summer associate", "graduate", "analyst program",
         "development program", "accelerated career track", "trainee", "rotation", "rotational", "early careers",
