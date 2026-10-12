@@ -51,3 +51,15 @@ def test_adjacent_roles_kept(title):
 ])
 def test_language_required_titles_excluded(title):
     assert not js.matches(_job(title), FILTERS)
+
+
+@pytest.mark.parametrize("title", [
+    "Environmental Services Associate (Housekeeping-PT Evening) West Penn Hospital",
+    "Transport Services Associate - Full Time - Wexford Hospital",
+    "Materials Management Associate, AGH, Full Time",
+    "Materials Handler Associate, Full Time, Forbes",
+    "Maintenance Mechanic Associate (Evenings) I Grove City Hospital",
+    "Cross Functional Associate I Wexford Hospital",
+])
+def test_hospital_support_titles_excluded(title):
+    assert not js.matches(_job(title), FILTERS)
