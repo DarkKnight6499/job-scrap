@@ -1042,7 +1042,18 @@ def _icims_description(job):
 
 def _eightfold_page(c, term, start):
     q = urllib.parse.urlencode({"domain": c["domain"], "start": start, "num": 10, "query": term})
+    if c.get("pcsx"):  # PCSX tenants (Qualcomm) reject /api/apply/v2 with 403 "Not authorized for PCSX"
+        return http(f"https://{c['host']}/api/pcsx/search?{q}", headers={"Accept": "application/json"}).get("data") or {}
     return http(f"https://{c['host']}/api/apply/v2/jobs?{q}", headers={"Accept": "application/json"})
+
+
+def _eightfold_detail(c, job_id):
+    """Description HTML of one position; PCSX serves it from /api/pcsx/position_details."""
+    hdr = {"Accept": "application/json"}
+    if c.get("pcsx"):
+        d = http(f"https://{c['host']}/api/pcsx/position_details?position_id={job_id}&domain={c['domain']}&hl=en", headers=hdr).get("data") or {}
+        return d.get("jobDescription", "")
+    return http(f"https://{c['host']}/api/apply/v2/jobs/{job_id}?domain={c['domain']}", headers=hdr).get("job_description", "")
 
 
 def _eightfold_rows(c, rows, seen, out):
@@ -1054,10 +1065,13 @@ def _eightfold_rows(c, rows, seen, out):
         seen.add(jid)
         locs = j.get("locations") or [j.get("location") or ""]
         posted = ""
-        if j.get("t_create"):
-            posted = datetime.fromtimestamp(int(j["t_create"]), timezone.utc).date().isoformat()
+        stamp = j.get("t_create") or j.get("creationTs")  # PCSX postedTs is a daily refresh stamp, creationTs the real start
+        if stamp:
+            posted = datetime.fromtimestamp(int(stamp), timezone.utc).date().isoformat()
+        rel = j.get("positionUrl")
         out.append(dict(id=jid, title=j.get("name", "") or "", location=" | ".join(str(x) for x in locs if x),
-                        url=j.get("canonicalPositionUrl") or f"https://{c['host']}/careers/job/{jid}", posted=posted))
+                        url=j.get("canonicalPositionUrl") or (f"https://{c['host']}{rel}" if rel else f"https://{c['host']}/careers/job/{jid}"),
+                        posted=posted))
 
 
 def _eightfold_board(c):
@@ -1073,7 +1087,7 @@ def _eightfold_board(c):
     _eightfold_rows(c, first.get("positions") or [], seen, out)
     for d in _pool_map(lambda st: _eightfold_page(c, "", st), range(10, total, 10), c.get("page_workers", 3)):
         _eightfold_rows(c, d.get("positions") or [], seen, out)  # a failed page raises: caller falls back to the term search
-    return out, len(seen) >= total
+    return out, len(seen) >= total or bool(c.get("pcsx"))  # PCSX pages overlap (Qualcomm 2082 listed, 2054 distinct), so every page read is complete
 
 
 @_parallel_terms(board=_eightfold_board)
@@ -2094,6 +2108,99 @@ def dayforce(c):
     return out, False
 
 
+def _rippling_text(d):
+    desc = d.get("description")
+    parts = list(desc.values()) if isinstance(desc, dict) else [desc or ""]
+    return strip_html(" ".join(p for p in parts if isinstance(p, str)))
+
+
+def rippling(c):
+    """Rippling ATS boards (ats.rippling.com/<slug>/jobs). The page's own API /api/v2/board/<slug>/jobs lists every
+    posting (pageSize 100, page is 0-based, totalPages stated) but carries no date or text, so each posting's
+    /jobs/<uuid> detail is read too: exact createdOn plus the description. Needs slug. Verified live 2026-10-12
+    against Webull (23 jobs)."""
+    items, seen, page, d = [], set(), 0, {}
+    base = f"https://ats.rippling.com/api/v2/board/{c['slug']}/jobs"
+    while page < int(c.get("max_pages", 50)):
+        d = http(f"{base}?page={page}&pageSize=100", headers={"Accept": "application/json"}, timeout=40)
+        for j in d.get("items") or []:
+            if j.get("id") and j["id"] not in seen:
+                seen.add(j["id"])
+                items.append(j)
+        page += 1
+        if page >= int(d.get("totalPages") or 0):
+            break
+    complete = page >= int(d.get("totalPages") or 0) and len(items) >= int(d.get("totalItems") or 0)
+
+    def one(j):
+        try:
+            det = http(f"{base}/{j['id']}", headers={"Accept": "application/json"}, timeout=40)
+        except Exception:  # noqa: BLE001  a failed detail keeps the row, undated
+            det = {}
+        locs = [l.get("name") for l in j.get("locations") or [] if l.get("name")] or det.get("workLocations") or []
+        if any((l.get("workplaceType") or "") == "REMOTE" for l in j.get("locations") or []):
+            locs = locs + ["Remote"]
+        return dict(id=j["id"], title=(j.get("name") or "").strip(), location=" | ".join(locs),
+                    url=j.get("url") or f"https://ats.rippling.com/{c['slug']}/jobs/{j['id']}",
+                    posted=str(det.get("createdOn") or "")[:10], desc=_rippling_text(det))
+    return list(_pool_map(one, items, int(c.get("detail_workers", 6)))), complete
+
+
+def careerpuck(c):
+    """CareerPuck job boards (app.careerpuck.com/job-board/<slug>). The page's own call
+    GET api.careerpuck.com/v1/public/job-boards/<slug> returns every posting in one response with full (entity
+    encoded) content, location and an exact postedAt; one row per posting-location permalink. Needs slug. Verified
+    live 2026-10-12 against Fortitude Re (35 rows)."""
+    d = http(f"https://api.careerpuck.com/v1/public/job-boards/{c['slug']}", headers={"Accept": "application/json"}, timeout=40)
+    out, seen = [], set()
+    for j in d.get("jobs") or []:
+        jid = str(j.get("permalink") or "")
+        if not jid or jid in seen or j.get("status") not in (None, "public"):
+            continue
+        seen.add(jid)
+        places = [j["location"]] if j.get("location") else [o.get("name") for o in j.get("offices") or [] if o.get("name")]  # offices lists every site of the role
+        text = strip_html(j.get("content") or "")
+        if j.get("salaryDescription"):
+            text += " " + strip_html(j["salaryDescription"])
+        out.append(dict(id=jid, title=(j.get("title") or "").strip(), location=" | ".join(dict.fromkeys(places)),
+                        url=j.get("publicUrl") or f"https://app.careerpuck.com/job-board/{c['slug']}/job/{j.get('atsSourceId') or jid}",
+                        posted=str(j.get("postedAt") or "")[:10], desc=text))
+    return out, True
+
+
+def sitecore_search(c):
+    """Sitecore Search (Discover) career sites, e.g. careers.kroll.com. The site's browser bundle carries a public
+    apiKey and customerKey; the results widget POSTs to discover.sitecorecloud.io/discover/v2/<domain hash> with
+    rfk_id rfkid_7 (the stock content_grid widget) and the entity name, and pages with offset/limit (100 per call,
+    total_item stated). Rows carry job_url, exact posted_date and the full description. Needs discover_id (the part
+    of customerKey after the dash), api_key and entity. Verified live 2026-10-12 against Kroll (366 jobs)."""
+    url = f"https://discover.sitecorecloud.io/discover/v2/{c['discover_id']}"
+    out, seen, offset, total = [], set(), 0, None
+    while total is None or offset < total:
+        body = {"context": {"page": {"uri": c.get("page_uri", "/listing-page")}, "locale": {"country": "us", "language": "en"}},
+                "widget": {"items": [{"rfk_id": c.get("rfk_id", "rfkid_7"), "entity": c["entity"],
+                                      "search": {"content": {}, "limit": 100, "offset": offset}}]}}
+        w = (http(url, data=body, headers={"Authorization": c["api_key"]}, timeout=60).get("widgets") or [{}])[0]
+        rows = w.get("content") or []
+        total = int(w.get("total_item") or 0)
+        for j in rows:
+            jid = str(j.get("job_id") or j.get("id") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            city = j.get("job_primary_city") or ", ".join(j.get("job_city") or [])
+            country = j.get("job_primary_country") or ", ".join(j.get("job_country") or [])
+            loc = ", ".join(x for x in (city, j.get("job_primary_region") or "", country) if x)
+            if j.get("working_mode") == "Remote":
+                loc += " | Remote"
+            out.append(dict(id=jid, title=(j.get("name") or "").strip(), location=loc, url=j.get("job_url") or "",
+                            posted=str(j.get("posted_date") or "")[:10], desc=strip_html(j.get("job_description") or "")))
+        offset += len(rows)
+        if not rows:
+            break
+    return out, bool(total) and len(seen) >= total
+
+
 _BALYASNY_SITE = "https://bambusdev.my.site.com"  # BAM's careers app lives on its Salesforce Experience Cloud site
 
 
@@ -2184,7 +2291,7 @@ def phenom(c):
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
              oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
              balyasny=balyasny, tal=tal,
-             dayforce=dayforce)
+             dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -2516,9 +2623,14 @@ def describe(c, job):
         d = http(f"{base}/bpce/v1/posts/?lang=en&_uid=job-{hit[0]['id']}-x", headers=hdr, timeout=60)
         return strip_html(((d.get("content") or {}).get("main") or {}).get("text") or "")[:30000], "", ""
     if ats == "eightfold":
-        d = http(f"https://{c['host']}/api/apply/v2/jobs/{job['id']}?domain={c['domain']}",
-                 headers={"Accept": "application/json"})
-        return strip_html(d.get("job_description", "")), "", ""
+        return strip_html(_eightfold_detail(c, job["id"])), "", ""
+    if ats == "rippling":
+        d = http(f"https://ats.rippling.com/api/v2/board/{c['slug']}/jobs/{job['id']}")
+        return _rippling_text(d)[:30000], str(d.get("createdOn") or "")[:10], "exact" if d.get("createdOn") else ""
+    if ats in ("careerpuck", "sitecore_search"):  # one call lists every posting with its text; pick ours out
+        rows, _ = FETCH[ats](c)
+        hit = next((r for r in rows if str(r["id"]) == str(job["id"])), None)
+        return ((hit or {}).get("desc", "") or "")[:30000], "", ""
     return "", "", ""
 
 
@@ -4591,7 +4703,7 @@ def _still_listed(c, e):
                      + urllib.parse.urlencode({"onlyData": "true", "finder": f"ById;Id={pid}"}))
             return bool(d.get("items"))
         if ats == "eightfold":
-            http(f"https://{c['host']}/api/apply/v2/jobs/{pid}?domain={c['domain']}", headers={"Accept": "application/json"})
+            _eightfold_detail(c, pid)
             return True
         if ats == "smartrecruiters":
             http(f"https://api.smartrecruiters.com/v1/companies/{c['slug']}/postings/{pid}")

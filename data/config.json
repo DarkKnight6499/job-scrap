@@ -17362,6 +17362,56 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "Fortitude Re",
+   "ats": "careerpuck",
+   "slug": "fortitudegroupholdingsllc"
+  },
+  {
+   "name": "Webull",
+   "ats": "rippling",
+   "slug": "webull"
+  },
+  {
+   "name": "Kroll",
+   "ats": "sitecore_search",
+   "discover_id": "176843135",
+   "api_key": "01-d55125df-07fbbae4b354c6a3434ec79e0e2db661a046b5ee",
+   "entity": "careersprod"
+  },
+  {
+   "name": "Pilot Company",
+   "ats": "smartrecruiters",
+   "slug": "PilotCompany",
+   "max_postings": 4000
+  },
+  {
+   "name": "Qualcomm",
+   "ats": "eightfold",
+   "host": "careers.qualcomm.com",
+   "domain": "qualcomm.com",
+   "pcsx": true,
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "full_board_max": 2600,
+   "max_per_term": 100
   }
  ],
  "keywords": [
