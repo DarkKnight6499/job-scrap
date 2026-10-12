@@ -70,6 +70,8 @@ def endpoints(company):
         "oracle": ("site",), "eightfold": ("domain",),
         "avature": ("list_path",), "taleo_be": ("search_id",), "taleo_cws": ("path", "org", "cws"), "brassring": ("partnerid", "siteid"),
     }.get(ats, ())
+    if ats == "dayforce":
+        return {(ats, _path(str(company["namespace"])), _path(str(company["board"])))}
     if ats in ("adp_rm", "adp_wfn", "ukg", "paylocity", "csod"):  # host-less boards keyed by their own id
         return {(ats, _path(str(company[REQUIRED_FIELDS[ats][0]])))}
     if "host" in REQUIRED_FIELDS[ats]:
