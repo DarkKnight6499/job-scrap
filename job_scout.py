@@ -470,6 +470,99 @@ def _workday_refresh_posted(c, job_id, site):
     return _workday_detail_posted(d.get("jobPostingInfo") or {})
 
 
+def _probe_true_size(get_rows, page, start=2000, max_probe=None):
+    """True size of a Workday board whose first-page total is 2000 or more. `get_rows(offset)` returns one page.
+    Gallops from `start` doubling the offset until a page comes back empty, then bisects page-aligned offsets to the
+    first empty page: about a dozen requests. Returns the size; -1 when pages past `start` just repeat page 0 (the
+    offset is ignored, as on Citi and Booz Allen: the board is capped at 2000 reachable rows); None when the board is
+    bigger than `max_probe`. A failed request raises."""
+    first = get_rows(0)
+    key = lambda r: r.get("externalPath") or r.get("title")  # noqa: E731
+    first_keys = {key(r) for r in first}
+
+    def rows_at(off):
+        """Rows at an offset, [] past the end: Workday answers an offset past the end with page 0 again."""
+        rows = get_rows(off)
+        return [] if rows and first_keys and {key(r) for r in rows} <= first_keys else rows
+
+    lo, lo_rows = 0, first  # highest offset known to hold rows
+    hi = start  # candidate first-empty offset
+    probe = get_rows(start)
+    if probe and first_keys and {key(r) for r in probe} <= first_keys:
+        return -1  # the board is bigger than `start` rows yet offset `start` repeats page 0: offsets are capped
+    while True:
+        rows = probe if hi == start else rows_at(hi)
+        if not rows:
+            break
+        lo, lo_rows = hi, rows
+        if max_probe is not None and hi > max_probe:
+            return None
+        hi *= 2
+    while hi - lo > page:
+        mid = lo + ((hi - lo) // page // 2) * page
+        if mid <= lo:
+            break
+        rows = rows_at(mid)
+        if rows:
+            lo, lo_rows = mid, rows
+        else:
+            hi = mid
+    return lo + len(lo_rows)
+
+
+def _facet_parts(post, part_max=1900, max_depth=3):
+    """Splits a Workday board the offset cap hides (reported total 2000, offsets past 2000 repeat page 0) into
+    facet slices that each fit under the cap. `post(applied)` runs a limit-1 empty search with those appliedFacets and
+    returns the response. Returns (parts, expected): parts are (appliedFacets, count) slices, expected is the sum of
+    the chosen facet group's counts at the top level (what a complete read must reach), or None when the board
+    exposes no usable facet. A slice still over part_max after max_depth splits stays whole and reads incomplete."""
+    def groups(d, applied):
+        out = []
+        for f in d.get("facets") or []:
+            param = f.get("facetParameter")
+            vals = [v for v in f.get("values") or [] if isinstance(v.get("count"), int) and v.get("id")]
+            if param and param not in applied and vals:
+                out.append((param, vals))
+        return out
+
+    def stats(gs):
+        """(group, sum) pairs without the outliers: a facet whose values overlap (a posting in two states) sums far
+        past the posting count, so groups above 1.1x the median sum are not trusted."""
+        sums = sorted(sum(v["count"] for v in g[1]) for g in gs)
+        med = sums[len(sums) // 2]
+        return [(g, sum(v["count"] for v in g[1])) for g in gs if sum(v["count"] for v in g[1]) <= 1.1 * med]
+
+    def best(gs):
+        """The group to slice by and the posting count a complete read must reach. Among the groups that cover
+        (nearly) every posting, the one with the smallest biggest slice splits best."""
+        ok = stats(gs)
+        top = max(n for _, n in ok)
+        g = min((g for g, n in ok if n >= 0.995 * top), key=lambda g: max(v["count"] for v in g[1]))
+        return g, top
+
+    def split(applied, d, depth):
+        gs = groups(d, applied)
+        if not gs or depth >= max_depth:
+            return [(applied, d.get("total") or 0)]
+        param, vals = best(gs)[0]
+        parts = []
+        for v in vals:
+            if v["count"] <= 0:
+                continue
+            sub = dict(applied, **{param: [v["id"]]})
+            if v["count"] <= part_max:
+                parts.append((sub, v["count"]))
+            else:
+                parts += split(sub, post(sub), depth + 1)
+        return parts
+
+    root = post({})
+    gs = groups(root, {})
+    if not gs:
+        return None
+    return split({}, root, 0), best(gs)[1]
+
+
 def workday(c):
     """Unofficial endpoint. Needs host, tenant, site. 'search' is a term or a list of terms; each
     term is queried separately (max_per_term results, default 60) and results are merged by id.
@@ -487,24 +580,30 @@ def workday(c):
     page = 20  # Workday's unofficial endpoint 400s on limit > 20 - confirmed by testing, not documented
     complete = True  # AND across terms/sites: one truncated one makes the whole listing untrustworthy for removal
 
-    def get(site, term, offset):
+    def post(site, term, offset, applied=None, limit=page):
         base = f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs"
-        return http(base, data={"appliedFacets": {}, "limit": page, "offset": offset, "searchText": term})
+        return http(base, data={"appliedFacets": applied or {}, "limit": limit, "offset": offset, "searchText": term})
+
+    def get(site, term, offset, applied=""):
+        return post(site, term, offset, json.loads(applied) if applied else None)
 
     def first_page(st):
-        site, term = st
-        d = get(site, term, 0)  # raises on failure: nothing fetched yet, so the caller's error handling applies
+        site, term, applied = st
+        d = get(site, term, 0, applied)  # raises on failure: nothing fetched yet, so the caller's error handling applies
         rows = list(d.get("jobPostings", []))
         total = d.get("total") if isinstance(d.get("total"), int) else None  # only the first page reliably carries total
+        if st in whole:  # whole-board slice: its known size rules, plus one spare page in case the board grew
+            limit = whole[st] + page
+            return rows, (list(range(page, limit, page)) if len(rows) >= page else []), len(rows) < page, limit, None
         limit = max(cap, min(total, ceiling)) if total is not None else cap  # page past cap, up to ceiling
         if len(rows) < page or (total is not None and page >= total):
             return rows, [], True, limit, total
         return rows, list(range(page, limit, page)), False, limit, total
 
     def later_page(task):
-        site, term, offset = task
+        site, term, applied, offset = task
         try:
-            return get(site, term, offset)
+            return get(site, term, offset, applied)
         except urllib.error.HTTPError as e:
             if e.code != 429:
                 raise
@@ -513,36 +612,66 @@ def workday(c):
     # Slow tenants opt in via config "term_workers" (RBC answers in ~5s per request, so 16 sequential
     # multi-page terms took 4 min). Default stays 1: running every tenant's terms in parallel got
     # 429s on unrelated tenants from the shared per-IP load. map() keeps term order, so output is unchanged.
+    whole = {}  # combo -> exact row count of a slice that is read whole (empty search, no term)
+    expected = {}  # site -> row count a facet-sliced read must reach to count as complete
     if len(terms) > 1 and terms != [""]:
         # A board that fits under Workday's 2000-result cap is cheaper to read whole than to query term by term,
-        # and returns a superset, so the title list is then applied only by the page filter.
-        small = []
+        # and returns a superset, so the title list is then applied only by the page filter. A bigger board is read
+        # whole too when its true size is below board_read_max: straight through when offsets keep working past 2000
+        # (PwC, Lowe's, CVS), or in facet slices when they do not (Citi, PNC, Booz Allen: offsets >= 2000 repeat page 0).
+        small, bigsites = [], []
         for site in sites:
             try:
-                tot = http(f"https://{c['host']}/wday/cxs/{c['tenant']}/{site}/jobs",
-                           data={"appliedFacets": {}, "limit": 1, "offset": 0, "searchText": ""}).get("total")
+                tot = post(site, "", 0, limit=1).get("total")
                 if isinstance(tot, int) and tot <= int(c.get("full_board_max", 1900)):
                     small.append(site)
+                elif isinstance(tot, int) and tot >= 2000:
+                    bmax = int(c.get("board_read_max", 25000))
+                    size = _probe_true_size(lambda off, s=site: get(s, "", off).get("jobPostings") or [], page,
+                                            max_probe=bmax * 2)
+                    if size == -1:
+                        got = _facet_parts(lambda ap, s=site: post(s, "", 0, ap, limit=1))
+                        if got and got[1] <= bmax:
+                            for ap, n in got[0]:
+                                whole[(site, "", json.dumps(ap, sort_keys=True))] = n
+                            expected[site] = got[1]
+                            bigsites.append(site)
+                    elif size is not None and size <= bmax:
+                        whole[(site, "", "")] = size
+                        bigsites.append(site)
             except Exception:  # noqa: BLE001  probe failed: fall back to the term search for this site
-                pass
-        if small:
+                whole = {k: v for k, v in whole.items() if k[0] != site}
+                expected.pop(site, None)
+                if site in bigsites:
+                    bigsites.remove(site)
+        if small or bigsites:
             cap, ceiling = 2000, 2000
         elif len(small) < len(sites):
             ceiling = min(ceiling, int(c.get("big_board_ceiling", 300)))  # 78 terms x deep paging is slow and trips 429s
-        combos = [(site, term) for site in sites for term in ([""] if site in small else terms)]
+        combos = []
+        for site in sites:
+            if site in small:
+                combos.append((site, "", ""))
+            elif site in bigsites:
+                combos += [k for k in whole if k[0] == site]
+            else:
+                combos += [(site, term, "") for term in terms]
     else:
-        combos = [(site, term) for site in sites for term in terms]
+        combos = [(site, term, "") for site in sites for term in terms]
     # One flat pool of term_workers x page_workers threads serves first pages and then every remaining page of every
     # term, so short terms never leave threads idle behind a long one (nested per-term pools did).
     tw = max(1, min(int(c.get("term_workers", 3 if len(combos) > 20 else 1)), len(combos)))
     workers = tw * max(1, int(c.get("page_workers", 3)))
+    if whole and all(k in whole for k in combos):  # a whole-board read is one long page queue: page_workers (default 12)
+        workers = max(1, int(c.get("page_workers", 12)))
     with ThreadPoolExecutor(max_workers=workers) as pool:
         firsts = list(pool.map(first_page, combos))
-        tasks = [(site, term, off) for (site, term), f in zip(combos, firsts) for off in f[1]]
+        tasks = [st + (off,) for st, f in zip(combos, firsts) for off in f[1]]
         later = iter(pool.map(later_page, tasks))
     results = []
-    for (site, term), (rows_all, offsets, done, limit, total) in zip(combos, firsts):
+    for st, (rows_all, offsets, done, limit, total) in zip(combos, firsts):
         lost = exhausted = False
+        have = {r.get("externalPath") for r in rows_all}
         for _off in offsets:
             d = next(later)
             if exhausted:
@@ -551,22 +680,31 @@ def workday(c):
                 lost = True
                 continue
             rows = d.get("jobPostings", [])
+            if rows and all(r.get("externalPath") in have for r in rows):
+                exhausted = True  # past the end Workday answers with page 0 again: nothing new is left
+                continue
             rows_all.extend(rows)
+            have.update(r.get("externalPath") for r in rows)
             if len(rows) < page:
                 exhausted = True  # ran out of rows before hitting the limit
         # complete only if no page was lost and we reached the term's last result (not just the cap/ceiling)
         results.append((rows_all, done or ((not lost) and (exhausted or (total is not None and limit >= total)))))
-    for (site, _term), (rows, term_complete) in zip(combos, results):
+    per_site = {}
+    for (site, _term, _ap), (rows, term_complete) in zip(combos, results):
         for j in rows:
             path = j.get("externalPath")
             key = (site, path)
             if not path or not j.get("title") or key in seen:  # some rows are placeholder cards with no title/path
                 continue
             seen.add(key)
+            per_site[site] = per_site.get(site, 0) + 1
             out.append(dict(id=path, title=j["title"], location=_workday_location(j.get("locationsText"), path),
                             url=f"{c.get('url_base') or 'https://' + c['host']}/{site}{path}", site=site,
                             posted=_workday_posted(j.get("postedOn"))))
         complete = complete and term_complete
+    for site, want in expected.items():  # facet slices must add up to the board: a short count means postings the
+        if per_site.get(site, 0) < 0.99 * want:  # facet does not cover (or a mid-read change), never a complete read
+            complete = False
     return out, complete
 
 
@@ -615,14 +753,33 @@ def oracle(c):
             tot = None
         if isinstance(tot, int) and tot <= int(c.get("full_board_max", 1900)):
             combos = [("", max(cap, 2000), 2000)]
+        elif isinstance(tot, int) and tot <= int(c.get("board_read_max", 25000)):
+            # a big board whose total is real (JPMorgan ~7,300): offsets work to the end, so read it once, page by
+            # page in parallel, instead of 78 keyword searches; a page lost to a 429 leaves the read incomplete
+            def board_page(off):
+                finder = f"findReqs;siteNumber={c['site']},limit={page},offset={off}"
+                url = base + "?" + urllib.parse.urlencode({"onlyData": "true", "expand": "requisitionList",
+                                                           "finder": finder})
+                try:
+                    return ((http(url).get("items") or [{}])[0]).get("requisitionList") or []
+                except urllib.error.HTTPError as e:
+                    if e.code != 429:
+                        raise
+                    return None
+            pages = _pool_map(board_page, range(0, tot + page, page), c.get("page_workers", 12))
+            lost = any(p is None for p in pages)
+            rows = [r for p in pages if p for r in p]
+            combos = None
+            results = [(rows, not lost)]
         else:
             # 78 terms x deep paging took over 30 min on JPMorgan, so big boards page shallower and run terms in parallel
             combos = [(t, cap, min(ceiling, int(c.get("big_board_ceiling", 300)))) for t in terms]
     else:
         combos = [(t, cap, ceiling) for t in terms]
-    workers = max(1, min(int(c.get("term_workers", 3 if len(combos) > 20 else 1)), len(combos)))
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        results = list(pool.map(lambda x: fetch_term(*x), combos))
+    if combos is not None:
+        workers = max(1, min(int(c.get("term_workers", 3 if len(combos) > 20 else 1)), len(combos)))
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            results = list(pool.map(lambda x: fetch_term(*x), combos))
     out, seen = [], set()
     complete = True  # AND across terms: one truncated term makes the whole listing untrustworthy for removal
     for rows, term_complete in results:

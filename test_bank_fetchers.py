@@ -144,7 +144,8 @@ def test_workday_shares_one_worker_pool_across_terms_and_pages():
         total = 0 if term == "none" else 5000 if term == "" else 60  # the empty probe says big board
         n = max(0, min(20, total - off))
         return {"total": total, "jobPostings": [dict(externalPath=f"/{term}/{off + i}", title="T", locationsText="NY") for i in range(n)]}
-    c = dict(host="h", tenant="t", site="s", search=["a", "b", "none"], max_per_term=100, term_ceiling=100, term_workers=2, page_workers=2)
+    c = dict(host="h", tenant="t", site="s", search=["a", "b", "none"], max_per_term=100, term_ceiling=100, term_workers=2, page_workers=2,
+             board_read_max=1000)  # a board over board_read_max falls back to the term search
     with mock.patch.object(js, "http", _http):
         jobs, complete = js.workday(c)
     assert len(jobs) == 120 and complete  # the empty term costs one request and adds nothing
