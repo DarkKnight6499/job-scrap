@@ -2394,6 +2394,20 @@ def describe(c, job):
         return strip_html(" ".join(p for p in parts if p)), "", ""
     if ats == "jibe":  # list rows are queued without desc; the job page JSON-LD carries it
         return (_jsonld_description(job["url"]) if job.get("url") else ""), "", ""
+    if ats == "taleo_cws":  # list rows have no description or date; the requisition page JSON-LD carries both
+        url = job.get("url") or ""
+        if not url:
+            return "", "", ""
+        raw = http(url, raw=True, timeout=40, headers={"User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+        for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw, re.S):
+            try:
+                data = json.loads(m.group(1))
+            except ValueError:
+                continue
+            if isinstance(data, dict) and data.get("description"):
+                dp = str(data.get("datePosted") or "")[:10]
+                return strip_html(data["description"])[:30000], dp, ("exact" if dp else "")
+        return "", "", ""
     if ats == "icims":
         return _icims_description(job)
     if ats == "adp_wfn":
