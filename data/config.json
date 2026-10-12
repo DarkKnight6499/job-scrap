@@ -17097,6 +17097,37 @@
     "collateral"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "ACI Worldwide",
+   "ats": "oracle",
+   "host": "ebwg.fa.us2.oraclecloud.com",
+   "site": "CX",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
+  },
+  {
+   "name": "Constellation Energy",
+   "ats": "jibe",
+   "host": "jobs.constellationenergy.com",
+   "job_path": "careers-home/jobs"
   }
  ],
  "keywords": [
