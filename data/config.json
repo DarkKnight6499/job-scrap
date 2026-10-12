@@ -83,7 +83,21 @@
    "fp & a",
    "financial planning and analysis",
    "financial planning & analysis",
-   "fpna"
+   "fpna",
+   "abs",
+   "cmbs",
+   "rmbs",
+   "mbs",
+   "clo",
+   "securitized",
+   "securitised",
+   "securitization",
+   "structured credit",
+   "credit ratings",
+   "asset based finance",
+   "structuring",
+   "pricing direct",
+   "quant"
   ],
   "title_exclude": [
    "sanctions",
@@ -112,10 +126,8 @@
    "sales development",
    "associate buyer",
    "academy",
-   "analyst program",
    "university associate",
    "university program",
-   "rotational",
    "apprentice",
    "chief",
    "data engineer",
@@ -17012,6 +17024,16 @@
    "host": "careers.breadfinancial.com",
    "ref_num": "BFBBFDUS",
    "page_id": "page68"
+  },
+  {
+   "name": "Octane",
+   "ats": "greenhouse",
+   "slug": "octanelending"
+  },
+  {
+   "name": "Karbone",
+   "ats": "greenhouse",
+   "slug": "karbone"
   }
  ],
  "keywords": [
