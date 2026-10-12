@@ -66,7 +66,7 @@ jobs:
     # A failed shard can still be processed, but invalid config or failed tests must block scouting.
     if: ${{ !cancelled() && needs.validate.result == 'success' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:

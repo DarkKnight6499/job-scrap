@@ -53,3 +53,18 @@ def _pattern(term):
 
 def contains_term(text, term):
     return any(_pattern(v).search(text) for v in _term_variants(term))
+
+
+@functools.lru_cache(maxsize=64)
+def _combined(terms):
+    variants = set()
+    for term in terms:
+        variants |= _term_variants(term)
+    alt = "|".join(re.escape(v) for v in sorted(variants, key=len, reverse=True))
+    return re.compile(r"(?<![A-Za-z0-9])(?:" + alt + r")(?![A-Za-z0-9])", re.IGNORECASE) if alt else None
+
+
+def contains_any(text, terms):
+    """Same result as any(contains_term(text, t) for t in terms), in one regex pass (lists hold 600+ terms)."""
+    rx = _combined(tuple(terms))
+    return bool(rx and rx.search(text))

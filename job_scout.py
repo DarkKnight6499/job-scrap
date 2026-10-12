@@ -60,7 +60,7 @@ REPO_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(REPO_DIR))
 
 import atomic_json  # noqa: E402
-from keyword_matching import contains_term  # noqa: E402
+from keyword_matching import contains_any, contains_term  # noqa: E402
 
 HOME = Path(os.environ.get("JOB_SCOUT_HOME", REPO_DIR / "data"))
 UA = {"User-Agent": "job-scout/1.0", "Accept": "application/json"}
@@ -2740,9 +2740,9 @@ def matches(job, f):
     exc = f.get("title_exclude", [])
     locs = [x.lower() for x in f.get("locations_include", [])]
     loc_exc = f.get("locations_exclude", [])
-    if inc and not any(contains_term(t, x) for x in inc):
+    if inc and not contains_any(t, inc):
         return False
-    if any(contains_term(t, x) for x in exc):
+    if contains_any(t, exc):
         return False
     if _BARE_HQ_RE.match(loc_folded):
         return False
@@ -2769,7 +2769,7 @@ def matches(job, f):
         return False
     if locs and not any(x in loc for x in locs):
         return False
-    if any(contains_term(loc_folded, x) for x in loc_exc):
+    if contains_any(loc_folded, loc_exc):
         return False
     return True
 
@@ -3260,6 +3260,10 @@ def _classify_ghosts(queue):
             e["ghost_status"], e["ghost_evidence"] = "Likely", evidence
 
 
+REVERIFY_MAX_PER_RUN = 300
+REVERIFY_WORKERS = 4
+
+
 def _reverify_recent_posted(queue, cfg):
     """Re-checks posted/posted_source once for each Workday entry first_seen between
     REVERIFY_MIN_AGE_DAYS and REVERIFY_MAX_AGE_DAYS ago - startDate can drift by a day depending on
@@ -3272,7 +3276,7 @@ def _reverify_recent_posted(queue, cfg):
     today = date.today()
     lo = (today - timedelta(days=REVERIFY_MAX_AGE_DAYS)).isoformat()
     hi = (today - timedelta(days=REVERIFY_MIN_AGE_DAYS)).isoformat()
-    changed = checked = 0
+    todo = []
     for e in queue:
         if e.get("posted_reverified") or e.get("closed_on"):
             continue
@@ -3282,17 +3286,29 @@ def _reverify_recent_posted(queue, cfg):
         c = by_company.get(e["company"])
         if not c or c.get("ats") != "workday":
             continue
-        job_id = e["id"].split(":", 1)[1]
         site = e.get("site") or c["site"]
         if isinstance(site, list):
             site = site[0]  # pre-existing entry with no stored site - best-effort on a multi-site company
-        checked += 1
+        todo.append((e, c, e["id"].split(":", 1)[1], site))
+    todo = todo[:REVERIFY_MAX_PER_RUN]  # whole-board reads queued thousands at once; the rest wait for later runs
+    changed = 0
+    checked = len(todo)
+
+    def refresh(item):
+        e, c, job_id, site = item
         try:
-            posted, posted_source = _workday_refresh_posted(c, job_id, site)
+            return _workday_refresh_posted(c, job_id, site)
         except Exception:
-            continue  # likely closed since first_seen - the separate liveness check handles that
+            return None  # likely closed since first_seen - the separate liveness check handles that
         finally:
             time.sleep(0.3)  # Workday 429s on bursts - see describe_pool's own comment in run()
+
+    with ThreadPoolExecutor(REVERIFY_WORKERS) as ex:
+        results = list(ex.map(refresh, todo))
+    for (e, _c, _j, _s), res in zip(todo, results):
+        if res is None:
+            continue
+        posted, posted_source = res
         e["posted_reverified"] = True
         if posted and posted != e.get("posted"):
             e["posted"], e["posted_source"] = posted, posted_source
@@ -4735,6 +4751,20 @@ def _workday_still_listed(c, e):
         return True
 
 
+LIVENESS_WORKERS = 8
+LIVENESS_BUDGET_SECONDS = 420
+_liveness_started = []
+
+
+def _still_listed_budgeted(c, e):
+    """_still_listed, or None once the run's probe time budget is spent (caller keeps the row open)."""
+    if not _liveness_started:
+        _liveness_started.append(time.monotonic())
+    if time.monotonic() - _liveness_started[0] > LIVENESS_BUDGET_SECONDS:
+        return None
+    return _still_listed(c, e)
+
+
 def _update_liveness(name, jobs, complete, queue, counts, c=None):
     """Detects closed/reopened postings for one company's queue entries by diffing against the FULL
     current listing (`jobs`, not the title/location-filtered `hits`) - so editing filters never closes
@@ -4772,11 +4802,23 @@ def _update_liveness(name, jobs, complete, queue, counts, c=None):
     if not complete:
         return  # a truncated/capped listing can't prove absence - a job outside the window isn't closed
     close_after = CLOSE_AFTER_MISSES * 3 if mass_vanish else CLOSE_AFTER_MISSES
+    checkable = bool(c and c.get("ats") in ("workday", "oracle", "eightfold", "smartrecruiters"))
+    due = [e for e in missing if e.get("miss_count", 0) + 1 >= close_after and (e.get("last_seen_live") or "") < today]
+    listed = {}
+    if checkable and due:
+        # sequential probes across thousands of vanished rows ran past the job timeout and cancelled every run
+        with ThreadPoolExecutor(LIVENESS_WORKERS) as ex:
+            futs = {e["id"]: ex.submit(_still_listed_budgeted, c, e) for e in due}
+            listed = {k: f.result() for k, f in futs.items()}
     for e in missing:
         e["miss_count"] = e.get("miss_count", 0) + 1
         # hourly runs make two misses only two hours: also require the last confirmed sighting to be before today
         if e["miss_count"] >= close_after and (e.get("last_seen_live") or "") < today:
-            if c and c.get("ats") in ("workday", "oracle", "eightfold", "smartrecruiters") and _still_listed(c, e):
+            verdict = listed.get(e["id"], False)
+            if verdict is None:  # probe budget spent: leave it open and retry next run
+                e["miss_count"] = close_after - 1
+                continue
+            if verdict:
                 e["last_seen_live"], e["miss_count"] = today, 0  # live but dropped out of the keyword searches
                 continue
             e["closed_on"], e["closed_reason"] = today, "removed"
