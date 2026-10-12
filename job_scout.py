@@ -2541,7 +2541,7 @@ _COUNTRY_CODE_SITE_RE = re.compile(
 _ISO3_DASH_RE = re.compile(
     r"^(ind|esp|pol|phl|cyp|hgk|can|gbr|irl|deu|fra|ita|nld|sgp|jpn|aus|bra|mex|chn|zaf|isr|che|swe|dnk"
     r"|fin|prt|rou|bgr|cze|hun|ltu|lva|ukr|tur|arg|chl|pak|bgd|lka|mys|tha|vnm|idn|kor|twn|nzl|egy|ken|nga"
-    r"|sau|qat|kwt)\s*-\s*[a-z]"
+    r"|sau|qat|kwt)\s*[-|]\s*[a-z]"
 )
 _ISO2_SUBDIV_RE = re.compile(
     r"^(?:ca-(?:on|bc|qc|ab|ns|nb|mb|sk|nl|pe|yt|nt|nu)-[a-z]|(?:de|fr|it|nl|es|au|jp|cn|br|mx|ie|sg|se|pl)-[a-z]{2,3}-[a-z])"
