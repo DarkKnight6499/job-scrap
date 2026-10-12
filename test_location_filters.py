@@ -21,6 +21,7 @@ EXCLUDED = [
     "Whitby, Ontario", "Pasig - 4th Floor JMT Corporate Condominium", "Delhi NCR", "Munich - Müllerstrasse", "Fortitude Valley, QLD, au", "Ludhiana", "Kaohsiung", "Camana Bay", "Tunis", "København S, DK, 2300", "Saint Helier, Jersey", "Newcastle, NSW, au", "Ontario Home Office", "Perth Office", "Guangzhou", "Gandhi Nagar - GIFT City",
     "Perth, WA, au", "Docklands, AU", "1/124, SHIVAJI GARDENS, MOONLI", "Thane, IN", "AU - BRISBANE - 50 JAMES ST", "Perth - 225 St. Georges Terrace", "Norwich - Willow", "Parma - Via Carlo Pisacane, 1B", "Łódź, PL, 93-281", "Belfast - Merchant Square (IE)", "Belfast - 20 Adelaide Street",
     "Heredia, Provincia de Heredia", "Boadilla del Monte", "2 Locations (MesseTurm DEFAMESS HQ)", "Købanhavn K, DK, 1402", "3 Locations (Zrich)", "5 Locations (Canadian Head Office)", "2 Locations (POL Gdynia 3T Office Park Tower C)", "2 Locations (Lvis)", "Kulim, Kedah, al", "Milton Keynes", "CD - Kinshasa, Democratic Republic of Congo", "Northampton, Barclays Campus, Pavilion Drive", "Henley-on-Thames, Oxfordshire", "Ranjangaon", "2 Locations (9 10 TAUNUSANLAGE FRANKFURT AM MAIN)", "1054, Retiro, Capital Federal", "Kolhapur", "Jersey, JE", "Brunei, BN", "Addlestone", "Calvin Klein Halfweg Sugar City", "Birmingham, One Snow Hill", "Myanmar, MM - AIA Myanmar", "Pathum Tani", "I-Think Techno, Kanjurmarg", "PSA - Tandag City",
+    "Phnom Penh, KH-AIA Cambodia", "Sumida-ku", "National General Tijuana", "OSL Airport", "Hosur", "BEL DIEG 6A", "Macau, Macau, Macau", "CH-xx-Le Locle-191-Facility", "HKG | Tuen Mun | No. 3, Kin Tai Street", "Bhiwandi, Maharashtra", "Uzhhorod", "Baja", "Mezzovico", "Croatia, Rijeka, 1351000", "NFS AU BRISBANE AIRPORT", "CK Blanchardstown", "LAN - Manchester", "Calvin Klein Manchester", "KOBE GO & IC - SANNOMIYA", "IloIlo", "Lviv", "Palma de Mallorca", "Trento", "STATION STREET:NOTTINGHAM", "Taytay CSC", "PH-BTG-TANAUAN CITY-BQ4 ~ First Philippine Industrial Park", "FRASER VALLEY", "KITCHENER WATERLOO", "NORTH YORK", "OTTAWA", "CDMX", "Lisboa", "Nassau", "Surrey", "San Sebastian", "San Jos�",
     "Adelaide, SA, AU, 5000", "Diegem, BE, 1831", "CABA, B, AR, 1001", "Hamburg, HH, DE, 20148",
 ]
 US_KEPT = [
@@ -28,6 +29,7 @@ US_KEPT = [
     "US-NJ-Princeton-100-Headquarters", "Office - USA - CA - Headquarters", "New York, NY", "Ontario, CA",
     "Houston Office", "Jersey City", "Charlotte", "Boston, Massachusetts", "San Francisco Office",
     "Washington D.C.", "Montclair, NJ", "Nashville, Tennessee", "San Juan, Puerto Rico", "Cameron", "Wilmington, Delaware", "Perth Amboy, NJ", "Nassau County, NY", "Brisbane, CA", "Belfast, ME", "Delhi, NY", "Medina, OH",
+    "San Jose", "SAN JOSE", "Ottawa, IL", "Manchester, NH", "San Sebastian, Puerto Rico", "Pembroke", "New York, NY Calvin Klein Office",
     "New York, NY, US, 10001-8604", "Chicago, IL, US, 60606", "Fort Wayne, IN, 46802", "Wilmington, DE, 19801", "Dallas, TX, 75201-1234",
 ]
 

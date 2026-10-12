@@ -2520,6 +2520,10 @@ _VANCOUVER_RE = re.compile(r"(?<![a-z0-9])vancouver(?![a-z0-9])(?!, wa\b)(?!, wa
 # whole-string form is excluded.
 _BARE_HQ_RE = re.compile(r"^\s*headquarters\s*$")
 
+# Whole-string city names that are foreign on Workday ("OTTAWA", "NORTH YORK") but also real US place names
+# ("Ottawa, IL", "Nassau County, NY", "San Sebastian, PR"), so only the bare form is excluded.
+_BARE_NON_US_CITY_RE = re.compile(r"^\s*(?:ottawa|north york|nassau|surrey|san sebastian|san jos\ufffd)\s*$")
+
 # Canadian Ontario, but not Ontario, California / Oregon / New York / Ohio.
 _ONTARIO_RE = re.compile(r"\bontario\b(?!,?\s*(?:ca|california|or|oregon|ny|oh|ohio)\b)")
 
@@ -2580,6 +2584,8 @@ def matches(job, f):
     if any(contains_term(t, x) for x in exc):
         return False
     if _BARE_HQ_RE.match(loc_folded):
+        return False
+    if _BARE_NON_US_CITY_RE.match(loc_folded):
         return False
     if _BARE_NON_US_CODE_RE.match(loc_folded):
         return False
