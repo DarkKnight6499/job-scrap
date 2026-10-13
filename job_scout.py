@@ -114,13 +114,16 @@ BLOCK_PATTERNS = [
     # "do not offer any type of employment-based immigration sponsorship" or "will not provide
     # any assistance ... in support of any other form of immigration sponsorship", both of which
     # put well over 3 words between the negation and "sponsor".
-    r"(?:will|would|does|do|can|could|is|are)\s+not\s+[^.]{0,150}?sponsor",
+    r"(?:will|would|does|do|can|could|is|are)\s+not\s+[^.]{0,150}?sponsor(?!ed\s+by\s+agenc|\s+new\s+industry)",
     r"\bcannot\s+(?:\w+\s+){0,3}sponsor",
     r"unable\s+to\s+(?:\w+\s+){0,3}sponsor",
     r"\bno\s+(?:work\s+)?(?:visa\s+)?sponsorship",
     r"visa\s+sponsorship\s+(?:is\s+)?not\s+(?:available|offered|provided)",
     r"not\s+(?:available|offered|provided)\s+for[^.]{0,60}sponsorship",
-    r"\bsponsorship\s+(?:is\s+)?not\s+(?:available|offered|provided)",
+    r"\bsponsorship\s+(?:is\s+|are\s+)?not\s+(?:available|offered|provided)",
+    r"\bsponsorship\s+offered\W{0,3}no\b",
+    r"\bvisa\s+sponsorship\s*\??\W{0,3}no\b",
+    r"\bwithout\s+(?:current\s+)?(?:or\s+future\s+)?(?:visa\s+)?sponsorship",
     r"sponsor[^.]{0,120}(?:now|currently|current)[^.]{0,20}(?:or|and)\s+in\s+the\s+future",
     r"(?:now|currently|current)[^.]{0,20}(?:or|and)\s+in\s+the\s+future[^.]{0,120}sponsor",
     r"not\s+eligible\s+for[^.]{0,80}(?:h-?1b|employer.sponsored|sponsorship|work\s+visa)",
@@ -158,10 +161,22 @@ HARD_BLOCK_PATTERNS = [
     r"(?:limited|restricted)\s+to\s+(?:persons|people|individuals|candidates|applicants)\s+with\s+(?:an?\s+)?(?:indefinite|unrestricted|permanent)\s+(?:right|authori[sz]ation)\s+to\s+work",
     r"not\s+eligible\s+for[^.]{0,150}\b(?:opt|cpt)\b",
 ]
+_US = r"u[.\s]{0,2}s[.\s]{0,2}"  # "U.S." after abbreviation normalization
+HARD_BLOCK_PATTERNS += [
+    r"\b(?:top\s+secret|secret|ts/sci)\s+(?:level\s+)?(?:security\s+)?clearance[^.]{0,60}\b(?:required|must|necessary)",
+    r"\b(?:must|required|requires?|need)[^.]{0,60}\b(?:top\s+secret|secret|ts/sci)\s+(?:level\s+)?(?:security\s+)?clearance",
+    r"\bactive\s+(?:" + _US + r")?\s*(?:top\s+secret|secret|ts/sci)\b",
+    r"\bonly\b[^.]{0,80}\b" + _US + r"\s*persons",
+    _US + r"\s*persons?\s+only",
+    _US + r"citizens?\s+or\s+(?:lawful\s+)?permanent\s+residents",
+    r"requires?\s+" + _US + r"\s*citizenship",
+    r"permanent\s+or\s+ongoing\s+work\s+authori[sz]ation",
+    r"\b(?:cpt|opt)\b[^.]{0,40}\b(?:are|is)\s+restricted",
+]
 HARD_BLOCK_RES = [re.compile(p, re.I) for p in HARD_BLOCK_PATTERNS]
 _OPT_WORD_RE = re.compile(r"\b(?:opt|cpt|f-?1)\b", re.I)  # bare "stem" is a degree field, not an OPT mention
 # "won't sign OPT/CPT paperwork" (JPMorgan, Mizuho) is a corner case kept as OPT Only; a bare OPT exclusion list blocks.
-_SIGNOFF_RE = re.compile(r"documentation|sign|execut|administrative assistance|any assistance", re.I)
+_SIGNOFF_RE = re.compile(r"documentation|\bsign(?:ing)?\b|execution of|execute (?:any|the)|administrative assistance|any assistance", re.I)
 OPT_WINDOW_CHARS = 400  # an OPT/STEM/F-1 mention this close to a no-sponsorship phrase is read as an OPT exclusion
 
 # Abbreviations whose internal periods break the "[^.]{0,N}" same-sentence
@@ -2517,7 +2532,7 @@ def describe(c, job):
             return "", "", ""
         opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(CookieJar()))
         page = opener.open(urllib.request.Request(job["url"], headers={"User-Agent": BROWSER_UA}), timeout=40).read().decode("utf-8", "ignore")
-        text = strip_html(re.sub(r"(?is)<(script|style).*?</>", " ", page))
+        text = strip_html(re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", page))
         i = text.find("JOB OPENING")
         return (text[i:] if i >= 0 else "")[:30000], "", ""
     if ats == "taleo_cws":  # list rows have no description or date; the requisition page JSON-LD carries both
@@ -2791,14 +2806,22 @@ def classify_sponsorship(text):
         if m:
             return "Blocked", evidence(m)
     first = None
+    tag = ""
     for rx in BLOCK_RES:
         for m in rx.finditer(normalized):  # every match: the OPT list can follow a later sentence, not the first hit
             first = first or m
             window = normalized[max(0, m.start() - OPT_WINDOW_CHARS):m.end() + OPT_WINDOW_CHARS]
-            if any(not _SIGNOFF_RE.search(window[max(0, k.start() - 300):k.start()]) for k in _OPT_WORD_RE.finditer(window)):
-                return "Blocked", evidence(m)
+            for k in _OPT_WORD_RE.finditer(window):
+                if _SIGNOFF_RE.search(window[max(0, k.start() - 300):k.start()]):
+                    tag = "[initial OPT only, employer will not sign] "
+                elif k.group(0).lower() == "opt" and re.search(r"stem\s*$", window[max(0, k.start() - 8):k.start()], re.I):
+                    tag = tag or "[no STEM OPT] "
+                else:
+                    return "Blocked", evidence(m)
     if first:
-        return "OPT Only", evidence(first)
+        if not tag and re.search(r"\bfuture\b", normalized[first.start():first.end() + 60], re.I):
+            tag = "[now or future] "
+        return "OPT Only", tag + evidence(first)
     return "Unclear", "No sponsorship language in the description."
 
 
