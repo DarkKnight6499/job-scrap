@@ -83407,7 +83407,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-10-02",
   "miss_count": 2,
@@ -83444,7 +83444,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "opt_only",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-10-13",
   "miss_count": 0,
@@ -83481,7 +83481,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "opt_only",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-10-13",
   "miss_count": 0,
@@ -83518,7 +83518,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "opt_only",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-10-13",
   "miss_count": 0,
@@ -221084,7 +221084,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "opt_only",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-13",
   "miss_count": 0,
@@ -249126,7 +249126,7 @@
   "kw_hits": [
    "quantitative"
   ],
-  "state": "opt_only",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-13",
   "miss_count": 0,
@@ -353234,7 +353234,7 @@
    "cfa",
    "quantitative"
   ],
-  "state": "opt_only",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-13",
   "miss_count": 0,
