@@ -3906,6 +3906,8 @@ function copyText(text) {
     checkboxes.forEach(function(cb) { cb.checked = false; });
     applyCategory();
     if (metroBox) { metroBox.checked = false; applyLocation(); }
+    hideBox.checked = false;
+    applyCompany();
   });
 
   // Hide one company
