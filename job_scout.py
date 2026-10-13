@@ -3785,6 +3785,18 @@ ROLE_CATEGORY_EXCLUDE = {
 
 _EXTRA_SCRIPT = r"""
 <script>
+function copyText(text) {
+  // Clipboard API rejects when the tab lost focus during the fetch; fall back to execCommand.
+  return navigator.clipboard.writeText(text).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (!ok) throw new Error('copy blocked, click the page and retry');
+  });
+}
 (function() {
   var CATEGORIES = __CATEGORIES__;
   var COMPANY = __COMPANY__;
@@ -3956,7 +3968,7 @@ _EXTRA_SCRIPT = r"""
       return resp.json();
     }).then(function(data) {
       if (!data.ok) throw new Error(data.stderr || 'request failed');
-      return navigator.clipboard.writeText(data.text).then(function() {
+      return copyText(data.text).then(function() {
         btn.textContent = 'Copied';
         setTimeout(function() { btn.textContent = 'Copy JD'; btn.disabled = false; }, 2000);
       });
