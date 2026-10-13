@@ -3586,7 +3586,7 @@ def posted_label(e):
 # a custom state from a hand-edit) is appended after these
 DATE_FILTER_DAYS = [0, 1, 3, 7, 14, 30, 45, 60, 90, 180, 365, 730]
 _SECONDARY_STATE_ORDER = ["shortlisted", "applied", "opt_only", "auto_blocked", "dismissed"]
-_STATE_LABELS = {"opt_only": "OPT allowed (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
+_STATE_LABELS = {"opt_only": "OPT only (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
 
 
 # Cloudflare Worker that returns a posting's full JD text (see worker/README.md). Blank = the Copy JD
@@ -4061,11 +4061,14 @@ def write_queue_html(q, path, updated_at=None):
         exp_evidence = html.escape(e.get("experience_evidence") or "")
         salary = e.get("salary") or "Unclear"
         salary_evidence = html.escape(e.get("salary_evidence") or "")
-        spons_label = {"Unclear": "N/A", "OPT Only": "OPT allowed"}.get(e["sponsorship_status"], e["sponsorship_status"])
+        spons_label = {"Unclear": "N/A", "OPT Only": "OPT only"}.get(e["sponsorship_status"], e["sponsorship_status"])
         salary_label = salary if salary != "Unclear" else "N/A"
         role = html.escape(e["role"])
         if e.get("repost_count"):
             role += f' <span class="repost" title="repost of {html.escape(e.get("repost_of") or "?")}">repost x{e["repost_count"]}</span>'
+        if e.get("sponsorship_status") == "OPT Only":
+            _ev = html.escape(e.get("sponsorship_evidence") or "")
+            role = f'<span class="optbadge" title="{_ev}">OPT only</span>' + role
         role_cell = (f'<a href="{html.escape(e["link"])}" target="_blank" rel="noopener">{role}</a>'
                      if not closed else role)
         row_title = ""
@@ -4160,8 +4163,9 @@ details {{ margin-bottom: 0.5rem; }}
 summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBar {{ position: sticky; top: 0; background: #fafafa; padding: 0.6rem 0; margin-bottom: 0.5rem; z-index: 1; border-bottom: 1px solid #e3e3e3; display: flex; flex-direction: column; gap: 8px; }}
 #filterBox {{ width: 100%; max-width: 520px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
-#optOnlyBtn, #expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
-#optOnlyBtn[aria-pressed="true"] {{ background: #1a6e1a; color: #fff; border-color: #1a6e1a; }}
+#expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
+#optOnlyLbl {{ font-size: 0.9rem; cursor: pointer; }}
+.optbadge {{ font-size: 0.7rem; color: #fff; background: #1a6e1a; border-radius: 4px; padding: 1px 5px; margin-right: 4px; }}
 #expReset {{ margin-left: auto; color: #555; }}
 .fb-row {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }}
 .fb-row .lbl {{ font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #666; min-width: 7.5rem; }}
@@ -4209,7 +4213,7 @@ tr.hidden-by-filter {{ display: none; }}
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<button type="button" id="optOnlyBtn" aria-pressed="false" title="Show only roles that refuse employer sponsorship but do not exclude OPT or STEM OPT">OPT allowed</button>
+<label id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide OPT only jobs</label>
 {unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
 </div>
@@ -4263,11 +4267,11 @@ tr.hidden-by-filter {{ display: none; }}
   var dateMin = document.getElementById('dateMin');
   var dateMax = document.getElementById('dateMax');
   var dateIncludeNA = document.getElementById('dateIncludeNA');
-  var optBtn = document.getElementById('optOnlyBtn');
+  var optBtn = document.getElementById('optOnlyBtn');  // checkbox: hide OPT only rows
   var optOnly = false;
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
-  function setOpt(on) {{ optOnly = on; optBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); }}
+  function setOpt(on) {{ optOnly = on; optBtn.checked = on; }}
 
   function ageDays(tr) {{
     var iso = tr.getAttribute('data-posted') || tr.getAttribute('data-first-seen');
@@ -4308,7 +4312,7 @@ tr.hidden-by-filter {{ display: none; }}
         // numeric range filter (they didn't fail the check, they just have nothing to check).
         expMatch = rank === -1 ? expIncludeNA.checked : (rank >= lo && rank <= hi);
       }}
-      var match = textMatch && expMatch && dateOk(tr) && (!optOnly || tr.getAttribute('data-opt') === '1');
+      var match = textMatch && expMatch && dateOk(tr) && (!optOnly || tr.getAttribute('data-opt') !== '1');
       tr.classList.toggle('hidden-by-filter', !match);
       if (match) {{
         shown++;
@@ -4325,7 +4329,7 @@ tr.hidden-by-filter {{ display: none; }}
       localStorage.setItem('jobScoutDateMin', dateMin.value);
       localStorage.setItem('jobScoutDateMax', dateMax.value);
       localStorage.setItem('jobScoutDateNA', dateIncludeNA.checked ? '1' : '0');
-      localStorage.setItem('jobScoutOptOnly', optOnly ? '1' : '0');
+      localStorage.setItem('jobScoutHideOpt', optOnly ? '1' : '0');
     }} catch (e) {{}}
   }}
 
@@ -4356,9 +4360,9 @@ tr.hidden-by-filter {{ display: none; }}
     if (sdMin !== null) dateMin.value = sdMin;
     if (sdMax !== null) dateMax.value = sdMax;
     if (sdNA !== null) dateIncludeNA.checked = sdNA === '1';
-    setOpt(localStorage.getItem('jobScoutOptOnly') === '1');
+    setOpt(localStorage.getItem('jobScoutHideOpt') === '1');
   }} catch (e) {{}}
-  optBtn.addEventListener('click', function() {{ setOpt(!optOnly); apply(); }});
+  optBtn.addEventListener('change', function() {{ setOpt(optBtn.checked); apply(); }});
   searchBtn.addEventListener('click', apply);
   box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
   expMin.addEventListener('change', apply);
