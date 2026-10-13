@@ -20,8 +20,9 @@ summary { cursor: pointer; font-weight: 600; padding: 4px 0; }
 #filterBar { position: sticky; top: 0; background: #fafafa; padding: 0.6rem 0; margin-bottom: 0.5rem; z-index: 1; border-bottom: 1px solid #e3e3e3; display: flex; flex-direction: column; gap: 8px; }
 #filterBox { width: 100%; max-width: 520px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }
 #expReset { padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }
-#optOnlyLbl { font-size: 0.9rem; cursor: pointer; }
-.optbadge { font-size: 0.7rem; color: #fff; background: #1a6e1a; border-radius: 4px; padding: 1px 5px; margin-right: 4px; }
+#optOnlyLbl { color: #8a5a00; border-color: #cc9a2e; }
+#optOnlyLbl:has(input:checked) { background: #f6e3b4; border-color: #b8801a; }
+.optbadge { font-size: 0.7rem; color: #fff; background: #c8921a; border-radius: 4px; padding: 1px 5px; margin-right: 5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }
 #expReset { margin-left: auto; color: #555; }
 .fb-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .fb-row .lbl { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #666; min-width: 7.5rem; }
@@ -69,7 +70,7 @@ tr.hidden-by-filter { display: none; }
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<label id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide OPT only jobs</label>
+<label class="chip" id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide OPT only jobs</label>
 <details id="unsupported"><summary title="Employers this scout cannot read yet">Not covered (6)</summary><div class="uns-panel"><p>Postings from these employers will not appear here. Check their sites directly.</p><ul><li>ABN AMRO<span>werkenbijabnamro.nl vacancy API pages with pageNumber (8 per page, with sort params) but stops at page 9 (72 of 134), and its country facet is only Netherlands, Belgium and UK, so no US roles</span></li><li>BNP Paribas<span>Akamai blocks the group job list (403 to scripts). The applicant system bwelcome.hr.bnpparibas serves single jobs but has no list, job sitemap or open search; about 60 US roles exist but finding them means probing about 9000 job ids per run</span></li><li>Citadel<span>Cloudflare Turnstile challenge on citadel.com, also in a real browser; no public ATS board found (Greenhouse, Lever, Ashby and The Muse have none)</span></li><li>NatWest<span>Cloudflare Turnstile challenge on jobs.natwestgroup.com, also in a real browser; no other public board found</span></li><li>Rabobank<span>WAF 403 to scripts on rabobank.jobs, including its own search API (POST /api/v1/jobs/); about 116 jobs, mostly Netherlands</span></li><li>UniCredit<span>Reachable now: it is an Avature site (careers.unicredit.eu/en_GB/jobsuche/SearchJobs, about 500 jobs) but none are in the US (Romania, Czech Republic, Italy, Hungary, Germany and others), so it was not added</span></li></ul></div></details>
 <button type="button" id="expReset">Reset all filters</button>
 </div>

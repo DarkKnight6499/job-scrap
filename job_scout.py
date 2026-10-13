@@ -4164,8 +4164,9 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBar {{ position: sticky; top: 0; background: #fafafa; padding: 0.6rem 0; margin-bottom: 0.5rem; z-index: 1; border-bottom: 1px solid #e3e3e3; display: flex; flex-direction: column; gap: 8px; }}
 #filterBox {{ width: 100%; max-width: 520px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
 #expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
-#optOnlyLbl {{ font-size: 0.9rem; cursor: pointer; }}
-.optbadge {{ font-size: 0.7rem; color: #fff; background: #1a6e1a; border-radius: 4px; padding: 1px 5px; margin-right: 4px; }}
+#optOnlyLbl {{ color: #8a5a00; border-color: #cc9a2e; }}
+#optOnlyLbl:has(input:checked) {{ background: #f6e3b4; border-color: #b8801a; }}
+.optbadge {{ font-size: 0.7rem; color: #fff; background: #c8921a; border-radius: 4px; padding: 1px 5px; margin-right: 5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }}
 #expReset {{ margin-left: auto; color: #555; }}
 .fb-row {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }}
 .fb-row .lbl {{ font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #666; min-width: 7.5rem; }}
@@ -4213,7 +4214,7 @@ tr.hidden-by-filter {{ display: none; }}
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<label id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide OPT only jobs</label>
+<label class="chip" id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide OPT only jobs</label>
 {unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
 </div>
