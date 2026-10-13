@@ -25,6 +25,7 @@ EXCLUDED = [
     "Adelaide, SA, AU, 5000", "Diegem, BE, 1831", "CABA, B, AR, 1001", "Hamburg, HH, DE, 20148",
 ]
 US_KEPT = [
+    "Perth Amboy, NJ", "Delhi, NY", "Delhi, LA", "Monterey, CA", "Indianapolis, IN", "Cologne, MN",
     "IN", "DE", "CA", "ID", "AR", "Indianapolis, IN",
     "US-NJ-Princeton-100-Headquarters", "Office - USA - CA - Headquarters", "New York, NY", "Ontario, CA",
     "Houston Office", "Jersey City", "Charlotte", "Boston, Massachusetts", "San Francisco Office",
