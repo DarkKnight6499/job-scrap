@@ -171,6 +171,11 @@ HARD_BLOCK_PATTERNS += [
     _US + r"citizens?\s+or\s+(?:lawful\s+)?permanent\s+residents",
     r"requires?\s+" + _US + r"\s*citizenship",
     r"permanent\s+or\s+ongoing\s+work\s+authori[sz]ation",
+    # DTFS 2026-10-14: "legally authorized to work permanently in the country of posting"
+    r"authori[sz]ed\s+to\s+work\s+(?:\w+\s+){0,3}(?:permanently|indefinitely)",
+    r"permanently\s+authori[sz]ed\s+to\s+work",
+    r"authori[sz]ed\s+to\s+work[^.]{0,60}\bon\s+a\s+permanent\s+basis",
+    r"\b(?:must|required|need)[^.]{0,60}\b(?:permanent|indefinite)\s+(?:right\s+to\s+work|(?:work\s+)?authori[sz]ation)",
     r"\b(?:cpt|opt)\b[^.]{0,40}\b(?:are|is)\s+restricted",
 ]
 HARD_BLOCK_RES = [re.compile(p, re.I) for p in HARD_BLOCK_PATTERNS]
