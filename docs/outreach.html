@@ -29,11 +29,11 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
 <body><div class="wrap">
 <a class="back" href="index.html">&larr; Job queue</a>
 <h1>Outreach Search Links</h1>
-<p class="sub">Type a city and a role. Every outreach avenue for that city appears as a Google search.</p>
+<p class="sub">Type one or more cities (comma separated, or click the chips) and a role. Every outreach avenue appears as a Google search.</p>
 
 <div class="box">
   <div class="row">
-    <div><label for="city">City</label><input id="city" list="cities" placeholder="New York" autocomplete="off"></div>
+    <div><label for="city">Cities (comma separated)</label><input id="city" placeholder="New York, Jersey City, Boston" autocomplete="off"></div>
     <div><label for="role">Role / keyword</label><input id="role" placeholder="Market Risk" autocomplete="off"></div>
     <div><label for="company">Company (optional)</label><input id="company" placeholder="Morgan Stanley" autocomplete="off"></div>
     <div><label for="when">Posted within (posts and listings)</label><select id="when"><option value="">Any time</option><option value="d">Past 24 hours</option><option value="w">Past week</option><option value="m">Past month</option></select></div>
@@ -67,9 +67,11 @@ var PEER_TITLES = ['"analyst"','"associate"','"senior analyst"'];
 
 function q(s) { return '"' + s + '"'; }
 function orGroup(list) { return '(' + list.join(' OR ') + ')'; }
+function cityList(v) { return v.split(',').map(function(x) { return x.trim(); }).filter(Boolean); }
+function cityExpr(v) { var c = cityList(v); return c.length === 1 ? q(c[0]) : '(' + c.map(q).join(' OR ') + ')'; }
 function roleExpr(roles) { return roles.length === 1 ? '(' + q(roles[0]) + ')' : '(' + roles.map(q).join(' OR ') + ')'; }
 function build(city, roles, company) {
-  var loc = q(city), role = roleExpr(roles), co = company ? ' ' + q(company) : '';
+  var loc = cityExpr(city), role = roleExpr(roles), co = company ? ' ' + q(company) : '';
   var cards = [
     ["Hiring managers", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' ' + orGroup(MANAGER_TITLES) + ' -recruiter -"talent acquisition"', false],
     ["Recruiters / TA", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + orGroup(RECRUITER_TITLES) + ' ' + role, false],
@@ -98,7 +100,7 @@ function roles() {
 function render() {
   var city = $('city').value.trim(), rs = roles(), co = $('company').value.trim();
   var out = $('out');
-  if (!city || !rs.length) { out.innerHTML = ''; $('status').textContent = 'Enter a city and at least one role.'; return; }
+  if (!city || !rs.length) { out.innerHTML = ''; $('status').textContent = 'Enter at least one city and one role.'; return; }
   $('status').textContent = '';
   var cards = build(city, rs, co), groups = ["People", "Posts", "Jobs"], html = '';
   groups.forEach(function(g) {
@@ -133,8 +135,8 @@ function chips() {
     rc.appendChild(b);
   });
   CITIES.forEach(function(c) {
-    var b = document.createElement('button'); b.className = 'chip' + ($('city').value === c ? ' on' : ''); b.textContent = c;
-    b.onclick = function() { $('city').value = c; chips(); render(); };
+    var b = document.createElement('button'); b.className = 'chip' + (cityList($('city').value).indexOf(c) >= 0 ? ' on' : ''); b.textContent = c;
+    b.onclick = function() { var l = cityList($('city').value), i = l.indexOf(c); if (i >= 0) l.splice(i, 1); else l.push(c); $('city').value = l.join(', '); chips(); render(); };
     cc.appendChild(b);
   });
 }
