@@ -46,6 +46,9 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
     <button class="btn" id="reset">Reset</button>
     <span class="sub" id="status" style="margin:0;align-self:center"></span>
   </div>
+  <p class="sub" id="note" style="margin:10px 0 0;font-size:13px">Tip: Google reads only about 32 words per search, so keep to 3 or 4 cities at once. Extra cities or roles may be silently ignored.</p>
+  <div style="display:none">
+  </div>
 </div>
 
 <div id="out"></div>
@@ -102,6 +105,9 @@ function render() {
   var out = $('out');
   if (!city || !rs.length) { out.innerHTML = ''; $('status').textContent = 'Enter at least one city and one role.'; return; }
   $('status').textContent = '';
+  var many = cityList($('city').value).length + rs.length > 6;
+  $('note').style.color = many ? '#b45309' : '';
+  $('note').style.fontWeight = many ? '700' : '';
   var cards = build(city, rs, co), groups = ["People", "Posts", "Jobs"], html = '';
   groups.forEach(function(g) {
     html += '<h2>' + g + '</h2><div class="grid">';
