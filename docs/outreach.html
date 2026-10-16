@@ -36,6 +36,7 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
     <div><label for="city">City</label><input id="city" list="cities" placeholder="New York" autocomplete="off"></div>
     <div><label for="role">Role / keyword</label><input id="role" placeholder="Market Risk" autocomplete="off"></div>
     <div><label for="company">Company (optional)</label><input id="company" placeholder="Morgan Stanley" autocomplete="off"></div>
+    <div><label for="when">Posted within (posts and listings)</label><select id="when"><option value="">Any time</option><option value="d">Past 24 hours</option><option value="w">Past week</option><option value="m">Past month</option></select></div>
   </div>
   <datalist id="cities"></datalist>
   <div class="chips" id="roleChips"></div>
@@ -52,6 +53,14 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
 <script>
 var ROLES = ["Market Risk","ALM","Treasury","Liquidity Risk","Model Risk","Capital Planning","Fixed Income","Quant","Credit Risk","FP&A"];
 var CITIES = ["New York","Jersey City","Newark","Boston","Charlotte","Chicago","Washington DC","San Francisco","Stamford","Houston"];
+var ATS = [
+  ["Greenhouse / Lever / Workday / SmartRecruiters / Ashby / iCIMS", ['boards.greenhouse.io','job-boards.greenhouse.io','jobs.lever.co','myworkdayjobs.com','jobs.smartrecruiters.com','careers.smartrecruiters.com','jobs.ashbyhq.com','apply.workable.com','jobs.jobvite.com','icims.com','bamboohr.com','applytojob.com']],
+  ["Dayforce / UltiPro / ADP / Paylocity / Rippling / Pinpoint", ['jobs.dayforcehcm.com','recruiting.ultipro.com','workforcenow.adp.com','csod.com','ats.rippling.com','recruiting.paylocity.com','paycomonline.net','pinpointhq.com','jobs.gem.com']],
+  ["SuccessFactors / Taleo / Oracle HCM / Eightfold / Avature", ['teamtailor.com','successfactors.com','sapsf.com','taleo.net','oraclecloud.com/hcmUI','eightfold.ai','avature.net','recruitee.com','breezy.hr','jobs.personio.de','jobs.personio.com','comeet.com']],
+  ["Other ATS (PageUp / Tal.net / Zoho / Darwinbox)", ['careers.pageuppeople.com','tribepad.com','tal.net','livehire.com','darwinbox.in','darwinbox.com','recruit.zoho.com','zohorecruit.com','jobs.pyjamahr.com','r.ripplehire.com']]
+];
+var BOARDS = ['indeed.com','glassdoor.com','linkedin.com','ziprecruiter.com','simplyhired.com','monster.com','careerbuilder.com','dice.com','builtin.com','efinancialcareers.com','wallstreetoasis.com','jobs.ashbyhq.com'];
+function sites(list) { return '(' + list.map(function(d) { return 'site:' + d; }).join(' OR ') + ')'; }
 var MANAGER_TITLES = ['"manager"','"head"','"director"','"lead"','"vice president"','"VP"'];
 var RECRUITER_TITLES = ['"recruiter"','"talent acquisition"','"HR recruiter"'];
 var PEER_TITLES = ['"analyst"','"associate"','"senior analyst"'];
@@ -62,18 +71,16 @@ function roleExpr(roles) { return roles.length === 1 ? '(' + q(roles[0]) + ')' :
 function build(city, roles, company) {
   var loc = q(city), role = roleExpr(roles), co = company ? ' ' + q(company) : '';
   var cards = [
-    ["Hiring managers", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' ' + orGroup(MANAGER_TITLES) + ' -recruiter -"talent acquisition"'],
-    ["Recruiters / TA", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + orGroup(RECRUITER_TITLES) + ' ' + role],
-    ["Team peers (analyst / associate)", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' ' + orGroup(PEER_TITLES) + ' -recruiter'],
-    ["Rutgers alumni", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' "Rutgers"'],
-    ["LinkedIn hiring posts", "Posts", 'site:linkedin.com/posts ' + loc + co + ' ' + role + ' ("hiring" OR "we\'re hiring" OR "now hiring")'],
-    ["Hiring posts, past week", "Posts", 'site:linkedin.com/posts ' + loc + co + ' ' + role + ' ("hiring" OR "we\'re hiring" OR "now hiring")', "&tbs=qdr:w"],
-    ["Workday listings", "Jobs", 'site:myworkdayjobs.com ' + loc + co + ' ' + role],
-    ["Greenhouse listings", "Jobs", 'site:boards.greenhouse.io ' + loc + co + ' ' + role],
-    ["Lever listings", "Jobs", 'site:jobs.lever.co ' + loc + co + ' ' + role],
-    ["Ashby listings", "Jobs", 'site:jobs.ashbyhq.com ' + loc + co + ' ' + role],
-    ["Company careers pages", "Jobs", loc + co + ' ' + role + ' (careers OR "job openings") -site:linkedin.com -site:indeed.com -site:glassdoor.com']
+    ["Hiring managers", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' ' + orGroup(MANAGER_TITLES) + ' -recruiter -"talent acquisition"', false],
+    ["Recruiters / TA", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + orGroup(RECRUITER_TITLES) + ' ' + role, false],
+    ["Team peers (analyst / associate)", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' ' + orGroup(PEER_TITLES) + ' -recruiter', false],
+    ["Rutgers alumni", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' "Rutgers"', false],
+    ["LinkedIn hiring posts", "Posts", 'site:linkedin.com/posts ' + loc + co + ' ' + role + ' ("hiring" OR "we\'re hiring" OR "now hiring")', true],
+    ["Company careers pages", "Jobs", loc + co + ' ' + role + ' (inurl:careers OR intitle:"careers") ' + BOARDS.filter(function(d) { return d !== 'jobs.ashbyhq.com'; }).map(function(d) { return '-site:' + d; }).join(' '), true]
   ];
+  ATS.forEach(function(g, i) { cards.push(["ATS " + (i + 1) + ": " + g[0], "Jobs", loc + co + ' ' + role + ' ' + sites(g[1]), true]); });
+  var tbs = $('when').value ? '&tbs=qdr:' + $('when').value : '';
+  cards = cards.map(function(c) { return [c[0], c[1], c[2], c[3] ? tbs : '']; });
   return cards.map(function(c) {
     return { title: c[0], group: c[1], query: c[2], url: 'https://www.google.com/search?q=' + encodeURIComponent(c[2]) + (c[3] || '') };
   });
@@ -81,7 +88,7 @@ function build(city, roles, company) {
 
 var selected = [];
 var $ = function(id) { return document.getElementById(id); };
-function save() { try { localStorage.setItem('outreach', JSON.stringify({ city: $('city').value, role: $('role').value, company: $('company').value, sel: selected })); } catch (e) {} }
+function save() { try { localStorage.setItem('outreach', JSON.stringify({ city: $('city').value, role: $('role').value, company: $('company').value, when: $('when').value, sel: selected })); } catch (e) {} }
 function load() { try { return JSON.parse(localStorage.getItem('outreach') || '{}'); } catch (e) { return {}; } }
 function roles() {
   var typed = $('role').value.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
@@ -132,9 +139,9 @@ function chips() {
   });
 }
 $('cities') && CITIES.forEach(function(c) { var o = document.createElement('option'); o.value = c; $('cities').appendChild(o); });
-['city', 'role', 'company'].forEach(function(id) { $(id).addEventListener('input', function() { chips(); render(); }); });
+['city', 'role', 'company', 'when'].forEach(function(id) { $(id).addEventListener('input', function() { chips(); render(); }); });
 $('openAll').onclick = function() { (window._cards || []).forEach(function(c) { window.open(c.url, '_blank', 'noopener'); }); };
-$('reset').onclick = function() { $('city').value = ''; $('role').value = ''; $('company').value = ''; selected = []; try { localStorage.removeItem('outreach'); } catch (e) {} chips(); render(); };
-var s = load(); $('city').value = s.city || ''; $('role').value = s.role || ''; $('company').value = s.company || ''; selected = s.sel || [];
+$('reset').onclick = function() { $('city').value = ''; $('role').value = ''; $('company').value = ''; $('when').value = ''; selected = []; try { localStorage.removeItem('outreach'); } catch (e) {} chips(); render(); };
+var s = load(); $('city').value = s.city || ''; $('role').value = s.role || ''; $('company').value = s.company || ''; $('when').value = s.when || ''; selected = s.sel || [];
 chips(); render();
 </script></body></html>
