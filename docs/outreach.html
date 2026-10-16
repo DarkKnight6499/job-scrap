@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Outreach Search Links</title>
+<style>
+:root { --bg:#f7f7f8; --card:#fff; --ink:#111827; --mute:#6b7280; --line:#e5e7eb; --dark:#0f172a; --accent:#1d4ed8; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0b1020; --card:#131a2e; --ink:#e5e7eb; --mute:#94a3b8; --line:#26304a; --dark:#e5e7eb; --accent:#60a5fa; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 system-ui,Segoe UI,Arial,sans-serif; }
+.wrap { max-width:1100px; margin:0 auto; padding:16px; }
+h1 { margin:8px 0 2px; font-size:24px; }
+.sub { color:var(--mute); margin:0 0 14px; }
+.box { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; margin-bottom:14px; }
+.row { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+label { display:block; font-size:12px; font-weight:700; letter-spacing:.04em; color:var(--mute); margin-bottom:4px; text-transform:uppercase; }
+input, select { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font:inherit; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.chip { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:999px; padding:4px 11px; cursor:pointer; font:inherit; font-size:13px; }
+.chip.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+.btn { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:8px; padding:7px 12px; cursor:pointer; font:inherit; font-weight:600; text-decoration:none; display:inline-block; }
+.btn.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px; }
+.card h3 { margin:0; font-size:15px; }
+.card p { margin:0; color:var(--mute); font-size:12px; word-break:break-word; }
+.acts { display:flex; gap:6px; margin-top:auto; }
+h2 { font-size:12px; letter-spacing:.06em; color:var(--mute); text-transform:uppercase; margin:18px 0 8px; }
+a.back { color:var(--accent); text-decoration:none; font-weight:600; }
+</style></head>
+<body><div class="wrap">
+<a class="back" href="index.html">&larr; Job queue</a>
+<h1>Outreach Search Links</h1>
+<p class="sub">Type a city and a role. Every outreach avenue for that city appears as a Google search.</p>
+
+<div class="box">
+  <div class="row">
+    <div><label for="city">City</label><input id="city" list="cities" placeholder="New York" autocomplete="off"></div>
+    <div><label for="role">Role / keyword</label><input id="role" placeholder="Market Risk" autocomplete="off"></div>
+    <div><label for="company">Company (optional)</label><input id="company" placeholder="Morgan Stanley" autocomplete="off"></div>
+  </div>
+  <datalist id="cities"></datalist>
+  <div class="chips" id="roleChips"></div>
+  <div class="chips" id="cityChips" style="margin-top:6px"></div>
+  <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn primary" id="openAll">Open all in tabs</button>
+    <button class="btn" id="reset">Reset</button>
+    <span class="sub" id="status" style="margin:0;align-self:center"></span>
+  </div>
+</div>
+
+<div id="out"></div>
+</div>
+<script>
+var ROLES = ["Market Risk","ALM","Treasury","Liquidity Risk","Model Risk","Capital Planning","Fixed Income","Quant","Credit Risk","FP&A"];
+var CITIES = ["New York","Jersey City","Newark","Boston","Charlotte","Chicago","Washington DC","San Francisco","Stamford","Houston"];
+var MANAGER_TITLES = ['"manager"','"head"','"director"','"lead"','"vice president"','"VP"'];
+var RECRUITER_TITLES = ['"recruiter"','"talent acquisition"','"HR recruiter"'];
+var PEER_TITLES = ['"analyst"','"associate"','"senior analyst"'];
+
+function q(s) { return '"' + s + '"'; }
+function orGroup(list) { return '(' + list.join(' OR ') + ')'; }
+function roleExpr(roles) { return roles.length === 1 ? '(' + q(roles[0]) + ')' : '(' + roles.map(q).join(' OR ') + ')'; }
+function build(city, roles, company) {
+  var loc = q(city), role = roleExpr(roles), co = company ? ' ' + q(company) : '';
+  var cards = [
+    ["Hiring managers", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' ' + orGroup(MANAGER_TITLES) + ' -recruiter -"talent acquisition"'],
+    ["Recruiters / TA", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + orGroup(RECRUITER_TITLES) + ' ' + role],
+    ["Team peers (analyst / associate)", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' ' + orGroup(PEER_TITLES) + ' -recruiter'],
+    ["Rutgers alumni", "People", 'site:linkedin.com/in/ ' + loc + co + ' ' + role + ' "Rutgers"'],
+    ["LinkedIn hiring posts", "Posts", 'site:linkedin.com/posts ' + loc + co + ' ' + role + ' ("hiring" OR "we\'re hiring" OR "now hiring")'],
+    ["Hiring posts, past week", "Posts", 'site:linkedin.com/posts ' + loc + co + ' ' + role + ' ("hiring" OR "we\'re hiring" OR "now hiring")', "&tbs=qdr:w"],
+    ["Workday listings", "Jobs", 'site:myworkdayjobs.com ' + loc + co + ' ' + role],
+    ["Greenhouse listings", "Jobs", 'site:boards.greenhouse.io ' + loc + co + ' ' + role],
+    ["Lever listings", "Jobs", 'site:jobs.lever.co ' + loc + co + ' ' + role],
+    ["Ashby listings", "Jobs", 'site:jobs.ashbyhq.com ' + loc + co + ' ' + role],
+    ["Company careers pages", "Jobs", loc + co + ' ' + role + ' (careers OR "job openings") -site:linkedin.com -site:indeed.com -site:glassdoor.com']
+  ];
+  return cards.map(function(c) {
+    return { title: c[0], group: c[1], query: c[2], url: 'https://www.google.com/search?q=' + encodeURIComponent(c[2]) + (c[3] || '') };
+  });
+}
+
+var selected = [];
+var $ = function(id) { return document.getElementById(id); };
+function save() { try { localStorage.setItem('outreach', JSON.stringify({ city: $('city').value, role: $('role').value, company: $('company').value, sel: selected })); } catch (e) {} }
+function load() { try { return JSON.parse(localStorage.getItem('outreach') || '{}'); } catch (e) { return {}; } }
+function roles() {
+  var typed = $('role').value.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+  var all = selected.concat(typed.filter(function(t) { return selected.indexOf(t) < 0; }));
+  return all;
+}
+function render() {
+  var city = $('city').value.trim(), rs = roles(), co = $('company').value.trim();
+  var out = $('out');
+  if (!city || !rs.length) { out.innerHTML = ''; $('status').textContent = 'Enter a city and at least one role.'; return; }
+  $('status').textContent = '';
+  var cards = build(city, rs, co), groups = ["People", "Posts", "Jobs"], html = '';
+  groups.forEach(function(g) {
+    html += '<h2>' + g + '</h2><div class="grid">';
+    cards.filter(function(c) { return c.group === g; }).forEach(function(c, i) {
+      html += '<div class="card"><h3></h3><p></p><div class="acts"><a class="btn primary" target="_blank" rel="noopener">Open Google search</a><button class="btn">Copy query</button></div></div>';
+    });
+    html += '</div>';
+  });
+  out.innerHTML = html;
+  var nodes = out.querySelectorAll('.card'), idx = 0;
+  groups.forEach(function(g) {
+    cards.filter(function(c) { return c.group === g; }).forEach(function(c) {
+      var n = nodes[idx++];
+      n.querySelector('h3').textContent = c.title;
+      n.querySelector('p').textContent = c.query;
+      n.querySelector('a').href = c.url;
+      n.querySelector('button').onclick = function(ev) {
+        navigator.clipboard.writeText(c.query).then(function() { ev.target.textContent = 'Copied'; setTimeout(function() { ev.target.textContent = 'Copy query'; }, 1200); });
+      };
+    });
+  });
+  window._cards = cards;
+  save();
+}
+function chips() {
+  var rc = $('roleChips'), cc = $('cityChips');
+  rc.innerHTML = ''; cc.innerHTML = '';
+  ROLES.forEach(function(r) {
+    var b = document.createElement('button'); b.className = 'chip' + (selected.indexOf(r) >= 0 ? ' on' : ''); b.textContent = r;
+    b.onclick = function() { var i = selected.indexOf(r); if (i >= 0) selected.splice(i, 1); else selected.push(r); chips(); render(); };
+    rc.appendChild(b);
+  });
+  CITIES.forEach(function(c) {
+    var b = document.createElement('button'); b.className = 'chip' + ($('city').value === c ? ' on' : ''); b.textContent = c;
+    b.onclick = function() { $('city').value = c; chips(); render(); };
+    cc.appendChild(b);
+  });
+}
+$('cities') && CITIES.forEach(function(c) { var o = document.createElement('option'); o.value = c; $('cities').appendChild(o); });
+['city', 'role', 'company'].forEach(function(id) { $(id).addEventListener('input', function() { chips(); render(); }); });
+$('openAll').onclick = function() { (window._cards || []).forEach(function(c) { window.open(c.url, '_blank', 'noopener'); }); };
+$('reset').onclick = function() { $('city').value = ''; $('role').value = ''; $('company').value = ''; selected = []; try { localStorage.removeItem('outreach'); } catch (e) {} chips(); render(); };
+var s = load(); $('city').value = s.city || ''; $('role').value = s.role || ''; $('company').value = s.company || ''; selected = s.sel || [];
+chips(); render();
+</script></body></html>

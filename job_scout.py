@@ -4200,6 +4200,7 @@ tr.hidden-by-filter {{ display: none; }}
 </style></head>
 <body>
 <h1>Job Scout Queue - {len(open_q)} open, {len(closed_q)} closed</h1>
+<p style="margin:4px 0 8px"><a href="outreach.html" style="display:inline-block;padding:6px 12px;border:1px solid #1d4ed8;border-radius:6px;color:#1d4ed8;text-decoration:none;font-weight:600">Outreach search links &rarr;</a></p>
 <p class="meta">Data last updated {updated_label} &middot; <span class="approx-marker">~</span> before a Posted date means approximate (day-count bucket, not an exact timestamp) - hover any date for details</p>
 <div id="stale-banner" hidden style="background:#b00020;color:#fff;padding:10px 14px;border-radius:6px;margin:8px 0;font-weight:600"></div>
 <script>
