@@ -2302,7 +2302,7 @@ def phenom(c):
             seen.add(jid)
             slug = re.sub(r"[^A-Za-z0-9]+", "-", r.get("title", "") or "").strip("-")
             out.append(dict(id=jid, title=r.get("title", "") or "", location=r.get("location") or r.get("cityStateCountry") or "",
-                            url=f"https://{host}/{country}/{c.get('lang', 'en_us')[:2]}/job/{jid}/{slug}",
+                            url=f"https://{host}/{c.get('url_country', country)}/{c.get('lang', 'en_us')[:2]}/job/{jid}/{slug}",
                             posted=str(r.get("postedDate") or r.get("dateCreated") or "")[:10]))
         if len(rows) < size:
             return out, True
