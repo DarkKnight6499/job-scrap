@@ -3603,7 +3603,7 @@ ACTIONS_TD = '<td class="act"><button type="button" class="skip-btn copy-act">Co
 HIDE_COMPANY = "JPMorgan Chase"
 
 # Title-only, word-boundary matched in the page script; unticked = no restriction.
-ROLE_CATEGORIES = {
+_FINE_ROLE_CATEGORIES = {
     "Treasury/ALM/Liquidity": [
         "treasury", "alm", "asset liability management", "asset/liability management", "asset-liability",
         "liquidity risk", "liquidity management", "lcr", "nsfr", "liquidity",
@@ -3803,11 +3803,35 @@ ROLE_CATEGORIES = {
     ],
 }
 
+# Chips shown on the page: neighbouring fine categories above merged into one chip (merged label -> members).
+# Quant/Modeling/Pricing stays separate because its exclusions ("valuation control", "controllers") would
+# wrongly drop a "Quantitative Analyst, Valuation Control" title from the model/quant risk chip.
+CHIP_MERGES = {
+    "Credit Risk/Lending": ["Credit Risk", "Banking/Lending/Underwriting"],
+    "Risk/Compliance/Op Risk": ["Operational Risk", "Risk Management (General)", "Compliance/Audit"],
+    "Portfolio/Asset Mgmt/Wealth": ["Portfolio/Asset Management & Research", "Wealth/Trust"],
+    "Other Business Roles": ["Operations/Payments", "Technology/Data", "Product/Program/Strategy",
+                             "Sales/Business Development", "Insurance/Actuarial", "Early Careers/Internships"],
+}
+
+
+def _merge_chips(fine, merges):
+    to_new = {m: new for new, members in merges.items() for m in members}
+    out = {}
+    for label, terms in fine.items():
+        key = to_new.get(label, label)
+        bucket = out.setdefault(key, [])
+        bucket.extend(t for t in terms if t not in bucket)
+    return out
+
+
+ROLE_CATEGORIES = _merge_chips(_FINE_ROLE_CATEGORIES, CHIP_MERGES)
+
 # Titles containing any of these phrases never join the category, even when a term matches
 # (same word-boundary matching as the terms). Kept to the one case rewording cannot fix.
 ROLE_CATEGORY_EXCLUDE = {
     "Treasury/ALM/Liquidity": ["sales"],  # "Treasury Management Sales Officer" sells treasury products; it belongs under Sales only
-    "Portfolio/Asset Management & Research": ["operations research"],
+    "Portfolio/Asset Mgmt/Wealth": ["operations research"],
     "Quant/Modeling/Pricing": ["valuation controller", "valuation control", "controllers", "valuation advisory"],
 }
 

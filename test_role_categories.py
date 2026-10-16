@@ -60,10 +60,13 @@ MERGES = {
     "Product/Program/Strategy": ["Product Management", "Program/Project/Business Analysis", "Strategy/Consulting"],
 }
 _TO_NEW = {old: new for new, olds in MERGES.items() for old in olds}
+# Second consolidation (CHIP_MERGES in job_scout.py): neighbouring chips merged again for a shorter row.
+_TO_FINAL = {member: new for new, members in job_scout.CHIP_MERGES.items() for member in members}
 
 
 def _n(old_label):
-    return _TO_NEW.get(old_label, old_label)
+    first = _TO_NEW.get(old_label, old_label)
+    return _TO_FINAL.get(first, first)
 
 
 def _old_regexes():
@@ -230,7 +233,7 @@ def test_chip_list_is_the_merged_list_in_first_member_order_then_other():
     labels = [c["label"] for c in _CATS]
     assert labels[-1] == "Other (no category)"
     assert labels[:-1] == list(dict.fromkeys(_n(l) for l in OLD_ROLE_CATEGORIES))
-    assert len(labels) == 24
+    assert len(labels) == 15
 
 
 def _expected_present(old_label, title):
@@ -262,15 +265,12 @@ def test_no_term_was_lost_in_the_merge():
     for old_label, old_terms in OLD_ROLE_CATEGORIES.items():
         new_terms = job_scout.ROLE_CATEGORIES[_n(old_label)]
         assert set(old_terms) <= set(new_terms), old_label
-    for new_label, olds in MERGES.items():
-        union = set()
-        for o in olds:
-            union |= set(OLD_ROLE_CATEGORIES[o])
+    unions = {}
+    for old_label, old_terms in OLD_ROLE_CATEGORIES.items():
+        unions.setdefault(_n(old_label), set()).update(old_terms)
+    for new_label, union in unions.items():
         assert set(job_scout.ROLE_CATEGORIES[new_label]) == union, new_label
         assert len(job_scout.ROLE_CATEGORIES[new_label]) == len(union)  # deduped
-    for label in OLD_ROLE_CATEGORIES:
-        if label not in _TO_NEW:
-            assert job_scout.ROLE_CATEGORIES[label] == OLD_ROLE_CATEGORIES[label], label
 
 
 def test_exclusions_moved_to_merged_labels_and_only_cover_one_member():
@@ -278,7 +278,7 @@ def test_exclusions_moved_to_merged_labels_and_only_cover_one_member():
     # when that chip's other members share no title with the excluded phrase.
     assert job_scout.ROLE_CATEGORY_EXCLUDE == {
         "Treasury/ALM/Liquidity": ["sales"],
-        "Portfolio/Asset Management & Research": ["operations research"],
+        "Portfolio/Asset Mgmt/Wealth": ["operations research"],
         "Quant/Modeling/Pricing": ["valuation controller", "valuation control", "controllers", "valuation advisory"],
     }
     assert set(job_scout.ROLE_CATEGORY_EXCLUDE) <= set(job_scout.ROLE_CATEGORIES)
@@ -315,7 +315,7 @@ def test_unmatched_title_stays_in_other():
 
 def test_multiple_categories_allowed():
     cats = categories_for("Credit Risk Manager")
-    assert "Credit Risk" in cats and "Risk Management (General)" in cats
+    assert "Credit Risk/Lending" in cats and "Risk/Compliance/Op Risk" in cats
 
 
 # Terms tightened from bare words to multi-word terms (or excluded): each entry is
@@ -366,8 +366,8 @@ TIGHTENED = [
 
 # Known false positives fixed with the exclusion list or rewording.
 def test_operations_research_is_not_research_analysis():
-    assert "Portfolio/Asset Management & Research" not in categories_for("Operations Research Analyst, Senior")
-    assert "Portfolio/Asset Management & Research" in categories_for("Senior Research Analyst")
+    assert "Portfolio/Asset Mgmt/Wealth" not in categories_for("Operations Research Analyst, Senior")
+    assert "Portfolio/Asset Mgmt/Wealth" in categories_for("Senior Research Analyst")
 
 
 def test_valuation_controller_is_not_quant():
@@ -427,7 +427,7 @@ def test_treasury_sales_roles_are_sales_not_treasury():
     for title in ["Treasury Management Sales Officer Senior", "Sales Executive, Treasury Solutions",
                   "Pre-Sales Solution Specialist, Treasury & Payments (Quantum)", "Director, Treasury Management Sales"]:
         hits = categories_for(title)
-        assert "Sales/Business Development" in hits and "Treasury/ALM/Liquidity" not in hits, (title, hits)
+        assert "Other Business Roles" in hits and "Treasury/ALM/Liquidity" not in hits, (title, hits)
     # real treasury roles keep their chip
     for title in ["Treasury Analyst", "Treasury Manager", "Liquidity Risk Manager, Treasury"]:
         assert "Treasury/ALM/Liquidity" in categories_for(title), title
