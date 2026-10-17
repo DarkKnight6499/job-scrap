@@ -2190,6 +2190,29 @@ def careerpuck(c):
     return out, True
 
 
+def _bamboohr_row(base, j):
+    try:
+        det = http(f"{base}/careers/{j['id']}/detail", headers={"Accept": "application/json"}, timeout=40)["result"]["jobOpening"]
+    except Exception:  # noqa: BLE001  a failed detail keeps the row, undated
+        det = {}
+    loc = j.get("location") or {}
+    place = ", ".join(x for x in (loc.get("city"), loc.get("state")) if x)
+    if j.get("isRemote"):
+        place = (place + " | Remote") if place else "Remote"
+    return dict(id=str(j["id"]), title=(j.get("jobOpeningName") or "").strip(), location=place,
+                url=f"{base}/careers/{j['id']}", posted=str(det.get("datePosted") or "")[:10], desc=strip_html(det.get("description") or ""))
+
+
+def bamboohr(c):
+    """BambooHR career pages (<slug>.bamboohr.com/careers). GET /careers/list returns every opening in one response
+    (no paging) but no text or date, so each /careers/<id>/detail is read too: exact datePosted plus the description.
+    Needs slug. Verified live 2026-10-17 against Splitit (4 jobs)."""
+    base = f"https://{c['slug']}.bamboohr.com"
+    d = http(f"{base}/careers/list", headers={"Accept": "application/json"}, timeout=40)
+    rows = [j for j in d.get("result") or [] if j.get("id")]
+    return list(_pool_map(lambda j: _bamboohr_row(base, j), rows, int(c.get("detail_workers", 4)))), True
+
+
 def sitecore_search(c):
     """Sitecore Search (Discover) career sites, e.g. careers.kroll.com. The site's browser bundle carries a public
     apiKey and customerKey; the results widget POSTs to discover.sitecorecloud.io/discover/v2/<domain hash> with
@@ -2313,7 +2336,7 @@ def phenom(c):
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
              oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
              balyasny=balyasny, tal=tal,
-             dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search)
+             dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -2649,6 +2672,9 @@ def describe(c, job):
     if ats == "rippling":
         d = http(f"https://ats.rippling.com/api/v2/board/{c['slug']}/jobs/{job['id']}")
         return _rippling_text(d)[:30000], str(d.get("createdOn") or "")[:10], "exact" if d.get("createdOn") else ""
+    if ats == "bamboohr":
+        det = http(f"https://{c['slug']}.bamboohr.com/careers/{job['id']}/detail", headers={"Accept": "application/json"})["result"]["jobOpening"]
+        return strip_html(det.get("description") or "")[:30000], str(det.get("datePosted") or "")[:10], "exact" if det.get("datePosted") else ""
     if ats in ("careerpuck", "sitecore_search"):  # one call lists every posting with its text; pick ours out
         rows, _ = FETCH[ats](c)
         hit = next((r for r in rows if str(r["id"]) == str(job["id"])), None)

@@ -123,3 +123,14 @@ def test_sitecore_search_describe_picks_row():
     with mock.patch.object(js, "http", lambda *a, **k: rows):
         c = dict(ats="sitecore_search", discover_id="1", api_key="k", entity="e")
         assert js.describe(c, {"id": "7"})[0] == "Value things"
+
+
+def test_bamboohr_list_detail_date_and_describe():
+    listing = {"result": [{"id": "121", "jobOpeningName": " Manager ", "location": {"city": "New York", "state": "New York"}, "isRemote": None},
+                          {"id": "119", "jobOpeningName": "QA", "location": {"city": None, "state": None}, "isRemote": True}]}
+    det = {"result": {"jobOpening": {"datePosted": "2026-10-16", "description": "<p>Do <b>it</b></p>"}}}
+    with mock.patch.object(js, "http", fake_http({"/careers/121/detail": det, "/careers/119/detail": {"result": {"jobOpening": {}}}, "/careers/list": listing})):
+        jobs, complete = js.bamboohr(dict(slug="x"))
+        assert js.describe({"ats": "bamboohr", "slug": "x"}, {"id": "121"}) == ("Do it", "2026-10-16", "exact")
+    assert complete and jobs[0]["title"] == "Manager" and jobs[0]["location"] == "New York, New York" and jobs[0]["posted"] == "2026-10-16"
+    assert jobs[1]["location"] == "Remote" and jobs[1]["posted"] == "" and jobs[0]["url"] == "https://x.bamboohr.com/careers/121"

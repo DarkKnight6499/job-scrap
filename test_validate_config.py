@@ -89,7 +89,7 @@ def test_repeated_site_does_not_collide_with_itself(board):
 @pytest.mark.parametrize("ats,fields", [
     ("greenhouse", {"slug": "shared"}), ("oracle", {"host": "h", "site": "s"}),
     ("brassring", {"host": "h", "partnerid": "1", "siteid": "2"}),
-    ("goldman", {}), ("jibe", {"host": "h"}), ("rippling", {"slug": "s"}), ("careerpuck", {"slug": "s"}),
+    ("goldman", {}), ("jibe", {"host": "h"}), ("rippling", {"slug": "s"}), ("careerpuck", {"slug": "s"}), ("bamboohr", {"slug": "s"}),
     ("sitecore_search", {"discover_id": "1", "api_key": "k", "entity": "e"}),
 ])
 def test_shared_non_workday_endpoints_fail(ats, fields):
