@@ -8819,32 +8819,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Lloyds Banking Group",
-   "ats": "workday",
-   "host": "lbg.wd3.myworkdayjobs.com",
-   "tenant": "lbg",
-   "site": "LBG_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Viatris",
    "ats": "workday",
    "host": "viatris.wd5.myworkdayjobs.com",
