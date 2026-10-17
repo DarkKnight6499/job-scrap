@@ -2503,6 +2503,46 @@ def _ukg_detail(c, job):
     return text
 
 
+MULTISITE_CACHE = HOME / "multisite_cache.json"  # job id -> full site list, so a rejected multi-site posting is fetched once
+MULTISITE_MAX_FETCH = 150  # new detail fetches per run (Workday 429s on bursts)
+
+
+def _rescue_multi_site(c, jobs, hits, filters):
+    """Workday lists "N Locations (first city)", so the location filters judge only the first site. For multi-site
+    postings the title filters pass but the location filters reject, read the full site list from the detail
+    response and re-run matches() on it. Returns the rescued jobs (location replaced)."""
+    if c.get("ats") != "workday":
+        return []
+    in_hits = {j["id"] for j in hits}
+    title_only = dict(filters, locations_include=[], locations_exclude=[])
+    cand = [j for j in jobs if j["id"] not in in_hits and _MULTI_LOC_RE.match((j.get("location") or "").split(" (")[0])
+            and matches(dict(j, location="United States"), title_only)]
+    if not cand:
+        return []
+    cache = load_json(MULTISITE_CACHE, {})
+    fetched, rescued = 0, []
+    for j in cand:
+        key = f"{c['name']}:{j['id']}"
+        full = cache.get(key)
+        if full is None:
+            if fetched >= MULTISITE_MAX_FETCH:
+                continue
+            fetched += 1
+            probe = dict(j)
+            try:
+                describe(c, probe)
+            except Exception:  # noqa: BLE001  detail unreachable: leave it for a later run
+                continue
+            finally:
+                time.sleep(0.3)
+            full = cache[key] = probe["location"]
+        if full != j["location"] and matches(dict(j, location=full), filters):
+            rescued.append(dict(j, location=full))
+    if fetched:
+        atomic_json.write(str(MULTISITE_CACHE), cache)
+    return rescued
+
+
 def describe(c, job):
     """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
     posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate and the other
@@ -3423,6 +3463,9 @@ def _retry_enrichment(queue, cfg, keywords, dry=False):
         finally:
             if c.get("ats") == "workday":
                 time.sleep(0.3)  # Workday 429s on bursts
+        if job["location"] != e["location"]:
+            e["location"] = job["location"]  # describe() replaced "N Locations (city)" with every site
+            fixed += 1
         if posted and not e.get("posted"):
             e["posted"], e["posted_source"] = posted, posted_source
             fixed += 1
@@ -4567,6 +4610,8 @@ def run(args):
             counts["companies"] += 1
             jobs = list({j["id"]: j for j in jobs}.values())  # a fetcher that repeats an id must not double-queue it
             hits = [j for j in jobs if matches(j, filters)]
+            if not args.check:
+                hits += _rescue_multi_site(c, jobs, hits, filters)
             if args.check:
                 warn = "  <- 0 jobs, check slug" if not jobs else ""
                 trunc = "  [truncated - raise max_per_term or narrow search terms]" if not complete else ""

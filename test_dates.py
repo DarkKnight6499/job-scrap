@@ -186,3 +186,19 @@ def test_fill_dates_from_id_never_overrides_real_dates():
 def test_workday_full_location_lists_every_site():
     assert js._workday_full_location({"location": "PA - Pittsburgh (15222)", "additionalLocations": ["NY - New York (10022)", "PA - Pittsburgh (15222)"]}) == "PA - Pittsburgh (15222); NY - New York (10022)"
     assert js._workday_full_location({}) == ""
+
+
+def test_rescue_multi_site_rechecks_full_location(monkeypatch, tmp_path):
+    monkeypatch.setattr(js, "MULTISITE_CACHE", tmp_path / "c.json")
+    filt = {"title_include": ["treasury"], "title_exclude": [], "locations_include": [], "locations_exclude": ["pittsburgh"]}
+    jobs = [dict(id="/j/1", title="Treasury Analyst", location="2 Locations (PA Pittsburgh 15222)", site="S"),
+            dict(id="/j/2", title="Chef", location="2 Locations (PA Pittsburgh 15222)", site="S")]
+
+    def fake(c, job):
+        job["location"] = "NY - New York (10022)"
+
+    monkeypatch.setattr(js, "describe", fake)
+    monkeypatch.setattr(js.time, "sleep", lambda s: None)
+    got = js._rescue_multi_site({"name": "X", "ats": "workday"}, jobs, [], filt)
+    assert [j["id"] for j in got] == ["/j/1"] and got[0]["location"] == "NY - New York (10022)"
+    assert js._rescue_multi_site({"name": "X", "ats": "greenhouse"}, jobs, [], filt) == []
