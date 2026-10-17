@@ -177,6 +177,7 @@ HARD_BLOCK_PATTERNS += [
     r"authori[sz]ed\s+to\s+work[^.]{0,60}\bon\s+a\s+permanent\s+basis",
     r"\b(?:must|required|need)[^.]{0,60}\b(?:permanent|indefinite)\s+(?:right\s+to\s+work|(?:work\s+)?authori[sz]ation)",
     r"\b(?:cpt|opt)\b[^.]{0,40}\b(?:are|is)\s+restricted",
+    r"(?:not|n't)\s+[^.]{0,80}?\bparticipate\s+in[^.]{0,30}\b(?:opt|cpt)\b",  # PNC 2026-10-17
 ]
 HARD_BLOCK_RES = [re.compile(p, re.I) for p in HARD_BLOCK_PATTERNS]
 _OPT_WORD_RE = re.compile(r"\b(?:opt|cpt|f-?1)\b", re.I)  # bare "stem" is a degree field, not an OPT mention

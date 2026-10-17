@@ -89,3 +89,8 @@ def test_mizuho_refuses_stem_opt_paperwork_is_blocked():
             "but is not limited to, any sponsorship or administrative assistance or execution of any documentation related to "
             "F-1 (CPT/OPT/STEM OPT), TN, O-1, E-3, H-1B1 or H-1B application.")
     assert js.classify_sponsorship(text)[0] == "Blocked"
+
+
+def test_will_not_participate_in_stem_opt_is_blocked():
+    text = "PNC will not provide sponsorship for employment visas or participate in STEM OPT for this position."
+    assert js.classify_sponsorship(text)[0] == "Blocked"
