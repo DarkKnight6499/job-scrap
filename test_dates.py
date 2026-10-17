@@ -181,3 +181,8 @@ def test_fill_dates_from_id_never_overrides_real_dates():
     cfg["companies"][0]["date_from_id"] = False
     queue[6]["posted"] = ""
     assert js._fill_dates_from_id(queue, cfg) == 0 and queue[6]["posted"] == ""
+
+
+def test_workday_full_location_lists_every_site():
+    assert js._workday_full_location({"location": "PA - Pittsburgh (15222)", "additionalLocations": ["NY - New York (10022)", "PA - Pittsburgh (15222)"]}) == "PA - Pittsburgh (15222); NY - New York (10022)"
+    assert js._workday_full_location({}) == ""

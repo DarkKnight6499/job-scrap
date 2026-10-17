@@ -435,6 +435,18 @@ def _workday_location(text, path):
     return text
 
 
+def _workday_full_location(info):
+    """Workday's detail response lists the primary site in `location` and the rest in `additionalLocations`."""
+    locs = [info.get("location")] + list(info.get("additionalLocations") or [])
+    seen, out = set(), []
+    for l in locs:
+        l = (l or "").strip()
+        if l and l not in seen:
+            seen.add(l)
+            out.append(l)
+    return "; ".join(out)
+
+
 def _workday_posted(text):
     """Workday's postedOn is relative text ("Posted 5 Days Ago", "Posted Today", "Posted 30+ Days
     Ago") not a real date - approximate it as an ISO date so postings can be sorted/filtered by
@@ -2532,6 +2544,9 @@ def describe(c, job):
             raise err
         info = d.get("jobPostingInfo") or {}
         posted, posted_source = _workday_detail_posted(info)
+        full = _workday_full_location(info)
+        if full and _MULTI_LOC_RE.match((job.get("location") or "").split(" (")[0]):
+            job["location"] = full  # replaces "2 Locations (City)" with every site the posting lists
         return strip_html(info.get("jobDescription", "")), posted, posted_source
     if ats == "oracle":
         finder = f"ById;Id={job['id']}"
