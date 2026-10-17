@@ -2510,7 +2510,7 @@ MULTISITE_MAX_FETCH = 150  # new detail fetches per run (Workday 429s on bursts)
 def _rescue_multi_site(c, jobs, hits, filters):
     """Workday lists "N Locations (first city)", so the location filters judge only the first site. For multi-site
     postings the title filters pass but the location filters reject, read the full site list from the detail
-    response and re-run matches() on it. Returns the rescued jobs (location replaced)."""
+    response and re-run matches() per site (one acceptable site is enough). Returns the rescued jobs (location replaced)."""
     if c.get("ats") != "workday":
         return []
     in_hits = {j["id"] for j in hits}
@@ -2536,7 +2536,7 @@ def _rescue_multi_site(c, jobs, hits, filters):
             finally:
                 time.sleep(0.3)
             full = cache[key] = probe["location"]
-        if full != j["location"] and matches(dict(j, location=full), filters):
+        if full != j["location"] and any(matches(dict(j, location=site), filters) for site in full.split("; ")):
             rescued.append(dict(j, location=full))
     if fetched:
         atomic_json.write(str(MULTISITE_CACHE), cache)
