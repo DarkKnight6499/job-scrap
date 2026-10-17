@@ -81,3 +81,11 @@ def test_tags():
     assert js.classify_sponsorship("We will not sponsor now or in the future.")[1].startswith("[now or future]")
     assert js.classify_sponsorship("No sponsorship. Do not apply if you need H-1B or STEM OPT.")[1].startswith("[no STEM OPT]")
     assert js.classify_sponsorship("We do not provide sponsorship; we will not sign any documentation for OPT or CPT.")[1].startswith("[initial OPT only")
+
+
+def test_mizuho_refuses_stem_opt_paperwork_is_blocked():
+    text = ("Applicants must be currently authorized to work in the United States on a full-time basis. Mizuho does not sponsor "
+            "applicants for work visas or offer any employment-based immigration sponsorship for this position. This includes, "
+            "but is not limited to, any sponsorship or administrative assistance or execution of any documentation related to "
+            "F-1 (CPT/OPT/STEM OPT), TN, O-1, E-3, H-1B1 or H-1B application.")
+    assert js.classify_sponsorship(text)[0] == "Blocked"

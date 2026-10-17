@@ -2899,6 +2899,8 @@ def classify_sponsorship(text):
             window = normalized[max(0, m.start() - OPT_WINDOW_CHARS):m.end() + OPT_WINDOW_CHARS]
             for k in _OPT_WORD_RE.finditer(window):
                 if _SIGNOFF_RE.search(window[max(0, k.start() - 300):k.start()]):
+                    if re.search(r"stem\s*opt", window, re.I):
+                        return "Blocked", evidence(m)  # refuses STEM OPT paperwork (I-983) too, so no OPT route
                     tag = "[initial OPT only, employer will not sign] "
                 elif k.group(0).lower() == "opt" and re.search(r"stem\s*$", window[max(0, k.start() - 8):k.start()], re.I):
                     tag = tag or "[no STEM OPT] "
