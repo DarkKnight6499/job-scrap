@@ -17092,6 +17092,13 @@
    "name": "Petra Funds Group",
    "ats": "greenhouse",
    "slug": "petrafundsgroup"
+  },
+  {
+   "name": "Bank of China USA",
+   "ats": "icims",
+   "hosts": [
+    "careers-bocusa.icims.com"
+   ]
   }
  ],
  "keywords": [
