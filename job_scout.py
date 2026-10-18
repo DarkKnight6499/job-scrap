@@ -37,6 +37,7 @@ Override the data dir with JOB_SCOUT_HOME.
 """
 import argparse
 import html
+import hashlib
 import json
 import os
 import random
@@ -4096,29 +4097,39 @@ function copyText(text) {
       e.textContent = msg;
       td.appendChild(e);
     }
-    if (!JD_URL) { fail('JD proxy not configured'); return; }
     var roleCell = cellOf(tr, COL_ROLE);
     var roleLink = roleCell ? roleCell.querySelector('a') : null;
     var company = textOf(tr, COL_COMPANY).trim();
+    var jdKey = tr.getAttribute('data-jdkey') || '';
+    var viaProxy = function() {
+      if (!JD_URL) throw new Error('JD proxy not configured');
+      return fetch(JD_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          company: company,
+          role: (roleLink ? roleLink.textContent : textOf(tr, COL_ROLE)).trim(),
+          link: roleLink ? roleLink.href : '',
+          location: textOf(tr, COL_LOCATION).trim(),
+          jid: tr.getAttribute('data-jid') || '',
+          cfg: JD_COMPANIES[company] || null
+        })
+      }).then(function(resp) {
+        if (!resp.ok) throw new Error('server returned ' + resp.status);
+        return resp.json();
+      }).then(function(data) {
+        if (!data.ok) throw new Error(data.stderr || 'request failed');
+        return data.text;
+      });
+    };
     btn.disabled = true;
     btn.textContent = 'Fetching...';
-    fetch(JD_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        company: company,
-        role: (roleLink ? roleLink.textContent : textOf(tr, COL_ROLE)).trim(),
-        link: roleLink ? roleLink.href : '',
-        location: textOf(tr, COL_LOCATION).trim(),
-        jid: tr.getAttribute('data-jid') || '',
-        cfg: JD_COMPANIES[company] || null
-      })
-    }).then(function(resp) {
-      if (!resp.ok) throw new Error('server returned ' + resp.status);
-      return resp.json();
-    }).then(function(data) {
-      if (!data.ok) throw new Error(data.stderr || 'request failed');
-      return copyText(data.text).then(function() {
+    var fromCache = jdKey ? fetch('jd/' + jdKey + '.txt', {cache: 'no-cache'}).then(function(resp) {
+      if (!resp.ok) throw new Error('not cached');
+      return resp.text();
+    }) : Promise.reject(new Error('no key'));
+    fromCache.catch(viaProxy).then(function(text) {
+      return copyText(text).then(function() {
         btn.textContent = 'Copied';
         setTimeout(function() { btn.textContent = 'Copy JD'; btn.disabled = false; }, 2000);
       });
@@ -4227,6 +4238,7 @@ def write_queue_html(q, path, updated_at=None):
             posted_title = "no posting date available from the source - this is when job-scout first discovered it, not when it was actually posted"
         return (
             f'<tr class="{row_class}"{row_title}{exp_data} data-jid="{html.escape(e["id"].split(":", 1)[-1])}"'
+            f' data-jdkey="{hashlib.sha1(e["id"].encode("utf-8")).hexdigest()[:20]}"'
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
             f' data-posted-source="{html.escape(e.get("posted_source") or "")}"{opt_data}>'
             f'<td class="posted" title="{html.escape(posted_title)}">{html.escape(posted_label(e))}</td>'
