@@ -34,8 +34,34 @@ function need(ok, msg) {
   if (!ok) throw new Error(msg);
 }
 
-async function describe(cfg, jid) {
+async function describePage(cfg, link) {
+  // Fallback for ATSes with no JSON API here: read the posting page itself, same host only, https only.
+  let u;
+  try { u = new URL(link); } catch { throw new Error("bad posting link"); }
+  need(u.protocol === "https:" && Array.isArray(cfg.hosts) && cfg.hosts.includes(u.hostname), "posting link does not match the company host");
+  if (u.hostname.endsWith(".icims.com")) u.searchParams.set("in_iframe", "1"); // iCIMS serves the JSON-LD only in its iframe view
+  const r = await fetch(u.href, { headers: { "User-Agent": "Mozilla/5.0 job-scout/1.0", Accept: "text/html, */*" } });
+  need(r.ok, `upstream returned ${r.status}`);
+  const raw = (await r.text()).replace(/<(script|style)(?![^>]*ld\+json)[^>]*>[\s\S]*?<\/>/gi, (m) => m);
+  for (const m of raw.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const d = JSON.parse(m[1]);
+      const list = Array.isArray(d) ? d : [d];
+      for (const x of list) if (x && x.description) return stripHtml(x.description).slice(0, 30000);
+    } catch { /* next block */ }
+  }
+  const noScript = raw.replace(/<(script|style)[\s\S]*?<\/>/gi, " ");
+  const i = noScript.indexOf('itemprop="description"');
+  if (i >= 0) return stripHtml(noScript.slice(noScript.indexOf(">", i) + 1)).slice(0, 30000);
+  const mm = noScript.match(/<main[\s\S]*?<\/main>/i);
+  const t = stripHtml(mm ? mm[0] : "").slice(0, 30000);
+  need(t.length > 200, "this ATS renders the description in the browser; open the link and copy it by hand");
+  return t;
+}
+
+async function describe(cfg, jid, link) {
   const { ats } = cfg;
+  if (ats === "page") return describePage(cfg, link);
   if (ats === "greenhouse") {
     need(SAFE_SLUG.test(cfg.slug) && /^\d+$/.test(jid), "bad greenhouse ref");
     const d = await getJson(`https://boards-api.greenhouse.io/v1/boards/${cfg.slug}/jobs/${jid}`);
@@ -98,8 +124,8 @@ export default {
     if (request.method !== "POST") return reply(405, { ok: false, stderr: "POST only" });
     try {
       const b = await request.json();
-      if (!b.cfg || !b.jid) return reply(200, { ok: false, stderr: "posting has no ATS details on this page" });
-      const text = await describe(b.cfg, String(b.jid));
+      if (!b.cfg || (!b.jid && b.cfg.ats !== "page")) return reply(200, { ok: false, stderr: "posting has no ATS details on this page" });
+      const text = await describe(b.cfg, String(b.jid), String(b.link || ""));
       if (!text) return reply(200, { ok: false, stderr: "posting is no longer live or its description is empty" });
       const head = [b.role, b.company, `Location: ${b.location || ""}`, `Link: ${b.link || ""}`].join("\n");
       return reply(200, { ok: true, text: `${head}\n\n${text}` });

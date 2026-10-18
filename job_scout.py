@@ -4137,6 +4137,11 @@ td.act { white-space: nowrap; }
 def _jd_company_map():
     """Company -> just the fields a stateless proxy needs to rebuild that ATS's detail URL."""
     out = {}
+    link_hosts = {}
+    for r in load_json(HOME / "queue.json", []):
+        h = urllib.parse.urlparse(r.get("link") or "").hostname
+        if h:
+            link_hosts.setdefault(r.get("company"), set()).add(h)
     for c in load_json(HOME / "config.json", {}).get("companies", []):
         ats = c.get("ats")
         if ats in ("greenhouse", "lever", "ashby", "smartrecruiters"):
@@ -4149,7 +4154,14 @@ def _jd_company_map():
         elif ats == "oracle":
             entry = dict(ats=ats, host=c["host"])
         else:
-            continue
+            hosts = set(c.get("hosts") or [])
+            for k in ("host", "board"):
+                if c.get(k):
+                    hosts.add(urllib.parse.urlparse(c[k] if "//" in c[k] else "//" + c[k]).hostname)
+            hosts |= link_hosts.get(c["name"], set())
+            if not hosts:
+                continue
+            entry = dict(ats="page", hosts=sorted(h for h in hosts if h))  # proxy falls back to reading the posting page
         out[c["name"]] = entry
     return out
 

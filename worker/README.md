@@ -13,4 +13,4 @@ Deploy once:
 The deployed URL is set as JD_PROXY_URL in job_scout.py (https://job-scout-jd-proxy.yazad-jobscout.workers.dev).
 
 Only these hosts are ever fetched: boards-api.greenhouse.io, api.lever.co, api.eu.lever.co,
-api.ashbyhq.com, api.smartrecruiters.com, `*.myworkdayjobs.com`, `*.oraclecloud.com`.
+api.ashbyhq.com, api.smartrecruiters.com, `*.myworkdayjobs.com`, `*.oraclecloud.com`, plus, for every other ATS, only the https hosts listed for that company in the page's map (config host fields and the hosts of its queue links). Those are read as HTML (JSON-LD, then the description block); boards that render in the browser return a clear "copy it by hand" error.
