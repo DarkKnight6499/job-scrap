@@ -17070,6 +17070,13 @@
    "name": "Orion Services Group",
    "ats": "greenhouse",
    "slug": "oriongroup"
+  },
+  {
+   "name": "SPC Construction",
+   "ats": "icims",
+   "hosts": [
+    "careers-spcco.icims.com"
+   ]
   }
  ],
  "keywords": [
