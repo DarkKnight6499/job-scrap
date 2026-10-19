@@ -3679,7 +3679,7 @@ def posted_label(e):
 # a custom state from a hand-edit) is appended after these
 DATE_FILTER_DAYS = [0, 1, 3, 7, 14, 30, 45, 60, 90, 180, 365, 730]
 _SECONDARY_STATE_ORDER = ["shortlisted", "applied", "opt_only", "auto_blocked", "dismissed"]
-_STATE_LABELS = {"opt_only": "OPT only (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
+_STATE_LABELS = {"opt_only": "No H1B (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
 
 
 # Cloudflare Worker that returns a posting's full JD text (see worker/README.md). Blank = the Copy JD
@@ -4211,14 +4211,14 @@ def write_queue_html(q, path, updated_at=None):
         exp_evidence = html.escape(e.get("experience_evidence") or "")
         salary = e.get("salary") or "Unclear"
         salary_evidence = html.escape(e.get("salary_evidence") or "")
-        spons_label = {"Unclear": "N/A", "OPT Only": "OPT only"}.get(e["sponsorship_status"], e["sponsorship_status"])
+        spons_label = {"Unclear": "N/A", "OPT Only": "No H1B"}.get(e["sponsorship_status"], e["sponsorship_status"])
         salary_label = salary if salary != "Unclear" else "N/A"
         role = html.escape(e["role"])
         if e.get("repost_count"):
             role += f' <span class="repost" title="repost of {html.escape(e.get("repost_of") or "?")}">repost x{e["repost_count"]}</span>'
         if e.get("sponsorship_status") == "OPT Only":
             _ev = html.escape(e.get("sponsorship_evidence") or "")
-            role = f'<span class="optbadge" title="{_ev}">OPT only</span>' + role
+            role = f'<span class="optbadge" title="{_ev}">No H1B</span>' + role
         role_cell = (f'<a href="{html.escape(e["link"])}" target="_blank" rel="noopener">{role}</a>'
                      if not closed else role)
         row_title = ""
@@ -4317,7 +4317,7 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
 #optOnlyLbl {{ color: #8a5a00; border-color: #cc9a2e; }}
 #optOnlyLbl:has(input:checked) {{ background: #f6e3b4; border-color: #b8801a; }}
-.optbadge {{ font-size: 0.7rem; color: #fff; background: #c8921a; border-radius: 4px; padding: 1px 5px; margin-right: 5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }}
+.optbadge {{ font-size: 0.7rem; color: #fff; background: #c0392b; border-radius: 4px; padding: 1px 5px; margin-right: 5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }}
 #expReset {{ margin-left: auto; color: #555; }}
 .fb-row {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }}
 .fb-row .lbl {{ font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #666; min-width: 7.5rem; }}
@@ -4365,7 +4365,7 @@ tr.hidden-by-filter {{ display: none; }}
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<label class="chip" id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide OPT only jobs</label>
+<label class="chip" id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide No H1B jobs</label>
 {unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
 </div>
