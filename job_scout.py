@@ -598,6 +598,9 @@ def _facet_parts(post, part_max=1900, max_depth=3):
     return split({}, root, 0), best(gs)[1]
 
 
+_SEQ_RETRY_BUDGET = [4]  # sequential re-reads allowed per process, so retries cannot stretch a run
+
+
 def workday(c):
     """Unofficial endpoint. Needs host, tenant, site. 'search' is a term or a list of terms; each
     term is queried separately (max_per_term results, default 60) and results are merged by id.
@@ -649,6 +652,7 @@ def workday(c):
     # 429s on unrelated tenants from the shared per-IP load. map() keeps term order, so output is unchanged.
     whole = {}  # combo -> exact row count of a slice that is read whole (empty search, no term)
     expected = {}  # site -> row count a facet-sliced read must reach to count as complete
+    read_whole = False  # True when at least one site is read as a whole board (no term search)
     if len(terms) > 1 and terms != [""]:
         # A board that fits under Workday's 2000-result cap is cheaper to read whole than to query term by term,
         # and returns a superset, so the title list is then applied only by the page filter. A bigger board is read
@@ -681,6 +685,7 @@ def workday(c):
                     bigsites.remove(site)
         if small or bigsites:
             cap, ceiling = 2000, 2000
+            read_whole = True
         elif len(small) < len(sites):
             ceiling = min(ceiling, int(c.get("big_board_ceiling", 300)))  # 78 terms x deep paging is slow and trips 429s
         combos = []
@@ -740,6 +745,15 @@ def workday(c):
     for site, want in expected.items():  # facet slices must add up to the board: a short count means postings the
         if per_site.get(site, 0) < 0.998 * want:  # facet does not cover (or a mid-read change), never a complete read
             complete = False
+    if not complete and read_whole and not c.get("_seq_retry") and _SEQ_RETRY_BUDGET[0] > 0:
+        # Parallel paging on a live board repeats and skips rows (Truist/Wells Fargo read 1-3% short while a
+        # one-page-at-a-time read gets all of it), so re-read a short whole-board once, sequentially, and merge.
+        _SEQ_RETRY_BUDGET[0] -= 1
+        retry_out, retry_complete = workday({**c, "_seq_retry": True, "page_workers": 1, "term_workers": 1})
+        merged = {(j.get("site"), j["id"]): j for j in out}
+        for j in retry_out:
+            merged.setdefault((j.get("site"), j["id"]), j)
+        return list(merged.values()), retry_complete
     return out, complete
 
 

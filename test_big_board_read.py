@@ -173,3 +173,28 @@ def test_oracle_lost_page_is_incomplete_and_over_max_uses_keywords():
     with mock.patch.object(js, "http", _oracle_http(7322, log=log)):
         js.oracle(_oc(board_read_max=5000))
     assert any("keyword" in p for p in log)
+
+
+def test_short_parallel_read_is_retried_sequentially_and_completes():
+    inner = _board(1500, "real")
+    state = {"calls": 0}
+
+    def flaky(url, data=None, **kw):
+        state["calls"] += 1
+        if data["offset"] == 400 and not state.get("failed"):
+            state["failed"] = True  # one page lost to a 429 on the parallel pass only
+            raise _http_error(429)
+        return inner(url, data=data, **kw)
+    js._SEQ_RETRY_BUDGET[0] = 4
+    with mock.patch.object(js, "http", flaky):
+        jobs, complete = js.workday(_co())
+    assert complete is True
+    assert len({j["id"] for j in jobs}) == 1500
+
+
+def test_sequential_retry_budget_is_respected():
+    js._SEQ_RETRY_BUDGET[0] = 0
+    with mock.patch.object(js, "http", _board(3140, "open", fail_offsets=(2500,))):
+        jobs, complete = js.workday(_co())
+    assert complete is False
+    js._SEQ_RETRY_BUDGET[0] = 4
