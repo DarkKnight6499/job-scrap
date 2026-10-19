@@ -17351,6 +17351,27 @@
    "name": "Stash",
    "ats": "greenhouse",
    "slug": "stashinvest"
+  },
+  {
+   "name": "Cushman & Wakefield",
+   "ats": "workday",
+   "host": "cw.wd1.myworkdayjobs.com",
+   "tenant": "cw",
+   "site": "External",
+   "search": [
+    "treasury",
+    "liquidity",
+    "capital markets",
+    "financial analyst",
+    "financial planning",
+    "fp&a",
+    "finance",
+    "credit",
+    "risk",
+    "structured finance",
+    "valuation"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
