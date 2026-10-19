@@ -3419,6 +3419,20 @@
    "slug": "edelmanfinancialenginesllc"
   },
   {
+   "name": "Great American Insurance Group",
+   "ats": "workday",
+   "host": "gaig.wd1.myworkdayjobs.com",
+   "tenant": "gaig",
+   "site": "GAIG_External"
+  },
+  {
+   "name": "NAIC",
+   "ats": "workday",
+   "host": "naic.wd115.myworkdayjobs.com",
+   "tenant": "naic",
+   "site": "NAIC"
+  },
+  {
    "name": "Squarepoint Capital",
    "ats": "greenhouse",
    "slug": "squarepointcapital"
