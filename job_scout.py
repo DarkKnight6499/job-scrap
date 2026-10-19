@@ -2786,6 +2786,12 @@ _TRAILING_NON_US_CC_RE = re.compile(
     r",\s*(?:nz|au|uk|gb|sg|hk|jp|kr|cn|br|pl|ph|mx|ae|ie|nl|be|fr|es|it|se|dk|fi|pt|ro|bg|cz|hu|ua|tr|cl|za|eg|ch|th|vn|tw|ng|ke|pk|bd|lk|my)\s*$"
 )
 
+# "Wellington, nz" / "Adelaide, AU": trailing non-US country code. Codes that are also US state codes
+# (de, il, ma, co, ca, in, id, ar, pa, ga, md, me, mt, tn, va, al...) are deliberately absent.
+_TRAILING_NON_US_CC_RE = re.compile(
+    r",\s*(?:nz|au|uk|gb|sg|hk|jp|kr|cn|br|pl|ph|mx|ae|ie|nl|be|fr|es|it|se|dk|fi|pt|ro|bg|cz|hu|ua|tr|cl|za|eg|ch|th|vn|tw|ng|ke|pk|bd|lk|my)\s*$"
+)
+
 _COUNTRY_CODE_SITE_RE = re.compile(
     r"^(ind|esp|pol|phl|cyp|hgk|can|gbr|irl|deu|fra|ita|nld|sgp|jpn|aus|bra|mex|chn|zaf|are|isr|che|swe|nor|dnk"
     r"|fin|prt|rou|bgr|cze|hun|ltu|lva|est|ukr|tur|arg|chl|col|per|pak|bgd|lka|mys|tha|vnm|idn|kor|twn|nzl|egy"
@@ -2830,6 +2836,11 @@ def effective_location(job):
     return m.group(1) if m else ""
 
 
+# Spring 2027 internships are wanted even though the generic intern/summer/co-op excludes drop other internships.
+_SPRING_2027_RE = re.compile(r"\bspring\s*(?:of\s*)?2027\b", re.I)
+_INTERN_EXCLUDE_TERMS = {"intern", "internship", "summer", "co-op"}
+
+
 def matches(job, f):
     # Title include/exclude use word-boundary matching (keyword_matching.contains_term) so a short
     # term like "intern" doesn't false-positive inside "Internal"/"International". locations_include
@@ -2850,7 +2861,10 @@ def matches(job, f):
     exc = f.get("title_exclude", [])
     locs = [x.lower() for x in f.get("locations_include", [])]
     loc_exc = f.get("locations_exclude", [])
-    if inc and not contains_any(t, inc):
+    spring_2027 = bool(_SPRING_2027_RE.search(t))
+    if spring_2027:
+        exc = [x for x in exc if x.lower() not in _INTERN_EXCLUDE_TERMS]
+    if inc and not spring_2027 and not contains_any(t, inc):
         return False
     if contains_any(t, exc):
         return False
@@ -3982,7 +3996,7 @@ function copyText(text) {
       c.el.textContent = c.label + '(' + n + ')';
     });
   }
-  ['filterSearchBtn', 'optOnlyBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset', 'dateMin', 'dateMax', 'dateIncludeNA'].forEach(function(id) {
+  ['filterSearchBtn', 'optOnlyBtn', 'springBtn', 'expMin', 'expMax', 'expIncludeNA', 'expReset', 'dateMin', 'dateMax', 'dateIncludeNA'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener(el.tagName === 'BUTTON' ? 'click' : 'change', function() {
       setTimeout(function() { applyCategory(); applyCompany(); applyLocation(); }, 0);
@@ -4236,6 +4250,8 @@ def write_queue_html(q, path, updated_at=None):
         exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
         first_seen = e.get("first_seen") or ""
         opt_data = ' data-opt="1"' if e.get("sponsorship_status") == "OPT Only" else ""
+        if _SPRING_2027_RE.search(e.get("role") or ""):
+            opt_data += ' data-spring="1"'
         row_class = e["state"] + (" closed" if closed else "")
         if e.get("posted_source") == "approx":
             posted_title = "approximate - derived from Workday's relative posting-age text, not an exact timestamp"
@@ -4324,6 +4340,8 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
 #optOnlyLbl {{ color: #8a5a00; border-color: #cc9a2e; }}
 #optOnlyLbl:has(input:checked) {{ background: #f6e3b4; border-color: #b8801a; }}
+#springLbl {{ color: #1f5f8b; border-color: #5b9bc8; }}
+#springLbl:has(input:checked) {{ background: #cfe4f3; border-color: #2f77ad; }}
 .optbadge {{ font-size: 0.7rem; color: #fff; background: #c0392b; border-radius: 4px; padding: 1px 5px; margin-right: 5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }}
 #expReset {{ margin-left: auto; color: #555; }}
 .fb-row {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }}
@@ -4373,6 +4391,7 @@ tr.hidden-by-filter {{ display: none; }}
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
 <label class="chip" id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide No H1B jobs</label>
+<label class="chip" id="springLbl" title="Hide Spring 2027 internships and programs"><input type="checkbox" id="springBtn"> Hide Spring 2027</label>
 {unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
 </div>
@@ -4428,9 +4447,12 @@ tr.hidden-by-filter {{ display: none; }}
   var dateIncludeNA = document.getElementById('dateIncludeNA');
   var optBtn = document.getElementById('optOnlyBtn');  // checkbox: hide OPT only rows
   var optOnly = false;
+  var springBtn = document.getElementById('springBtn');  // checkbox: hide Spring 2027 rows
+  var hideSpring = false;
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
   function setOpt(on) {{ optOnly = on; optBtn.checked = on; }}
+  function setSpring(on) {{ hideSpring = on; springBtn.checked = on; }}
 
   function ageDays(tr) {{
     var iso = tr.getAttribute('data-posted') || tr.getAttribute('data-first-seen');
@@ -4471,7 +4493,7 @@ tr.hidden-by-filter {{ display: none; }}
         // numeric range filter (they didn't fail the check, they just have nothing to check).
         expMatch = rank === -1 ? expIncludeNA.checked : (rank >= lo && rank <= hi);
       }}
-      var match = textMatch && expMatch && dateOk(tr) && (!optOnly || tr.getAttribute('data-opt') !== '1');
+      var match = textMatch && expMatch && dateOk(tr) && (!optOnly || tr.getAttribute('data-opt') !== '1') && (!hideSpring || tr.getAttribute('data-spring') !== '1');
       tr.classList.toggle('hidden-by-filter', !match);
       if (match) {{
         shown++;
@@ -4479,7 +4501,7 @@ tr.hidden-by-filter {{ display: none; }}
         if (details && !details.open) {{ details.open = true; forcedOpen.push(details); }}
       }}
     }});
-    countEl.textContent = (raw || expActive || dateActive() || optOnly) ? ('showing ' + shown + ' of ' + rows.length) : '';
+    countEl.textContent = (raw || expActive || dateActive() || optOnly || hideSpring) ? ('showing ' + shown + ' of ' + rows.length) : '';
     try {{
       localStorage.setItem('jobScoutFilter', box.value);
       localStorage.setItem('jobScoutExpMin', expMin.value);
@@ -4489,6 +4511,7 @@ tr.hidden-by-filter {{ display: none; }}
       localStorage.setItem('jobScoutDateMax', dateMax.value);
       localStorage.setItem('jobScoutDateNA', dateIncludeNA.checked ? '1' : '0');
       localStorage.setItem('jobScoutHideOpt', optOnly ? '1' : '0');
+      localStorage.setItem('jobScoutHideSpring', hideSpring ? '1' : '0');
     }} catch (e) {{}}
   }}
 
@@ -4501,6 +4524,7 @@ tr.hidden-by-filter {{ display: none; }}
     dateMax.value = 'inf';
     dateIncludeNA.checked = true;
     setOpt(false);
+    setSpring(false);
     apply();
   }});
 
@@ -4520,8 +4544,10 @@ tr.hidden-by-filter {{ display: none; }}
     if (sdMax !== null) dateMax.value = sdMax;
     if (sdNA !== null) dateIncludeNA.checked = sdNA === '1';
     setOpt(localStorage.getItem('jobScoutHideOpt') === '1');
+    setSpring(localStorage.getItem('jobScoutHideSpring') === '1');
   }} catch (e) {{}}
   optBtn.addEventListener('change', function() {{ setOpt(optBtn.checked); apply(); }});
+  springBtn.addEventListener('change', function() {{ setSpring(springBtn.checked); apply(); }});
   searchBtn.addEventListener('click', apply);
   box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
   expMin.addEventListener('change', apply);
