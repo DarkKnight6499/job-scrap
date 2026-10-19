@@ -3418,6 +3418,59 @@ REVERIFY_MAX_PER_RUN = 300
 REVERIFY_WORKERS = 4
 
 
+REFRESH_MIN_JUMP_DAYS = 2  # startDate drifts by one day at Workday's boundary; a 2+ day jump is a real renewal
+REFRESH_MAX_PER_RUN = 100
+_refresh_candidates = []
+
+
+def _note_possible_refresh(e, c, listed):
+    """Queues a live Workday entry whose bulk-listing age (relative postedOn text) is 2+ days newer than the
+    stored posted date: the employer renewed the same requisition in place (same id and URL), which the
+    new-id repost detection never sees. Confirmed against the detail endpoint in _apply_refreshed_dates."""
+    stored = e.get("posted") or ""
+    if not listed or not stored or e.get("closed_on") or e.get("posted_est"):
+        return
+    gap = (date.fromisoformat(listed) - date.fromisoformat(stored)).days
+    if gap < REFRESH_MIN_JUMP_DAYS:
+        return
+    site = e.get("site") or c["site"]
+    if isinstance(site, list):
+        site = site[0]
+    _refresh_candidates.append((e, c, e["id"].split(":", 1)[1], site))
+
+
+def _apply_refreshed_dates(queue=None):
+    """Confirms each queued candidate with the detail endpoint's exact startDate and, when it is 2+ days later
+    than the stored date, moves `posted` to the latest date and records it as a repost (count + reposted_on)."""
+    todo, moved = _refresh_candidates[:REFRESH_MAX_PER_RUN], 0
+    del _refresh_candidates[:]
+
+    def check(item):
+        e, c, job_id, site = item
+        try:
+            return _workday_refresh_posted(c, job_id, site)
+        except Exception:
+            return None
+        finally:
+            time.sleep(0.3)
+
+    with ThreadPoolExecutor(REVERIFY_WORKERS) as ex:
+        results = list(ex.map(check, todo))
+    for (e, _c, _j, _s), res in zip(todo, results):
+        if not res or not res[0] or not e.get("posted"):
+            continue
+        new, src = res
+        if (date.fromisoformat(new) - date.fromisoformat(e["posted"])).days >= REFRESH_MIN_JUMP_DAYS:
+            e["posted_before_refresh"] = e["posted"]
+            e["posted"], e["posted_source"], e["posted_reverified"] = new, src, True
+            e["repost_count"] = e.get("repost_count", 0) + 1
+            e["reposted_on"] = new
+            moved += 1
+    if todo:
+        print(f"refresh: checked {len(todo)} renewed-looking Workday postings, moved {moved} to the newer date")
+    return moved
+
+
 def _reverify_recent_posted(queue, cfg):
     """Re-checks posted/posted_source once for each Workday entry first_seen between
     REVERIFY_MIN_AGE_DAYS and REVERIFY_MAX_AGE_DAYS ago - startDate can drift by a day depending on
@@ -4746,6 +4799,7 @@ def run(args):
     _retry_pending_alerts(queue, cfg.get("notify", {}), counts, args.dry_run)
     _send_summaries(cfg.get("notify", {}), floods, counts, args.dry_run)
     if not args.dry_run:
+        _apply_refreshed_dates()
         _reverify_recent_posted(queue, cfg)  # a real network pass - skip on --dry-run like everything else
         _retry_enrichment(queue, cfg, keywords)
         _fill_dates_from_id(queue, cfg)
@@ -5037,6 +5091,7 @@ def _update_liveness(name, jobs, complete, queue, counts, c=None):
         print(f"! {name}: empty listing, skipping close/reopen check (broken slug or API?)", file=sys.stderr)
         return
     live_ids = {j["id"] for j in jobs}
+    listed_posted = {j["id"]: j.get("posted") or "" for j in jobs}
     today = date.today().isoformat()
     mine = [e for e in queue if e["company"] == name]
     open_mine = [e for e in mine if not e.get("closed_on")]
@@ -5047,6 +5102,8 @@ def _update_liveness(name, jobs, complete, queue, counts, c=None):
             continue
         e["last_seen_live"] = today
         e["miss_count"] = 0
+        if c and c.get("ats") == "workday":
+            _note_possible_refresh(e, c, listed_posted.get(e["id"].split(":", 1)[1], ""))
         if e.get("closed_on") and e.get("closed_reason") != "manual":  # same id came back: a real reopen
             e["closed_on"], e["closed_reason"] = None, None
             e["repost_count"] = e.get("repost_count", 0) + 1
