@@ -43,12 +43,22 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
   <div class="chips" id="cityChips" style="margin-top:6px"></div>
   <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
     <button class="btn primary" id="openAll">Open all in tabs</button>
+    <button class="btn" id="allCities">All cities</button>
     <button class="btn" id="reset">Reset</button>
     <span class="sub" id="status" style="margin:0;align-self:center"></span>
   </div>
   <p class="sub" id="note" style="margin:10px 0 0;font-size:13px">Tip: Google reads only about 32 words per search, so keep to 3 or 4 cities at once. Extra cities or roles may be silently ignored.</p>
   <div style="display:none">
   </div>
+</div>
+
+<div class="box" id="matrixBox" style="margin-top:14px">
+  <div class="row" style="align-items:end">
+    <div><label for="avenue">Role x City matrix: one search per role and city</label><select id="avenue"></select></div>
+    <div><button class="btn primary" id="openMatrix">Open all combos</button></div>
+  </div>
+  <p class="sub" id="matrixStatus" style="margin:8px 0 0;font-size:13px"></p>
+  <div id="matrix" class="grid" style="margin-top:10px"></div>
 </div>
 
 <div id="out"></div>
@@ -103,7 +113,7 @@ function roles() {
 function render() {
   var city = $('city').value.trim(), rs = roles(), co = $('company').value.trim();
   var out = $('out');
-  if (!city || !rs.length) { out.innerHTML = ''; $('status').textContent = 'Enter at least one city and one role.'; return; }
+  if (!city || !rs.length) { out.innerHTML = ''; $('status').textContent = 'Enter at least one city and one role.'; renderMatrix(); return; }
   $('status').textContent = '';
   var many = cityList($('city').value).length + rs.length > 6;
   $('note').style.color = many ? '#b45309' : '';
@@ -130,7 +140,27 @@ function render() {
     });
   });
   window._cards = cards;
+  renderMatrix();
   save();
+}
+var AVENUES = ["LinkedIn hiring posts", "Hiring managers", "Recruiters / TA", "Team peers (analyst / associate)", "Rutgers alumni", "Company careers pages"];
+function matrixPairs() {
+  var cs = cityList($('city').value), rs = roles(), co = $('company').value.trim(), av = $('avenue').value, out = [];
+  rs.forEach(function(r) { cs.forEach(function(c) {
+    var card = build(c, [r], co).filter(function(x) { return x.title === av; })[0];
+    if (card) out.push({ role: r, city: c, url: card.url, query: card.query });
+  }); });
+  return out;
+}
+function renderMatrix() {
+  var pairs = matrixPairs(), m = $('matrix');
+  window._pairs = pairs;
+  m.innerHTML = '';
+  $('matrixStatus').textContent = pairs.length ? pairs.length + ' searches (' + roles().length + ' roles x ' + cityList($('city').value).length + ' cities). Popup blockers may stop more than a few tabs; allow popups for this page.' : 'Pick at least one role and one city.';
+  pairs.forEach(function(p) {
+    var a = document.createElement('a'); a.className = 'btn'; a.target = '_blank'; a.rel = 'noopener'; a.href = p.url; a.textContent = p.role + ' | ' + p.city; a.title = p.query;
+    m.appendChild(a);
+  });
 }
 function chips() {
   var rc = $('roleChips'), cc = $('cityChips');
@@ -147,6 +177,14 @@ function chips() {
   });
 }
 $('cities') && CITIES.forEach(function(c) { var o = document.createElement('option'); o.value = c; $('cities').appendChild(o); });
+AVENUES.forEach(function(a) { var o = document.createElement('option'); o.value = a; o.textContent = a; $('avenue').appendChild(o); });
+$('avenue').addEventListener('input', renderMatrix);
+$('allCities').onclick = function() { $('city').value = CITIES.join(', '); chips(); render(); };
+$('openMatrix').onclick = function() {
+  var ps = window._pairs || [];
+  if (ps.length > 12 && !confirm('Open ' + ps.length + ' tabs?')) return;
+  ps.forEach(function(p) { window.open(p.url, '_blank', 'noopener'); });
+};
 ['city', 'role', 'company', 'when'].forEach(function(id) { $(id).addEventListener('input', function() { chips(); render(); }); });
 $('openAll').onclick = function() { (window._cards || []).forEach(function(c) { window.open(c.url, '_blank', 'noopener'); }); };
 $('reset').onclick = function() { $('city').value = ''; $('role').value = ''; $('company').value = ''; $('when').value = ''; selected = []; try { localStorage.removeItem('outreach'); } catch (e) {} chips(); render(); };
