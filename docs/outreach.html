@@ -55,7 +55,7 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
 <div class="box" id="matrixBox" style="margin-top:14px">
   <div class="row" style="align-items:end">
     <div><label for="avenue">Role x City matrix: one search per role and city</label><select id="avenue"></select></div>
-    <div><button class="btn primary" id="openMatrix">Open all combos</button></div>
+    <div style="display:flex;gap:8px"><button class="btn primary" id="openMatrix">Open all combos</button><button class="btn" id="openNext" style="display:none">Open next</button></div>
   </div>
   <p class="sub" id="matrixStatus" style="margin:8px 0 0;font-size:13px"></p>
   <div id="matrix" class="grid" style="margin-top:10px"></div>
@@ -65,7 +65,7 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
 </div>
 <script>
 var ROLES = ["Market Risk","ALM","Treasury","Liquidity Risk","Model Risk","Capital Planning","Fixed Income","Quant","Credit Risk","FP&A"];
-var CITIES = ["New York","Jersey City","Newark","Boston","Charlotte","Chicago","Washington DC","San Francisco","Stamford","Houston"];
+var CITIES = ["New York","Jersey City","Charlotte","Chicago","Boston","San Francisco","Dallas","Atlanta","Washington DC","Houston","Los Angeles","Minneapolis","Philadelphia","Miami"];
 var ATS = [
   ["Greenhouse / Lever / Workday / SmartRecruiters / Ashby / iCIMS", ['boards.greenhouse.io','job-boards.greenhouse.io','jobs.lever.co','myworkdayjobs.com','jobs.smartrecruiters.com','careers.smartrecruiters.com','jobs.ashbyhq.com','apply.workable.com','jobs.jobvite.com','icims.com','bamboohr.com','applytojob.com']],
   ["Dayforce / UltiPro / ADP / Paylocity / Rippling / Pinpoint", ['jobs.dayforcehcm.com','recruiting.ultipro.com','workforcenow.adp.com','csod.com','ats.rippling.com','recruiting.paylocity.com','paycomonline.net','pinpointhq.com','jobs.gem.com']],
@@ -180,10 +180,21 @@ $('cities') && CITIES.forEach(function(c) { var o = document.createElement('opti
 AVENUES.forEach(function(a) { var o = document.createElement('option'); o.value = a; o.textContent = a; $('avenue').appendChild(o); });
 $('avenue').addEventListener('input', renderMatrix);
 $('allCities').onclick = function() { $('city').value = CITIES.join(', '); chips(); render(); };
+var nextIdx = 0;
 $('openMatrix').onclick = function() {
   var ps = window._pairs || [];
   if (ps.length > 12 && !confirm('Open ' + ps.length + ' tabs?')) return;
-  ps.forEach(function(p) { window.open(p.url, '_blank', 'noopener'); });
+  var blocked = 0;
+  ps.forEach(function(p, i) { var w = window.open(p.url, '_blank'); if (!w) blocked++; });
+  nextIdx = ps.length - blocked;
+  $('matrixStatus').textContent = blocked ? 'Browser blocked ' + blocked + ' of ' + ps.length + ' tabs. Allow popups for this page (icon in the address bar) and click again, or use "Open next" to open them one click at a time.' : 'Opened ' + ps.length + ' tabs.';
+  $('openNext').style.display = blocked ? '' : 'none';
+};
+$('openNext').onclick = function() {
+  var ps = window._pairs || [];
+  if (nextIdx >= ps.length) { $('openNext').style.display = 'none'; return; }
+  window.open(ps[nextIdx].url, '_blank'); nextIdx++;
+  $('openNext').textContent = 'Open next (' + (ps.length - nextIdx) + ' left)';
 };
 ['city', 'role', 'company', 'when'].forEach(function(id) { $(id).addEventListener('input', function() { chips(); render(); }); });
 $('openAll').onclick = function() { (window._cards || []).forEach(function(c) { window.open(c.url, '_blank', 'noopener'); }); };
