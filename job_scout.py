@@ -4574,6 +4574,26 @@ tr.hidden-by-filter {{ display: none; }}
 }})();
 </script>
 {_extra_script()}
+<button type="button" id="noH1bJump" title="Jump to the next No H1B posting" style="position:fixed;right:0;top:45%;z-index:50;background:#c0392b;color:#fff;border:0;border-radius:6px 0 0 6px;padding:8px 6px;font-size:0.75rem;font-weight:600;cursor:pointer;writing-mode:vertical-rl;letter-spacing:0.03em">No H1B &#9662;</button>
+<script>
+(function() {{
+  var btn = document.getElementById('noH1bJump');
+  var idx = -1;
+  btn.addEventListener('click', function() {{
+    var chk = document.getElementById('optOnlyBtn');
+    if (chk && chk.checked) {{ chk.checked = false; chk.dispatchEvent(new Event('change', {{bubbles: true}})); }}
+    var hits = Array.prototype.filter.call(document.querySelectorAll('tr[data-opt="1"]'), function(tr) {{ return tr.offsetParent !== null; }});
+    if (!hits.length) {{ btn.textContent = 'No H1B: none'; return; }}
+    idx = (idx + 1) % hits.length;
+    var tr = hits[idx];
+    tr.scrollIntoView({{block: 'center', behavior: 'smooth'}});
+    var old = tr.style.outline;
+    tr.style.outline = '3px solid #c0392b';
+    setTimeout(function() {{ tr.style.outline = old; }}, 1800);
+    btn.innerHTML = 'No H1B ' + (idx + 1) + '/' + hits.length + ' &#9662;';
+  }});
+}})();
+</script>
 </body></html>"""
     Path(path).write_text(page, encoding="utf-8")
 
