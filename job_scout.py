@@ -2781,6 +2781,11 @@ _BARE_NON_US_CODE_RE = re.compile(
     r"^\s*(?:ph|mx|uk|gb|sg|hk|jp|kr|cn|br|pl|au|my|th|vn|tw|nz|ng|ke|pk|bd|lk|ae|il|ch|se|dk|fi|pt|ro|bg|cz|hu|ua|tr|cl)\s*$"
 )
 
+# "Wellington, nz" / "Adelaide, AU": trailing non-US country code. Codes that double as US state codes are absent.
+_TRAILING_NON_US_CC_RE = re.compile(
+    r",\s*(?:nz|au|uk|gb|sg|hk|jp|kr|cn|br|pl|ph|mx|ae|ie|nl|be|fr|es|it|se|dk|fi|pt|ro|bg|cz|hu|ua|tr|cl|za|eg|ch|th|vn|tw|ng|ke|pk|bd|lk|my)\s*$"
+)
+
 _COUNTRY_CODE_SITE_RE = re.compile(
     r"^(ind|esp|pol|phl|cyp|hgk|can|gbr|irl|deu|fra|ita|nld|sgp|jpn|aus|bra|mex|chn|zaf|are|isr|che|swe|nor|dnk"
     r"|fin|prt|rou|bgr|cze|hun|ltu|lva|est|ukr|tur|arg|chl|col|per|pak|bgd|lka|mys|tha|vnm|idn|kor|twn|nzl|egy"
@@ -2867,6 +2872,8 @@ def matches(job, f):
         return False
     if _COUNTRY_CODE_SITE_RE.match(loc_folded):
         return False
+    if _TRAILING_NON_US_CC_RE.search(loc_folded):
+        return False
     if _EY_NON_US_RE.match(loc_folded):
         return False
     if (_ISO3_DASH_RE.match(loc_folded) or _ISO2_SUBDIV_RE.match(loc_folded)
@@ -2903,7 +2910,7 @@ def classify_sponsorship(text):
                 if _SIGNOFF_RE.search(window[max(0, k.start() - 300):k.start()]):
                     if re.search(r"stem\s*opt", window, re.I):
                         return "Blocked", evidence(m)  # refuses STEM OPT paperwork (I-983) too, so no OPT route
-                    tag = "[initial OPT only, employer will not sign] "
+                    return "Blocked", evidence(m)  # 2026-10-19: refusing OPT paperwork excludes OPT, so Blocked
                 elif k.group(0).lower() == "opt" and re.search(r"stem\s*$", window[max(0, k.start() - 8):k.start()], re.I):
                     tag = tag or "[no STEM OPT] "
                 else:

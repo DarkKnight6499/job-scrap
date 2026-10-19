@@ -24,6 +24,7 @@ EXCLUDED = [
     "Phnom Penh, KH-AIA Cambodia", "Sumida-ku", "National General Tijuana", "OSL Airport", "Hosur", "BEL DIEG 6A", "Macau, Macau, Macau", "CH-xx-Le Locle-191-Facility", "HKG | Tuen Mun | No. 3, Kin Tai Street", "Bhiwandi, Maharashtra", "Uzhhorod", "Baja", "Mezzovico", "Croatia, Rijeka, 1351000", "NFS AU BRISBANE AIRPORT", "CK Blanchardstown", "LAN - Manchester", "Calvin Klein Manchester", "KOBE GO & IC - SANNOMIYA", "IloIlo", "Lviv", "Palma de Mallorca", "Trento", "STATION STREET:NOTTINGHAM", "Taytay CSC", "PH-BTG-TANAUAN CITY-BQ4 ~ First Philippine Industrial Park", "FRASER VALLEY", "KITCHENER WATERLOO", "NORTH YORK", "OTTAWA", "CDMX", "Lisboa", "Nassau", "Surrey", "San Sebastian", "San Jos�",
     "Quito", "Wien - Donau-City-Straße 7", "Helsinki, FI, 00500", "Mönchengladbach - Santander-Platz", "PGX Porto Alegre", "2 CENTRAL SQUARE:CARDIFF", "Citynet - Mandaluyong City", "Visakhapatnam, AP", "Managua, Nicaragua", "PSA Isabela", "PSA Aurora",
     "Adelaide, SA, AU, 5000", "Diegem, BE, 1831", "CABA, B, AR, 1001", "Hamburg, HH, DE, 20148",
+    "Wellington, nz", "Adelaide, AU", "BA - Rio de Janeiro",
 ]
 US_KEPT = [
     "Perth Amboy, NJ", "Delhi, NY", "Delhi, LA", "Monterey, CA", "Indianapolis, IN", "Cologne, MN",
@@ -33,7 +34,7 @@ US_KEPT = [
     "Washington D.C.", "Montclair, NJ", "Nashville, Tennessee", "San Juan, Puerto Rico", "Cameron", "Wilmington, Delaware", "Perth Amboy, NJ", "Nassau County, NY", "Brisbane, CA", "Belfast, ME", "Delhi, NY", "Medina, OH",
     "Aurora CO", "Florence, KY", "Cheshire, CT", "Genoa, OH",
     "San Jose", "SAN JOSE", "Ottawa, IL", "Manchester, NH", "San Sebastian, Puerto Rico", "Pembroke", "New York, NY Calvin Klein Office",
-    "New York, NY, US, 10001-8604", "Chicago, IL, US, 60606", "Fort Wayne, IN, 46802", "Wilmington, DE, 19801", "Dallas, TX, 75201-1234",
+    "New York, NY, US, 10001-8604", "Chicago, IL, US, 60606", "Fort Wayne, IN, 46802", "Wilmington, DE, 19801", "Dallas, TX, 75201-1234", "Nashville, TN", "Newark, DE", "Boston, MA",
 ]
 
 

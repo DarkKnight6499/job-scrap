@@ -17,12 +17,12 @@ OPT_ONLY = [
     "We are unable to provide immigration support for this role.",
     "This role is not eligible for visa assistance.",
     "No immigration support is available for this position.",
-    "We do not offer any type of employment-based immigration sponsorship for this role. Likewise, the firm will not provide any assistance or sign any documentation in support of any other form of immigration sponsorship or benefit, including optional practical training (OPT) or curricular practical training (CPT).",
     "Bachelor's degree in Finance, STEM, or a related field. We do not provide visa sponsorship for this role.",
     "Applicants must be authorized to work in the U.S. without current or future employer support.",
     "We will not sponsor now or in the future.",
 ]
 HARD_BLOCKED = [
+    "We do not offer any type of employment-based immigration sponsorship for this role. Likewise, the firm will not provide any assistance or sign any documentation in support of any other form of immigration sponsorship or benefit, including optional practical training (OPT) or curricular practical training (CPT).",
     "Candidates must hold an active US Secret clearance.",
     "Access is limited to U.S. persons only under export control rules.",
     "This role is open to U.S. citizens or lawful permanent residents.",
@@ -80,7 +80,7 @@ def test_us_abbreviation_before_space_is_normalized():
 def test_tags():
     assert js.classify_sponsorship("We will not sponsor now or in the future.")[1].startswith("[now or future]")
     assert js.classify_sponsorship("No sponsorship. Do not apply if you need H-1B or STEM OPT.")[1].startswith("[no STEM OPT]")
-    assert js.classify_sponsorship("We do not provide sponsorship; we will not sign any documentation for OPT or CPT.")[1].startswith("[initial OPT only")
+    assert js.classify_sponsorship("We do not provide sponsorship; we will not sign any documentation for OPT or CPT.")[0] == "Blocked"
 
 
 def test_mizuho_refuses_stem_opt_paperwork_is_blocked():

@@ -108,6 +108,11 @@
    "advanced analytics"
   ],
   "title_exclude": [
+   "h/f",
+   "stockroom",
+   "clinician",
+   "nurse",
+   "nursing",
    "sanctions",
    "latam",
    "latin america",
@@ -761,6 +766,7 @@
   ],
   "locations_include": [],
   "locations_exclude": [
+   "rio de janeiro",
    "manila",
    "muntinlupa",
    "alabang",
