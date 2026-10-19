@@ -3679,7 +3679,7 @@ def posted_label(e):
 # a custom state from a hand-edit) is appended after these
 DATE_FILTER_DAYS = [0, 1, 3, 7, 14, 30, 45, 60, 90, 180, 365, 730]
 _SECONDARY_STATE_ORDER = ["shortlisted", "applied", "opt_only", "auto_blocked", "dismissed"]
-_STATE_LABELS = {"opt_only": "No H1B (no employer sponsorship stated)", "auto_blocked": "auto_blocked (citizenship, clearance or OPT excluded)"}
+_STATE_LABELS = {"opt_only": "No H1B (no employer sponsorship stated)", "auto_blocked": "Blocked (citizenship, clearance or STEM OPT excluded)"}
 
 
 # Cloudflare Worker that returns a posting's full JD text (see worker/README.md). Blank = the Copy JD
@@ -4574,23 +4574,19 @@ tr.hidden-by-filter {{ display: none; }}
 }})();
 </script>
 {_extra_script()}
-<button type="button" id="noH1bJump" title="Jump to the next No H1B posting" style="position:fixed;right:0;top:45%;z-index:50;background:#c0392b;color:#fff;border:0;border-radius:6px 0 0 6px;padding:8px 6px;font-size:0.75rem;font-weight:600;cursor:pointer;writing-mode:vertical-rl;letter-spacing:0.03em">No H1B &#9662;</button>
+<button type="button" id="blockedJump" title="Jump to the Blocked section (citizenship, clearance or STEM OPT excluded)" style="display:none;position:fixed;right:0;top:45%;z-index:50;background:#7b241c;color:#fff;border:0;border-radius:6px 0 0 6px;padding:8px 6px;font-size:0.75rem;font-weight:600;cursor:pointer;writing-mode:vertical-rl;letter-spacing:0.03em">Blocked &#9662;</button>
 <script>
 (function() {{
-  var btn = document.getElementById('noH1bJump');
-  var idx = -1;
+  var btn = document.getElementById('blockedJump');
+  var sec = Array.prototype.filter.call(document.querySelectorAll('details'), function(d) {{
+    var s = d.querySelector('summary');
+    return s && /^Blocked/.test(s.textContent.trim());
+  }})[0];
+  if (!sec) return;  // the public page never lists blocked rows, so the button stays hidden there
+  btn.style.display = 'block';
   btn.addEventListener('click', function() {{
-    var chk = document.getElementById('optOnlyBtn');
-    if (chk && chk.checked) {{ chk.checked = false; chk.dispatchEvent(new Event('change', {{bubbles: true}})); }}
-    var hits = Array.prototype.filter.call(document.querySelectorAll('tr[data-opt="1"]'), function(tr) {{ return tr.offsetParent !== null; }});
-    if (!hits.length) {{ btn.textContent = 'No H1B: none'; return; }}
-    idx = (idx + 1) % hits.length;
-    var tr = hits[idx];
-    tr.scrollIntoView({{block: 'center', behavior: 'smooth'}});
-    var old = tr.style.outline;
-    tr.style.outline = '3px solid #c0392b';
-    setTimeout(function() {{ tr.style.outline = old; }}, 1800);
-    btn.innerHTML = 'No H1B ' + (idx + 1) + '/' + hits.length + ' &#9662;';
+    sec.setAttribute('open', '');
+    sec.scrollIntoView({{block: 'start', behavior: 'smooth'}});
   }});
 }})();
 </script>
