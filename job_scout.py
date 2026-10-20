@@ -3737,8 +3737,8 @@ def cmd_queue(args):
     if args.html:
         updated_at = (datetime.fromtimestamp((HOME / "queue.json").stat().st_mtime, tz=ZoneInfo("America/New_York"))
                       if (HOME / "queue.json").exists() else None)
-        # public page: never expose applied/shortlisted/dismissed/blocked status; opt_only is a property of the posting, not a decision
-        q = [e for e in q if e["state"] in ("new", "opt_only")]
+        # public page: never expose applied/shortlisted/dismissed status; opt_only and auto_blocked are properties of the posting, not decisions
+        q = [e for e in q if e["state"] in ("new", "opt_only", "auto_blocked")]
         write_queue_html(q, args.html, updated_at)
         print(f"wrote {len(q)} entries to {args.html}")
         return
@@ -4682,7 +4682,7 @@ tr.hidden-by-filter {{ display: none; }}
     var s = d.querySelector('summary');
     return s && /^Blocked/.test(s.textContent.trim());
   }})[0];
-  if (!sec) return;  // the public page never lists blocked rows, so the button stays hidden there
+  if (!sec) return;  // no Blocked section on the page, so the button stays hidden
   btn.style.display = 'block';
   btn.addEventListener('click', function() {{
     sec.setAttribute('open', '');
