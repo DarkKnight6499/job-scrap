@@ -68,3 +68,10 @@ def test_blank_location_recovers_site_from_link_or_title():
     for job in (fid, mod, ey):
         assert not js.matches(job, FILTERS)
     assert js.matches(us, FILTERS)
+
+
+def test_foreign_cities_without_country_are_excluded_2026_10_20():
+    for loc in ("Maroussi", "Zug", "Ulaanbaatar", "Bordeaux", "Valencia; Murcia; Alicante",
+                "Golflinks Software Park Private Limited", "Vikram Monarch",
+                "Liverpool Office Hub (GBLIVROY)", "Genève/ Rue du Rhône 31"):
+        assert not js.matches({"title": "Associate", "location": loc, "link": ""}, FILTERS)
