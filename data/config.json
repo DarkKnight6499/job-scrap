@@ -1490,6 +1490,33 @@
    "term_workers": 4
   },
   {
+   "name": "Hewlett Packard Enterprise",
+   "ats": "workday",
+   "host": "hpe.wd5.myworkdayjobs.com",
+   "tenant": "hpe",
+   "site": "Jobsathpe",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100,
+   "term_workers": 4
+  },
+  {
    "name": "Citi",
    "ats": "workday",
    "term_workers": 3,
