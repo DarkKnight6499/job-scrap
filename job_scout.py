@@ -4570,7 +4570,8 @@ tr.hidden-by-filter {{ display: none; }}
       var i = colIndex(t.field), c = i === undefined ? null : tr.cells[i];
       return !!c && t.rx.test(c.textContent.toLowerCase());
     }}
-    return t.rx ? t.rx.test(text) : text.indexOf(t.word) !== -1;
+    if (!t.rx) return text.indexOf(t.word) !== -1;
+    return Array.prototype.some.call(tr.cells, function(c) {{ return t.rx.test(c.textContent.toLowerCase()); }});
   }}
 
   function apply() {{
