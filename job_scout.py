@@ -52,7 +52,7 @@ import urllib.request
 from http.cookiejar import CookieJar
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed, wait
 from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -2390,14 +2390,23 @@ def _timed_fetch(c):
     return name, jobs, complete, err, time.time() - start
 
 
-def fetch_all(companies):
+SHARD_BUDGET_SECONDS = 720  # a shard job is killed at 15 min, which cancelled the whole run; stragglers become errors (skip, close nothing) instead
+
+
+def fetch_all(companies, budget=SHARD_BUDGET_SECONDS):
     fetched, secs = {}, {}
-    with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
-        futures = {pool.submit(_timed_fetch, c): c for c in companies}
-        for fut in as_completed(futures):
-            name, jobs, complete, err, took = fut.result()
-            fetched[name] = (jobs, complete, err)
-            secs[name] = took
+    pool = ThreadPoolExecutor(max_workers=FETCH_WORKERS)
+    futures = {pool.submit(_timed_fetch, c): c for c in companies}
+    done, pending = wait(futures, timeout=budget)
+    for fut in done:
+        name, jobs, complete, err, took = fut.result()
+        fetched[name] = (jobs, complete, err)
+        secs[name] = took
+    for fut in pending:
+        name = futures[fut]["name"]
+        fetched[name] = (None, None, f"fetch exceeded the {budget}s shard budget")
+        secs[name] = float(budget)
+    pool.shutdown(wait=False, cancel_futures=True)
     return fetched, secs
 
 
@@ -2451,6 +2460,26 @@ def cmd_fetch_shard(args):
            for name, (jobs, complete, err) in fetched.items()}
     Path(args.out).write_text(json.dumps(out), encoding="utf-8")
     print(f"shard {index}/{total}: fetched {len(out)} companies -> {args.out}")
+    sys.stdout.flush()
+    os._exit(0)  # budget stragglers are still running in non-daemon threads
+
+
+BOARD_FRESHNESS_PATH = HOME / "board_freshness.json"  # per company: posting count, id signature and the date that signature last changed
+
+
+def update_board_freshness(fetched, path=None):
+    """Records when each board's set of posting ids last changed, so a frozen or emptied board can be reported by board_freshness.py."""
+    path = Path(path or BOARD_FRESHNESS_PATH)
+    rec = load_json(path, {})
+    today = date.today().isoformat()
+    for name, (jobs, complete, err) in fetched.items():
+        if err is not None or jobs is None:
+            continue
+        sig = hashlib.md5(",".join(sorted(str(j["id"]) for j in jobs)).encode()).hexdigest()[:12]
+        old = rec.get(name)
+        rec[name] = dict(n=len(jobs), sig=sig, checked=today,
+                         changed=today if not old or old.get("sig") != sig else old.get("changed", today))
+    atomic_json.write(str(path), rec)
 
 
 def load_fetched(directory, companies):
@@ -4767,6 +4796,7 @@ def run(args):
         fetched = load_fetched(args.from_fetched, cfg["companies"])
         if not args.dry_run:
             update_fetch_times(args.from_fetched)
+            update_board_freshness(fetched)
     else:
         fetched, _ = fetch_all(cfg["companies"])
 
