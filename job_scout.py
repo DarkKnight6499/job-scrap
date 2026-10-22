@@ -4451,7 +4451,7 @@ tr.hidden-by-filter {{ display: none; }}
 </script>
 <div id="filterBar">
 <div class="fb-row">
-<input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND (e.g. python, sql bloomberg)" autocomplete="off">
+<input type="search" id="filterBox" placeholder="Filter: comma = OR, space = AND; &quot;ey&quot; = whole word; company:ey, title:risk, loc:&quot;new york&quot; = that column only" autocomplete="off">
 <button type="button" id="filterSearchBtn">Search</button>
 <span id="filterCount"></span>
 </div>
@@ -4537,13 +4537,49 @@ tr.hidden-by-filter {{ display: none; }}
     return a >= lo && a <= hi;
   }}
 
+  // Term syntax: plain word = substring anywhere in the row; "ey" (quotes) = whole word or phrase anywhere;
+  // company:ey / title:risk / loc:"new york" = whole word in that column only; a trailing * allows a prefix (title:treas*).
+  var FIELD_ALIAS = {{company: 'company', title: 'role', role: 'role', loc: 'location', location: 'location'}};
+  function parseTerms(g) {{
+    var out = [], re = /(?:([a-z]+):)?(?:"([^"]*)"|(\\S+))/g, m;
+    while ((m = re.exec(g)) !== null) {{
+      var field = m[1] && FIELD_ALIAS[m[1]] ? FIELD_ALIAS[m[1]] : null;
+      var body = m[2] !== undefined ? m[2] : m[3];
+      var word = (m[1] && !field ? m[1] + ':' + body : body).trim();
+      var prefix = word.charAt(word.length - 1) === '*';
+      if (prefix) word = word.slice(0, -1);
+      if (!word) continue;
+      var rx = null;
+      if (field || m[2] !== undefined) {{
+        rx = new RegExp('(^|[^a-z0-9])' + word.replace(/[.*+?^$(){{}}|[\\]\\\\]/g, '\\\\$&') + (prefix ? '' : '([^a-z0-9]|$)'));
+      }}
+      out.push({{word: word, field: field, rx: rx}});
+    }}
+    return out;
+  }}
+  var COLS = null;
+  function colIndex(name) {{
+    if (!COLS) {{
+      COLS = {{}};
+      Array.prototype.forEach.call(document.querySelectorAll('table thead th'), function(h, i) {{ COLS[h.textContent.trim().toLowerCase()] = i; }});
+    }}
+    return COLS[name];
+  }}
+  function termOk(tr, text, t) {{
+    if (t.field) {{
+      var i = colIndex(t.field), c = i === undefined ? null : tr.cells[i];
+      return !!c && t.rx.test(c.textContent.toLowerCase());
+    }}
+    return t.rx ? t.rx.test(text) : text.indexOf(t.word) !== -1;
+  }}
+
   function apply() {{
     var raw = box.value.trim().toLowerCase();
     var lo = parseInt(expMin.value, 10);
     var hi = expMax.value === 'inf' ? Infinity : parseInt(expMax.value, 10);
     forcedOpen.forEach(function(d) {{ d.removeAttribute('open'); }});
     forcedOpen = [];
-    var groups = raw ? raw.split(',').map(function(g) {{ return g.trim().split(/\\s+/).filter(Boolean); }})
+    var groups = raw ? raw.split(',').map(function(g) {{ return parseTerms(g); }})
                           .filter(function(g) {{ return g.length; }}) : null;
     var expActive = !(lo === 0 && hi === Infinity);
     var shown = 0;
@@ -4551,7 +4587,7 @@ tr.hidden-by-filter {{ display: none; }}
       var textMatch = true;
       if (groups) {{
         var text = tr.textContent.toLowerCase();
-        textMatch = groups.some(function(terms) {{ return terms.every(function(t) {{ return text.indexOf(t) !== -1; }}); }});
+        textMatch = groups.some(function(terms) {{ return terms.every(function(t) {{ return termOk(tr, text, t); }}); }});
       }}
       var expMatch = true;
       if (expActive) {{
