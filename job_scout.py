@@ -4537,7 +4537,7 @@ tr.hidden-by-filter {{ display: none; }}
     return a >= lo && a <= hi;
   }}
 
-  // Term syntax: plain word = substring anywhere in the row; "ey" (quotes) = whole word or phrase anywhere;
+  // Term syntax: plain word = substring anywhere in the row (3 chars or fewer = whole word, so ey no longer hits money); "ey" (quotes) = whole word or phrase anywhere;
   // company:ey / title:risk / loc:"new york" = whole word in that column only; a trailing * allows a prefix (title:treas*).
   var FIELD_ALIAS = {{company: 'company', title: 'role', role: 'role', loc: 'location', location: 'location'}};
   function parseTerms(g) {{
@@ -4550,7 +4550,7 @@ tr.hidden-by-filter {{ display: none; }}
       if (prefix) word = word.slice(0, -1);
       if (!word) continue;
       var rx = null;
-      if (field || m[2] !== undefined) {{
+      if (field || m[2] !== undefined || word.length <= 3) {{
         rx = new RegExp('(^|[^a-z0-9])' + word.replace(/[.*+?^$(){{}}|[\\]\\\\]/g, '\\\\$&') + (prefix ? '' : '([^a-z0-9]|$)'));
       }}
       out.push({{word: word, field: field, rx: rx}});
