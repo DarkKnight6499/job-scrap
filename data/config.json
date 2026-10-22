@@ -8388,32 +8388,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Moderna",
-   "ats": "workday",
-   "host": "modernatx.wd1.myworkdayjobs.com",
-   "tenant": "modernatx",
-   "site": "M_tx",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Analog Devices",
    "ats": "workday",
    "host": "analogdevices.wd1.myworkdayjobs.com",
@@ -17568,6 +17542,30 @@
   "name": "Dominium",
   "ats": "ukg",
   "board": "https://recruiting2.ultipro.com/DOM1001DOMMS/JobBoard/f2ecae96-94c0-46c5-9dbf-87e14f3008df/"
+ },
+ {
+  "name": "Current",
+  "ats": "greenhouse",
+  "slug": "current81"
+ },
+ {
+  "name": "Order.co",
+  "ats": "rippling",
+  "slug": "orderco"
+ },
+ {
+  "name": "Apex Fintech Solutions",
+  "ats": "workday",
+  "host": "peak6group.wd1.myworkdayjobs.com",
+  "tenant": "peak6group",
+  "site": "apexfintechsolutions"
+ },
+ {
+  "name": "PEAK6",
+  "ats": "workday",
+  "host": "peak6group.wd1.myworkdayjobs.com",
+  "tenant": "peak6group",
+  "site": "PEAK6"
  }
  ],
  "keywords": [

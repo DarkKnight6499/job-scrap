@@ -70,7 +70,7 @@ def main():
         if not entry["id"].startswith(prefix):
             return entry, None, "no_company"  # eid format changed/unexpected - skip, don't guess
         job_id = entry["id"][len(prefix):]
-        job = {"id": job_id, "site": entry.get("site")}
+        job = {"id": job_id, "url": entry.get("link", ""), "site": entry.get("site")}
         try:
             text, _posted, _src = job_scout.describe(c, job)
         except Exception as e:
