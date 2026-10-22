@@ -9979,33 +9979,6 @@
    "max_per_term": 100
   },
   {
-   "name": "CVS Health",
-   "ats": "workday",
-   "host": "cvshealth.wd1.myworkdayjobs.com",
-   "tenant": "cvshealth",
-   "site": "CVS_Health_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100,
-   "term_workers": 8
-  },
-  {
    "name": "Gartner",
    "ats": "workday",
    "host": "gartner.wd5.myworkdayjobs.com",

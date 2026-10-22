@@ -93043,7 +93043,7 @@
    "cfa",
    "equity"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-10-03",
   "miss_count": 2,
@@ -93116,7 +93116,7 @@
    "capital",
    "equity"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-10-09",
   "miss_count": 24,
@@ -93152,7 +93152,7 @@
    "rates",
    "sql"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-09-28",
   "miss_count": 2,
@@ -93187,7 +93187,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-09-30",
   "miss_count": 2,
@@ -93222,7 +93222,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-09-30",
   "miss_count": 2,
@@ -93290,7 +93290,7 @@
   "kw_hits": [
    "quantitative"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": true,
   "last_seen_live": "2026-10-17",
   "miss_count": 2,
@@ -113275,7 +113275,7 @@
   "kw_hits": [
    "equity"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-06",
   "miss_count": 11,
@@ -113313,7 +113313,7 @@
    "equity",
    "business analyst"
   ],
-  "state": "auto_blocked",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-09-29",
   "miss_count": 2,
@@ -130246,7 +130246,7 @@
    "treasury",
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-05",
   "miss_count": 9,
@@ -130283,7 +130283,7 @@
    "treasury",
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-07",
   "miss_count": 22,
@@ -132061,7 +132061,7 @@
   "salary": "$79,310 - $173,040",
   "salary_evidence": "The typical pay range for this role is: $79,310.00 - $173,040.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -133171,7 +133171,7 @@
    "treasury",
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-17",
   "miss_count": 2,
@@ -135149,7 +135149,7 @@
   "salary": "$46,988 - $112,200",
   "salary_evidence": "The typical pay range for this role is: $46,988.00 - $112,200.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -209499,7 +209499,7 @@
   "kw_hits": [
    "sql"
   ],
-  "state": "opt_only",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-16",
   "miss_count": 2,
@@ -236061,7 +236061,7 @@
   "salary": "$66,330 - $145,860",
   "salary_evidence": "The typical pay range for this role is: $66,330.00 - $145,860.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -307627,7 +307627,7 @@
   "kw_hits": [
    "sql"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -307661,7 +307661,7 @@
   "salary": "$46,988 - $112,200",
   "salary_evidence": "The typical pay range for this role is: $46,988.00 - $112,200.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -307697,7 +307697,7 @@
   "kw_hits": [
    "equity"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-11",
   "miss_count": 2,
@@ -307731,7 +307731,7 @@
   "salary": "$46,988 - $122,400",
   "salary_evidence": "The typical pay range for this role is: $46,988.00 - $122,400.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -307977,7 +307977,7 @@
   "salary": "$66,330 - $145,860",
   "salary_evidence": "The typical pay range for this role is: $66,330.00 - $145,860.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-16",
   "miss_count": 2,
@@ -308045,7 +308045,7 @@
   "salary": "$66,330 - $145,860",
   "salary_evidence": "The typical pay range for this role is: $66,330.00 - $145,860.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-18",
   "miss_count": 2,
@@ -329061,7 +329061,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-19",
   "miss_count": 2,
@@ -341000,7 +341000,7 @@
    "sql",
    "quantitative"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -349602,7 +349602,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -351590,7 +351590,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -355035,7 +355035,7 @@
   "salary": "$46,988 - $122,400",
   "salary_evidence": "The typical pay range for this role is: $46,988.00 - $122,400.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -357194,7 +357194,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-16",
   "miss_count": 2,
@@ -363540,7 +363540,7 @@
   "salary": "$46,988 - $122,400",
   "salary_evidence": "The typical pay range for this role is: $46,988.00 - $122,400.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -368855,7 +368855,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-19",
   "miss_count": 2,
@@ -371729,7 +371729,7 @@
   "kw_hits": [
    "equity"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -371763,7 +371763,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-20",
   "miss_count": 7,
@@ -379381,7 +379381,7 @@
   "kw_hits": [
    "quantitative"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -381467,7 +381467,7 @@
   "salary": "$46,988 - $122,400",
   "salary_evidence": "The typical pay range for this role is: $46,988.00 - $122,400.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-20",
   "miss_count": 3,
@@ -392913,7 +392913,7 @@
   "kw_hits": [
    "capital"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -397957,7 +397957,7 @@
   "salary": "$46,988 - $112,200",
   "salary_evidence": "The typical pay range for this role is: $46,988.00 - $112,200.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -400766,7 +400766,7 @@
    "vba",
    "equity"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -414298,7 +414298,7 @@
   "salary": "$43,888 - $85,068",
   "salary_evidence": "The typical pay range for this role is: $43,888.00 - $85,068.00 This pay range represents the base hourl",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -414335,7 +414335,7 @@
    "operational risk",
    "equity"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -424749,7 +424749,7 @@
    "python",
    "sql"
   ],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
@@ -428678,7 +428678,7 @@
   "salary": "Unclear",
   "salary_evidence": "",
   "kw_hits": [],
-  "state": "new",
+  "state": "dismissed",
   "first_run": false,
   "last_seen_live": "2026-10-22",
   "miss_count": 0,
