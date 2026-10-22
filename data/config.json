@@ -17462,7 +17462,108 @@
     "valuation"
    ],
    "max_per_term": 100
-  }
+  },
+ {
+  "name": "StoneX",
+  "ats": "icims",
+  "hosts": [
+   "english-stonex.icims.com"
+  ]
+ },
+ {
+  "name": "TruStage",
+  "ats": "workday",
+  "host": "trustage.wd1.myworkdayjobs.com",
+  "tenant": "trustage",
+  "site": "TruStage",
+  "search": [
+   "treasury",
+   "liquidity",
+   "asset liability",
+   "market risk",
+   "fixed income",
+   "capital",
+   "derivatives",
+   "investment",
+   "quantitative"
+  ]
+ },
+ {
+  "name": "The Standard",
+  "ats": "workday",
+  "host": "standard.wd1.myworkdayjobs.com",
+  "tenant": "standard",
+  "site": "Search",
+  "search": [
+   "treasury",
+   "asset liability",
+   "market risk",
+   "fixed income",
+   "capital",
+   "derivatives",
+   "investment",
+   "quantitative"
+  ]
+ },
+ {
+  "name": "Resolution Life",
+  "ats": "workday",
+  "host": "resolutionlife.wd5.myworkdayjobs.com",
+  "tenant": "resolutionlife",
+  "site": "resolutionlife_jobs",
+  "search": [
+   "treasury",
+   "asset liability",
+   "market risk",
+   "fixed income",
+   "capital",
+   "derivatives",
+   "investment",
+   "quantitative"
+  ]
+ },
+ {
+  "name": "Willis Towers Watson",
+  "ats": "oracle",
+  "host": "eedu.fa.em3.oraclecloud.com",
+  "site": "CX_1003"
+ },
+ {
+  "name": "World Bank Group",
+  "ats": "csod",
+  "corp": "worldbankgroup"
+ },
+ {
+  "name": "Wilton Re",
+  "ats": "csod",
+  "corp": "wiltonre"
+ },
+ {
+  "name": "Washington Trust",
+  "ats": "dayforce",
+  "namespace": "washingtontrust",
+  "board": "CandidatePortal"
+ },
+ {
+  "name": "Compeer Financial",
+  "ats": "greenhouse",
+  "slug": "compeerfinancial"
+ },
+ {
+  "name": "Elevations Credit Union",
+  "ats": "greenhouse",
+  "slug": "elevationscreditunion"
+ },
+ {
+  "name": "Central Pacific Bank",
+  "ats": "adp_wfn",
+  "cid": "00790905-64d0-4a6c-a64d-2cba88c918c3"
+ },
+ {
+  "name": "1st Source Bank",
+  "ats": "ukg",
+  "board": "https://recruiting.ultipro.com/STS1000SCO/JobBoard/bdcbc22d-c568-4b9f-bc84-421f9522fd47/"
+ }
  ],
  "keywords": [
   "alm",
