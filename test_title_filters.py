@@ -63,3 +63,38 @@ def test_language_required_titles_excluded(title):
 ])
 def test_hospital_support_titles_excluded(title):
     assert not js.matches(_job(title), FILTERS)
+
+
+@pytest.mark.parametrize("title", [
+    "Product Manager: Capital One Shopping (Remote-Eligible)",
+    "Senior Product Delivery Associate - Data Platforms",
+    "Broker Dealer Regional Consultant - Michigan, VP II",
+    "Asset Management - Internal Client Advisor - Retirement Plan Specialist - Associate",
+    "J. P. Morgan Advisor- Investment Associate - Dallas, TX",
+    "AWM, Private Bank, Regional Lending Advisor, Associate - Los Angeles",
+    "Dedicated Lending Associate SAFE Act - B10 - GARDENA",
+    "Communications Senior Associate",
+    "Senior Associate HRBP- Premium Products/Shopping",
+    "Payments Sales Senior Associate",
+    "Alternative Investments Sales Desk Associate",
+    "Full- stack Engineer 5 - Capital One Shopping Tech",
+    "Android Mobile Engineer - Marcus - Associate",
+    "Senior Java Developer - Rates Derivatives Algo & E-Trading",
+    "Production Engineer, Global Banking & Markets",
+    "Process Automation Engineer - Investment Management, VP-I",
+    "Associate Information Security Specialist III",
+])
+def test_2026_10_23_wrong_category_excluded(title):
+    f = dict(FILTERS, title_include=[])
+    assert not js.matches(_job(title), f)
+
+
+@pytest.mark.parametrize("title", [
+    "Treasury Management & Payments Consultant",
+    "Wholesale Credit Risk Product Owner",
+    "Information Security Risk Oversight Professional",
+    "Quantitative Analytics Associate - Co-brand Card Data Analytics",
+])
+def test_2026_10_23_adjacent_kept(title):
+    f = dict(FILTERS, title_include=[])
+    assert js.matches(_job(title), f)
