@@ -4791,6 +4791,11 @@ def run(args):
     run_id = "scout_" + date.today().isoformat()
     counts = dict(companies=0, errors=0, matched=0, blocked=0, queued=0, alerted=0,
                   closed=0, reopened=0, reposts=0, pruned=0)
+    filters_sig = _filters_signature(filters)
+    if not args.dry_run and not args.check and not getattr(args, "recall", False)             and (HOME / "filters_sig.json").exists()             and load_json(HOME / "filters_sig.json", {}).get("sig") != filters_sig:
+        args.recall = True  # filters changed since the last clean run: roles seen under the old filters may match now
+        args.auto_recall = True
+        print("filters changed since the last clean run: recalling previously seen roles that match now")
 
     if args.from_fetched:
         fetched = load_fetched(args.from_fetched, cfg["companies"])
@@ -4879,6 +4884,9 @@ def run(args):
         # queue first: a crash between the writes must never leave a job marked seen without its queue row
         atomic_json.write(str(HOME / "queue.json"), queue)
         atomic_json.write(str(HOME / "state.json"), state)
+        # sig only after a clean, uncapped recall; otherwise the next run retries the leftovers
+        if getattr(args, "recall", False) and counts["errors"] == 0 and counts.get("recalled", 0) < RECALL_MAX:
+            atomic_json.write(str(HOME / "filters_sig.json"), dict(sig=filters_sig, on=date.today().isoformat()))
     print(f"done: {counts['companies']} companies ({counts['errors']} errors), {counts['matched']} new matches, "
           f"{counts['blocked']} auto-blocked on sponsorship, {counts['queued']} queued, {counts['alerted']} alerts, "
           f"{counts['closed']} closed, {counts['reopened']} reopened, {counts['reposts']} reposts, "
@@ -5209,6 +5217,13 @@ def _update_liveness(name, jobs, complete, queue, counts, c=None):
                 continue
             e["closed_on"], e["closed_reason"] = today, "removed"
             counts["closed"] += 1
+
+
+# data/filters_sig.json: 
+
+
+def _filters_signature(filters):
+    return hashlib.sha1(json.dumps(filters, sort_keys=True).encode("utf-8")).hexdigest()[:16]
 
 
 def _load_tombstones():

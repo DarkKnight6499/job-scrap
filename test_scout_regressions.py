@@ -67,3 +67,26 @@ def test_exhausted_cap_does_not_skip_pending_cleanup(monkeypatch, inactive):
     js._retry_pending_alerts([active, canceled], {}, {"alerted": js.ALERT_CAP_PER_RUN}, False)
     assert not sent and active["alert_pending"]
     assert not canceled["alert_pending"], "Cleanup must visit all rows even when sending is capped"
+
+
+def test_filter_change_triggers_recall_and_records_signature(tmp_path, monkeypatch):
+    import argparse
+    import json
+    import job_scout as js
+    old = dict(id="1", title="Treasury Analyst", location="New York, NY", url="u1")
+    (tmp_path / "config.json").write_text(json.dumps(dict(notify={}, filters=dict(title_include=["treasury"]), keywords=[],
+                                                         companies=[dict(name="X", ats="fake")])))
+    (tmp_path / "state.json").write_text(json.dumps({"X": ["1"]}))  # seen earlier, never queued
+    (tmp_path / "filters_sig.json").write_text(json.dumps(dict(sig="old")))
+    monkeypatch.setattr(js, "HOME", tmp_path)
+    monkeypatch.setitem(js.FETCH, "fake", lambda c: ([old], True))
+    monkeypatch.setattr(js, "_reverify_recent_posted", lambda q, c: None)
+    monkeypatch.setattr(js, "describe", lambda c, j: ("", "", ""))
+    monkeypatch.setattr(js, "notify", lambda *a: True)
+    js.run(argparse.Namespace(from_fetched=None, dry_run=False, check=False))
+    queue = json.loads((tmp_path / "queue.json").read_text())
+    assert [e["id"] for e in queue] == ["X:1"] and queue[0]["origin"] == "recall"
+    assert json.loads((tmp_path / "filters_sig.json").read_text())["sig"] == js._filters_signature(dict(title_include=["treasury"]))
+    # same filters again: no recall, nothing new
+    js.run(argparse.Namespace(from_fetched=None, dry_run=False, check=False))
+    assert len(json.loads((tmp_path / "queue.json").read_text())) == 1
