@@ -2184,11 +2184,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Collabera",
-   "ats": "smartrecruiters",
-   "slug": "Collabera2"
-  },
-  {
    "name": "Voya Investment Management",
    "ats": "workday",
    "host": "godirect.wd5.myworkdayjobs.com",
@@ -2484,32 +2479,6 @@
    "ats": "oracle",
    "host": "egug.fa.us2.oraclecloud.com",
    "site": "CX_1",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Robert Half",
-   "ats": "workday",
-   "host": "roberthalf.wd1.myworkdayjobs.com",
-   "tenant": "roberthalf",
-   "site": "RobertHalfStaffingCareers",
    "search": [
     "treasury",
     "liquidity",
@@ -4559,16 +4528,6 @@
    "max_per_term": 100
   },
   {
-   "name": "2U",
-   "ats": "greenhouse",
-   "slug": "2u"
-  },
-  {
-   "name": "AT Process Technologies",
-   "ats": "ashby",
-   "slug": "atp"
-  },
-  {
    "name": "Abbott",
    "ats": "workday",
    "term_workers": 3,
@@ -4630,32 +4589,6 @@
    "name": "Airwallex",
    "ats": "ashby",
    "slug": "airwallex"
-  },
-  {
-   "name": "Albemarle Corporation",
-   "ats": "workday",
-   "host": "albemarle.wd5.myworkdayjobs.com",
-   "tenant": "albemarle",
-   "site": "External",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
   },
   {
    "name": "AlphaSense",
@@ -4778,32 +4711,6 @@
    "host": "ardentmills.wd5.myworkdayjobs.com",
    "tenant": "ardentmills",
    "site": "Ardent_Mills_LLC",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Atmos Energy",
-   "ats": "workday",
-   "host": "atmosenergy.wd108.myworkdayjobs.com",
-   "tenant": "atmosenergy",
-   "site": "External_Career_Site",
    "search": [
     "treasury",
     "liquidity",
@@ -5005,32 +4912,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Brunswick Corporation",
-   "ats": "workday",
-   "host": "brunswick.wd1.myworkdayjobs.com",
-   "tenant": "brunswick",
-   "site": "search",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Cantor Fitzgerald",
    "ats": "oracle",
    "host": "hdow.fa.us6.oraclecloud.com",
@@ -5164,40 +5045,9 @@
    "max_per_term": 100
   },
   {
-   "name": "Connect Search",
-   "ats": "smartrecruiters",
-   "slug": "connectsearchllc"
-  },
-  {
    "name": "Crypto.com",
    "ats": "lever",
    "slug": "crypto"
-  },
-  {
-   "name": "Dave & Buster's",
-   "ats": "workday",
-   "host": "daveandbusters.wd1.myworkdayjobs.com",
-   "tenant": "daveandbusters",
-   "site": "Dave_and_Busters_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
   },
   {
    "name": "DriveWealth",
@@ -5441,32 +5291,6 @@
    "slug": "hpsinvestmentpartners"
   },
   {
-   "name": "Halozyme",
-   "ats": "workday",
-   "host": "halozyme.wd115.myworkdayjobs.com",
-   "tenant": "halozyme",
-   "site": "halozymecareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Hamilton Lane",
    "ats": "workday",
    "host": "hamiltonlane.wd108.myworkdayjobs.com",
@@ -5517,11 +5341,6 @@
     "collateral"
    ],
    "max_per_term": 100
-  },
-  {
-   "name": "Hasbro",
-   "ats": "greenhouse",
-   "slug": "hasbro"
   },
   {
    "name": "Hospital for Special Surgery",
@@ -5757,63 +5576,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Navan",
-   "ats": "greenhouse",
-   "slug": "tripactions"
-  },
-  {
-   "name": "Netflix",
-   "ats": "workday",
-   "host": "netflix.wd108.myworkdayjobs.com",
-   "tenant": "netflix",
-   "site": "Netflix",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "News Corp",
-   "ats": "workday",
-   "host": "dowjones.wd1.myworkdayjobs.com",
-   "tenant": "dowjones",
-   "site": "News_Corp_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Nexamp",
    "ats": "greenhouse",
    "slug": "nexamp"
@@ -5845,11 +5607,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Notion",
-   "ats": "ashby",
-   "slug": "notion"
-  },
-  {
    "name": "Nscale",
    "ats": "greenhouse",
    "slug": "nscaleoperationsukltd"
@@ -5865,68 +5622,9 @@
    "slug": "nubank"
   },
   {
-   "name": "OpenAI",
-   "ats": "ashby",
-   "slug": "openai"
-  },
-  {
-   "name": "PVH Corp.",
-   "ats": "workday",
-   "host": "pvh.wd1.myworkdayjobs.com",
-   "tenant": "pvh",
-   "site": "PVH_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Pagaya",
    "ats": "greenhouse",
    "slug": "pagaya"
-  },
-  {
-   "name": "Palo Alto Networks",
-   "ats": "workday",
-   "host": "paloaltonetworks.wd5.myworkdayjobs.com",
-   "tenant": "paloaltonetworks",
-   "site": "panwexternalcareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100,
-   "term_ceiling": 2000,
-   "term_workers": 4
   },
   {
    "name": "Pantheon Ventures",
@@ -5963,32 +5661,6 @@
    "name": "Polymarket",
    "ats": "ashby",
    "slug": "polymarket"
-  },
-  {
-   "name": "Port Houston",
-   "ats": "workday",
-   "host": "porthouston.wd5.myworkdayjobs.com",
-   "tenant": "porthouston",
-   "site": "External_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
   },
   {
    "name": "Prologis",
@@ -6152,40 +5824,9 @@
    "max_per_term": 100
   },
   {
-   "name": "SpaceX",
-   "ats": "greenhouse",
-   "slug": "spacex"
-  },
-  {
    "name": "Stellar Development Foundation",
    "ats": "ashby",
    "slug": "stellar"
-  },
-  {
-   "name": "Swinerton",
-   "ats": "workday",
-   "host": "swinerton.wd1.myworkdayjobs.com",
-   "tenant": "swinerton",
-   "site": "Swinerton_External_Career",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
   },
   {
    "name": "Talen Energy",
@@ -6212,11 +5853,6 @@
     "collateral"
    ],
    "max_per_term": 100
-  },
-  {
-   "name": "Tanium",
-   "ats": "greenhouse",
-   "slug": "tanium"
   },
   {
    "name": "Teledyne Technologies",
@@ -6381,32 +6017,6 @@
    "max_per_term": 100
   },
   {
-   "name": "The Coca-Cola Company",
-   "ats": "workday",
-   "host": "coke.wd1.myworkdayjobs.com",
-   "tenant": "coke",
-   "site": "coca-cola-careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Western Alliance Bank",
    "ats": "workday",
    "host": "westernalliancebank.wd5.myworkdayjobs.com",
@@ -6540,11 +6150,6 @@
    "slug": "vitol"
   },
   {
-   "name": "Intersect Power",
-   "ats": "lever",
-   "slug": "intersect"
-  },
-  {
    "name": "Crusoe",
    "ats": "ashby",
    "slug": "crusoe"
@@ -6570,16 +6175,6 @@
    "slug": "averydennison"
   },
   {
-   "name": "Wabtec",
-   "ats": "smartrecruiters",
-   "slug": "wabtec"
-  },
-  {
-   "name": "Rocket Lab",
-   "ats": "greenhouse",
-   "slug": "rocketlab"
-  },
-  {
    "name": "Relativity",
    "ats": "greenhouse",
    "slug": "relativity"
@@ -6590,74 +6185,14 @@
    "slug": "saronic"
   },
   {
-   "name": "Shield AI",
-   "ats": "lever",
-   "slug": "shieldai"
-  },
-  {
    "name": "Redwood Materials",
    "ats": "greenhouse",
    "slug": "redwoodmaterials"
   },
   {
-   "name": "Sila",
-   "ats": "lever",
-   "slug": "sila"
-  },
-  {
-   "name": "Divergent",
-   "ats": "greenhouse",
-   "slug": "divergent"
-  },
-  {
-   "name": "Skydio",
-   "ats": "ashby",
-   "slug": "skydio"
-  },
-  {
-   "name": "Epirus",
-   "ats": "greenhouse",
-   "slug": "epirus"
-  },
-  {
-   "name": "Mach Industries",
-   "ats": "greenhouse",
-   "slug": "machindustries"
-  },
-  {
    "name": "Chaos Industries",
    "ats": "greenhouse",
    "slug": "chaosindustries"
-  },
-  {
-   "name": "Formlabs",
-   "ats": "greenhouse",
-   "slug": "formlabs"
-  },
-  {
-   "name": "Ursa Major",
-   "ats": "greenhouse",
-   "slug": "ursamajor"
-  },
-  {
-   "name": "Vast",
-   "ats": "greenhouse",
-   "slug": "vast"
-  },
-  {
-   "name": "Nuro",
-   "ats": "greenhouse",
-   "slug": "nuro"
-  },
-  {
-   "name": "Kodiak",
-   "ats": "greenhouse",
-   "slug": "kodiak"
-  },
-  {
-   "name": "Hermeus",
-   "ats": "lever",
-   "slug": "hermeus"
   },
   {
    "name": "Audax Group",
@@ -7085,44 +6620,14 @@
    "slug": "mongodb"
   },
   {
-   "name": "Palantir",
-   "ats": "lever",
-   "slug": "palantir"
-  },
-  {
-   "name": "Waymo",
-   "ats": "greenhouse",
-   "slug": "waymo"
-  },
-  {
    "name": "Lyft",
    "ats": "greenhouse",
    "slug": "lyft"
   },
   {
-   "name": "Okta",
-   "ats": "greenhouse",
-   "slug": "okta"
-  },
-  {
-   "name": "Reddit",
-   "ats": "greenhouse",
-   "slug": "reddit"
-  },
-  {
-   "name": "Spotify",
-   "ats": "lever",
-   "slug": "spotify"
-  },
-  {
    "name": "Datadog",
    "ats": "greenhouse",
    "slug": "datadog"
-  },
-  {
-   "name": "Pinterest",
-   "ats": "greenhouse",
-   "slug": "pinterest"
   },
   {
    "name": "Mission Lane",
@@ -7165,11 +6670,6 @@
    "slug": "assuredguaranty"
   },
   {
-   "name": "Dun & Bradstreet",
-   "ats": "lever",
-   "slug": "dnb"
-  },
-  {
    "name": "Experian",
    "ats": "smartrecruiters",
    "slug": "experian"
@@ -7185,34 +6685,14 @@
    "slug": "revolutionmedicines"
   },
   {
-   "name": "Clover Health",
-   "ats": "greenhouse",
-   "slug": "cloverhealth"
-  },
-  {
    "name": "Veeva Systems",
    "ats": "lever",
    "slug": "veeva"
   },
   {
-   "name": "Airbnb",
-   "ats": "greenhouse",
-   "slug": "airbnb"
-  },
-  {
    "name": "Monster Beverage",
    "ats": "greenhouse",
    "slug": "monsterenergy"
-  },
-  {
-   "name": "Faire",
-   "ats": "greenhouse",
-   "slug": "faire"
-  },
-  {
-   "name": "SeatGeek",
-   "ats": "greenhouse",
-   "slug": "seatgeek"
   },
   {
    "name": "Harry's",
@@ -7225,39 +6705,9 @@
    "slug": "renttherunway"
   },
   {
-   "name": "Instacart",
-   "ats": "greenhouse",
-   "slug": "instacart"
-  },
-  {
    "name": "Peloton",
    "ats": "greenhouse",
    "slug": "peloton"
-  },
-  {
-   "name": "Sweetgreen",
-   "ats": "greenhouse",
-   "slug": "sweetgreen"
-  },
-  {
-   "name": "Glossier",
-   "ats": "greenhouse",
-   "slug": "glossier"
-  },
-  {
-   "name": "Everlane",
-   "ats": "greenhouse",
-   "slug": "everlane"
-  },
-  {
-   "name": "Tripadvisor",
-   "ats": "greenhouse",
-   "slug": "tripadvisor"
-  },
-  {
-   "name": "Duolingo",
-   "ats": "greenhouse",
-   "slug": "duolingo"
   },
   {
    "name": "Gopuff",
@@ -7265,79 +6715,9 @@
    "slug": "gopuff"
   },
   {
-   "name": "Wynn Resorts",
-   "ats": "smartrecruiters",
-   "slug": "wynnresorts"
-  },
-  {
-   "name": "Roblox",
-   "ats": "greenhouse",
-   "slug": "roblox"
-  },
-  {
-   "name": "Discord",
-   "ats": "greenhouse",
-   "slug": "discord"
-  },
-  {
-   "name": "Twilio",
-   "ats": "greenhouse",
-   "slug": "twilio"
-  },
-  {
-   "name": "Bandwidth",
-   "ats": "greenhouse",
-   "slug": "bandwidth"
-  },
-  {
-   "name": "Roku",
-   "ats": "greenhouse",
-   "slug": "roku"
-  },
-  {
-   "name": "Riot Games",
-   "ats": "greenhouse",
-   "slug": "riotgames"
-  },
-  {
-   "name": "Epic Games",
-   "ats": "greenhouse",
-   "slug": "epicgames"
-  },
-  {
    "name": "Scopely",
    "ats": "greenhouse",
    "slug": "scopely"
-  },
-  {
-   "name": "FanDuel",
-   "ats": "greenhouse",
-   "slug": "fanduel"
-  },
-  {
-   "name": "Twitch",
-   "ats": "greenhouse",
-   "slug": "twitch"
-  },
-  {
-   "name": "EdgeConneX",
-   "ats": "greenhouse",
-   "slug": "edgeconnex"
-  },
-  {
-   "name": "Roofstock",
-   "ats": "greenhouse",
-   "slug": "roofstock"
-  },
-  {
-   "name": "Cloudbeds",
-   "ats": "greenhouse",
-   "slug": "cloudbeds"
-  },
-  {
-   "name": "Vonage",
-   "ats": "greenhouse",
-   "slug": "vonage"
   },
   {
    "name": "Doma",
@@ -7348,21 +6728,6 @@
    "name": "HomeLight",
    "ats": "greenhouse",
    "slug": "homelight"
-  },
-  {
-   "name": "Anaplan",
-   "ats": "greenhouse",
-   "slug": "anaplan"
-  },
-  {
-   "name": "Gusto",
-   "ats": "greenhouse",
-   "slug": "gusto"
-  },
-  {
-   "name": "Uber Freight",
-   "ats": "greenhouse",
-   "slug": "uberfreight"
   },
   {
    "name": "Coursera",
@@ -7380,11 +6745,6 @@
    "slug": "gitlab"
   },
   {
-   "name": "Elastic",
-   "ats": "greenhouse",
-   "slug": "elastic"
-  },
-  {
    "name": "Samsara",
    "ats": "greenhouse",
    "slug": "samsara"
@@ -7393,16 +6753,6 @@
    "name": "Motive",
    "ats": "greenhouse",
    "slug": "gomotive"
-  },
-  {
-   "name": "Verra Mobility",
-   "ats": "greenhouse",
-   "slug": "verramobility"
-  },
-  {
-   "name": "Coupa",
-   "ats": "lever",
-   "slug": "coupa"
   },
   {
    "name": "Legal & General",
@@ -7418,16 +6768,6 @@
    "name": "Zopa",
    "ats": "lever",
    "slug": "zopa"
-  },
-  {
-   "name": "AlixPartners",
-   "ats": "greenhouse",
-   "slug": "alixpartners"
-  },
-  {
-   "name": "Baringa",
-   "ats": "greenhouse",
-   "slug": "baringa"
   },
   {
    "name": "Capco",
@@ -7470,29 +6810,9 @@
    "slug": "doordashusa"
   },
   {
-   "name": "Cloudflare",
-   "ats": "greenhouse",
-   "slug": "cloudflare"
-  },
-  {
-   "name": "Klaviyo",
-   "ats": "greenhouse",
-   "slug": "klaviyo"
-  },
-  {
    "name": "Braze",
    "ats": "greenhouse",
    "slug": "braze"
-  },
-  {
-   "name": "Scale AI",
-   "ats": "greenhouse",
-   "slug": "scaleai"
-  },
-  {
-   "name": "Figma",
-   "ats": "greenhouse",
-   "slug": "figma"
   },
   {
    "name": "Together AI",
@@ -7500,19 +6820,9 @@
    "slug": "togetherai"
   },
   {
-   "name": "Asana",
-   "ats": "greenhouse",
-   "slug": "asana"
-  },
-  {
    "name": "Vercel",
    "ats": "greenhouse",
    "slug": "vercel"
-  },
-  {
-   "name": "Figure AI",
-   "ats": "greenhouse",
-   "slug": "figureai"
   },
   {
    "name": "Oura",
@@ -7520,34 +6830,9 @@
    "slug": "oura"
   },
   {
-   "name": "Tenstorrent",
-   "ats": "greenhouse",
-   "slug": "tenstorrent"
-  },
-  {
-   "name": "PagerDuty",
-   "ats": "greenhouse",
-   "slug": "pagerduty"
-  },
-  {
-   "name": "New Relic",
-   "ats": "greenhouse",
-   "slug": "newrelic"
-  },
-  {
-   "name": "Squarespace",
-   "ats": "greenhouse",
-   "slug": "squarespace"
-  },
-  {
    "name": "Snowflake",
    "ats": "ashby",
    "slug": "snowflake"
-  },
-  {
-   "name": "Cohere",
-   "ats": "ashby",
-   "slug": "cohere"
   },
   {
    "name": "Perplexity",
@@ -7560,64 +6845,9 @@
    "slug": "harvey"
   },
   {
-   "name": "Cursor (Anysphere)",
-   "ats": "ashby",
-   "slug": "cursor"
-  },
-  {
-   "name": "Vanta",
-   "ats": "ashby",
-   "slug": "vanta"
-  },
-  {
-   "name": "Thinking Machines Lab",
-   "ats": "ashby",
-   "slug": "thinkingmachines"
-  },
-  {
-   "name": "Replit",
-   "ats": "ashby",
-   "slug": "replit"
-  },
-  {
    "name": "WHOOP",
    "ats": "ashby",
    "slug": "whoop"
-  },
-  {
-   "name": "Etched",
-   "ats": "ashby",
-   "slug": "etched"
-  },
-  {
-   "name": "Thumbtack",
-   "ats": "ashby",
-   "slug": "thumbtack"
-  },
-  {
-   "name": "Confluent",
-   "ats": "ashby",
-   "slug": "confluent"
-  },
-  {
-   "name": "Cerebras",
-   "ats": "ashby",
-   "slug": "cerebras"
-  },
-  {
-   "name": "Helion Energy",
-   "ats": "ashby",
-   "slug": "helion"
-  },
-  {
-   "name": "Character.AI",
-   "ats": "ashby",
-   "slug": "character"
-  },
-  {
-   "name": "Physical Intelligence",
-   "ats": "ashby",
-   "slug": "physicalintelligence"
   },
   {
    "name": "Deutsche Bank",
@@ -8382,32 +7612,6 @@
    "term_workers": 4
   },
   {
-   "name": "C.H. Robinson",
-   "ats": "workday",
-   "host": "chrobinson.wd5.myworkdayjobs.com",
-   "tenant": "chrobinson",
-   "site": "CHRobinson",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Analog Devices",
    "ats": "workday",
    "host": "analogdevices.wd1.myworkdayjobs.com",
@@ -8564,32 +7768,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Stanley Black & Decker",
-   "ats": "workday",
-   "host": "sbdinc.wd1.myworkdayjobs.com",
-   "tenant": "sbdinc",
-   "site": "Stanley_Black_Decker_Career_Site",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Gilead Sciences",
    "ats": "workday",
    "host": "gilead.wd1.myworkdayjobs.com",
@@ -8720,32 +7898,6 @@
    "max_per_term": 100
   },
   {
-   "name": "3M",
-   "ats": "workday",
-   "host": "3m.wd1.myworkdayjobs.com",
-   "tenant": "3m",
-   "site": "Search",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Humana",
    "ats": "workday",
    "host": "humana.wd5.myworkdayjobs.com",
@@ -8855,32 +8007,6 @@
    "host": "sanofi.wd3.myworkdayjobs.com",
    "tenant": "sanofi",
    "site": "SanofiCareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Mars",
-   "ats": "workday",
-   "host": "mars.wd3.myworkdayjobs.com",
-   "tenant": "mars",
-   "site": "External",
    "search": [
     "treasury",
     "liquidity",
@@ -9110,32 +8236,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Intel",
-   "ats": "workday",
-   "host": "intel.wd1.myworkdayjobs.com",
-   "tenant": "intel",
-   "site": "External",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Venture Global",
    "ats": "workday",
    "host": "venturegloballng.wd108.myworkdayjobs.com",
@@ -9240,32 +8340,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Workiva",
-   "ats": "workday",
-   "host": "workiva.wd503.myworkdayjobs.com",
-   "tenant": "workiva",
-   "site": "careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Credit Acceptance",
    "ats": "workday",
    "host": "creditacceptance.wd5.myworkdayjobs.com",
@@ -9318,64 +8392,12 @@
    "max_per_term": 100
   },
   {
-   "name": "Regal Rexnord",
-   "ats": "workday",
-   "host": "regalrexnord.wd1.myworkdayjobs.com",
-   "tenant": "regalrexnord",
-   "site": "Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "JLL",
    "ats": "workday",
    "term_workers": 3,
    "host": "jll.wd1.myworkdayjobs.com",
    "tenant": "jll",
    "site": "jllcareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Ciena",
-   "ats": "workday",
-   "host": "ciena.wd5.myworkdayjobs.com",
-   "tenant": "ciena",
-   "site": "Careers",
    "search": [
     "treasury",
     "liquidity",
@@ -9527,32 +8549,6 @@
    ],
    "max_per_term": 100,
    "term_workers": 4
-  },
-  {
-   "name": "Shell",
-   "ats": "workday",
-   "host": "shell.wd3.myworkdayjobs.com",
-   "tenant": "shell",
-   "site": "ShellCareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
   },
   {
    "name": "Leidos",
@@ -10155,33 +9151,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Northrop Grumman",
-   "ats": "workday",
-   "host": "ngc.wd1.myworkdayjobs.com",
-   "tenant": "ngc",
-   "site": "Northrop_Grumman_External_Site",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100,
-   "term_workers": 4
-  },
-  {
    "name": "BorgWarner",
    "ats": "workday",
    "host": "borgwarner.wd5.myworkdayjobs.com",
@@ -10213,32 +9182,6 @@
    "host": "colliers.wd3.myworkdayjobs.com",
    "tenant": "colliers",
    "site": "Colliers-External-Career-Site",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Autodesk",
-   "ats": "workday",
-   "host": "autodesk.wd1.myworkdayjobs.com",
-   "tenant": "autodesk",
-   "site": "Ext",
    "search": [
     "treasury",
     "liquidity",
@@ -10495,85 +9438,6 @@
    "term_workers": 4
   },
   {
-   "name": "Workday",
-   "ats": "workday",
-   "term_workers": 4,
-   "host": "workday.wd5.myworkdayjobs.com",
-   "tenant": "workday",
-   "site": "Workday",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Huntsman",
-   "ats": "workday",
-   "host": "huntsman.wd1.myworkdayjobs.com",
-   "tenant": "huntsman",
-   "site": "Huntsman",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Clorox",
-   "ats": "workday",
-   "host": "clorox.wd1.myworkdayjobs.com",
-   "tenant": "clorox",
-   "site": "Clorox",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Target",
    "ats": "workday",
    "host": "target.wd5.myworkdayjobs.com",
@@ -10705,63 +9569,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Elevance Health",
-   "ats": "workday",
-   "host": "elevancehealth.wd1.myworkdayjobs.com",
-   "tenant": "elevancehealth",
-   "site": "ANT",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Biogen",
    "ats": "workday",
    "host": "biibhr.wd3.myworkdayjobs.com",
    "tenant": "biibhr",
    "site": "external",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Edwards Lifesciences",
-   "ats": "workday",
-   "host": "edwards.wd5.myworkdayjobs.com",
-   "tenant": "edwards",
-   "site": "edwardscareers",
    "search": [
     "treasury",
     "liquidity",
@@ -10939,89 +9751,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Westlake",
-   "ats": "workday",
-   "host": "westlake.wd1.myworkdayjobs.com",
-   "tenant": "westlake",
-   "site": "westlake",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Zebra Technologies",
    "ats": "workday",
    "host": "zebra.wd501.myworkdayjobs.com",
    "tenant": "zebra",
    "site": "Zebra_careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Comcast",
-   "ats": "workday",
-   "host": "comcast.wd115.myworkdayjobs.com",
-   "tenant": "comcast",
-   "site": "Comcast_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Warner Bros. Discovery",
-   "ats": "workday",
-   "host": "warnerbros.wd5.myworkdayjobs.com",
-   "tenant": "warnerbros",
-   "site": "global",
    "search": [
     "treasury",
     "liquidity",
@@ -11152,32 +9886,6 @@
    "host": "sixthstreet.wd1.myworkdayjobs.com",
    "tenant": "sixthstreet",
    "site": "sixthstreetcareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Simons Foundation",
-   "ats": "workday",
-   "host": "simonsfoundation.wd1.myworkdayjobs.com",
-   "tenant": "simonsfoundation",
-   "site": "simonsfoundationcareers",
    "search": [
     "treasury",
     "liquidity",
@@ -11459,32 +10167,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Invitation Homes",
-   "ats": "workday",
-   "host": "invitationhomes.wd503.myworkdayjobs.com",
-   "tenant": "invitationhomes",
-   "site": "INVH",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Cboe",
    "ats": "workday",
    "host": "cboe.wd1.myworkdayjobs.com",
@@ -11641,63 +10323,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Fluence Energy",
-   "ats": "workday",
-   "host": "fluenceenergy.wd12.myworkdayjobs.com",
-   "tenant": "fluenceenergy",
-   "site": "fluenceenergy-jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "PJM Interconnection",
    "ats": "workday",
    "host": "pjm.wd5.myworkdayjobs.com",
    "tenant": "pjm",
    "site": "pjmcareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "TC Energy",
-   "ats": "workday",
-   "host": "tcenergy.wd3.myworkdayjobs.com",
-   "tenant": "tcenergy",
-   "site": "CAREER_SITE_TC",
    "search": [
     "treasury",
     "liquidity",
@@ -11771,89 +10401,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Land O'Lakes",
-   "ats": "workday",
-   "host": "landolakes.wd1.myworkdayjobs.com",
-   "tenant": "landolakes",
-   "site": "LandOLakes",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Alliant Energy",
-   "ats": "workday",
-   "host": "alliantenergy.wd1.myworkdayjobs.com",
-   "tenant": "alliantenergy",
-   "site": "alliant",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "FINRA",
    "ats": "workday",
    "host": "finra.wd1.myworkdayjobs.com",
    "tenant": "finra",
    "site": "FINRA",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Daimler Truck North America",
-   "ats": "workday",
-   "host": "dtna.wd5.myworkdayjobs.com",
-   "tenant": "dtna",
-   "site": "DTNA_external",
    "search": [
     "treasury",
     "liquidity",
@@ -11979,63 +10531,11 @@
    "max_per_term": 100
   },
   {
-   "name": "CF Industries",
-   "ats": "workday",
-   "host": "cfindustries.wd1.myworkdayjobs.com",
-   "tenant": "cfindustries",
-   "site": "careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Aptiv",
    "ats": "workday",
    "host": "aptiv.wd5.myworkdayjobs.com",
    "tenant": "aptiv",
    "site": "APTIV_CAREERS",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Axalta",
-   "ats": "workday",
-   "host": "axalta.wd1.myworkdayjobs.com",
-   "tenant": "axalta",
-   "site": "Axalta",
    "search": [
     "treasury",
     "liquidity",
@@ -12088,32 +10588,6 @@
    "host": "motorolasolutions.wd5.myworkdayjobs.com",
    "tenant": "motorolasolutions",
    "site": "Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Unisys",
-   "ats": "workday",
-   "host": "unisys.wd5.myworkdayjobs.com",
-   "tenant": "unisys",
-   "site": "External",
    "search": [
     "treasury",
     "liquidity",
@@ -12297,32 +10771,6 @@
    "host": "cerberus.wd1.myworkdayjobs.com",
    "tenant": "cerberus",
    "site": "CerberusCareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Simon Property Group",
-   "ats": "workday",
-   "host": "simon.wd1.myworkdayjobs.com",
-   "tenant": "simon",
-   "site": "Simon",
    "search": [
     "treasury",
     "liquidity",
@@ -12578,89 +11026,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Diamondback Energy",
-   "ats": "workday",
-   "host": "diamondbackenergy.wd12.myworkdayjobs.com",
-   "tenant": "diamondbackenergy",
-   "site": "DBE",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Gates Foundation",
-   "ats": "workday",
-   "host": "gatesfoundation.wd1.myworkdayjobs.com",
-   "tenant": "gatesfoundation",
-   "site": "Gates",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Ingredion",
    "ats": "workday",
    "host": "ingredion.wd1.myworkdayjobs.com",
    "tenant": "ingredion",
    "site": "IngredionCareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Portland General Electric",
-   "ats": "workday",
-   "host": "portlandgeneral.wd5.myworkdayjobs.com",
-   "tenant": "portlandgeneral",
-   "site": "pgn",
    "search": [
     "treasury",
     "liquidity",
@@ -12734,32 +11104,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Agilent Technologies",
-   "ats": "workday",
-   "host": "agilent.wd5.myworkdayjobs.com",
-   "tenant": "agilent",
-   "site": "Agilent_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "GSK",
    "ats": "workday",
    "host": "gsk.wd5.myworkdayjobs.com",
@@ -12786,323 +11130,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Health Care Service Corporation",
-   "ats": "workday",
-   "host": "hcsc.wd1.myworkdayjobs.com",
-   "tenant": "hcsc",
-   "site": "HCSC_External",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Kenvue",
-   "ats": "workday",
-   "host": "kenvue.wd5.myworkdayjobs.com",
-   "tenant": "kenvue",
-   "site": "kenvue",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Gap Inc",
-   "ats": "workday",
-   "host": "gapinc.wd1.myworkdayjobs.com",
-   "tenant": "gapinc",
-   "site": "GAPINC",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Texas Roadhouse",
-   "ats": "workday",
-   "host": "texasroadhouse.wd12.myworkdayjobs.com",
-   "tenant": "texasroadhouse",
-   "site": "externaljobboard",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Air Products",
-   "ats": "workday",
-   "host": "airproducts.wd5.myworkdayjobs.com",
-   "tenant": "airproducts",
-   "site": "AP0001",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Curtiss-Wright",
-   "ats": "workday",
-   "host": "curtisswright.wd1.myworkdayjobs.com",
-   "tenant": "curtisswright",
-   "site": "CW_External_Career_Site",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Woodward",
-   "ats": "workday",
-   "host": "woodward.wd5.myworkdayjobs.com",
-   "tenant": "woodward",
-   "site": "woodward",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "DuPont",
-   "ats": "workday",
-   "host": "dupont.wd5.myworkdayjobs.com",
-   "tenant": "dupont",
-   "site": "Jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Tutor Perini",
-   "ats": "workday",
-   "host": "tutorperini.wd12.myworkdayjobs.com",
-   "tenant": "tutorperini",
-   "site": "external",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Amcor",
-   "ats": "workday",
-   "host": "amcor.wd5.myworkdayjobs.com",
-   "tenant": "amcor",
-   "site": "Amcor_External_Career_Site",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "AvalonBay Communities",
    "ats": "workday",
    "host": "avalonbay.wd5.myworkdayjobs.com",
    "tenant": "avalonbay",
    "site": "AVBExternal",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Iron Mountain",
-   "ats": "workday",
-   "host": "ironmountain.wd5.myworkdayjobs.com",
-   "tenant": "ironmountain",
-   "site": "iron-mountain-jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "PulteGroup",
-   "ats": "workday",
-   "host": "pultegroup.wd1.myworkdayjobs.com",
-   "tenant": "pultegroup",
-   "site": "PGI",
    "search": [
     "treasury",
     "liquidity",
@@ -13155,32 +11187,6 @@
    "host": "kla.wd1.myworkdayjobs.com",
    "tenant": "kla",
    "site": "Search",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "CDW",
-   "ats": "workday",
-   "host": "cdw.wd5.myworkdayjobs.com",
-   "tenant": "cdw",
-   "site": "Careers",
    "search": [
     "treasury",
     "liquidity",
@@ -13462,32 +11468,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Chevron",
-   "ats": "workday",
-   "host": "chevron.wd5.myworkdayjobs.com",
-   "tenant": "chevron",
-   "site": "jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Berkeley Research Group",
    "ats": "workday",
    "host": "thinkbrg.wd5.myworkdayjobs.com",
@@ -13618,89 +11598,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Robert Wood Johnson Foundation",
-   "ats": "workday",
-   "host": "rwjf.wd1.myworkdayjobs.com",
-   "tenant": "rwjf",
-   "site": "RWJF",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Vistra",
    "ats": "workday",
    "host": "vst.wd5.myworkdayjobs.com",
    "tenant": "vst",
    "site": "vistra_careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "PBF Energy",
-   "ats": "workday",
-   "host": "pbfenergy.wd1.myworkdayjobs.com",
-   "tenant": "pbfenergy",
-   "site": "PBF",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Zoetis",
-   "ats": "workday",
-   "host": "zoetis.wd5.myworkdayjobs.com",
-   "tenant": "zoetis",
-   "site": "zoetis",
    "search": [
     "treasury",
     "liquidity",
@@ -13747,32 +11649,6 @@
    ],
    "max_per_term": 100,
    "term_workers": 4
-  },
-  {
-   "name": "Premera Blue Cross",
-   "ats": "workday",
-   "host": "premera.wd5.myworkdayjobs.com",
-   "tenant": "premera",
-   "site": "Premera",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
   },
   {
    "name": "Tyson Foods",
@@ -13827,32 +11703,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Alcoa",
-   "ats": "workday",
-   "host": "alcoa.wd5.myworkdayjobs.com",
-   "tenant": "alcoa",
-   "site": "Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Mosaic",
    "ats": "workday",
    "host": "mosaic.wd5.myworkdayjobs.com",
@@ -13884,84 +11734,6 @@
    "host": "hexcel.wd5.myworkdayjobs.com",
    "tenant": "hexcel",
    "site": "HexcelCareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Pentair",
-   "ats": "workday",
-   "host": "pentair.wd5.myworkdayjobs.com",
-   "tenant": "pentair",
-   "site": "Pentair_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Terex",
-   "ats": "workday",
-   "host": "terex.wd1.myworkdayjobs.com",
-   "tenant": "terex",
-   "site": "terexcareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Granite Construction",
-   "ats": "workday",
-   "host": "granite.wd1.myworkdayjobs.com",
-   "tenant": "granite",
-   "site": "careers",
    "search": [
     "treasury",
     "liquidity",
@@ -14113,32 +11885,6 @@
    "max_per_term": 100
   },
   {
-   "name": "Extra Space Storage",
-   "ats": "workday",
-   "host": "extraspace.wd5.myworkdayjobs.com",
-   "tenant": "extraspace",
-   "site": "ESS_External",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Fox Corporation",
    "ats": "workday",
    "host": "fox.wd1.myworkdayjobs.com",
@@ -14191,63 +11937,11 @@
    "max_per_term": 100
   },
   {
-   "name": "Liberty Global",
-   "ats": "workday",
-   "host": "libertyglobal.wd3.myworkdayjobs.com",
-   "tenant": "libertyglobal",
-   "site": "Liberty_Global_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "Lennar",
    "ats": "workday",
    "host": "lennar.wd1.myworkdayjobs.com",
    "tenant": "lennar",
    "site": "Lennar_Jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Nexstar Media Group",
-   "ats": "workday",
-   "host": "nexstar.wd5.myworkdayjobs.com",
-   "tenant": "nexstar",
-   "site": "nexstar",
    "search": [
     "treasury",
     "liquidity",
@@ -14373,115 +12067,11 @@
    "max_per_term": 100
   },
   {
-   "name": "J.B. Hunt",
-   "ats": "workday",
-   "host": "jbhunt.wd501.myworkdayjobs.com",
-   "tenant": "jbhunt",
-   "site": "Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Old Dominion Freight Line",
-   "ats": "workday",
-   "host": "odfl.wd1.myworkdayjobs.com",
-   "tenant": "odfl",
-   "site": "ODFL_Careers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Werner Enterprises",
-   "ats": "workday",
-   "host": "werner.wd501.myworkdayjobs.com",
-   "tenant": "werner",
-   "site": "Werner",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "F5",
    "ats": "workday",
    "host": "ffive.wd5.myworkdayjobs.com",
    "tenant": "ffive",
    "site": "f5jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "Monolithic Power Systems",
-   "ats": "workday",
-   "host": "monolithicpower.wd12.myworkdayjobs.com",
-   "tenant": "monolithicpower",
-   "site": "MPS_Careers",
    "search": [
     "treasury",
     "liquidity",
@@ -16123,13 +13713,6 @@
    ]
   },
   {
-   "name": "Mercury Insurance",
-   "ats": "icims",
-   "hosts": [
-    "careers-mercuryinsurance.icims.com"
-   ]
-  },
-  {
    "name": "Lord Abbett",
    "ats": "icims",
    "hosts": [
@@ -17229,11 +14812,6 @@
    "slug": "underdog"
   },
   {
-   "name": "Givebutter",
-   "ats": "ashby",
-   "slug": "givebutter"
-  },
-  {
    "name": "Hanover Park",
    "ats": "ashby",
    "slug": "hanover-park"
@@ -17264,11 +14842,6 @@
    "slug": "axial"
   },
   {
-   "name": "CB Insights",
-   "ats": "greenhouse",
-   "slug": "cbinsights"
-  },
-  {
    "name": "January",
    "ats": "ashby",
    "slug": "january"
@@ -17277,11 +14850,6 @@
    "name": "Rain",
    "ats": "ashby",
    "slug": "rain"
-  },
-  {
-   "name": "Attune",
-   "ats": "bamboohr",
-   "slug": "attune"
   },
   {
    "name": "Hometap",
@@ -17324,11 +14892,6 @@
    "slug": "riskified"
   },
   {
-   "name": "Camber",
-   "ats": "ashby",
-   "slug": "camber"
-  },
-  {
    "name": "Wingspan",
    "ats": "greenhouse",
    "slug": "wingspan"
@@ -17337,11 +14900,6 @@
    "name": "Alloy",
    "ats": "greenhouse",
    "slug": "alloy"
-  },
-  {
-   "name": "Genius AI",
-   "ats": "ashby",
-   "slug": "geniusai"
   },
   {
    "name": "Spade",
@@ -17514,11 +15072,6 @@
   "name": "Current",
   "ats": "greenhouse",
   "slug": "current81"
- },
- {
-  "name": "Order.co",
-  "ats": "rippling",
-  "slug": "orderco"
  },
  {
   "name": "Apex Fintech Solutions",
