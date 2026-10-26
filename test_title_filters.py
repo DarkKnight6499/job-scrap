@@ -98,3 +98,25 @@ def test_2026_10_23_wrong_category_excluded(title):
 def test_2026_10_23_adjacent_kept(title):
     f = dict(FILTERS, title_include=[])
     assert js.matches(_job(title), f)
+
+
+@pytest.mark.parametrize("title", [
+    "Associate Technician, Operations",
+    "Associate Maintenance Technician(Electrician)",
+    "Pharmacy Technician Associate Representative",
+    "Associate Biomed Technician",
+    "Associate Application Developer",
+])
+def test_2026_10_26_trades_and_app_dev_excluded(title):
+    f = dict(FILTERS, title_include=[])
+    assert not js.matches(_job(title), f)
+
+
+@pytest.mark.parametrize("title", [
+    "Quantitative/Data Developer | Fixed Income",
+    "Portfolio Management Administrative Support Associate",
+    "Client Quant Developer, BQuant Desktop",
+])
+def test_2026_10_26_adjacent_kept(title):
+    f = dict(FILTERS, title_include=[])
+    assert js.matches(_job(title), f)
