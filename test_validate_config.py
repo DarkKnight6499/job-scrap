@@ -59,17 +59,24 @@ def test_workday_overlap_and_counts_include_closed_rows(board, queue):
     other = company("Other", host="ACME.wd1.myworkdayjobs.com.", tenant="acme", site="/Subsidiary/", search=["different"])
     errors, groups = vc.validate({"companies": [board, other]}, queue)
     assert len(errors) == 1 and len(groups) == 1
-    assert groups[0]["endpoint"].endswith("/acme/Subsidiary")
+    assert groups[0]["endpoint"].endswith("/acme/subsidiary")
     assert groups[0]["rows"] == 3
     assert [m[2] for m in groups[0]["members"]] == [2, 1]
 
 
-@pytest.mark.parametrize("field,value", [("host", "other.example.com"), ("tenant", "other"),
-                                          ("site", ["Separate"]), ("site", "careers")])
+@pytest.mark.parametrize("field,value", [("tenant", "other"), ("site", ["Separate"])])
 def test_workday_disjoint_boards_are_valid(board, field, value):
     other = dict(board, name="Other")
     other[field] = value
     assert vc.validate({"companies": [board, other]}, []) == ([], [])
+
+
+@pytest.mark.parametrize("field,value", [("host", "acme.wd5.myworkdaysite.com"), ("site", "careers")])
+def test_workday_host_and_site_case_aliases_collide(board, field, value):
+    other = dict(board, name="Other")
+    other[field] = value
+    errors, groups = vc.validate({"companies": [board, other]}, [])
+    assert len(groups) == 1 and groups[0]["kind"] == "shared endpoint"
 
 
 def test_each_overlap_is_reported_without_implying_disjoint_sites_share_board(board):

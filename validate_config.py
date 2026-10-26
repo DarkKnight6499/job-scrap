@@ -54,7 +54,8 @@ def endpoints(company):
     if ats == "workday":
         sites = company["site"]
         sites = sites if isinstance(sites, list) else [sites]
-        return {(ats, _host(company["host"]), _path(company["tenant"]), _path(s))
+        # Host aliases (myworkdayjobs.com vs myworkdaysite.com) and site-path case reach one board.
+        return {(ats, _path(company["tenant"]).lower(), _path(s).lower())
                 for s in sites}
     if ats == "icims":
         hosts = company.get("hosts") or [company["host"]]
