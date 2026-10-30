@@ -123,54 +123,54 @@
    "custody associate",
    "h/f",
    "stockroom",
-      "process development",
-      "name screening",
-      "operational support associate",
-      "senior data architect",
-      "housekeeping associate",
-      "pharmacy customer associate",
-      "general rental associate",
-      "claim representative",
-      "servicing support associate",
-      "logistics associate",
-      "distribution support manager",
-      "sample coordinator",
-      "pcb cad",
-      "sourcing associate",
-      "office services associate",
-      "cell therapy",
-      "metrologist",
-      "mechanical quality associate",
-      "validation enginner",
-      "hardware validation",
-      "system validation",
-      "branch manager",
-      "seasonal associate",
-      "member services officer",
-      "associate financial consultant",
-      "benefits associate",
-      "local study associate director",
-      "gcp operational quality",
-      "health economics",
-      "frontend engineer",
-      "talent development advisor",
-      "content strategist",
-      "dupixent",
-      "affluent associate",
-      "government affairs associate",
-      "legal fellow",
-      "property associate",
-      "health producer",
-      "account transfer associate",
-      "client administrative support associate",
-      "operations processor",
-      "security response",
-      "desktop support",
-      "field service",
-      "wealth banking specialist",
-      "financial wellness associate",
-      "associate financial representative",
-      "information security risk specialist",
+   "process development",
+   "name screening",
+   "operational support associate",
+   "senior data architect",
+   "housekeeping associate",
+   "pharmacy customer associate",
+   "general rental associate",
+   "claim representative",
+   "servicing support associate",
+   "logistics associate",
+   "distribution support manager",
+   "sample coordinator",
+   "pcb cad",
+   "sourcing associate",
+   "office services associate",
+   "cell therapy",
+   "metrologist",
+   "mechanical quality associate",
+   "validation enginner",
+   "hardware validation",
+   "system validation",
+   "branch manager",
+   "seasonal associate",
+   "member services officer",
+   "associate financial consultant",
+   "benefits associate",
+   "local study associate director",
+   "gcp operational quality",
+   "health economics",
+   "frontend engineer",
+   "talent development advisor",
+   "content strategist",
+   "dupixent",
+   "affluent associate",
+   "government affairs associate",
+   "legal fellow",
+   "property associate",
+   "health producer",
+   "account transfer associate",
+   "client administrative support associate",
+   "operations processor",
+   "security response",
+   "desktop support",
+   "field service",
+   "wealth banking specialist",
+   "financial wellness associate",
+   "associate financial representative",
+   "information security risk specialist",
    "clinician",
    "nurse",
    "nursing",
@@ -1842,7 +1842,8 @@
    "host": "pru.wd5.myworkdayjobs.com",
    "tenant": "pru",
    "site": [
-    "Careers"
+    "Careers",
+    "PGIM_Careers"
    ],
    "search": [
     "treasury",
@@ -4331,32 +4332,6 @@
    "host": "manulife.wd3.myworkdayjobs.com",
    "tenant": "manulife",
    "site": "MFCJH_Jobs",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
-   "name": "PGIM",
-   "ats": "workday",
-   "host": "pru.wd5.myworkdayjobs.com",
-   "tenant": "pru",
-   "site": "PGIM_Careers",
    "search": [
     "treasury",
     "liquidity",
@@ -14812,131 +14787,131 @@
    ],
    "max_per_term": 100
   },
- {
-  "name": "StoneX",
-  "ats": "icims",
-  "hosts": [
-   "english-stonex.icims.com"
-  ]
- },
- {
-  "name": "TruStage",
-  "ats": "workday",
-  "host": "trustage.wd1.myworkdayjobs.com",
-  "tenant": "trustage",
-  "site": "TruStage",
-  "search": [
-   "treasury",
-   "liquidity",
-   "asset liability",
-   "market risk",
-   "fixed income",
-   "capital",
-   "derivatives",
-   "investment",
-   "quantitative"
-  ]
- },
- {
-  "name": "The Standard",
-  "ats": "workday",
-  "host": "standard.wd1.myworkdayjobs.com",
-  "tenant": "standard",
-  "site": "Search",
-  "search": [
-   "treasury",
-   "asset liability",
-   "market risk",
-   "fixed income",
-   "capital",
-   "derivatives",
-   "investment",
-   "quantitative"
-  ]
- },
- {
-  "name": "Resolution Life",
-  "ats": "workday",
-  "host": "resolutionlife.wd5.myworkdayjobs.com",
-  "tenant": "resolutionlife",
-  "site": "resolutionlife_jobs",
-  "search": [
-   "treasury",
-   "asset liability",
-   "market risk",
-   "fixed income",
-   "capital",
-   "derivatives",
-   "investment",
-   "quantitative"
-  ]
- },
- {
-  "name": "Willis Towers Watson",
-  "ats": "oracle",
-  "host": "eedu.fa.em3.oraclecloud.com",
-  "site": "CX_1003"
- },
- {
-  "name": "World Bank Group",
-  "ats": "csod",
-  "corp": "worldbankgroup"
- },
- {
-  "name": "Wilton Re",
-  "ats": "csod",
-  "corp": "wiltonre"
- },
- {
-  "name": "Washington Trust",
-  "ats": "dayforce",
-  "namespace": "washingtontrust",
-  "board": "CandidatePortal"
- },
- {
-  "name": "Compeer Financial",
-  "ats": "greenhouse",
-  "slug": "compeerfinancial"
- },
- {
-  "name": "Elevations Credit Union",
-  "ats": "greenhouse",
-  "slug": "elevationscreditunion"
- },
- {
-  "name": "Central Pacific Bank",
-  "ats": "adp_wfn",
-  "cid": "00790905-64d0-4a6c-a64d-2cba88c918c3"
- },
- {
-  "name": "1st Source Bank",
-  "ats": "ukg",
-  "board": "https://recruiting.ultipro.com/STS1000SCO/JobBoard/bdcbc22d-c568-4b9f-bc84-421f9522fd47/"
- },
- {
-  "name": "Dominium",
-  "ats": "ukg",
-  "board": "https://recruiting2.ultipro.com/DOM1001DOMMS/JobBoard/f2ecae96-94c0-46c5-9dbf-87e14f3008df/"
- },
- {
-  "name": "Current",
-  "ats": "greenhouse",
-  "slug": "current81"
- },
- {
-  "name": "Apex Fintech Solutions",
-  "ats": "workday",
-  "host": "peak6group.wd1.myworkdayjobs.com",
-  "tenant": "peak6group",
-  "site": "apexfintechsolutions"
- },
- {
-  "name": "PEAK6",
-  "ats": "workday",
-  "host": "peak6group.wd1.myworkdayjobs.com",
-  "tenant": "peak6group",
-  "site": "PEAK6"
- }
+  {
+   "name": "StoneX",
+   "ats": "icims",
+   "hosts": [
+    "english-stonex.icims.com"
+   ]
+  },
+  {
+   "name": "TruStage",
+   "ats": "workday",
+   "host": "trustage.wd1.myworkdayjobs.com",
+   "tenant": "trustage",
+   "site": "TruStage",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "market risk",
+    "fixed income",
+    "capital",
+    "derivatives",
+    "investment",
+    "quantitative"
+   ]
+  },
+  {
+   "name": "The Standard",
+   "ats": "workday",
+   "host": "standard.wd1.myworkdayjobs.com",
+   "tenant": "standard",
+   "site": "Search",
+   "search": [
+    "treasury",
+    "asset liability",
+    "market risk",
+    "fixed income",
+    "capital",
+    "derivatives",
+    "investment",
+    "quantitative"
+   ]
+  },
+  {
+   "name": "Resolution Life",
+   "ats": "workday",
+   "host": "resolutionlife.wd5.myworkdayjobs.com",
+   "tenant": "resolutionlife",
+   "site": "resolutionlife_jobs",
+   "search": [
+    "treasury",
+    "asset liability",
+    "market risk",
+    "fixed income",
+    "capital",
+    "derivatives",
+    "investment",
+    "quantitative"
+   ]
+  },
+  {
+   "name": "Willis Towers Watson",
+   "ats": "oracle",
+   "host": "eedu.fa.em3.oraclecloud.com",
+   "site": "CX_1003"
+  },
+  {
+   "name": "World Bank Group",
+   "ats": "csod",
+   "corp": "worldbankgroup"
+  },
+  {
+   "name": "Wilton Re",
+   "ats": "csod",
+   "corp": "wiltonre"
+  },
+  {
+   "name": "Washington Trust",
+   "ats": "dayforce",
+   "namespace": "washingtontrust",
+   "board": "CandidatePortal"
+  },
+  {
+   "name": "Compeer Financial",
+   "ats": "greenhouse",
+   "slug": "compeerfinancial"
+  },
+  {
+   "name": "Elevations Credit Union",
+   "ats": "greenhouse",
+   "slug": "elevationscreditunion"
+  },
+  {
+   "name": "Central Pacific Bank",
+   "ats": "adp_wfn",
+   "cid": "00790905-64d0-4a6c-a64d-2cba88c918c3"
+  },
+  {
+   "name": "1st Source Bank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/STS1000SCO/JobBoard/bdcbc22d-c568-4b9f-bc84-421f9522fd47/"
+  },
+  {
+   "name": "Dominium",
+   "ats": "ukg",
+   "board": "https://recruiting2.ultipro.com/DOM1001DOMMS/JobBoard/f2ecae96-94c0-46c5-9dbf-87e14f3008df/"
+  },
+  {
+   "name": "Current",
+   "ats": "greenhouse",
+   "slug": "current81"
+  },
+  {
+   "name": "Apex Fintech Solutions",
+   "ats": "workday",
+   "host": "peak6group.wd1.myworkdayjobs.com",
+   "tenant": "peak6group",
+   "site": "apexfintechsolutions"
+  },
+  {
+   "name": "PEAK6",
+   "ats": "workday",
+   "host": "peak6group.wd1.myworkdayjobs.com",
+   "tenant": "peak6group",
+   "site": "PEAK6"
+  }
  ],
  "keywords": [
   "alm",
