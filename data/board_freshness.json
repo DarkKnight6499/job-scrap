@@ -43,7 +43,7 @@
  },
  "BlackRock": {
   "n": 239,
-  "sig": "d28e741d4928",
+  "sig": "ca36613eedc0",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -54,44 +54,44 @@
   "changed": "2026-11-02"
  },
  "Hewlett Packard Enterprise": {
-  "n": 1746,
-  "sig": "aed20c54dcb2",
+  "n": 1744,
+  "sig": "64890534f529",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Citi": {
-  "n": 4088,
-  "sig": "4d66dceaf105",
+  "n": 4087,
+  "sig": "fdb6b212eb4c",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Wells Fargo": {
-  "n": 1462,
-  "sig": "beb45e2a3148",
+  "n": 1410,
+  "sig": "2249061b093b",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "RBC": {
-  "n": 732,
-  "sig": "72cfa8ec8421",
+  "n": 724,
+  "sig": "5a6983f9da1f",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Barclays": {
-  "n": 610,
-  "sig": "feb46bb0fdb5",
+  "n": 611,
+  "sig": "0c5eaa351c44",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "MUFG": {
-  "n": 662,
-  "sig": "9632bf68fc29",
+  "n": 663,
+  "sig": "8e5f745f99b9",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "State Street": {
-  "n": 1074,
-  "sig": "10e5de94d1e3",
+  "n": 1069,
+  "sig": "5d1817875a91",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -102,10 +102,10 @@
   "changed": "2026-11-02"
  },
  "Northern Trust": {
-  "n": 615,
-  "sig": "74163c8233c4",
+  "n": 617,
+  "sig": "cf92b6e98972",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "T. Rowe Price": {
   "n": 131,
@@ -126,20 +126,20 @@
   "changed": "2026-10-30"
  },
  "Prudential": {
-  "n": 288,
-  "sig": "19ffaebc36db",
+  "n": 286,
+  "sig": "e69a8af40b39",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "AIG": {
-  "n": 405,
-  "sig": "639471830821",
+  "n": 404,
+  "sig": "8578ff751804",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Mastercard": {
-  "n": 1014,
-  "sig": "eedeaff60567",
+  "n": 1013,
+  "sig": "bfe9c25f6268",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -150,16 +150,16 @@
   "changed": "2026-10-29"
  },
  "Truist": {
-  "n": 1475,
-  "sig": "94079f4f12e4",
+  "n": 1474,
+  "sig": "6a759e3ac521",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "US Bancorp": {
-  "n": 1130,
-  "sig": "238568337ec4",
+  "n": 1120,
+  "sig": "c8337b4ca0ba",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Cross River Bank": {
   "n": 39,
@@ -210,34 +210,34 @@
   "changed": "2026-10-30"
  },
  "JPMorgan Chase": {
-  "n": 7083,
-  "sig": "110f6f26d5c8",
+  "n": 7076,
+  "sig": "bbc7aca281ee",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Bank of America": {
-  "n": 1929,
-  "sig": "d5091f1e718a",
+  "n": 1928,
+  "sig": "4b9bc1539adf",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Morgan Stanley": {
   "n": 1232,
-  "sig": "d94e3234fd8d",
+  "sig": "67b2400c7452",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "KeyBank": {
-  "n": 548,
-  "sig": "b26d3ea7ee3f",
+  "n": 545,
+  "sig": "b75151f9acda",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "M&T Bank": {
-  "n": 749,
-  "sig": "ac49bb5f4ad7",
+  "n": 743,
+  "sig": "29714d3d097e",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Collabera": {
   "n": 1663,
@@ -270,8 +270,8 @@
   "changed": "2026-10-29"
  },
  "AECOM": {
-  "n": 5423,
-  "sig": "e04db8d215c7",
+  "n": 5419,
+  "sig": "05a8c91e9508",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -312,10 +312,10 @@
   "changed": "2026-10-26"
  },
  "Fidelity Investments": {
-  "n": 804,
-  "sig": "d3758a98c97e",
+  "n": 803,
+  "sig": "411251f9aa10",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "ProShares": {
   "n": 21,
@@ -342,8 +342,8 @@
   "changed": "2026-10-27"
  },
  "American Express": {
-  "n": 322,
-  "sig": "366b6aab2f5f",
+  "n": 324,
+  "sig": "b9099397ac29",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -360,8 +360,8 @@
   "changed": "2026-10-29"
  },
  "BMO Financial Group": {
-  "n": 839,
-  "sig": "683fada45080",
+  "n": 828,
+  "sig": "85feaff52f5e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -384,8 +384,8 @@
   "changed": "2026-10-28"
  },
  "S&P Global": {
-  "n": 352,
-  "sig": "1c452217ad4f",
+  "n": 356,
+  "sig": "4d3c1674e329",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -414,14 +414,14 @@
   "changed": "2026-11-01"
  },
  "Santander": {
-  "n": 945,
-  "sig": "18dcd5baa642",
+  "n": 943,
+  "sig": "a5e38cc1dd4c",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "CIBC Capital Markets": {
-  "n": 595,
-  "sig": "f5179312427d",
+  "n": 573,
+  "sig": "5dd4c91f836e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -450,8 +450,8 @@
   "changed": "2026-11-01"
  },
  "Vanguard": {
-  "n": 332,
-  "sig": "144411895dd6",
+  "n": 330,
+  "sig": "879bbd4701b9",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -492,14 +492,14 @@
   "changed": "2026-10-29"
  },
  "FactSet Research Systems": {
-  "n": 100,
-  "sig": "bfbf773d3392",
+  "n": 98,
+  "sig": "9bcbaadce744",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Chubb": {
-  "n": 748,
-  "sig": "311f0ddcdbb5",
+  "n": 749,
+  "sig": "79fa2e174c73",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -583,9 +583,9 @@
  },
  "DTCC": {
   "n": 99,
-  "sig": "90159060d50e",
+  "sig": "e867f3012558",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "CME Group": {
   "n": 67,
@@ -631,7 +631,7 @@
  },
  "Tower Research Capital": {
   "n": 94,
-  "sig": "e9eb17c11af7",
+  "sig": "19d67b10ec7a",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -870,8 +870,8 @@
   "changed": "2026-10-31"
  },
  "Blue Owl Capital": {
-  "n": 43,
-  "sig": "01c09b59cf52",
+  "n": 20,
+  "sig": "b8afc2053a50",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -906,10 +906,10 @@
   "changed": "2026-10-31"
  },
  "Raymond James": {
-  "n": 290,
-  "sig": "b17f12bee21e",
+  "n": 288,
+  "sig": "cb55d2c34896",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "PJT Partners": {
   "n": 55,
@@ -918,10 +918,10 @@
   "changed": "2026-10-27"
  },
  "Nasdaq": {
-  "n": 160,
-  "sig": "7585d760ad47",
+  "n": 158,
+  "sig": "811df25ebf43",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "Clear Street": {
   "n": 46,
@@ -966,16 +966,16 @@
   "changed": "2026-11-02"
  },
  "Cigna": {
-  "n": 531,
-  "sig": "5865c617d817",
+  "n": 529,
+  "sig": "915e4852b91b",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "The Hartford": {
-  "n": 241,
-  "sig": "3338a82b386a",
+  "n": 239,
+  "sig": "1fe6ba36f119",
   "checked": "2026-11-02",
-  "changed": "2026-10-31"
+  "changed": "2026-11-02"
  },
  "PayPal": {
   "n": 324,
@@ -1092,8 +1092,8 @@
   "changed": "2026-10-22"
  },
  "Synchrony": {
-  "n": 33,
-  "sig": "73441f51779e",
+  "n": 30,
+  "sig": "3e0ed38e5db0",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1146,14 +1146,14 @@
   "changed": "2026-11-01"
  },
  "Guardian Life": {
-  "n": 107,
-  "sig": "24a653231537",
+  "n": 108,
+  "sig": "57d3b6efd86b",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "John Hancock": {
-  "n": 528,
-  "sig": "af482d6ba09e",
+  "n": 520,
+  "sig": "a3df7202f0d2",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1176,8 +1176,8 @@
   "changed": "2026-10-22"
  },
  "Abbott": {
-  "n": 2452,
-  "sig": "b7af6e2a8a65",
+  "n": 2447,
+  "sig": "74251c2b560f",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1218,22 +1218,22 @@
   "changed": "2026-10-31"
  },
  "American University": {
-  "n": 93,
-  "sig": "f003382d3a4c",
+  "n": 92,
+  "sig": "4a9ea28595c1",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Ameriprise Financial": {
-  "n": 214,
-  "sig": "ae342a0b5371",
+  "n": 213,
+  "sig": "6bb8e2e8f3bb",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Anthropic": {
-  "n": 672,
-  "sig": "8179371f39f4",
+  "n": 673,
+  "sig": "d541ad4a9fad",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Applied Materials": {
   "n": 2128,
@@ -1254,8 +1254,8 @@
   "changed": "2026-10-23"
  },
  "BBVA": {
-  "n": 563,
-  "sig": "2b81c3f160cf",
+  "n": 561,
+  "sig": "5496c822b7a2",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1290,8 +1290,8 @@
   "changed": "2026-10-30"
  },
  "Brookfield": {
-  "n": 139,
-  "sig": "757c97424c0f",
+  "n": 136,
+  "sig": "0cd2a9d43572",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1308,8 +1308,8 @@
   "changed": "2026-10-30"
  },
  "Cardinal Health": {
-  "n": 851,
-  "sig": "e189dcd38ebf",
+  "n": 849,
+  "sig": "7a5d2843b276",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1398,10 +1398,10 @@
   "changed": "2026-10-29"
  },
  "Fifth Third Bank": {
-  "n": 888,
-  "sig": "38b97503e322",
+  "n": 875,
+  "sig": "750b6739d32b",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "First Hawaiian Bank": {
   "n": 126,
@@ -1482,10 +1482,10 @@
   "changed": "2026-10-29"
  },
  "IntegraLifeSciences": {
-  "n": 156,
-  "sig": "0d82638d1e86",
+  "n": 157,
+  "sig": "b7fd2eea49a4",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Integrity Marketing Group": {
   "n": 175,
@@ -1518,10 +1518,10 @@
   "changed": "2026-10-30"
  },
  "Marsh (also covers Mercer)": {
-  "n": 623,
-  "sig": "d80f6df61cc0",
+  "n": 624,
+  "sig": "65f56c39ad42",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Mercury": {
   "n": 76,
@@ -1530,10 +1530,10 @@
   "changed": "2026-10-30"
  },
  "Moog": {
-  "n": 454,
-  "sig": "655daee3bfdf",
+  "n": 452,
+  "sig": "e83bb1cfd5cd",
   "checked": "2026-11-02",
-  "changed": "2026-10-31"
+  "changed": "2026-11-02"
  },
  "National Life Group": {
   "n": 97,
@@ -1542,10 +1542,10 @@
   "changed": "2026-10-30"
  },
  "Nationwide": {
-  "n": 123,
-  "sig": "ae8f6693fdb1",
+  "n": 122,
+  "sig": "8440b684394b",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Navan": {
   "n": 222,
@@ -1590,8 +1590,8 @@
   "changed": "2026-11-02"
  },
  "NBCUniversal": {
-  "n": 433,
-  "sig": "9bad8a822f4a",
+  "n": 430,
+  "sig": "c507416c1886",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1656,10 +1656,10 @@
   "changed": "2026-10-31"
  },
  "Regions Bank": {
-  "n": 500,
-  "sig": "09f9d9b78469",
+  "n": 501,
+  "sig": "fd01456e1f08",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Relay (relayfi.com)": {
   "n": 43,
@@ -1741,7 +1741,7 @@
  },
  "Turner & Townsend": {
   "n": 3500,
-  "sig": "85a3b9f61546",
+  "sig": "1ab4426bb30e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1758,8 +1758,8 @@
   "changed": "2026-11-02"
  },
  "Visa": {
-  "n": 837,
-  "sig": "b44e11a08c22",
+  "n": 835,
+  "sig": "c8e554cb65b6",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -1836,8 +1836,8 @@
   "changed": "2026-10-31"
  },
  "Avery Dennison": {
-  "n": 486,
-  "sig": "6e3c9f0f4fcb",
+  "n": 484,
+  "sig": "5661642372cd",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -2250,10 +2250,10 @@
   "changed": "2026-10-30"
  },
  "Graviton Research Capital": {
-  "n": 23,
-  "sig": "f44d5f2adf08",
+  "n": 21,
+  "sig": "57c53dfe5b2e",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "Galaxy Digital": {
   "n": 48,
@@ -2448,10 +2448,10 @@
   "changed": "2026-11-02"
  },
  "Databricks": {
-  "n": 909,
-  "sig": "a9749770c2af",
+  "n": 912,
+  "sig": "b86e59df5797",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "MongoDB": {
   "n": 365,
@@ -2496,8 +2496,8 @@
   "changed": "2026-10-23"
  },
  "Datadog": {
-  "n": 398,
-  "sig": "678b420b9101",
+  "n": 397,
+  "sig": "87b06935613b",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -2586,10 +2586,10 @@
   "changed": "2026-10-22"
  },
  "Veeva Systems": {
-  "n": 892,
-  "sig": "1b7a8e64b1b8",
+  "n": 891,
+  "sig": "f3531418a0e3",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "Airbnb": {
   "n": 191,
@@ -2874,10 +2874,10 @@
   "changed": "2026-10-23"
  },
  "Capco": {
-  "n": 704,
-  "sig": "18438e697f79",
+  "n": 702,
+  "sig": "e0bc0929d70c",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Public.com": {
   "n": 3,
@@ -2934,10 +2934,10 @@
   "changed": "2026-10-23"
  },
  "Braze": {
-  "n": 352,
-  "sig": "a0ef51d06b8c",
+  "n": 353,
+  "sig": "2788b7c96039",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "Scale AI": {
   "n": 171,
@@ -3006,8 +3006,8 @@
   "changed": "2026-10-24"
  },
  "Snowflake": {
-  "n": 367,
-  "sig": "fdeecb582c4a",
+  "n": 368,
+  "sig": "5ab8992fc138",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3102,8 +3102,8 @@
   "changed": "2026-10-23"
  },
  "Deutsche Bank": {
-  "n": 1129,
-  "sig": "ec7047c3b677",
+  "n": 1128,
+  "sig": "86e1b00fb8ad",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3114,28 +3114,28 @@
   "changed": "2026-10-31"
  },
  "Booz Allen Hamilton": {
-  "n": 2268,
-  "sig": "f97e8b6b15f4",
+  "n": 2254,
+  "sig": "8e762109ee6c",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "AIA Group": {
   "n": 961,
-  "sig": "5f6001393dea",
+  "sig": "abb151f6becf",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "KBR": {
   "n": 1860,
-  "sig": "5f0209dbdf7f",
+  "sig": "57ade454c05b",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "RSM US": {
-  "n": 658,
-  "sig": "c793d923d8e6",
+  "n": 657,
+  "sig": "9441638ea49d",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Parsons": {
   "n": 1985,
@@ -3150,14 +3150,14 @@
   "changed": "2026-11-02"
  },
  "PwC": {
-  "n": 3804,
-  "sig": "e91e51b279b5",
+  "n": 3800,
+  "sig": "914651c7e52e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "IQVIA": {
-  "n": 1899,
-  "sig": "be1ada3dfee8",
+  "n": 1896,
+  "sig": "1e144815ef5e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3180,14 +3180,14 @@
   "changed": "2026-10-30"
  },
  "Medtronic": {
-  "n": 996,
-  "sig": "e27d37cb97b8",
+  "n": 984,
+  "sig": "f16fe3c219ea",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Genpact": {
-  "n": 1916,
-  "sig": "4e55b01abb71",
+  "n": 1914,
+  "sig": "d796260d1718",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3198,8 +3198,8 @@
   "changed": "2026-11-01"
  },
  "Bristol Myers Squibb": {
-  "n": 537,
-  "sig": "2861e1bcb9be",
+  "n": 533,
+  "sig": "62ac87f319d4",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3216,8 +3216,8 @@
   "changed": "2026-10-30"
  },
  "Sun Life": {
-  "n": 258,
-  "sig": "2056a36747a1",
+  "n": 252,
+  "sig": "4296d43e0117",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3234,8 +3234,8 @@
   "changed": "2026-11-01"
  },
  "Highmark Health": {
-  "n": 1968,
-  "sig": "063dbbacdc9b",
+  "n": 1966,
+  "sig": "2d647a6dacba",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3270,8 +3270,8 @@
   "changed": "2026-11-01"
  },
  "Thermo Fisher Scientific": {
-  "n": 3146,
-  "sig": "cceea922c659",
+  "n": 3144,
+  "sig": "e2a2a51ec213",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3306,8 +3306,8 @@
   "changed": "2026-10-30"
  },
  "Amgen": {
-  "n": 1987,
-  "sig": "46306df1d1bc",
+  "n": 1984,
+  "sig": "486c4f146463",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3330,8 +3330,8 @@
   "changed": "2026-11-01"
  },
  "Carrier": {
-  "n": 988,
-  "sig": "586037b80e71",
+  "n": 983,
+  "sig": "bb09f6faef9d",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3348,10 +3348,10 @@
   "changed": "2026-10-30"
  },
  "OMERS": {
-  "n": 66,
-  "sig": "01b1f0729e84",
+  "n": 65,
+  "sig": "aa296c98aaea",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "3M": {
   "n": 760,
@@ -3360,32 +3360,32 @@
   "changed": "2026-10-24"
  },
  "Humana": {
-  "n": 224,
-  "sig": "278a46c9cd31",
+  "n": 209,
+  "sig": "e345eb682788",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "McKesson": {
-  "n": 690,
-  "sig": "8882ec6ece54",
+  "n": 687,
+  "sig": "08a854edf9bb",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Commonwealth Bank of Australia": {
-  "n": 184,
-  "sig": "cb9301d47fd5",
+  "n": 186,
+  "sig": "0328127a4923",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Viatris": {
-  "n": 354,
-  "sig": "3e09955ad428",
+  "n": 352,
+  "sig": "94389cb738a7",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Sanofi": {
-  "n": 929,
-  "sig": "82d20bb24449",
+  "n": 925,
+  "sig": "e3b427b9e3af",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3396,8 +3396,8 @@
   "changed": "2026-10-24"
  },
  "Trane": {
-  "n": 1731,
-  "sig": "fe6606121a1d",
+  "n": 1727,
+  "sig": "511ef97767d4",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3438,8 +3438,8 @@
   "changed": "2026-11-01"
  },
  "Regeneron": {
-  "n": 648,
-  "sig": "03f865c7f81e",
+  "n": 646,
+  "sig": "e87756a400df",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3456,10 +3456,10 @@
   "changed": "2026-10-30"
  },
  "Rockwell Automation": {
-  "n": 428,
-  "sig": "c413f37173c0",
+  "n": 429,
+  "sig": "d13c96963df4",
   "checked": "2026-11-02",
-  "changed": "2026-10-31"
+  "changed": "2026-11-02"
  },
  "Ontario Teachers' Pension Plan": {
   "n": 36,
@@ -3468,10 +3468,10 @@
   "changed": "2026-10-30"
  },
  "Fiserv": {
-  "n": 369,
-  "sig": "01195802fa6f",
+  "n": 366,
+  "sig": "c68681466bb1",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Workiva": {
   "n": 99,
@@ -3486,8 +3486,8 @@
   "changed": "2026-10-30"
  },
  "Corpay": {
-  "n": 121,
-  "sig": "77b20a534159",
+  "n": 122,
+  "sig": "0b4d40198892",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3498,8 +3498,8 @@
   "changed": "2026-10-24"
  },
  "JLL": {
-  "n": 3359,
-  "sig": "639fba4664d6",
+  "n": 3356,
+  "sig": "fbc76c6e2fbc",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3522,20 +3522,20 @@
   "changed": "2026-10-30"
  },
  "GE Vernova": {
-  "n": 2172,
-  "sig": "981ba24dc29d",
+  "n": 2159,
+  "sig": "f0595f11c42b",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "General Motors": {
-  "n": 777,
-  "sig": "5167a76ce21b",
+  "n": 751,
+  "sig": "d37d47c3d8f5",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Micron": {
-  "n": 2913,
-  "sig": "38a6032a5c42",
+  "n": 2911,
+  "sig": "503dbc10c806",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3546,8 +3546,8 @@
   "changed": "2026-10-24"
  },
  "Leidos": {
-  "n": 2287,
-  "sig": "809b982315e0",
+  "n": 2286,
+  "sig": "7f3a39ec0ed4",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3582,26 +3582,26 @@
   "changed": "2026-10-30"
  },
  "Merck": {
-  "n": 803,
-  "sig": "c44fe6e8aeaf",
+  "n": 802,
+  "sig": "fa1d8f0ff632",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Labcorp": {
-  "n": 1756,
-  "sig": "8c063b3f69a1",
+  "n": 1751,
+  "sig": "01fa8be620d4",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "GE HealthCare": {
-  "n": 1047,
-  "sig": "eb13ef5d7f6a",
+  "n": 1045,
+  "sig": "898890961308",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Lowe's": {
-  "n": 12527,
-  "sig": "6e1dc480ad0d",
+  "n": 12505,
+  "sig": "2c446b2f7bac",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3642,14 +3642,14 @@
   "changed": "2026-10-29"
  },
  "Global Payments": {
-  "n": 436,
-  "sig": "9b330510fc95",
+  "n": 415,
+  "sig": "2790123a6713",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Gartner": {
-  "n": 798,
-  "sig": "f710db2e4f00",
+  "n": 799,
+  "sig": "2359bebd5ca4",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3660,8 +3660,8 @@
   "changed": "2026-11-01"
  },
  "Western Union": {
-  "n": 62,
-  "sig": "67e06899bef1",
+  "n": 61,
+  "sig": "6fb54e49865e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3696,8 +3696,8 @@
   "changed": "2026-10-24"
  },
  "BorgWarner": {
-  "n": 352,
-  "sig": "02f66d11f471",
+  "n": 351,
+  "sig": "176e9bd74cc2",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3714,14 +3714,14 @@
   "changed": "2026-10-23"
  },
  "Kyndryl": {
-  "n": 882,
-  "sig": "10cb8890b48c",
+  "n": 884,
+  "sig": "9dd7f7cebf6e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Avis Budget Group": {
-  "n": 519,
-  "sig": "68beb4b716ec",
+  "n": 520,
+  "sig": "3bccb76ddf11",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3756,14 +3756,14 @@
   "changed": "2026-11-01"
  },
  "Salesforce": {
-  "n": 1548,
-  "sig": "e8d3e89b53e0",
+  "n": 1546,
+  "sig": "ada024c83fc6",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "RTX": {
-  "n": 4695,
-  "sig": "9334d3571219",
+  "n": 4689,
+  "sig": "7ebccfbc136d",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3816,8 +3816,8 @@
   "changed": "2026-10-24"
  },
  "Biogen": {
-  "n": 274,
-  "sig": "a013602777d0",
+  "n": 275,
+  "sig": "8e66e0d2b841",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3828,14 +3828,14 @@
   "changed": "2026-10-24"
  },
  "Insulet": {
-  "n": 166,
-  "sig": "ba88c467cb01",
+  "n": 164,
+  "sig": "d5adb67e3284",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "eBay": {
-  "n": 260,
-  "sig": "dee9c8f689ae",
+  "n": 259,
+  "sig": "92289af19c6a",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3858,10 +3858,10 @@
   "changed": "2026-11-02"
  },
  "Flowserve": {
-  "n": 364,
-  "sig": "d4db90eb1337",
+  "n": 363,
+  "sig": "6775b989700e",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Westlake": {
   "n": 276,
@@ -3870,8 +3870,8 @@
   "changed": "2026-10-24"
  },
  "Zebra Technologies": {
-  "n": 246,
-  "sig": "d92f2afe4b92",
+  "n": 245,
+  "sig": "95ec607f9623",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3894,10 +3894,10 @@
   "changed": "2026-10-28"
  },
  "Unum": {
-  "n": 66,
-  "sig": "37ad74a18f74",
+  "n": 65,
+  "sig": "387cab7606ee",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Kemper": {
   "n": 382,
@@ -3942,26 +3942,26 @@
   "changed": "2026-11-02"
  },
  "Duke Energy": {
-  "n": 93,
-  "sig": "32b0b57e9ec1",
+  "n": 85,
+  "sig": "3eac611c25d0",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "AEP": {
-  "n": 242,
-  "sig": "06250e1c1ccb",
+  "n": 234,
+  "sig": "8d37ab32d09b",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Walt Disney Company": {
-  "n": 259,
-  "sig": "09c1851f7446",
+  "n": 241,
+  "sig": "26c2169a63f0",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Centene": {
   "n": 372,
-  "sig": "a097d2a6cdb2",
+  "sig": "26d1beb6a964",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -3978,8 +3978,8 @@
   "changed": "2026-10-30"
  },
  "Eversource": {
-  "n": 210,
-  "sig": "9f37f8e7c405",
+  "n": 209,
+  "sig": "d44189526ace",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4044,10 +4044,10 @@
   "changed": "2026-10-24"
  },
  "Toyota Motor North America / Toyota Financial": {
-  "n": 111,
-  "sig": "5a99758e2182",
+  "n": 110,
+  "sig": "17822d7d3864",
   "checked": "2026-11-02",
-  "changed": "2026-10-31"
+  "changed": "2026-11-02"
  },
  "Williams Companies": {
   "n": 115,
@@ -4086,8 +4086,8 @@
   "changed": "2026-10-31"
  },
  "Nike": {
-  "n": 743,
-  "sig": "c5a6db758485",
+  "n": 742,
+  "sig": "e7388e46491a",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4098,8 +4098,8 @@
   "changed": "2026-10-30"
  },
  "MGM Resorts": {
-  "n": 468,
-  "sig": "00d42a205274",
+  "n": 467,
+  "sig": "b519a370cf2d",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4110,10 +4110,10 @@
   "changed": "2026-10-22"
  },
  "Aptiv": {
-  "n": 790,
-  "sig": "557558ae8f05",
+  "n": 791,
+  "sig": "7ceddf454efd",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Axalta": {
   "n": 188,
@@ -4153,7 +4153,7 @@
  },
  "Jabil": {
   "n": 2195,
-  "sig": "a70f199adb88",
+  "sig": "924a8fbc2e26",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4267,15 +4267,15 @@
  },
  "Pfizer": {
   "n": 536,
-  "sig": "afefad920641",
+  "sig": "ccbc2f77a38d",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Illumina": {
-  "n": 165,
-  "sig": "4e120f25b0dc",
+  "n": 164,
+  "sig": "341e9a9fd9b9",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "Agilent Technologies": {
   "n": 393,
@@ -4284,8 +4284,8 @@
   "changed": "2026-10-24"
  },
  "GSK": {
-  "n": 973,
-  "sig": "fdec61b85040",
+  "n": 972,
+  "sig": "e86692d81ff5",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4368,14 +4368,14 @@
   "changed": "2026-10-24"
  },
  "Cisco": {
-  "n": 1442,
-  "sig": "bf7cdef6076a",
+  "n": 1433,
+  "sig": "327cbfd74fb6",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "KLA": {
-  "n": 1147,
-  "sig": "4848f94327e5",
+  "n": 1146,
+  "sig": "0d4ca285e858",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4386,22 +4386,22 @@
   "changed": "2026-10-24"
  },
  "Maersk": {
-  "n": 1187,
-  "sig": "00b24b2d3bd1",
+  "n": 1184,
+  "sig": "0f3051d641bf",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Sabre": {
-  "n": 100,
-  "sig": "2d5d46ff102f",
+  "n": 99,
+  "sig": "58d90196ebae",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "Assurant": {
-  "n": 88,
-  "sig": "e1d767118d37",
+  "n": 87,
+  "sig": "4c80ce566f06",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "First American Financial": {
   "n": 25,
@@ -4434,8 +4434,8 @@
   "changed": "2026-10-30"
  },
  "Dow": {
-  "n": 169,
-  "sig": "c92e16d061e9",
+  "n": 168,
+  "sig": "9aa2ad8e2f97",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4506,8 +4506,8 @@
   "changed": "2026-10-24"
  },
  "DaVita": {
-  "n": 3358,
-  "sig": "7b249387ad92",
+  "n": 3345,
+  "sig": "9446aa3a8d09",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4518,14 +4518,14 @@
   "changed": "2026-10-23"
  },
  "Tyson Foods": {
-  "n": 433,
-  "sig": "85112a467b94",
+  "n": 432,
+  "sig": "c0a86b714779",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Chewy": {
-  "n": 227,
-  "sig": "6f35a68ff45f",
+  "n": 228,
+  "sig": "0d81233a4966",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4572,8 +4572,8 @@
   "changed": "2026-10-31"
  },
  "Allegion": {
-  "n": 334,
-  "sig": "81e5f9eccc91",
+  "n": 333,
+  "sig": "e56859dfe39b",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4651,9 +4651,9 @@
  },
  "Broadcom": {
   "n": 372,
-  "sig": "ca17ba8e0ab6",
+  "sig": "1df8b54f941b",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "J.B. Hunt": {
   "n": 489,
@@ -4698,8 +4698,8 @@
   "changed": "2026-10-30"
  },
  "Goldman Sachs": {
-  "n": 655,
-  "sig": "9d47e7f96606",
+  "n": 656,
+  "sig": "e34f19f95a41",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4711,7 +4711,7 @@
  },
  "Standard Chartered": {
   "n": 237,
-  "sig": "d7d1d618346c",
+  "sig": "c6d29c9aa660",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4734,8 +4734,8 @@
   "changed": "2026-10-30"
  },
  "New York Life": {
-  "n": 55,
-  "sig": "9762591fb313",
+  "n": 52,
+  "sig": "93f9438da2aa",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4746,8 +4746,8 @@
   "changed": "2026-11-02"
  },
  "HSBC": {
-  "n": 1231,
-  "sig": "4966a74af801",
+  "n": 1235,
+  "sig": "a336302459e8",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4770,14 +4770,14 @@
   "changed": "2026-10-30"
  },
  "Nomura": {
-  "n": 199,
-  "sig": "f525b2585bfb",
+  "n": 200,
+  "sig": "a2d22cc55fcb",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "UBS": {
-  "n": 554,
-  "sig": "26300f99024b",
+  "n": 567,
+  "sig": "b374c2fab3ea",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4788,16 +4788,16 @@
   "changed": "2026-11-02"
  },
  "TD Bank": {
-  "n": 1514,
-  "sig": "de44444b9f4d",
+  "n": 1432,
+  "sig": "6a0f769ecbd4",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "TIAA": {
-  "n": 149,
-  "sig": "e2d39ce0a985",
+  "n": 145,
+  "sig": "fde0e60f102e",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "FHLB New York": {
   "n": 4,
@@ -4860,22 +4860,22 @@
   "changed": "2026-10-31"
  },
  "ANZ": {
-  "n": 126,
-  "sig": "58a3cd64ef10",
+  "n": 127,
+  "sig": "76a3b3fb02d2",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Westpac": {
-  "n": 159,
-  "sig": "a0466a4ac093",
+  "n": 157,
+  "sig": "1a6b939d9931",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "Desjardins": {
-  "n": 285,
-  "sig": "2e1f7f77c572",
+  "n": 282,
+  "sig": "8ac72ce2fd66",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Nordea": {
   "n": 125,
@@ -4902,8 +4902,8 @@
   "changed": "2026-10-22"
  },
  "Macquarie": {
-  "n": 550,
-  "sig": "62d586f3ee7f",
+  "n": 551,
+  "sig": "32b4107054e5",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4926,8 +4926,8 @@
   "changed": "2026-10-31"
  },
  "Intesa Sanpaolo": {
-  "n": 149,
-  "sig": "ec87caf6a6da",
+  "n": 150,
+  "sig": "76456ff26266",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4969,7 +4969,7 @@
  },
  "London Stock Exchange Group": {
   "n": 669,
-  "sig": "fe3de1d0e374",
+  "sig": "352f130ef1ed",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -4992,8 +4992,8 @@
   "changed": "2026-11-01"
  },
  "Aon": {
-  "n": 1064,
-  "sig": "b6bc08936c4c",
+  "n": 1065,
+  "sig": "8f831da418d5",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -5004,10 +5004,10 @@
   "changed": "2026-10-30"
  },
  "BOK Financial": {
-  "n": 147,
-  "sig": "fafcb7af0bb7",
+  "n": 146,
+  "sig": "b31eb380d759",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Genworth": {
   "n": 44,
@@ -5022,14 +5022,14 @@
   "changed": "2026-11-02"
  },
  "Deloitte": {
-  "n": 1332,
-  "sig": "d632f8aa66e6",
+  "n": 1314,
+  "sig": "bc679ace576d",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
  "EY": {
-  "n": 419,
-  "sig": "c5dac0ca4671",
+  "n": 418,
+  "sig": "0e324aa5d30c",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -5142,10 +5142,10 @@
   "changed": "2026-10-30"
  },
  "First Citizens Bank": {
-  "n": 413,
-  "sig": "7f1b757de97b",
+  "n": 411,
+  "sig": "a9eb4c610780",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "City National Bank": {
   "n": 155,
@@ -5214,16 +5214,16 @@
   "changed": "2026-10-30"
  },
  "SouthState Bank": {
-  "n": 179,
-  "sig": "e309c9d198a5",
+  "n": 178,
+  "sig": "53c57042048e",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Rockland Trust (Independent Bank Corp)": {
-  "n": 128,
-  "sig": "1c858b9ab8cc",
+  "n": 129,
+  "sig": "90efec293410",
   "checked": "2026-11-02",
-  "changed": "2026-10-30"
+  "changed": "2026-11-02"
  },
  "Seacoast Bank": {
   "n": 80,
@@ -5376,10 +5376,10 @@
   "changed": "2026-10-24"
  },
  "Lord Abbett": {
-  "n": 21,
-  "sig": "929d498bb6b9",
+  "n": 20,
+  "sig": "ac2b937dd387",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "America First Credit Union": {
   "n": 25,
@@ -5388,10 +5388,10 @@
   "changed": "2026-11-01"
  },
  "Bloomberg": {
-  "n": 331,
-  "sig": "d64921b69d6c",
+  "n": 330,
+  "sig": "a251577f17ce",
   "checked": "2026-11-02",
-  "changed": "2026-10-31"
+  "changed": "2026-11-02"
  },
  "Securian Financial": {
   "n": 32,
@@ -5508,10 +5508,10 @@
   "changed": "2026-11-01"
  },
  "Navy Federal Credit Union": {
-  "n": 153,
-  "sig": "3483bad29721",
+  "n": 152,
+  "sig": "0b530ea95d9d",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Onity Group": {
   "n": 13,
@@ -5599,9 +5599,9 @@
  },
  "Provident Bank": {
   "n": 82,
-  "sig": "4a057692c556",
+  "sig": "80d338b80023",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Bread Financial": {
   "n": 27,
@@ -5622,10 +5622,10 @@
   "changed": "2026-10-22"
  },
  "Citco": {
-  "n": 511,
-  "sig": "8280068ac12a",
+  "n": 510,
+  "sig": "aad68c326984",
   "checked": "2026-11-02",
-  "changed": "2026-11-01"
+  "changed": "2026-11-02"
  },
  "Marathon Asset Management": {
   "n": 13,
@@ -5652,8 +5652,8 @@
   "changed": "2026-11-01"
  },
  "Constellation Energy": {
-  "n": 338,
-  "sig": "61f91702eadd",
+  "n": 337,
+  "sig": "89bac58f516e",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
@@ -5706,10 +5706,10 @@
   "changed": "2026-11-01"
  },
  "Expand Energy": {
-  "n": 40,
-  "sig": "2935d9896471",
+  "n": 37,
+  "sig": "111cb2751760",
   "checked": "2026-11-02",
-  "changed": "2026-10-28"
+  "changed": "2026-11-02"
  },
  "Fortitude Re": {
   "n": 44,
@@ -5736,8 +5736,8 @@
   "changed": "2026-11-02"
  },
  "Qualcomm": {
-  "n": 2044,
-  "sig": "b5515c896156",
+  "n": 2047,
+  "sig": "febd2a077f03",
   "checked": "2026-11-02",
   "changed": "2026-11-02"
  },
