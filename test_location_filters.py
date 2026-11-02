@@ -25,6 +25,7 @@ EXCLUDED = [
     "Quito", "Wien - Donau-City-Straße 7", "Helsinki, FI, 00500", "Mönchengladbach - Santander-Platz", "PGX Porto Alegre", "2 CENTRAL SQUARE:CARDIFF", "Citynet - Mandaluyong City", "Visakhapatnam, AP", "Managua, Nicaragua", "PSA Isabela", "PSA Aurora",
     "Adelaide, SA, AU, 5000", "Diegem, BE, 1831", "CABA, B, AR, 1001", "Hamburg, HH, DE, 20148",
     "Wellington, nz", "Adelaide, AU", "BA - Rio de Janeiro",
+    "Aarhus", "Algiers, Algeria", "Andorra", "Basildon, Endeavour Drive", "Bettlach", "Bracknell", "Brno, Czechia", "Caracas, Venezuela", "Cruiserath - IE", "Cumbria", "Diego Garcia, British Indian Ocean Territory", "Duesseldorf", "Guayaquil", "Nicosia, CY", "Limassol - City House", "Louvain-L-N Boulevard Baudouin", "Montevideo, Uruguay", "Roma - Largo Fochetti 29", "Iskandar Puteri, 01, MY, 79250", "SRB BELG 136B FLR2", "3400, CORRIENTES, Corrientes", "WOODWATER PARK, PYNES HILL:EXETER",
     "Baku", "St Helier, Jersey, Jersey", "1401-GIPL: Incubation Cntr, Hanamkonda, Telangana", "Las Pinas (PHL)", "Lysaker", "Sucursal Holanda", "138_Servicios Centrales RV", "JUAN IGNACIO LUCA DE TENA",
 ]
 US_KEPT = [
