@@ -743,7 +743,7 @@ def workday(c):
                             posted=_workday_posted(j.get("postedOn"))))
         complete = complete and term_complete
     for site, want in expected.items():  # facet slices must add up to the board: a short count means postings the
-        if per_site.get(site, 0) < 0.998 * want:  # facet does not cover (or a mid-read change), never a complete read
+        if per_site.get(site, 0) < float(c.get("facet_coverage_min", 0.998)) * want:  # facet does not cover (or a mid-read change), never a complete read
             complete = False
     if not complete and read_whole and not c.get("_seq_retry") and _SEQ_RETRY_BUDGET[0] > 0:
         # Parallel paging on a live board repeats and skips rows (Truist/Wells Fargo read 1-3% short while a
@@ -2911,6 +2911,9 @@ def matches(job, f):
         return False
     if contains_any(t, exc):
         return False
+    for rule in f.get("title_exclude_unless", []):  # non-finance engineering/trade titles only; a finance word keeps the role
+        if contains_any(t, rule["terms"]) and not contains_any(t, rule["unless"]):
+            return False
     if _BARE_HQ_RE.match(loc_folded):
         return False
     if _BARE_NON_US_CITY_RE.match(loc_folded):
