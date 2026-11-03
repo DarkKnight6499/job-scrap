@@ -61,6 +61,23 @@ a.back { color:var(--accent); text-decoration:none; font-weight:600; }
   <div id="matrix" class="grid" style="margin-top:10px"></div>
 </div>
 
+<div class="box" id="postsBox" style="margin-top:14px">
+  <label>Hiring posts found by the 2026-11-03 search run (past 14 days, hand-filtered)</label>
+  <p class="sub" id="postsStatus" style="margin:6px 0 10px;font-size:13px">Loading</p>
+  <div id="posts"></div>
+</div>
+<script>
+fetch('hiring_posts.json').then(function(r){return r.json()}).then(function(d){
+  document.getElementById('postsStatus').textContent=d.posts.length+' posts, newest first. Built '+d.built+'. Each links to the LinkedIn post.';
+  var box=document.getElementById('posts');
+  d.posts.sort(function(a,b){return a.age-b.age}).forEach(function(p){
+    var a=document.createElement('a');a.href=p.url;a.target='_blank';a.rel='noopener';a.style.display='block';a.style.margin='0 0 10px';a.style.textDecoration='none';a.style.color='inherit';
+    var t=document.createElement('b');t.textContent=p.title;
+    var m=document.createElement('div');m.className='sub';m.style.margin='2px 0 0';m.style.fontSize='13px';m.textContent=p.role+' | '+p.city+' | '+(p.age?p.age+' days ago':'today')+' | '+p.desc;
+    a.appendChild(t);a.appendChild(m);box.appendChild(a);
+  });
+}).catch(function(){document.getElementById('postsStatus').textContent='Could not load hiring_posts.json'});
+</script>
 <div id="out"></div>
 </div>
 <script>
