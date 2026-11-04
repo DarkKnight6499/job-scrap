@@ -2884,6 +2884,9 @@ def _rescue_multi_site(c, jobs, hits, filters):
     return rescued
 
 
+_CSOD_DESC = {}
+
+
 def describe(c, job):
     """Full description text for one job, plus a Workday date refinement. Returns (text, posted,
     posted_source) - posted_source is "exact" for Workday's detail-endpoint startDate and the other
@@ -2940,6 +2943,12 @@ def describe(c, job):
         it = items[0]
         parts = [it.get(k) for k in ("ExternalDescriptionStr", "ExternalResponsibilitiesStr", "ExternalQualificationsStr")]
         return strip_html(" ".join(p for p in parts if p)), "", ""
+    if ats == "csod":  # no public detail endpoint; the list call carries externalDescription, so cache it per corp
+        key = (c["corp"], int(c.get("site", 1)))
+        if key not in _CSOD_DESC:
+            rows, _ok = csod(c)
+            _CSOD_DESC[key] = {r["id"]: r.get("desc", "") for r in rows}
+        return _CSOD_DESC[key].get(str(job["id"]), ""), "", ""
     if ats == "jibe":  # list rows are queued without desc; the job page JSON-LD carries it
         return (_jsonld_description(job["url"]) if job.get("url") else ""), "", ""
     if ats == "tal":  # list rows keep no description; the posting page carries it (same parser tal() uses)
