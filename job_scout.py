@@ -364,6 +364,8 @@ def lever(c):
     d = http(f"https://{host}/v0/postings/{c['slug']}?mode=json")
     out = []
     for j in d:
+        if c.get("team") and (j.get("categories") or {}).get("team") != c["team"]:
+            continue
         desc = j.get("descriptionPlain") or strip_html(j.get("description", ""))
         for lst in j.get("lists") or []:
             desc += " " + (lst.get("text") or "") + " " + strip_html(lst.get("content", ""))
@@ -381,6 +383,131 @@ def lever(c):
         out.append(dict(id=j["id"], title=j["text"], location=(j.get("categories") or {}).get("location", "") or "",
                         url=j["hostedUrl"], desc=desc, posted=posted))
     return out, True  # single uncapped call: always the full board
+
+
+def workable(c):
+    """Workable public v3 listing; POST nextPage back as token to read the whole board."""
+    out, seen, tokens = [], set(), set()
+    body = {"query": "", "location": [], "department": [], "worktype": [], "remote": []}
+    for _ in range(int(c.get("max_pages", 40))):
+        d = http(f"https://apply.workable.com/api/v3/accounts/{c['slug']}/jobs", data=body)
+        for j in d["results"]:
+            jid = j["shortcode"]
+            if jid in seen:
+                continue
+            seen.add(jid)
+            loc = j.get("location") or {}
+            location = ", ".join(x for x in (loc.get("city"), loc.get("region"), loc.get("country")) if x)
+            if j.get("remote"):
+                location += " | Remote" if location else "Remote"
+            out.append(dict(id=jid, title=j["title"].strip(), location=location,
+                            url=f"https://apply.workable.com/{c['slug']}/j/{jid}/",
+                            posted=(j.get("published") or "")[:10]))
+        token = d.get("nextPage")
+        if not token:
+            return out, len(seen) >= int(d.get("total", len(seen)))
+        if not d["results"] or token in tokens:
+            return out, False
+        tokens.add(token)
+        body = dict(body, token=token)
+    return out, False
+
+
+def _jobposting(raw):
+    """Read a JobPosting object, including JSON-LD lists and graphs."""
+    for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw, re.S | re.I):
+        try:
+            data = json.loads(m.group(1))
+        except ValueError:
+            continue
+        rows = data if isinstance(data, list) else [data]
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            for item in [row] + (row.get("@graph") or []):
+                if isinstance(item, dict) and "JobPosting" in (item.get("@type") or []):
+                    return item
+    return {}
+
+
+def _posting_location(j):
+    """Keep every advertised location in a schema.org posting."""
+    locations = j.get("jobLocation") or []
+    locations = locations if isinstance(locations, list) else [locations]
+    out = []
+    for loc in locations:
+        address = loc.get("address") or {}
+        if isinstance(address, str):
+            out.append(address)
+            continue
+        country = address.get("addressCountry") or ""
+        if isinstance(country, dict):
+            country = country.get("name") or ""
+        out.append(", ".join(x for x in (address.get("addressLocality"), address.get("addressRegion"), country) if x))
+    if j.get("jobLocationType") == "TELECOMMUTE":
+        out.append("Remote")
+    return "; ".join(x for x in out if x)
+
+
+def _public_job_detail(url):
+    """Keep visible job text when a hosted page has no JSON-LD description."""
+    raw = http(url, raw=True, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    j = _jobposting(raw)
+    text = j.get("description") or re.sub(r'(?is)<(script|style|form|nav|header|footer)\b.*?</\1>', " ", raw)
+    return raw, j, strip_html(text)[:30000]
+
+
+def jazzhr(c):
+    """JazzHR hosted HTML listing and per-job JSON-LD; missing dates stay blank."""
+    base = f"https://{c['host']}"
+    raw = http(base, raw=True, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    out, seen = [], set()
+    for m in re.finditer(r'<a\b[^>]*href=[\'\"]([^\'\"]*/apply/([^/\'\"?]+)/[^\'\"]*)[\'\"][^>]*>(.*?)</a>', raw, re.S | re.I):
+        jid = m.group(2)
+        if jid in seen:
+            continue
+        seen.add(jid)
+        url = urllib.parse.urljoin(base, html.unescape(m.group(1)))
+        detail, j, desc = _public_job_detail(url)
+        location = _posting_location(j)
+        if not location:
+            loc = re.search(r'<span[^>]*class=[\'\"][^\'\"]*\bfa-map-marker\b[^\'\"]*[\'\"][^>]*>.*?</span>\s*(.*?)</li>', detail, re.S | re.I)
+            location = strip_html(loc.group(1)) if loc else ""
+        out.append(dict(id=jid, title=strip_html(j.get("title") or m.group(3)), location=location,
+                        url=url, posted=_page_date(detail), desc=desc))
+    return out, bool(seen) or "Current Openings" in raw
+
+
+def nas_recruitment(c):
+    """NAS job sitemap supplies URLs and lastmod; detail pages supply title and location."""
+    base = f"https://{c['host']}"
+    root = ET.fromstring(http(f"{base}/jobs-site.xml", raw=True))
+    if root.tag.rsplit("}", 1)[-1] != "urlset":
+        raise ValueError("NAS jobs-site.xml must be a urlset")
+    out, seen = [], set()
+    for row in root.findall("{*}url"):
+        url = (row.findtext("{*}loc") or "").strip()
+        if "/search/jobdetails/" not in url:
+            continue
+        jid = urllib.parse.urlsplit(url).path.rstrip("/").rsplit("/", 1)[-1]
+        if jid in seen:
+            continue
+        seen.add(jid)
+        raw, j, desc = _public_job_detail(url)
+        title = re.search(r'<h1\b[^>]*>(.*?)</h1>', raw, re.S | re.I)
+        title = j.get("title") or (strip_html(title.group(1)) if title else "")
+        if not title:
+            raise ValueError(f"NAS job title missing: {url}")
+        location = _posting_location(j)
+        if not location:
+            loc = re.search(r'<li\b[^>]*>\s*(?:<(?:strong|b|span)\b[^>]*>\s*)?Location:\s*(?:</(?:strong|b|span)>)?(.*?)</li>', raw, re.S | re.I)
+            location = strip_html(loc.group(1)) if loc else ""
+        location = "; ".join(dict.fromkeys(p.strip() for p in location.split('">') if p.strip()))  # Osaic repeats the address after a stray ">
+        lastmod = (row.findtext("{*}lastmod") or "").strip()[:10]
+        out.append(dict(id=jid, title=title.strip(), location=location, url=url,
+                        posted=lastmod, posted_source="approx" if lastmod else "",
+                        desc=desc))
+    return out, True
 
 
 def _ashby_pay(j):
@@ -1212,6 +1339,8 @@ def talentbrew(c):
                 continue
             seen.add(jid)
             body = card.group(3)
+            if c.get("filter") and c["filter"].casefold() not in html.unescape(card.group(1) + " " + strip_html(body)).casefold():
+                continue
             title = re.search(r"<h2[^>]*>(.*?)</h2>", body, re.S)
             loc = re.search(r'class="job-location">(.*?)</span>', body, re.S)
             posted = re.search(r'class="job-date-posted">(\d{2})/(\d{2})/(\d{4})', body)
@@ -2364,7 +2493,8 @@ def phenom(c):
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
              oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
              balyasny=balyasny, tal=tal,
-             dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr)
+             dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr,
+             jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -2718,6 +2848,10 @@ def describe(c, job):
             if len(text) > 200:  # the page also carries short site-level descriptions
                 return text + _jsonld_pay(raw), "", ""
         return _jsonld_description(job["url"]), "", ""
+    if ats in ("workable", "jazzhr", "nas_recruitment"):
+        raw, _, text = _public_job_detail(job["url"])
+        posted = _page_date(raw) if ats != "nas_recruitment" else ""
+        return text, posted, "exact" if posted else ""
     if ats in ("talentbrew", "paylocity"):
         return _jsonld_description(job["url"]), "", ""
     if ats == "taleo":

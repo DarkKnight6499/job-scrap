@@ -10,6 +10,7 @@ import unicodedata
 # Required by the fetchers. Fields with fetcher defaults stay optional.
 REQUIRED_FIELDS = {
     "greenhouse": ("slug",), "lever": ("slug",), "ashby": ("slug",),
+    "jazzhr": ("host",), "workable": ("slug",), "nas_recruitment": ("host",),
     "smartrecruiters": ("slug",), "personio": ("slug",),
     "workday": ("host", "tenant", "site"), "oracle": ("host", "site"),
     "successfactors": ("host",), "icims": (),
@@ -122,6 +123,10 @@ def validate(config, queue):
                 invalid = True
             elif not company.get("hosts") and not _text(company.get("host")):
                 errors.append(f"{label}: icims requires host or hosts")
+                invalid = True
+        for field in {"lever": ("team",), "talentbrew": ("filter",)}.get(ats, ()):
+            if field in company and not _text(company[field]):
+                errors.append(f"{label}: {field} must be a nonempty string")
                 invalid = True
         if ats == "workday" and _strings(company.get("site")) and any(not _path(s) for s in company["site"]):
             errors.append(f"{label}: site paths must be nonempty")
