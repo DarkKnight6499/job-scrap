@@ -4487,7 +4487,8 @@ function copyText(text) {
   function applyLocation() {
     rows.forEach(function(tr) {
       var loc = textOf(tr, COL_LOCATION).toLowerCase();
-      var ok = METRO_RE.test(loc) && !UPSTATE_RE.test(loc);
+      // Multi-site rows join sites with ';' or '|': one metro site is enough, an upstate site only vetoes its own segment.
+      var ok = loc.split(/\s*[;|]\s*/).some(function(part) { return METRO_RE.test(part) && !UPSTATE_RE.test(part); });
       tr.classList.toggle('hidden-by-location', metroBox.checked && !ok);
     });
     recount();
