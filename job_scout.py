@@ -1473,6 +1473,10 @@ def eightfold(c):
 def _jsonld_description(url):
     """Description from a job page's schema.org JobPosting JSON-LD block (used by TalentBrew)."""
     raw = http(url, raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    return _jsonld_text(raw)
+
+
+def _jsonld_text(raw):
     for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', raw, re.S):
         try:
             data = json.loads(m.group(1))
@@ -2075,6 +2079,19 @@ def paylocity(c):
         out.append(dict(id=str(j["JobId"]), title=j.get("JobTitle", ""), location=place,
                         url=f"https://recruiting.paylocity.com/Recruiting/Jobs/Details/{j['JobId']}",
                         posted=(j.get("PublishedDate") or "")[:10]))
+
+    def page_date(job):  # the job page's own datePosted is the posting date; the list date disagrees on some jobs
+        try:
+            raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+        except Exception:  # noqa: BLE001  keep the list date
+            return ""
+        d = _page_date(raw)
+        return "" if d == date.today().isoformat() else d  # today's date is a render stamp, not a posting date
+
+    with ThreadPoolExecutor(max_workers=int(c.get("page_workers", 8))) as pool:
+        for job, d in zip(out, pool.map(page_date, out)):
+            if d:
+                job["posted"] = d
     return out, True
 
 
@@ -3032,7 +3049,13 @@ def describe(c, job):
         raw, _, text = _public_job_detail(job["url"])
         posted = _page_date(raw) if ats not in ("nas_recruitment", "comeet") else ""
         return text, posted, "exact" if posted else ""
-    if ats in ("talentbrew", "paylocity"):
+    if ats == "paylocity":  # the page's own datePosted beats the list date; a date equal to today is a render stamp, so ignored
+        raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+        posted = _page_date(raw)
+        if posted == date.today().isoformat():
+            posted = ""
+        return _jsonld_text(raw), posted, "exact" if posted else ""
+    if ats == "talentbrew":
         return _jsonld_description(job["url"]), "", ""
     if ats == "taleo":
         raw = http(job["url"], raw=True, timeout=40, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")

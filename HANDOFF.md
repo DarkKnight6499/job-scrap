@@ -49,7 +49,7 @@ Other unreachable: BNP Paribas (Akamai on the group site; the applicant system `
 - **Two Sigma** returned a one-off HTTP 406 in a full run (works alone; watch it).
 - **Undated postings** (they fall back to first_seen): Zions, D. E. Shaw, Oppenheimer, and Cincinnati Financial jobs older than 28 days. No date source exists on those sites (documented attempts in the session).
 - **Approximate dates** ("~" on the page, kept on purpose): Credit Agricole CIB, East West Bank and UBS (site update dates), Cincinnati Financial (age-bucket midpoint, under 28 days), ADP RM (Valley, BankUnited: last-posted time). `date_from_id` (job-number date estimate) is implemented but off for every company because job numbers do not track dates.
-- **Doubtful dates**: ConnectOne (list date and page date disagree on 2 of 4 jobs) and about 16 TowneBank evergreen postings dated 2026-06-30.
+- **Dates settled 2026-11-04**: ConnectOne now uses each job page's own datePosted (a date equal to today is ignored as a render stamp); the paylocity fetcher reads every page, about 30 s for 35 jobs. TowneBank keeps the board date, including a few 2024 to 2025 postings that stay open.
 - **No describe route** for a few ATS types when copying JDs: Phenom, Ashby and a handful of others (about 93 queue rows during the salary backfill).
 - **Never guess**: experience is read only from the description (no title inference) and an unlabelled small pay pair is not assumed hourly. A few salaries show the widest span of a multi-range location table, with a note in the evidence.
 
