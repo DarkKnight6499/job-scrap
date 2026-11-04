@@ -11,6 +11,7 @@ import unicodedata
 REQUIRED_FIELDS = {
     "greenhouse": ("slug",), "lever": ("slug",), "ashby": ("slug",),
     "jazzhr": ("host",), "workable": ("slug",), "nas_recruitment": ("host",),
+    "teamtailor": ("host",), "comeet": ("host",), "kula": ("slug",),
     "smartrecruiters": ("slug",), "personio": ("slug",),
     "workday": ("host", "tenant", "site"), "oracle": ("host", "site"),
     "successfactors": ("host",), "icims": (),
@@ -124,7 +125,7 @@ def validate(config, queue):
             elif not company.get("hosts") and not _text(company.get("host")):
                 errors.append(f"{label}: icims requires host or hosts")
                 invalid = True
-        for field in {"lever": ("team",), "talentbrew": ("filter",)}.get(ats, ()):
+        for field in {"lever": ("team",), "talentbrew": ("filter",), "comeet": ("uid", "token")}.get(ats, ()):
             if field in company and not _text(company[field]):
                 errors.append(f"{label}: {field} must be a nonempty string")
                 invalid = True

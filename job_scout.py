@@ -510,6 +510,171 @@ def nas_recruitment(c):
     return out, True
 
 
+def _hosted_job_list(base, pattern):
+    """Read hosted job links and their JSON-LD without treating unknown pages as empty boards."""
+    raw = http(base, raw=True, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+    out, seen = [], set()
+    for m in re.finditer(r'<a\b[^>]*href=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</a>', raw, re.S | re.I):
+        url = urllib.parse.urljoin(base, html.unescape(m.group(1)))
+        parts = urllib.parse.urlsplit(url)
+        match = re.fullmatch(pattern, parts.path)
+        if parts.netloc != urllib.parse.urlsplit(base).netloc or not match:
+            continue
+        jid = match.group(1)
+        if jid in seen:
+            continue
+        seen.add(jid)
+        url = urllib.parse.urlunsplit(parts._replace(query="", fragment=""))
+        detail, j, desc = _public_job_detail(url)
+        title = j.get("title") or ""
+        if not title:
+            heading = re.search(r'<h1\b[^>]*>(.*?)</h1>', detail, re.S | re.I)
+            title = strip_html(heading.group(1)) if heading else strip_html(m.group(2))
+        if not title:
+            raise ValueError(f"Hosted job title missing: {url}")
+        out.append(dict(id=jid, title=strip_html(title), location=_posting_location(j),
+                        url=url, posted=_page_date(detail), desc=desc))
+    text = strip_html(raw)
+    count = re.search(r'\b(\d+)\s+(?:jobs|open positions)\b', text, re.I)
+    complete = len(seen) == int(count.group(1)) if count else bool(seen)
+    if not seen and re.search(r'\b(?:no (?:open positions|job openings|jobs)|0 jobs)\b', text, re.I):
+        complete = True
+    if re.search(r'\brel\s*=\s*[\'\"][^\'\"]*\bnext\b', raw, re.I):
+        complete = False
+    return out, complete
+
+
+def _teamtailor_rss(c):
+    """Read RSS pages of 100 jobs; a repeated page or page ceiling is incomplete."""
+    base = f"https://{c['host']}"
+    out, seen = [], set()
+    for page in range(int(c.get("max_pages", 40))):
+        suffix = f"?offset={page * 100}" if page else ""
+        root = ET.fromstring(http(f"{base}/jobs.rss{suffix}", raw=True,
+                                  headers={"Accept": "application/rss+xml, application/xml, */*"}))
+        channel = root.find("{*}channel")
+        if root.tag.rsplit("}", 1)[-1] != "rss" or channel is None:
+            raise ValueError("Teamtailor jobs.rss must contain an RSS channel")
+        rows, before = channel.findall("{*}item"), len(seen)
+        for row in rows:
+            url = urllib.parse.urljoin(base, (row.findtext("{*}link") or "").strip())
+            match = re.fullmatch(r'/jobs/(\d+)(?:-[^/]+)?/?', urllib.parse.urlsplit(url).path)
+            title = strip_html(row.findtext("{*}title") or "")
+            if not match or not title:
+                raise ValueError("Teamtailor RSS item missing a job link or title")
+            jid = match.group(1)
+            if jid in seen:
+                continue
+            seen.add(jid)
+            posted = ""
+            try:
+                posted = parsedate_to_datetime(row.findtext("{*}pubDate") or "").date().isoformat()
+            except (TypeError, ValueError, OverflowError):
+                pass
+            locations = [strip_html(" ".join(loc.itertext())) for loc in row.findall(".//{*}location")]
+            remote = row.findtext("{*}remote_status") or row.findtext("{*}remote-status") or ""
+            if remote.lower() in ("remote", "fully", "fully_remote", "fully-remote", "hybrid"):
+                locations.append("Hybrid" if remote.lower() == "hybrid" else "Remote")
+            out.append(dict(id=jid, title=title, location="; ".join(dict.fromkeys(x for x in locations if x)),
+                            url=url, posted=posted, desc=strip_html(row.findtext("{*}description") or "")[:30000]))
+        if len(rows) < 100:
+            return out, True
+        if len(seen) == before:
+            return out, False
+    return out, False
+
+
+def teamtailor(c):
+    """Prefer the public RSS feed; use hosted job pages when the feed is unavailable."""
+    try:
+        return _teamtailor_rss(c)
+    except urllib.error.HTTPError as exc:
+        if exc.code not in (404, 410):
+            raise
+    except (ET.ParseError, ValueError):
+        pass
+    return _hosted_job_list(f"https://{c['host']}/jobs", r'/jobs/(\d+)(?:-[^/]+)?/?')
+
+
+def _comeet_credentials(raw):
+    """Read inline widget settings, data attributes, or an embedded careers API URL."""
+    raw = html.unescape(raw).replace(r'\/', '/').replace(r'\"', '"')
+    uid = re.search(r'(?:\b(?:data-)?company[-_]?uid\b|\bcomeetvar\s*\.\s*company\b|\buid\b)[\'\"]?\s*[:=]\s*[\'\"]([^\'\"]+)', raw, re.I)
+    token = re.search(r'\b(?:data-)?(?:company[-_]?)?token\b[\'\"]?\s*[:=]\s*[\'\"]([^\'\"]+)', raw, re.I)
+    endpoint = re.search(r'/careers-api/2\.0/company/([^/\s\'\"]+)/positions\?([^\s\'\"<>]+)', raw)
+    query = urllib.parse.parse_qs(endpoint.group(2)) if endpoint else {}
+    return (uid.group(1) if uid else endpoint.group(1) if endpoint else "",
+            token.group(1) if token else (query.get("token") or [""])[0])
+
+
+def _comeet_embedded(raw):
+    """Some careers pages inline the whole position list as comeet_data (no API token); None if absent."""
+    marker = '"comeet_data":'
+    i = raw.find(marker)
+    if i < 0:
+        return None
+    try:
+        data = json.JSONDecoder().raw_decode(raw[i + len(marker):])[0]
+        groups = list((data.get("departments") or {}).values())
+    except (ValueError, AttributeError):
+        return None
+    out, seen = [], set()
+    for group in groups:
+        for j in group:
+            jid = str(j.get("uid") or "")
+            if not jid or jid in seen or not j.get("name"):
+                continue
+            seen.add(jid)
+            location = ", ".join(x for x in (j.get("city"), j.get("location_name")) if x)
+            out.append(dict(id=jid, title=j["name"].strip(), location=location, url=j.get("url_active_page") or "",
+                            desc="", posted="", posted_source=""))
+    return out
+
+
+def comeet(c):
+    """Discover public widget credentials and read the complete Careers API position list."""
+    uid, token = c.get("uid"), c.get("token")
+    if not uid or not token:
+        raw = http(c["host"], raw=True, headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        found_uid, found_token = _comeet_credentials(raw)
+        uid, token = uid or found_uid, token or found_token
+        if not uid or not token:
+            embedded = _comeet_embedded(raw)
+            if embedded is not None:
+                return embedded, True
+    if not uid or not token:
+        raise ValueError("Comeet company uid or token missing; set explicit uid/token in config")
+    query = urllib.parse.urlencode({"token": token, "details": "true"})
+    rows = http(f"https://www.comeet.co/careers-api/2.0/company/{urllib.parse.quote(uid, safe='')}/positions?{query}", timeout=60)
+    if not isinstance(rows, list):
+        raise ValueError("Comeet positions must be a list")
+    out, seen = [], set()
+    for j in rows:
+        jid = str(j["uid"])
+        if jid in seen:
+            continue
+        seen.add(jid)
+        loc = j.get("location") or {}
+        location = loc
+        if isinstance(loc, dict):
+            location = loc.get("name") or ", ".join(x for x in (loc.get("city"), loc.get("state"), loc.get("country")) if x)
+        if j.get("workplace_type") == "Remote":
+            location += " | Remote" if location else "Remote"
+        posted = (j.get("time_updated") or "")[:10]
+        desc = " ".join(strip_html(d.get("value") or "") for d in j.get("details") or [])[:30000]
+        out.append(dict(id=jid, title=j["name"].strip(), location=location,
+                        url=j.get("url_active_page") or j["url_comeet_hosted_page"], desc=desc,
+                        posted=posted, posted_source="approx" if posted else ""))
+    return out, True
+
+
+def kula(c):
+    """Read public Kula job links and per-job JSON-LD without guessing a private API."""
+    slug = c["slug"].strip("/")
+    return _hosted_job_list(f"https://careers.kula.ai/{slug}",
+                            rf'/{re.escape(slug)}/(?:jobs/)?(\d+)(?:-[^/]+)?/?')
+
+
 def _ashby_pay(j):
     """Salary components of Ashby's compensation block (equity/commission/bonus components are ignored)."""
     out = ""
@@ -2494,7 +2659,8 @@ FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=sm
              oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
              balyasny=balyasny, tal=tal,
              dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr,
-             jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment)
+             jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment,
+             teamtailor=teamtailor, comeet=comeet, kula=kula)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
@@ -2848,9 +3014,9 @@ def describe(c, job):
             if len(text) > 200:  # the page also carries short site-level descriptions
                 return text + _jsonld_pay(raw), "", ""
         return _jsonld_description(job["url"]), "", ""
-    if ats in ("workable", "jazzhr", "nas_recruitment"):
+    if ats in ("workable", "jazzhr", "nas_recruitment", "teamtailor", "comeet", "kula"):
         raw, _, text = _public_job_detail(job["url"])
-        posted = _page_date(raw) if ats != "nas_recruitment" else ""
+        posted = _page_date(raw) if ats not in ("nas_recruitment", "comeet") else ""
         return text, posted, "exact" if posted else ""
     if ats in ("talentbrew", "paylocity"):
         return _jsonld_description(job["url"]), "", ""
