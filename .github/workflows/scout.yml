@@ -111,7 +111,7 @@ jobs:
       - name: Generate shared HTML view
         run: |
           mkdir -p docs
-          python job_scout.py --queue --all --html docs/index.html
+          python job_scout.py --queue --all --html docs/index.html --closed-json docs/closed.json
 
       - name: Commit updated state/queue/page
         run: |
@@ -119,7 +119,7 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add -A docs/jd
           git add data/filters_sig.json 2>/dev/null || true
-          git add data/state.json data/queue.json data/fetch_times.json data/board_freshness.json data/multisite_cache.json docs/index.html health.json
+          git add data/state.json data/queue.json data/fetch_times.json data/board_freshness.json data/multisite_cache.json docs/index.html docs/closed.json health.json
           git diff --cached --quiet && exit 0
           git commit -m "Update job-scout state [skip ci]"
           for i in 1 2 3 4 5; do

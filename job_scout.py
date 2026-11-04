@@ -3771,7 +3771,7 @@ def cmd_queue(args):
                       if (HOME / "queue.json").exists() else None)
         # public page: never expose applied/shortlisted/dismissed status; opt_only and auto_blocked are properties of the posting, not decisions
         q = [e for e in q if e["state"] in ("new", "opt_only", "auto_blocked")]
-        write_queue_html(q, args.html, updated_at)
+        write_queue_html(q, args.html, updated_at, closed_json=args.closed_json)
         print(f"wrote {len(q)} entries to {args.html}")
         return
     for e in q:
@@ -4308,7 +4308,7 @@ def _extra_script():
             .replace("__JD_URL__", json.dumps(JD_PROXY_URL)))
 
 
-def write_queue_html(q, path, updated_at=None):
+def write_queue_html(q, path, updated_at=None, closed_json=None):
     """Static page, no server: q is already sorted newest-posted-first by cmd_queue. Each row is a
     plain <a> to the live posting so double-clicking the file and clicking a link is the whole workflow.
     "new" postings get their own table up top; every other open state (shortlisted, applied, ...)
@@ -4396,7 +4396,14 @@ def write_queue_html(q, path, updated_at=None):
         f'</details>'
         for state in ordered_states
     )
-    if closed_q:
+    if closed_q and closed_json:
+        # Closed rows are a third of the page; ship them in a sidecar file fetched on first open (hosted https only).
+        Path(closed_json).write_text(json.dumps({"head": closed_head, "rows": [row_html(e) for e in closed_q]}, separators=(",", ":")), encoding="utf-8")
+        sections += (
+            f'<details id="closedLazy" data-src="{html.escape(Path(closed_json).name)}"><summary>closed / removed ({len(closed_q)})</summary>'
+            f'<div class="closed-slot">Loading closed rows...</div></details>'
+        )
+    elif closed_q:
         sections += (
             f'<details><summary>closed / removed ({len(closed_q)})</summary>'
             f'<table><thead>{closed_head}</thead><tbody>{"".join(row_html(e) for e in closed_q)}</tbody></table>'
@@ -4743,6 +4750,24 @@ tr.hidden-by-filter {{ display: none; }}
 }})();
 </script>
 {_extra_script()}
+<script>
+(function() {{
+  var d = document.getElementById('closedLazy');
+  if (!d) return;
+  var done = false;
+  d.addEventListener('toggle', function() {{
+    if (!d.open || done) return;
+    done = true;
+    var slot = d.querySelector('.closed-slot');
+    fetch(d.dataset.src).then(function(r) {{ if (!r.ok) throw new Error(r.status); return r.json(); }}).then(function(j) {{
+      slot.innerHTML = '<table><thead>' + j.head + '</thead><tbody>' + j.rows.join('') + '</tbody></table>';
+    }}).catch(function() {{
+      done = false;
+      slot.textContent = 'Closed rows load only from the hosted page (closed.json), not from a local file.';
+    }});
+  }});
+}})();
+</script>
 <button type="button" id="blockedJump" title="Jump to the Blocked section (citizenship, clearance or STEM OPT excluded)" style="display:none;position:fixed;right:0;top:45%;z-index:50;background:#7b241c;color:#fff;border:0;border-radius:6px 0 0 6px;padding:8px 6px;font-size:0.75rem;font-weight:600;cursor:pointer;writing-mode:vertical-rl;letter-spacing:0.03em">Blocked &#9662;</button>
 <script>
 (function() {{
@@ -5290,6 +5315,7 @@ def main():
     ap.add_argument("--json", action="store_true", help="with --queue: JSON output")
     ap.add_argument("--days", type=int, help="with --queue: only postings posted within the last N days")
     ap.add_argument("--html", metavar="PATH", help="with --queue: write a clickable HTML page instead of stdout")
+    ap.add_argument("--closed-json", metavar="PATH", help="with --html: move closed rows to this sidecar file, loaded on first open")
     ap.add_argument("--mark", nargs=2, metavar=("ID", "STATE"))
     ap.add_argument("--fetch-shard", metavar="I/N", help="fetch only shard I of N and write --out, no state changes")
     ap.add_argument("--out", metavar="PATH", help="with --fetch-shard: result file")
