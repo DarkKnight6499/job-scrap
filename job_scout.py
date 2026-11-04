@@ -945,7 +945,7 @@ def workday(c):
     whole = {}  # combo -> exact row count of a slice that is read whole (empty search, no term)
     expected = {}  # site -> row count a facet-sliced read must reach to count as complete
     read_whole = False  # True when at least one site is read as a whole board (no term search)
-    if len(terms) > 1 and terms != [""]:
+    if len(terms) > 1 and terms != [""] and not c.get("_terms_only"):
         # A board that fits under Workday's 2000-result cap is cheaper to read whole than to query term by term,
         # and returns a superset, so the title list is then applied only by the page filter. A bigger board is read
         # whole too when its true size is below board_read_max: straight through when offsets keep working past 2000
@@ -1037,6 +1037,11 @@ def workday(c):
     for site, want in expected.items():  # facet slices must add up to the board: a short count means postings the
         if per_site.get(site, 0) < float(c.get("facet_coverage_min", 0.998)) * want:  # facet does not cover (or a mid-read change), never a complete read
             complete = False
+    if not complete and read_whole and c.get("term_supplement") and not c.get("_seq_retry") and not c.get("_terms_only"):
+        # Facet slices can miss postings the facets do not cover (Citi): add what the configured title terms find.
+        extra, _ = workday({**c, "_terms_only": True})
+        have = {(j.get("site"), j["id"]) for j in out}
+        out += [j for j in extra if (j.get("site"), j["id"]) not in have]
     if not complete and read_whole and not c.get("_seq_retry") and _SEQ_RETRY_BUDGET[0] > 0:
         # Parallel paging on a live board repeats and skips rows (Truist/Wells Fargo read 1-3% short while a
         # one-page-at-a-time read gets all of it), so re-read a short whole-board once, sequentially, and merge.

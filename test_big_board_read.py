@@ -198,3 +198,22 @@ def test_sequential_retry_budget_is_respected():
         jobs, complete = js.workday(_co())
     assert complete is False
     js._SEQ_RETRY_BUDGET[0] = 4
+
+
+def test_term_supplement_adds_term_search_when_facet_read_is_incomplete():
+    fam = {i: f"f{i % 4}" for i in range(3140)}
+    inner = _board(3140, "capped", fam=fam)
+    log = []
+
+    def fake(url, data=None, **kw):
+        d = inner(url, data=data, **kw)
+        log.append(data["searchText"])
+        for f in d.get("facets", []):
+            f["values"][0]["count"] += 400
+        return d
+    with mock.patch.object(js, "http", fake):
+        _jobs, complete = js.workday(_co(term_supplement=True))
+        assert complete is False and any(log)
+        log.clear()
+        js.workday(_co())
+    assert not any(t for t in log[:50] if t)

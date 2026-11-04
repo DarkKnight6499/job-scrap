@@ -45,7 +45,7 @@ Other unreachable: BNP Paribas (Akamai on the group site; the applicant system `
 
 ## 4. Known limits
 
-- **Citi (Workday)** still reports `complete=False`: facet sums disagree (4,163 / 4,195 / 4,206), so full coverage cannot be proven. Two live postings are missed by the facet slices, including "US Rates Strategist (Treasury Trading)". Possible fix: whole-board read plus a targeted title-term search for Citi only. Closure detection stays off for Citi.
+- **Citi (Workday)**: facet sums can disagree, so full coverage is not always provable; closure detection stays off when incomplete. 2026-11-04: `term_supplement` in config adds the configured title-term searches whenever the facet read is short, which recovers postings the facets miss (US Rates Strategist - Treasury Trading).
 - **Two Sigma** returned a one-off HTTP 406 in a full run (works alone; watch it).
 - **Undated postings** (they fall back to first_seen): Zions, D. E. Shaw, Oppenheimer, and Cincinnati Financial jobs older than 28 days. No date source exists on those sites (documented attempts in the session).
 - **Approximate dates** ("~" on the page, kept on purpose): Credit Agricole CIB, East West Bank and UBS (site update dates), Cincinnati Financial (age-bucket midpoint, under 28 days), ADP RM (Valley, BankUnited: last-posted time). `date_from_id` (job-number date estimate) is implemented but off for every company because job numbers do not track dates.
