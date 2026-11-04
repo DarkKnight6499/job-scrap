@@ -15,7 +15,7 @@ Open chips, with New+opt_only counts at the time of the last measurement:
 
 | Chip | Rows | Note |
 |---|---|---|
-| Other (no category) | about 1,440 | Mostly non-finance employers. About 375 rows come from 15 companies (Highmark Health, Thermo Fisher, Carrier, Merck, Amgen, IQVIA, Baxter, Vertex, AstraZeneca, Regeneron, Bristol Myers Squibb...). Best fix is company-level: drop those non-finance employers from `data/config.json`. |
+| Other (no category) | about 1,440 | Mostly non-finance employers. About 375 rows come from 15 companies (Highmark Health, Thermo Fisher, Carrier, Merck, Amgen, IQVIA, Baxter, Vertex, AstraZeneca, Regeneron, Bristol Myers Squibb...). Company-level drop rejected (those employers also post FP&A and treasury roles). 2026-11-04: 25 lab, patient-safety, drug-manufacturing and packaging phrases added to `title_exclude`, 74 rows removed (`test_exclude_nonfinance_science.py`). |
 | Insurance/Actuarial | about 101 | actuary, claims, annuity pricing |
 | Wealth/Trust | about 176 | private bank, private client, financial advisor |
 | Accounting/Controllership/Tax | about 146 | `tax` and `fund accounting` are already excluded |
