@@ -1,0 +1,31 @@
+{
+ "note": "Employers the scout cannot poll yet. Shown in the page's 'Not covered' dropdown. Remove an entry once its fetcher is live.",
+ "companies": [
+  {"name": "BNP Paribas", "reason": "Akamai blocks the group job list (403 to scripts). The applicant system bwelcome.hr.bnpparibas serves single jobs but has no list, job sitemap or open search; about 60 US roles exist but finding them means probing about 9000 job ids per run"},
+  {"name": "Citadel", "reason": "Cloudflare Turnstile challenge on citadel.com, also in a real browser; no public ATS board found (Greenhouse, Lever, Ashby and The Muse have none)"},
+  {"name": "Rabobank", "reason": "WAF 403 to scripts on rabobank.jobs, including its own search API (POST /api/v1/jobs/); about 116 jobs, mostly Netherlands"},
+  {"name": "UniCredit", "reason": "Reachable now: it is an Avature site (careers.unicredit.eu/en_GB/jobsuche/SearchJobs, about 500 jobs) but none are in the US (Romania, Czech Republic, Italy, Hungary, Germany and others), so it was not added"},
+  {"name": "ABN AMRO", "reason": "werkenbijabnamro.nl vacancy API pages with pageNumber (8 per page, with sort params) but stops at page 9 (72 of 134), and its country facet is only Netherlands, Belgium and UK, so no US roles"},
+  {"name": "NatWest", "reason": "Cloudflare Turnstile challenge on jobs.natwestgroup.com, also in a real browser; no other public board found"},
+  {"name": "OCC", "reason": "Careers site returns 403 to scripts; no public ATS board found"},
+  {"name": "Euroclear", "reason": "Careers site returns 403 to scripts; no public ATS board found"},
+  {"name": "Tower Research", "reason": "Careers site returns 403 to scripts; no public ATS board found"},
+  {"name": "Susquehanna (SIG)", "reason": "iCIMS board (sig.icims.com); no iCIMS fetcher in the scout"},
+  {"name": "SS&C", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Hannover Re", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Annaly", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Rithm Capital", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Squarepoint Capital", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Elliott Management", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Cumberland", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "NICE Actimize", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Global Atlantic", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Munich Re", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Talcott", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Starwood Capital", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
+  {"name": "Jackson Financial", "reason": "Careers site timed out; no board found"},
+  {"name": "FactSet", "reason": "careers domain did not resolve; no board found"},
+  {"name": "Mercer", "reason": "Phenom careers site, no public job list API found"},
+  {"name": "Guy Carpenter", "reason": "Phenom careers site, no public job list API found"}
+ ]
+}

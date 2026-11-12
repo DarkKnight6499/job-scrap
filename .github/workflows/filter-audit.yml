@@ -1,0 +1,53 @@
+name: filter-audit
+
+on:
+  schedule:
+    - cron: "17 13 */3 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: job-scout-run
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: List core-fit roles the title rules hide
+        run: python filter_audit.py --out docs/filter_audit.md
+
+      - name: Alert when new flagged roles appear
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          n=$(sed -n 's/.* \([0-9]*\) new since the last audit.*/\1/p' docs/filter_audit.md | head -1)
+          echo "new flagged: ${n:-0}"
+          if [ "${n:-0}" -gt 0 ] && [ -n "$NTFY_TOPIC" ]; then
+            curl -s -H "Title: Filter audit" -d "$n hidden roles look like core fits: https://github.com/DarkKnight6499/job-scrap/blob/main/docs/filter_audit.md" "https://ntfy.sh/$NTFY_TOPIC" > /dev/null
+          fi
+
+      - name: Commit report and seen list
+        run: |
+          git config user.name "job-scout-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/filter_audit.md data/audit_seen.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update filter audit [skip ci]"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; echo "conflict"; exit 1; }
+            sleep $((RANDOM % 10 + 1))
+          done
