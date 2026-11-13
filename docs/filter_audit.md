@@ -1,40 +1,51 @@
-# Filter audit (2026-11-10)
+# Filter audit (2026-11-13)
 
-11579 roles hidden by title rules across 876 companies; 97 look like core fits, 8 new since the last audit.
+11802 roles hidden by title rules across 923 companies; 111 look like core fits, 19 new since the last audit.
 
 ## New flagged roles (check each rule)
-- Atlantic Union Bank: [Treasury Management Client Services Representative](https://recruiting.ultipro.com/UNI1046UFMB/JobBoard/d8f90aad-672e-4f0a-bbc1-a17aa8cf1111/OpportunityDetail?opportunityId=ecac60c4-c893-42e0-a32a-30a08027b646) (Waldorf, MD, USA) hidden by title_exclude: **services representative**
-- Booz Allen Hamilton: [Cybersecurity Engineer and Risk Analyst](https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0246498) (San Diego, CA) hidden by title_exclude: **cybersecurity engineer**
-- Booz Allen Hamilton: [Cybersecurity Risk Analyst](https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Washington-DC/Cybersecurity-Risk-Analyst_R0253153) (Washington, DC) hidden by title_exclude_unless: **cybersecurity**
-- Franklin Templeton: [SVP, Business Development Liquidity](https://careers.franklintempleton.com/us/en/job/FTGFTMUS868272EXTERNALENUS/SVP-Business-Development-Liquidity) (San Mateo, California, United States of America) hidden by title_exclude: **business development**
-- MUFG: [Bilingual Credit Risk Associate, Portfolio Management, Japanese Corporate Banking in NYC](https://mufgub.wd3.myworkdayjobs.com/MUFG-Careers/job/New-York-NY/Bilingual-Credit-Risk-Associate--Portfolio-Management--Japanese-Corporate-Banking-in-NYC_10078239-WD-1) (New York, NY) hidden by title_exclude: **bilingual**
-- Merrick Bank: [Associate, Treasury & Deposit Operations](https://cardworks.wd12.myworkdayjobs.com/Merrick_Bank_External/job/South-Jordan/Analyst--Treasury---Deposit-Operations_JR101206) (South Jordan) hidden by title_exclude: **deposit operations**
-- Morgan Stanley: [Equity Derivatives Pricing Platform Engineer](https://ms.wd5.myworkdayjobs.com/External/job/New-York-New-York-United-States-of-America/Equity-Derivatives-Pricing-Platform-Engineer_PT-JR046069) (New York, New York, United States of America) hidden by title_exclude: **platform engineer**
-- Scotiabank: [Administrative Assistant - FICC (Fixed Income, Currencies and Commodities)](https://jobs.scotiabank.com/job/New-York-City-Administrative-Assistant-FICC-%28Fixed-Income%2C-Currencies-and-Commodities%29-NY-10281/607918817/) (New York City, NY, US, 10281) hidden by title_exclude: **administrative assistant**
+- BNY Pershing: [Vice President, Cash Processing/Funds Transfer Manager - Treasury Services Platform Ops](https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BNY-Careers/job/71646) (Pittsburgh, PA, United States) hidden by title_exclude: **cash processing**
+- City National Bank: [Treasury Management Client Onboarding Quality Assurance Manager III Operations](https://careers.cnb.com/jobs/14035) (Los Angeles, California) hidden by title_exclude: **client onboarding**
+- GSK: [Director, Quantitative Systems Pharmacology](https://gsk.wd5.myworkdayjobs.com/GSKCareers/job/USA---Pennsylvania---Upper-Providence/Director--Quantitative-Systems-Pharmacology_448724) (5 Locations (USA   Pennsylvania   Upper Providence)) hidden by title_exclude: **pharmacology**
+- HarbourVest Partners: [Director, Client Service (Quantitative Investment Sciences)](https://harbourvest.wd5.myworkdayjobs.com/HVP/job/Boston/Director--Client-Service--QIS-_R2529) (Boston) hidden by title_exclude: **client service**
+- Huntington Bancshares: [Treasury Mgmt Service Specialist I](https://huntington.wd12.myworkdayjobs.com/HNBcareers/job/Columbus-OH/Treasury-Mgmt-Service-Specialist-I_R0076804) (5 Locations (Columbus OH)) hidden by title_exclude: **service specialist**
+- JPMorgan Chase: [Quantitative Trading & Research - Cash Equity Sales - Vice President](https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808621) (New York, NY, United States) hidden by title_exclude: **equity sales**
+- Jane Street: [Campus Recruiter, Machine Learning and Quantitative Research](https://www.janestreet.com/join-jane-street/apply/8229056002?gh_jid=8229056002) (New York, New York, United States) hidden by title_exclude: **recruiter**
+- KPMG: [Manager, Business Valuation (Intangible Assets) - Japanese Speaking (NYM)](https://www.kpmguscareers.com/jobdetail/?jobId=134225) (New York, NY) hidden by title_exclude: **japanese speaking**
+- Marex: [Fixed Income Operations Support Specialist (VN3352)](https://marex.breezy.hr/p/78b1dccad70201-fixed-income-operations-support-specialist-vn3352) (New York, NY) hidden by title_exclude: **fixed income operations**
+- Marex: [Senior Fixed Income Operations Lead (VN3103)](https://marex.breezy.hr/p/bc559d22764c01-senior-fixed-income-operations-lead-vn3103) (New York, NY) hidden by title_exclude: **fixed income operations**
+- PNC: [Quantitative Analytics & Model Analyst Senior - Data Operations and Machine Learning Operations](https://pnc.wd5.myworkdayjobs.com/External/job/VA---Tysons-Corner/Quantitative-Analytics---Model-Analyst-Senior---Data-Operations-and-Machine-Learning-Operations_R234596-1) (5 Locations (VA   Tysons Corner)) hidden by title_exclude: **data operations**
+- SMBC: [Director, CCR Stress Testing Product Management & CCAR Reporting](https://careers.smbcgroup.com/smbc/job/New-York-Director%2C-CCR-Stress-Testing-Product-Management-&-CCAR-Reporting-NY-10172/1429784300/) (New York, NY, US, 10172) hidden by title_exclude_unless: **product management**
+- Schonfeld: [Senior Quantitative Data Engineer](https://job-boards.greenhouse.io/schonfeld/jobs/7544203) (New York, New York, United States) hidden by title_exclude: **data engineer**
+- Susquehanna International Group: [Quantitative Recruiter](https://careers.sig.com/jobs/11568) (Bala Cynwyd (Philadelphia Area), Pennsylvania) hidden by title_exclude: **recruiter**
+- Susquehanna International Group: [Quantitative Campus Recruiter](https://careers.sig.com/jobs/11310) (Bala Cynwyd (Philadelphia Area), Pennsylvania) hidden by title_exclude: **recruiter**
+- Truist: [Quantitative Business Operations Program Manager](https://truist.wd1.myworkdayjobs.com/Careers/job/Charlotte-NC/Quantitative-Business-Operations-Program-Manager_R0121547-1) (Charlotte, NC) hidden by title_exclude: **program manager**
+- Vertiv: [Treasury Project Manager](https://egup.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/20281234) (Westerville, OH, United States) hidden by title_exclude: **project manager**
+- Wells Fargo: [Capital Markets Middle Office Manager - OTC Derivatives Collateral](https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/CHARLOTTE-NC/Capital-Markets-Middle-Office-Manager---OTC-Derivatives-Collateral_R-585379) (CHARLOTTE, NC) hidden by title_exclude: **capital markets middle office**
+- WorldQuant: [Junior Quantitative Project Manager](https://job-boards.greenhouse.io/worldquant/jobs/4697683006) (Old Greenwich) hidden by title_exclude: **project manager**
 
 ## Top rules by roles hidden
-- associate banker: 524
-- sales associate: 486
-- personal banker: 332
-- client service associate: 322
-- tax: 294
-- summer: 280
-- warehouse associate: 207
-- wealth management associate: 196
-- intern: 176
-- marketing: 171
-- wealth management client associate: 151
-- scientist: 143
-- client experience associate: 134
-- fulfillment associate: 133
-- inventory associate: 124
-- counsel: 121
-- software: 107
-- engineer: 105
-- client associate: 97
-- service associate: 91
-- clinical: 85
-- business development: 82
-- business operations associate: 81
-- sales representative: 80
-- transformation: 80
+- sales associate: 513
+- associate banker: 507
+- personal banker: 350
+- client service associate: 325
+- tax: 303
+- summer: 295
+- intern: 219
+- warehouse associate: 212
+- marketing: 190
+- scientist: 158
+- wealth management client associate: 153
+- software: 133
+- inventory associate: 126
+- counsel: 125
+- client experience associate: 114
+- fulfillment associate: 114
+- client associate: 107
+- engineer: 103
+- internship: 94
+- clinical: 92
+- service associate: 92
+- business development: 88
+- sales representative: 85
+- business operations associate: 84
+- fund accounting: 83
