@@ -4905,6 +4905,8 @@ def write_queue_html(q, path, updated_at=None, closed_json=None, filtered_json=N
         exp_data = f' data-exp="{exp_years}"' if isinstance(exp_years, int) else ' data-exp="-1"'
         first_seen = e.get("first_seen") or ""
         opt_data = ' data-opt="1"' if e.get("sponsorship_status") == "OPT Only" else ""
+        if e.get("sponsorship_status") == "Blocked":
+            opt_data += ' data-spons="Blocked"'  # the dedup page tags these rows now that the column is gone
         if _SPRING_2027_RE.search(e.get("role") or ""):
             opt_data += ' data-spring="1"'
         row_class = e["state"] + (" closed" if closed else "")
