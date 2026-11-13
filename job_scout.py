@@ -4883,13 +4883,11 @@ def write_queue_html(q, path, updated_at=None, closed_json=None, filtered_json=N
         # data-first-seen instead, and the script at the bottom recomputes the relative label and
         # the "posted today" highlight against the viewer's own current date on every page load.
         kw = ", ".join(e["kw_hits"]) if e["kw_hits"] else "—"
-        spons_evidence = html.escape(e.get("sponsorship_evidence") or "no blocking language found")
         exp_years = e.get("experience")
         exp_label = f"{exp_years}+ years" if isinstance(exp_years, int) else "N/A"
         exp_evidence = html.escape(e.get("experience_evidence") or "")
         salary = e.get("salary") or "Unclear"
         salary_evidence = html.escape(e.get("salary_evidence") or "")
-        spons_label = {"Unclear": "N/A", "OPT Only": "No H1B"}.get(e["sponsorship_status"], e["sponsorship_status"])
         salary_label = salary if salary != "Unclear" else "N/A"
         role = html.escape(e["role"])
         if e.get("repost_count"):
@@ -4926,7 +4924,6 @@ def write_queue_html(q, path, updated_at=None, closed_json=None, filtered_json=N
             f'<td>{role_cell}</td>'
             f'{"" if closed else ACTIONS_TD}'
             f'<td>{html.escape(e["location"])}</td>'
-            f'<td title="{spons_evidence}">{html.escape(spons_label)}</td>'
             f'<td title="{exp_evidence}">{html.escape(exp_label)}</td>'
             f'<td title="{salary_evidence}" class="salary">{html.escape(salary_label)}</td>'
             f'<td class="kw">{html.escape(kw)}</td>'
@@ -4935,7 +4932,7 @@ def write_queue_html(q, path, updated_at=None, closed_json=None, filtered_json=N
         )
 
     head = ("<tr><th>Posted</th><th>Company</th><th>Role</th><th>Actions</th><th>Location</th>"
-            "<th>Sponsorship</th><th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
+            "<th>Experience</th><th>Salary</th><th>Keywords</th></tr>")
     closed_head = head.replace("<th>Actions</th>", "").replace("</tr>", "<th>State</th></tr>")
 
     open_q = [e for e in q if not e.get("closed_on")]
