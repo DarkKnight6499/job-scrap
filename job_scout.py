@@ -2097,6 +2097,29 @@ def csod(c):
     return out, False
 
 
+_MONTHS = {m: i for i, m in enumerate(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], 1)}
+
+
+def _norm_posted(raw):
+    """ISO date from a JSON-LD datePosted; Taleo CWS sometimes sends 'Tue Nov 03' or 'Tue Nov 03 00:00:00 EST 2026', which the page renders as 'NaNd ago'."""
+    raw = str(raw or "").strip()
+    if re.match(r"\d{4}-\d{2}-\d{2}", raw):
+        return raw[:10]
+    m = re.match(r"[A-Za-z]{3},? ([A-Za-z]{3}) (\d{1,2})\b", raw)
+    if not m or m.group(1) not in _MONTHS:
+        return ""
+    ym = re.search(r"\b(20\d\d)\b", raw)
+    today = datetime.now(timezone.utc).date()
+    year = int(ym.group(1)) if ym else today.year
+    try:
+        d = date(year, _MONTHS[m.group(1)], int(m.group(2)))
+    except ValueError:
+        return ""
+    if not ym and (d - today).days > 30:
+        d = date(year - 1, d.month, d.day)  # a yearless date that far ahead is last year's
+    return d.isoformat()
+
+
 def taleo_cws(c):
     """Oracle Taleo Business Edition Career Center v2 (CWS) boards on <host>/<path>/ats/careers/v2, e.g.
     phh.tbe.taleo.net/phh01 for FHLBank Boston. A plain GET of searchResults?org=<org>&cws=<n> lists every open
@@ -3176,7 +3199,7 @@ def describe(c, job):
             except ValueError:
                 continue
             if isinstance(data, dict) and data.get("description"):
-                dp = str(data.get("datePosted") or "")[:10]
+                dp = _norm_posted(data.get("datePosted"))
                 return strip_html(data["description"])[:30000], dp, ("exact" if dp else "")
         return "", "", ""
     if ats == "icims":
