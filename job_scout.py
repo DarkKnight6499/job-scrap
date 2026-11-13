@@ -165,6 +165,7 @@ HARD_BLOCK_PATTERNS = [
 ]
 _US = r"u[.\s]{0,2}s[.\s]{0,2}"  # "U.S." after abbreviation normalization
 HARD_BLOCK_PATTERNS.append(r"employer\s+of\s+record[^.]{0,80}immigration")  # 2026-11-10: also refuses to act for OPT or STEM OPT
+HARD_BLOCK_PATTERNS.append(r"\bonly\b[^.]{0,80}\b" + _US + r"citizens?")  # Kyndryl 2026-11-13: "we can only hire US citizens"
 HARD_BLOCK_PATTERNS += [
     r"\b(?:top\s+secret|secret|ts/sci)\s+(?:level\s+)?(?:security\s+)?clearance[^.]{0,60}\b(?:required|must|necessary)",
     r"\b(?:must|required|requires?|need)[^.]{0,60}\b(?:top\s+secret|secret|ts/sci)\s+(?:level\s+)?(?:security\s+)?clearance",

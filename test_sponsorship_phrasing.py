@@ -23,6 +23,8 @@ OPT_ONLY = [
     "We will not sponsor now or in the future.",
 ]
 HARD_BLOCKED = [
+    "This position is for a government client and we can only hire US citizens.",
+    "For this client engagement we will only consider U.S. citizens.",
     "We do not offer any type of employment-based immigration sponsorship for this role. Likewise, the firm will not provide any assistance or sign any documentation in support of any other form of immigration sponsorship or benefit, including optional practical training (OPT) or curricular practical training (CPT).",
     "Candidates must hold an active US Secret clearance.",
     "Access is limited to U.S. persons only under export control rules.",
