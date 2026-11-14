@@ -15,3 +15,8 @@ docs/filtered.json
 
 # Cloudflare account cache holds the account email and id
 .wrangler/
+
+# local-only: applied company names, conflict backups and config backups
+data/applied_missing_names.txt
+data/_conflict_backup_*/
+data/*.bak_*
