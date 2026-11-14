@@ -16745,6 +16745,26 @@
    "name": "Aduro Advisors",
    "ats": "ashby",
    "slug": "aduro-advisors"
+  },
+  {
+   "name": "BGRE",
+   "ats": "workday",
+   "host": "brookfield.wd5.myworkdayjobs.com",
+   "tenant": "brookfield",
+   "site": "bgre",
+   "search": [
+    "finance",
+    "financial planning",
+    "treasury",
+    "capital markets",
+    "risk",
+    "valuation",
+    "quantitative",
+    "analytics",
+    "fixed income",
+    "debt"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
