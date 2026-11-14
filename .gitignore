@@ -12,3 +12,6 @@ worker/.wrangler/
 docs/index.html
 docs/closed.json
 docs/filtered.json
+
+# Cloudflare account cache holds the account email and id
+.wrangler/
