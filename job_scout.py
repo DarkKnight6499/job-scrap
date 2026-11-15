@@ -4941,7 +4941,7 @@ def write_queue_html(q, path, updated_at=None, closed_json=None, filtered_json=N
         else:
             posted_title = "no posting date available from the source - this is when job-scout first discovered it, not when it was actually posted"
         return (
-            f'<tr class="{row_class}"{row_title}{exp_data} data-jid="{html.escape(e["id"].split(":", 1)[-1])}"'
+            f'<tr class="{row_class}"{row_title}{exp_data} data-jid="{html.escape(e["id"])}"'
             f' data-jdkey="{hashlib.sha1(e["id"].encode("utf-8")).hexdigest()[:20]}"'
             f' data-posted="{html.escape(posted)}" data-first-seen="{html.escape(first_seen)}"'
             f' data-posted-source="{html.escape(e.get("posted_source") or "")}"{opt_data}>'
