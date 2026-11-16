@@ -1,51 +1,37 @@
-# Filter audit (2026-11-13)
+# Filter audit (2026-11-16)
 
-11802 roles hidden by title rules across 923 companies; 111 look like core fits, 19 new since the last audit.
+11822 roles hidden by title rules across 925 companies; 110 look like core fits, 5 new since the last audit.
 
 ## New flagged roles (check each rule)
-- BNY Pershing: [Vice President, Cash Processing/Funds Transfer Manager - Treasury Services Platform Ops](https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BNY-Careers/job/71646) (Pittsburgh, PA, United States) hidden by title_exclude: **cash processing**
-- City National Bank: [Treasury Management Client Onboarding Quality Assurance Manager III Operations](https://careers.cnb.com/jobs/14035) (Los Angeles, California) hidden by title_exclude: **client onboarding**
-- GSK: [Director, Quantitative Systems Pharmacology](https://gsk.wd5.myworkdayjobs.com/GSKCareers/job/USA---Pennsylvania---Upper-Providence/Director--Quantitative-Systems-Pharmacology_448724) (5 Locations (USA   Pennsylvania   Upper Providence)) hidden by title_exclude: **pharmacology**
-- HarbourVest Partners: [Director, Client Service (Quantitative Investment Sciences)](https://harbourvest.wd5.myworkdayjobs.com/HVP/job/Boston/Director--Client-Service--QIS-_R2529) (Boston) hidden by title_exclude: **client service**
-- Huntington Bancshares: [Treasury Mgmt Service Specialist I](https://huntington.wd12.myworkdayjobs.com/HNBcareers/job/Columbus-OH/Treasury-Mgmt-Service-Specialist-I_R0076804) (5 Locations (Columbus OH)) hidden by title_exclude: **service specialist**
-- JPMorgan Chase: [Quantitative Trading & Research - Cash Equity Sales - Vice President](https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808621) (New York, NY, United States) hidden by title_exclude: **equity sales**
-- Jane Street: [Campus Recruiter, Machine Learning and Quantitative Research](https://www.janestreet.com/join-jane-street/apply/8229056002?gh_jid=8229056002) (New York, New York, United States) hidden by title_exclude: **recruiter**
-- KPMG: [Manager, Business Valuation (Intangible Assets) - Japanese Speaking (NYM)](https://www.kpmguscareers.com/jobdetail/?jobId=134225) (New York, NY) hidden by title_exclude: **japanese speaking**
-- Marex: [Fixed Income Operations Support Specialist (VN3352)](https://marex.breezy.hr/p/78b1dccad70201-fixed-income-operations-support-specialist-vn3352) (New York, NY) hidden by title_exclude: **fixed income operations**
-- Marex: [Senior Fixed Income Operations Lead (VN3103)](https://marex.breezy.hr/p/bc559d22764c01-senior-fixed-income-operations-lead-vn3103) (New York, NY) hidden by title_exclude: **fixed income operations**
-- PNC: [Quantitative Analytics & Model Analyst Senior - Data Operations and Machine Learning Operations](https://pnc.wd5.myworkdayjobs.com/External/job/VA---Tysons-Corner/Quantitative-Analytics---Model-Analyst-Senior---Data-Operations-and-Machine-Learning-Operations_R234596-1) (5 Locations (VA   Tysons Corner)) hidden by title_exclude: **data operations**
-- SMBC: [Director, CCR Stress Testing Product Management & CCAR Reporting](https://careers.smbcgroup.com/smbc/job/New-York-Director%2C-CCR-Stress-Testing-Product-Management-&-CCAR-Reporting-NY-10172/1429784300/) (New York, NY, US, 10172) hidden by title_exclude_unless: **product management**
-- Schonfeld: [Senior Quantitative Data Engineer](https://job-boards.greenhouse.io/schonfeld/jobs/7544203) (New York, New York, United States) hidden by title_exclude: **data engineer**
-- Susquehanna International Group: [Quantitative Recruiter](https://careers.sig.com/jobs/11568) (Bala Cynwyd (Philadelphia Area), Pennsylvania) hidden by title_exclude: **recruiter**
-- Susquehanna International Group: [Quantitative Campus Recruiter](https://careers.sig.com/jobs/11310) (Bala Cynwyd (Philadelphia Area), Pennsylvania) hidden by title_exclude: **recruiter**
-- Truist: [Quantitative Business Operations Program Manager](https://truist.wd1.myworkdayjobs.com/Careers/job/Charlotte-NC/Quantitative-Business-Operations-Program-Manager_R0121547-1) (Charlotte, NC) hidden by title_exclude: **program manager**
-- Vertiv: [Treasury Project Manager](https://egup.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/20281234) (Westerville, OH, United States) hidden by title_exclude: **project manager**
-- Wells Fargo: [Capital Markets Middle Office Manager - OTC Derivatives Collateral](https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/CHARLOTTE-NC/Capital-Markets-Middle-Office-Manager---OTC-Derivatives-Collateral_R-585379) (CHARLOTTE, NC) hidden by title_exclude: **capital markets middle office**
-- WorldQuant: [Junior Quantitative Project Manager](https://job-boards.greenhouse.io/worldquant/jobs/4697683006) (Old Greenwich) hidden by title_exclude: **project manager**
+- Bank of America: [Quantitative Operations Manager](https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Charlotte/Quantitative-Operations-Manager_26041334) (8 Locations (Charlotte)) hidden by title_exclude: **quantitative operations**
+- Barclays: [Structured Derivatives Institutional Sales VP](https://barclays.wd3.myworkdayjobs.com/External_Career_Site_Barclays/job/New-York-745-7th-Avenue/Structured-Derivatives-Institutional-Sales-VP_JR-0000106823-1) (New York, 745 7th Avenue) hidden by title_exclude: **institutional sales**
+- Beth Israel Lahey Health: [Stress Test Technician, Per Diem](https://bilh.wd1.myworkdayjobs.com/External/job/Winchester-Hospital/Stress-Test-Technician--Per-Diem_JR106987) (Winchester Hospital) hidden by title_exclude_unless: **technician**
+- JPMorgan Chase: [Machine Learning Intelligent Operations Team - Quant Analytics Senior Associate](https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210760662) (Columbus, OH, United States) hidden by title_exclude_unless: **learning**
+- US Bancorp: [PMI Sales: Treasury Payments Sales Consultant](https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Clayton-MO/PMI-Sales--Treasury-Payments-Sales-Consultant_2026-0023970-1) (2 Locations (Clayton MO)) hidden by title_exclude: **payments sales**
 
 ## Top rules by roles hidden
-- sales associate: 513
-- associate banker: 507
-- personal banker: 350
-- client service associate: 325
-- tax: 303
-- summer: 295
+- sales associate: 512
+- associate banker: 481
+- personal banker: 357
+- client service associate: 335
+- tax: 296
+- summer: 267
 - intern: 219
-- warehouse associate: 212
-- marketing: 190
+- warehouse associate: 205
+- wealth management associate: 195
+- marketing: 185
+- wealth management client associate: 159
 - scientist: 158
-- wealth management client associate: 153
-- software: 133
-- inventory associate: 126
-- counsel: 125
-- client experience associate: 114
-- fulfillment associate: 114
-- client associate: 107
-- engineer: 103
-- internship: 94
-- clinical: 92
-- service associate: 92
-- business development: 88
+- software: 132
+- inventory associate: 128
+- counsel: 123
+- fulfillment associate: 110
+- engineer: 105
+- client associate: 104
+- clinical: 94
+- business development: 89
+- internship: 89
+- service associate: 89
 - sales representative: 85
-- business operations associate: 84
-- fund accounting: 83
+- transformation: 85
+- business operations associate: 85
