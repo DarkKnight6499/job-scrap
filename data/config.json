@@ -4370,11 +4370,6 @@
    "slug": "worldquant"
   },
   {
-   "name": "Old Mission Capital",
-   "ats": "greenhouse",
-   "slug": "oldmissioncapital"
-  },
-  {
    "name": "DV Trading",
    "ats": "greenhouse",
    "slug": "dvtrading"
@@ -4391,8 +4386,9 @@
   },
   {
    "name": "MetLife",
-   "ats": "lever",
-   "slug": "metlife"
+   "ats": "avature",
+   "host": "www.metlifecareers.com",
+   "list_path": "en_US/ml/SearchJobs"
   },
   {
    "name": "Bracebridge Capital",
