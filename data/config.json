@@ -9075,33 +9075,6 @@
    "max_per_term": 100
   },
   {
-   "name": "JLL",
-   "ats": "workday",
-   "term_workers": 3,
-   "host": "jll.wd1.myworkdayjobs.com",
-   "tenant": "jll",
-   "site": "jllcareers",
-   "search": [
-    "treasury",
-    "liquidity",
-    "asset liability",
-    "model risk",
-    "market risk",
-    "counterparty",
-    "fixed income",
-    "capital",
-    "model validation",
-    "stress testing",
-    "ccar",
-    "balance sheet",
-    "regulatory reporting",
-    "quantitative",
-    "derivatives",
-    "collateral"
-   ],
-   "max_per_term": 100
-  },
-  {
    "name": "PSP Investments",
    "ats": "workday",
    "host": "investpsp.wd3.myworkdayjobs.com",
@@ -16770,6 +16743,43 @@
    "name": "Syntax",
    "ats": "lever",
    "slug": "syntax"
+  },
+  {
+   "name": "Mariner Wealth Advisors",
+   "ats": "ashby",
+   "slug": "mariner-careers"
+  },
+  {
+   "name": "Zip",
+   "ats": "ashby",
+   "slug": "zip"
+  },
+  {
+   "name": "JLL",
+   "ats": "workday",
+   "term_workers": 3,
+   "host": "jll.wd1.myworkdayjobs.com",
+   "tenant": "jll",
+   "site": "jllcareers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral"
+   ],
+   "max_per_term": 100
   }
  ],
  "keywords": [
