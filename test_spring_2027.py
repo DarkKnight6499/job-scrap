@@ -13,6 +13,9 @@ def test_spring_2027_internships_pass():
     assert _ok("Finance Intern, Spring 2027")
     assert _ok("Treasury Intern - Spring 2027")
     assert _ok("Spring 2027 Analyst Intern")
+    assert _ok("Risk Intern, 2027 Spring")
+    assert _ok("Treasury Co-op Spring '27".replace("'", ""))
+    assert _ok("Finance Intern - Spring Semester 2027")
 
 
 def test_other_internships_still_excluded():

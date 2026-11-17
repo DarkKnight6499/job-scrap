@@ -27,6 +27,10 @@ QUERIES = [
     "model validation analyst", "regulatory capital analyst", "securitized products analyst",
     "structured finance analyst", "fixed income analyst", "credit risk analyst bank",
 ]
+INTERN_QUERIES = [
+    "spring 2027 intern finance", "spring 2027 internship risk", "spring 2027 treasury intern",
+    "spring 2027 quantitative intern", "spring 2027 investment intern", "spring 2027 co-op finance",
+]
 LOCATION = "United States"
 PAGE_SIZE = 10          # guest endpoint returns 10 cards per call here
 PAUSE_S = 5
@@ -115,9 +119,9 @@ def main():
     a = ap.parse_args()
     seen_ids, found, streak = set(), [], 0
     known = known_keys()
-    for q in QUERIES:
+    for q, jt in [(q, "F") for q in QUERIES] + [(q, "I") for q in INTERN_QUERIES]:  # I = LinkedIn internship type
         for p in range(a.pages):
-            params = {"keywords": q, "location": LOCATION, "f_TPR": f"r{a.days * 86400}", "f_JT": "F", "start": p * PAGE_SIZE}
+            params = {"keywords": q, "location": LOCATION, "f_TPR": f"r{a.days * 86400}", "f_JT": jt, "start": p * PAGE_SIZE}
             try:
                 cards = parse_cards(fetch(SEARCH + "?" + urllib.parse.urlencode(params)))
                 streak = 0

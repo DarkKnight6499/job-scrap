@@ -3416,7 +3416,7 @@ def effective_location(job):
 
 
 # Spring 2027 internships are wanted even though the generic intern/summer/co-op excludes drop other internships.
-_SPRING_2027_RE = re.compile(r"\bspring\s*(?:of\s*)?2027\b", re.I)
+_SPRING_2027_RE = re.compile(r"\b(?:spring\s*(?:of\s*|semester\s*|term\s*)?(?:20)?27|2027\s*spring)\b", re.I)
 _INTERN_EXCLUDE_TERMS = {"intern", "internship", "summer", "co-op"}
 
 
