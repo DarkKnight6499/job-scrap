@@ -5029,11 +5029,9 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBox {{ width: 100%; max-width: 520px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
 #expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
 #optOnlyLbl {{ color: #8a5a00; border-color: #cc9a2e; }}
-#optOnlyLbl.active {{ background: #f6e3b4; border-color: #b8801a; }}
-#optOnlyLbl select {{ border: 0; background: transparent; color: inherit; font: inherit; }}
+#optOnlyLbl:has(input:checked) {{ background: #f6e3b4; border-color: #b8801a; }}
 #springLbl {{ color: #1f5f8b; border-color: #5b9bc8; }}
-#springLbl.active {{ background: #cfe4f3; border-color: #2f77ad; }}
-#springLbl select {{ border: 0; background: transparent; color: inherit; font: inherit; }}
+#springLbl:has(input:checked) {{ background: #cfe4f3; border-color: #2f77ad; }}
 .optbadge {{ font-size: 0.7rem; color: #fff; background: #c0392b; border-radius: 4px; padding: 1px 5px; margin-right: 5px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }}
 #expReset {{ margin-left: auto; color: #555; }}
 .fb-row {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }}
@@ -5082,8 +5080,8 @@ tr.hidden-by-filter {{ display: none; }}
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<label class="chip" id="optOnlyLbl" title="Filter by H1B sponsorship: No H1B roles refuse employer sponsorship but do not exclude OPT or STEM OPT">H1B <select id="optOnlyBtn"><option value="all">show all</option><option value="only">H1B only</option><option value="no">No H1B only</option></select></label>
-<label class="chip" id="springLbl" title="Filter Spring 2027 internships and programs">Spring 2027 <select id="springBtn"><option value="all">show all</option><option value="only">Spring only</option><option value="hide">No Spring</option></select></label>
+<label class="chip" id="optOnlyLbl" title="Show only roles that can sponsor H1B (hides roles that refuse employer sponsorship but do not exclude OPT or STEM OPT)"><input type="checkbox" id="optOnlyBtn"> H1B only</label>
+<label class="chip" id="springLbl" title="Filter Spring 2027 internships and programs"><input type="checkbox" id="springBtn"> Spring only</label>
 {unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
 </div>
@@ -5137,14 +5135,14 @@ tr.hidden-by-filter {{ display: none; }}
   var dateMin = document.getElementById('dateMin');
   var dateMax = document.getElementById('dateMax');
   var dateIncludeNA = document.getElementById('dateIncludeNA');
-  var optBtn = document.getElementById('optOnlyBtn');  // select: all, only (H1B sponsorship possible) or no (OPT only rows)
+  var optBtn = document.getElementById('optOnlyBtn');  // checkbox: show only rows without the OPT Only flag
   var optMode = 'all';
-  var springBtn = document.getElementById('springBtn');  // select: all, hide or only Spring 2027 rows
+  var springBtn = document.getElementById('springBtn');  // checkbox: show only Spring 2027 rows
   var springMode = 'all';
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
-  function setOpt(mode) {{ optMode = mode; optBtn.value = mode; document.getElementById('optOnlyLbl').classList.toggle('active', mode !== 'all'); }}
-  function setSpring(mode) {{ springMode = mode; springBtn.value = mode; document.getElementById('springLbl').classList.toggle('active', mode !== 'all'); }}
+  function setOpt(mode) {{ optMode = mode === 'only' ? 'only' : 'all'; optBtn.checked = optMode === 'only'; }}
+  function setSpring(mode) {{ springMode = mode === 'only' ? 'only' : 'all'; springBtn.checked = springMode === 'only'; }}
 
   function ageDays(tr) {{
     var iso = tr.getAttribute('data-posted') || tr.getAttribute('data-first-seen');
@@ -5275,8 +5273,8 @@ tr.hidden-by-filter {{ display: none; }}
     setOpt(localStorage.getItem('jobScoutH1bMode') || (localStorage.getItem('jobScoutHideOpt') === '1' ? 'only' : 'all'));
     setSpring(localStorage.getItem('jobScoutSpring') || (localStorage.getItem('jobScoutHideSpring') === '1' ? 'hide' : 'all'));
   }} catch (e) {{}}
-  optBtn.addEventListener('change', function() {{ setOpt(optBtn.value); apply(); }});
-  springBtn.addEventListener('change', function() {{ setSpring(springBtn.value); apply(); }});
+  optBtn.addEventListener('change', function() {{ setOpt(optBtn.checked ? 'only' : 'all'); apply(); }});
+  springBtn.addEventListener('change', function() {{ setSpring(springBtn.checked ? 'only' : 'all'); apply(); }});
   searchBtn.addEventListener('click', apply);
   box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
   expMin.addEventListener('change', apply);
