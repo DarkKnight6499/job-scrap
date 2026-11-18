@@ -5080,7 +5080,7 @@ tr.hidden-by-filter {{ display: none; }}
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<label class="chip" id="optOnlyLbl" title="Show only roles that can sponsor H1B (hides roles that refuse employer sponsorship but do not exclude OPT or STEM OPT)"><input type="checkbox" id="optOnlyBtn"> H1B only</label>
+<label class="chip" id="optOnlyLbl" title="Show only roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> No H1B only</label>
 <label class="chip" id="springLbl" title="Filter Spring 2027 internships and programs"><input type="checkbox" id="springBtn"> Spring only</label>
 {unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
@@ -5135,13 +5135,13 @@ tr.hidden-by-filter {{ display: none; }}
   var dateMin = document.getElementById('dateMin');
   var dateMax = document.getElementById('dateMax');
   var dateIncludeNA = document.getElementById('dateIncludeNA');
-  var optBtn = document.getElementById('optOnlyBtn');  // checkbox: show only rows without the OPT Only flag
+  var optBtn = document.getElementById('optOnlyBtn');  // checkbox: show only rows with the OPT Only (no H1B) flag
   var optMode = 'all';
   var springBtn = document.getElementById('springBtn');  // checkbox: show only Spring 2027 rows
   var springMode = 'all';
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
-  function setOpt(mode) {{ optMode = mode === 'only' ? 'only' : 'all'; optBtn.checked = optMode === 'only'; }}
+  function setOpt(mode) {{ optMode = mode === 'no' ? 'no' : 'all'; optBtn.checked = optMode === 'no'; }}
   function setSpring(mode) {{ springMode = mode === 'only' ? 'only' : 'all'; springBtn.checked = springMode === 'only'; }}
 
   function ageDays(tr) {{
@@ -5270,10 +5270,10 @@ tr.hidden-by-filter {{ display: none; }}
     if (sdMin !== null) dateMin.value = sdMin;
     if (sdMax !== null) dateMax.value = sdMax;
     if (sdNA !== null) dateIncludeNA.checked = sdNA === '1';
-    setOpt(localStorage.getItem('jobScoutH1bMode') || (localStorage.getItem('jobScoutHideOpt') === '1' ? 'only' : 'all'));
+    setOpt(localStorage.getItem('jobScoutH1bMode'));
     setSpring(localStorage.getItem('jobScoutSpring') || (localStorage.getItem('jobScoutHideSpring') === '1' ? 'hide' : 'all'));
   }} catch (e) {{}}
-  optBtn.addEventListener('change', function() {{ setOpt(optBtn.checked ? 'only' : 'all'); apply(); }});
+  optBtn.addEventListener('change', function() {{ setOpt(optBtn.checked ? 'no' : 'all'); apply(); }});
   springBtn.addEventListener('change', function() {{ setSpring(springBtn.checked ? 'only' : 'all'); apply(); }});
   searchBtn.addEventListener('click', apply);
   box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
