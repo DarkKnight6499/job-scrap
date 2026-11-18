@@ -5029,7 +5029,8 @@ summary {{ cursor: pointer; font-weight: 600; padding: 4px 0; }}
 #filterBox {{ width: 100%; max-width: 520px; padding: 8px 10px; font-size: 1rem; box-sizing: border-box; }}
 #expReset {{ padding: 5px 14px; font-size: 0.9rem; cursor: pointer; border: 1px solid #999; border-radius: 999px; background: #fff; }}
 #optOnlyLbl {{ color: #8a5a00; border-color: #cc9a2e; }}
-#optOnlyLbl:has(input:checked) {{ background: #f6e3b4; border-color: #b8801a; }}
+#optOnlyLbl.active {{ background: #f6e3b4; border-color: #b8801a; }}
+#optOnlyLbl select {{ border: 0; background: transparent; color: inherit; font: inherit; }}
 #springLbl {{ color: #1f5f8b; border-color: #5b9bc8; }}
 #springLbl.active {{ background: #cfe4f3; border-color: #2f77ad; }}
 #springLbl select {{ border: 0; background: transparent; color: inherit; font: inherit; }}
@@ -5081,8 +5082,8 @@ tr.hidden-by-filter {{ display: none; }}
 </div>
 <div class="fb-row" id="fbToggles">
 <span class="lbl">Show</span>
-<label class="chip" id="optOnlyLbl" title="Hide roles that refuse employer sponsorship but do not exclude OPT or STEM OPT"><input type="checkbox" id="optOnlyBtn"> Hide No H1B jobs</label>
-<label class="chip" id="springLbl" title="Filter Spring 2027 internships and programs">Spring 2027 <select id="springBtn"><option value="all">show all</option><option value="hide">hide</option><option value="only">only</option></select></label>
+<label class="chip" id="optOnlyLbl" title="Filter by H1B sponsorship: No H1B roles refuse employer sponsorship but do not exclude OPT or STEM OPT">H1B <select id="optOnlyBtn"><option value="all">show all</option><option value="only">H1B only</option><option value="no">No H1B only</option></select></label>
+<label class="chip" id="springLbl" title="Filter Spring 2027 internships and programs">Spring 2027 <select id="springBtn"><option value="all">show all</option><option value="only">Spring only</option><option value="hide">No Spring</option></select></label>
 {unsupported_html}
 <button type="button" id="expReset">Reset all filters</button>
 </div>
@@ -5136,13 +5137,13 @@ tr.hidden-by-filter {{ display: none; }}
   var dateMin = document.getElementById('dateMin');
   var dateMax = document.getElementById('dateMax');
   var dateIncludeNA = document.getElementById('dateIncludeNA');
-  var optBtn = document.getElementById('optOnlyBtn');  // checkbox: hide OPT only rows
-  var optOnly = false;
+  var optBtn = document.getElementById('optOnlyBtn');  // select: all, only (H1B sponsorship possible) or no (OPT only rows)
+  var optMode = 'all';
   var springBtn = document.getElementById('springBtn');  // select: all, hide or only Spring 2027 rows
   var springMode = 'all';
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
   var forcedOpen = [];
-  function setOpt(on) {{ optOnly = on; optBtn.checked = on; }}
+  function setOpt(mode) {{ optMode = mode; optBtn.value = mode; document.getElementById('optOnlyLbl').classList.toggle('active', mode !== 'all'); }}
   function setSpring(mode) {{ springMode = mode; springBtn.value = mode; document.getElementById('springLbl').classList.toggle('active', mode !== 'all'); }}
 
   function ageDays(tr) {{
@@ -5221,7 +5222,7 @@ tr.hidden-by-filter {{ display: none; }}
         // numeric range filter (they didn't fail the check, they just have nothing to check).
         expMatch = rank === -1 ? expIncludeNA.checked : (rank >= lo && rank <= hi);
       }}
-      var match = textMatch && expMatch && dateOk(tr) && (!optOnly || tr.getAttribute('data-opt') !== '1') && (springMode === 'all' || ((tr.getAttribute('data-spring') === '1') === (springMode === 'only')));
+      var match = textMatch && expMatch && dateOk(tr) && (optMode === 'all' || ((tr.getAttribute('data-opt') === '1') === (optMode === 'no'))) && (springMode === 'all' || ((tr.getAttribute('data-spring') === '1') === (springMode === 'only')));
       tr.classList.toggle('hidden-by-filter', !match);
       if (match) {{
         shown++;
@@ -5229,7 +5230,7 @@ tr.hidden-by-filter {{ display: none; }}
         if (details && !details.open) {{ details.open = true; forcedOpen.push(details); }}
       }}
     }});
-    countEl.textContent = (raw || expActive || dateActive() || optOnly || springMode !== 'all') ? ('showing ' + shown + ' of ' + rows.length) : '';
+    countEl.textContent = (raw || expActive || dateActive() || optMode !== 'all' || springMode !== 'all') ? ('showing ' + shown + ' of ' + rows.length) : '';
     try {{
       localStorage.setItem('jobScoutFilter', box.value);
       localStorage.setItem('jobScoutExpMin', expMin.value);
@@ -5238,7 +5239,7 @@ tr.hidden-by-filter {{ display: none; }}
       localStorage.setItem('jobScoutDateMin', dateMin.value);
       localStorage.setItem('jobScoutDateMax', dateMax.value);
       localStorage.setItem('jobScoutDateNA', dateIncludeNA.checked ? '1' : '0');
-      localStorage.setItem('jobScoutHideOpt', optOnly ? '1' : '0');
+      localStorage.setItem('jobScoutH1bMode', optMode);
       localStorage.setItem('jobScoutSpring', springMode);
     }} catch (e) {{}}
   }}
@@ -5251,7 +5252,7 @@ tr.hidden-by-filter {{ display: none; }}
     dateMin.value = '0';
     dateMax.value = 'inf';
     dateIncludeNA.checked = true;
-    setOpt(false);
+    setOpt('all');
     setSpring('all');
     apply();
   }});
@@ -5271,10 +5272,10 @@ tr.hidden-by-filter {{ display: none; }}
     if (sdMin !== null) dateMin.value = sdMin;
     if (sdMax !== null) dateMax.value = sdMax;
     if (sdNA !== null) dateIncludeNA.checked = sdNA === '1';
-    setOpt(localStorage.getItem('jobScoutHideOpt') === '1');
+    setOpt(localStorage.getItem('jobScoutH1bMode') || (localStorage.getItem('jobScoutHideOpt') === '1' ? 'only' : 'all'));
     setSpring(localStorage.getItem('jobScoutSpring') || (localStorage.getItem('jobScoutHideSpring') === '1' ? 'hide' : 'all'));
   }} catch (e) {{}}
-  optBtn.addEventListener('change', function() {{ setOpt(optBtn.checked); apply(); }});
+  optBtn.addEventListener('change', function() {{ setOpt(optBtn.value); apply(); }});
   springBtn.addEventListener('change', function() {{ setSpring(springBtn.value); apply(); }});
   searchBtn.addEventListener('click', apply);
   box.addEventListener('keydown', function(e) {{ if (e.key === 'Enter') {{ e.preventDefault(); apply(); }} }});
