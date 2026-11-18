@@ -3349,7 +3349,8 @@ _BARE_HQ_RE = re.compile(r"^\s*headquarters\s*$")
 
 # Whole-string city names that are foreign on Workday ("OTTAWA", "NORTH YORK") but also real US place names
 # ("Ottawa, IL", "Nassau County, NY", "San Sebastian, PR"), so only the bare form is excluded.
-_BARE_NON_US_CITY_RE = re.compile(r"^\s*(?:ottawa|north york|nassau|surrey|san sebastian|san jos\ufffd)\s*$")
+_BARE_NON_US_CITY_RE = re.compile(r"^\s*(?:ottawa|north york|nassau|surrey|san sebastian|san jos\ufffd"
+                                  r"|perth|belfast|glasgow|leeds|nottingham|coventry|cologne|seville|porto|panama|southampton)\s*$")
 
 # Canadian Ontario, but not Ontario, California / Oregon / New York / Ohio.
 _ONTARIO_RE = re.compile(r"\bontario\b(?!,?\s*(?:ca|california|or|oregon|ny|oh|ohio)\b)")

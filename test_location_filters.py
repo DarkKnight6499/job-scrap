@@ -26,6 +26,7 @@ EXCLUDED = [
     "Adelaide, SA, AU, 5000", "Diegem, BE, 1831", "CABA, B, AR, 1001", "Hamburg, HH, DE, 20148",
     "Wellington, nz", "Adelaide, AU", "BA - Rio de Janeiro",
     "Aarhus", "Algiers, Algeria", "Andorra", "Basildon, Endeavour Drive", "Bettlach", "Bracknell", "Brno, Czechia", "Caracas, Venezuela", "Cruiserath - IE", "Cumbria", "Diego Garcia, British Indian Ocean Territory", "Duesseldorf", "Guayaquil", "Nicosia, CY", "Limassol - City House", "Louvain-L-N Boulevard Baudouin", "Montevideo, Uruguay", "Roma - Largo Fochetti 29", "Iskandar Puteri, 01, MY, 79250", "SRB BELG 136B FLR2", "3400, CORRIENTES, Corrientes", "WOODWATER PARK, PYNES HILL:EXETER",
+    "Edinburgh", "Makkah", "Abha", "Foshan", "Jundiai", "Bournemouth", "Alimos", "Perth", "Glasgow", "Sherbrooke, QC",
     "Baku", "St Helier, Jersey, Jersey", "1401-GIPL: Incubation Cntr, Hanamkonda, Telangana", "Las Pinas (PHL)", "Lysaker", "Sucursal Holanda", "138_Servicios Centrales RV", "JUAN IGNACIO LUCA DE TENA",
 ]
 US_KEPT = [
@@ -34,6 +35,7 @@ US_KEPT = [
     "US-NJ-Princeton-100-Headquarters", "Office - USA - CA - Headquarters", "New York, NY", "Ontario, CA",
     "Houston Office", "Jersey City", "Charlotte", "Boston, Massachusetts", "San Francisco Office",
     "Washington D.C.", "Montclair, NJ", "Nashville, Tennessee", "San Juan, Puerto Rico", "Cameron", "Wilmington, Delaware", "Perth Amboy, NJ", "Nassau County, NY", "Brisbane, CA", "Belfast, ME", "Delhi, NY", "Medina, OH",
+    "Reading, PA", "Glasgow, KY", "Naples, FL", "Valencia, CA", "Bristol, CT", "Portsmouth, NH", "Aberdeen, MD", "Bergen County, NJ",
     "Aurora CO", "Florence, KY", "Cheshire, CT", "Genoa, OH",
     "San Jose", "SAN JOSE", "Ottawa, IL", "Manchester, NH", "San Sebastian, Puerto Rico", "Pembroke", "New York, NY Calvin Klein Office",
     "New York, NY, US, 10001-8604", "Chicago, IL, US, 60606", "Fort Wayne, IN, 46802", "Wilmington, DE, 19801", "Dallas, TX, 75201-1234", "Nashville, TN", "Newark, DE", "Boston, MA",
