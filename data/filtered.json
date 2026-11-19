@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18",
+ "updated": "2026-11-19",
  "companies": {
   "Webull": {
    "rows": [
@@ -723,91 +723,6 @@
     ]
    ],
    "n": 13
-  },
-  "Jabil": {
-   "rows": [
-    [
-     "/job/San-Cristobal/Validation-Technician-III_J2469451",
-     "Validation Technician III",
-     "San Cristobal",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/San-Cristobal/Validation-Technician-III_J2469451",
-     "title_exclude_unless",
-     "technician"
-    ],
-    [
-     "/job/San-Cristobal/Validation-Technician-III_J2469654",
-     "Validation Technician III",
-     "San Cristobal",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/San-Cristobal/Validation-Technician-III_J2469654",
-     "title_exclude_unless",
-     "technician"
-    ],
-    [
-     "/job/Austin-TX/Product-Validation-Engineer_J2456698",
-     "Product Validation Engineer",
-     "Austin, TX",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Austin-TX/Product-Validation-Engineer_J2456698",
-     "title_exclude",
-     "validation engineer"
-    ],
-    [
-     "/job/Bray/Validation-Engineer-II_J2466336",
-     "Validation Engineer II",
-     "Bray",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Bray/Validation-Engineer-II_J2466336",
-     "title_exclude",
-     "validation engineer"
-    ],
-    [
-     "/job/San-Jose-CA/Associate-Failure-Analysis-Engineer_J2472515",
-     "Associate Failure Analysis Engineer",
-     "San Jose, CA",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/San-Jose-CA/Associate-Failure-Analysis-Engineer_J2472515",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
-     "/job/St-PetersburgTampa-FL/Cyber-Risk-Specialist-II_J2468873",
-     "Cyber Risk Specialist II",
-     "St. Petersburg/Tampa, FL",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/St-PetersburgTampa-FL/Cyber-Risk-Specialist-II_J2468873",
-     "title_exclude",
-     "cyber"
-    ],
-    [
-     "/job/Florence-KY/Engagement---Communication-Associate_J2467962",
-     "Engagement & Communication Associate",
-     "Florence, KY",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Florence-KY/Engagement---Communication-Associate_J2467962",
-     "title_exclude",
-     "engagement & communication associate"
-    ],
-    [
-     "/job/Clinton-MA/Technical-Business-Unit-Associate_J2467712",
-     "Technical Business Unit Associate",
-     "Clinton, MA",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Clinton-MA/Technical-Business-Unit-Associate_J2467712",
-     "title_exclude",
-     "technical business unit associate"
-    ],
-    [
-     "/job/St-PetersburgTampa-FL/Associate-General-Counsel--Finance---based-onsite-in-St-Petersburg--FL_J2472644",
-     "Associate General Counsel, Finance - based onsite in St. Petersburg, FL",
-     "St. Petersburg/Tampa, FL",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/St-PetersburgTampa-FL/Associate-General-Counsel--Finance---based-onsite-in-St-Petersburg--FL_J2472644",
-     "title_exclude",
-     "counsel"
-    ],
-    [
-     "/job/St-PetersburgTampa-FL/Associate-Account-Manager_J2471723-1",
-     "Associate Account Manager",
-     "St. Petersburg/Tampa, FL",
-     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/St-PetersburgTampa-FL/Associate-Account-Manager_J2471723-1",
-     "title_exclude",
-     "account manager"
-    ]
-   ],
-   "n": 10
   },
   "HSBC": {
    "rows": [
@@ -3872,6 +3787,14 @@
   "Wells Fargo": {
    "rows": [
     [
+     "/job/HEWLETT-NY/Associate-Personal-Banker---Hewlett-Branch_R-586069",
+     "Associate Personal Banker - Hewlett Branch",
+     "HEWLETT, NY",
+     "https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/HEWLETT-NY/Associate-Personal-Banker---Hewlett-Branch_R-586069",
+     "title_exclude",
+     "personal banker"
+    ],
+    [
      "/job/CHARLOTTE-NC/Capital-Markets-Middle-Office-Specialist---Collateral-Management_R-583443",
      "Capital Markets Middle Office Specialist - Collateral Management",
      "CHARLOTTE, NC",
@@ -4440,7 +4363,7 @@
      "summer"
     ]
    ],
-   "n": 71
+   "n": 72
   },
   "RBC": {
    "rows": [
@@ -8254,6 +8177,14 @@
      "global corporate banking events management associate"
     ],
     [
+     "210805143",
+     "Tax Technology Lead, Senior Associate",
+     "Plano, TX, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805143",
+     "title_exclude",
+     "tax"
+    ],
+    [
      "210805278",
      "Associate Banker, 30 Hours, Hutchinson, KS - Multiple Locations",
      "Hutchinson, KS, United States",
@@ -9022,22 +8953,6 @@
      "associate banker"
     ],
     [
-     "210781803",
-     "Associate Banker, 30 Hours, Naples, FL Area - Multiple Locations",
-     "Naples, FL, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210781803",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210781806",
-     "Associate Banker, 30 Hours, Fort Myers/Cape Coral, FL Area - Multiple Locations",
-     "Fort Myers, FL, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210781806",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210782023",
      "Associate Banker, 30 Hours, Chicago Northwest Suburbs Area - Multiple locations",
      "Glenview, IL, United States",
@@ -9140,14 +9055,6 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210801825",
      "title_exclude",
      "marketing"
-    ],
-    [
-     "210802062",
-     "Part Time (30 Hours) Associate Banker, Hempstead Branch, Hempstead, NY",
-     "Hempstead, NY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210802062",
-     "title_exclude",
-     "associate banker"
     ],
     [
      "210802077",
@@ -9286,22 +9193,6 @@
      "associate banker"
     ],
     [
-     "210806900",
-     "Associate Banker, 30 Hours, Sevierville, TN - Sevierville Branch",
-     "Sevierville, TN, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806900",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210806905",
-     "Associate Banker, 20 Hours, Sevierville, TN - Sevierville Branch",
-     "Sevierville, TN, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806905",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210806931",
      "Associate Banker, 30 Hours, Murfreesboro, TN - South Church Branch",
      "Murfreesboro, TN, United States",
@@ -9340,14 +9231,6 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210807537",
      "title_exclude",
      "private client investment associate"
-    ],
-    [
-     "210807546",
-     "Associate Banker, 20 Hours, Cary, IL - Cary Branch",
-     "Cary, IL, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210807546",
-     "title_exclude",
-     "associate banker"
     ],
     [
      "210807594",
@@ -9446,14 +9329,6 @@
      "associate banker"
     ],
     [
-     "210808000",
-     "Associate Banker, 20 Hours, Munster, IN - White Oak Branch",
-     "Munster, IN, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808000",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210808010",
      "Associate Relationship Banker - Hazlet Branch - Hazlet, NJ",
      "Hazlet, NJ, United States",
@@ -9484,14 +9359,6 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808029",
      "title_exclude",
      "relationship banker"
-    ],
-    [
-     "210808084",
-     "Associate Banker, 30 Hours, McHenry, IL - McHenry Branch",
-     "McHenry, IL, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808084",
-     "title_exclude",
-     "associate banker"
     ],
     [
      "210808089",
@@ -9566,14 +9433,6 @@
      "equity sales"
     ],
     [
-     "210808637",
-     "Product Delivery Associate",
-     "Wilmington, DE, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808637",
-     "title_exclude",
-     "product delivery associate"
-    ],
-    [
      "210808866",
      "Part Time (30 hour) Associate Banker - Winchester Rd (New Build) - Huntsville, AL",
      "Huntsville, AL, United States",
@@ -9604,14 +9463,6 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210809021",
      "title_exclude",
      "client service"
-    ],
-    [
-     "210645140",
-     "Asset Management - Internal Client Advisor - Associate",
-     "New York, NY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210645140",
-     "title_exclude",
-     "internal client advisor"
     ],
     [
      "210710236",
@@ -9654,14 +9505,6 @@
      "private client investment associate"
     ],
     [
-     "210779658",
-     "Client Onboarding Implementation Associate",
-     "Charlotte, NC, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210779658",
-     "title_exclude",
-     "client onboarding"
-    ],
-    [
      "210781290",
      "Associate Banker, 30 Hours, Tacoma, WA Area - Multiple Locations",
      "Tacoma, WA, United States",
@@ -9686,26 +9529,10 @@
      "associate banker"
     ],
     [
-     "210781320",
-     "Associate Banker, 30 Hours, East Tucson, AZ Area - Multiple Locations",
-     "Tucson, AZ, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210781320",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210781322",
      "Associate Banker, 30 Hours, West Valley, AZ North Area - Multiple Locations",
      "Peoria, AZ, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210781322",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210781432",
-     "Associate Banker, 30 Hours, Charleston/Mount Pleasant, SC Area - Multiple Locations",
-     "Charleston, SC, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210781432",
      "title_exclude",
      "associate banker"
     ],
@@ -9718,10 +9545,18 @@
      "associate banker"
     ],
     [
-     "210782102",
-     "Associate Banker, 30 Hours, Central OC Area - Multiple locations",
-     "Orange, CA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210782102",
+     "210781803",
+     "Associate Banker, 30 Hours, Naples, FL Area - Multiple Locations",
+     "Naples, FL, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210781803",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210781806",
+     "Associate Banker, 30 Hours, Fort Myers/Cape Coral, FL Area - Multiple Locations",
+     "Fort Myers, FL, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210781806",
      "title_exclude",
      "associate banker"
     ],
@@ -9730,14 +9565,6 @@
      "Associate Banker, 30 Hours, Snellville, GA Area - Multiple Locations",
      "Snellville, GA, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210782233",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210782264",
-     "Associate Banker, 30 Hours, Stockbridge/Hampton, GA Area - Multiple Locations",
-     "Hampton, GA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210782264",
      "title_exclude",
      "associate banker"
     ],
@@ -9758,52 +9585,12 @@
      "associate banker"
     ],
     [
-     "210782545",
-     "Associate Banker, 30 Hours, Lexington Area - Multiple locations",
-     "Lexington, KY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210782545",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210782839",
-     "Associate Banker, 30 Hours, Columbus East Area - Multiple Locations",
-     "Gahanna, OH, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210782839",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210782965",
      "Associate Banker, 30 Hours, South Dallas, TX - Multiple Locations",
      "Dallas, TX, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210782965",
      "title_exclude",
      "associate banker"
-    ],
-    [
-     "210783295",
-     "J.P. Morgan Advisors - Senior Client Associate- Palm Beach Gardens, FL",
-     "Palm Beach Gardens, FL, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210783295",
-     "title_exclude",
-     "client associate"
-    ],
-    [
-     "210783669",
-     "Hiring Event - Part Time, 30 Hours, Associate Banker, Santa Rosa, CA Area - Multiple Locations)",
-     "Santa Rosa, CA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210783669",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210784185",
-     "Acquisition \u2013 Marketing & Execution Support - Senior Associate",
-     "Wilmington, DE, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210784185",
-     "title_exclude",
-     "marketing"
     ],
     [
      "210786102",
@@ -9822,14 +9609,6 @@
      "associate banker"
     ],
     [
-     "210791232",
-     "J.P. Morgan Wealth Management - Private Client Investment Associate - South Richmond Hills, NY",
-     "South Richmond Hill, NY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210791232",
-     "title_exclude",
-     "private client investment associate"
-    ],
-    [
      "210791497",
      "Payments-Treasury Services Commercialization-Executive Director",
      "Jersey City, NJ, United States",
@@ -9844,22 +9623,6 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210792607",
      "title_exclude",
      "product delivery associate"
-    ],
-    [
-     "210794477",
-     "Latin America Private Bank - Senior Client Service Associate - Vice President",
-     "Houston, TX, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210794477",
-     "title_exclude",
-     "latin america"
-    ],
-    [
-     "210796051",
-     "Lead Software Engineer -  Quant Developer",
-     "Jersey City, NJ, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210796051",
-     "title_exclude",
-     "software"
     ],
     [
      "210796705",
@@ -9910,14 +9673,6 @@
      "associate banker"
     ],
     [
-     "210801112",
-     "Associate Banker, 30 Hours, Apache Junction, AZ - Apache Junction Branch",
-     "Apache Junction, AZ, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210801112",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210801146",
      "Part Time (30 Hours) Associate Banker, Foothill and Citrus Branch, Fontana, CA Bilingual Spanish Required",
      "Fontana, CA, United States",
@@ -9926,12 +9681,12 @@
      "associate banker"
     ],
     [
-     "210801166",
-     "Associate Relationship Banker - Calcutta - East Liverpool, OH",
-     "East Liverpool, OH, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210801166",
+     "210802062",
+     "Part Time (30 Hours) Associate Banker, Hempstead Branch, Hempstead, NY",
+     "Hempstead, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210802062",
      "title_exclude",
-     "relationship banker"
+     "associate banker"
     ],
     [
      "210802102",
@@ -9974,36 +9729,12 @@
      "associate banker"
     ],
     [
-     "210803499",
-     "Associate Banker, 30 Hours, Sherman, TX - Sherman Branch",
-     "Sherman, TX, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210803499",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210803531",
-     "Associate Banker, 30 Hours, Hampstead, NC - Hampstead Branch",
-     "Hampstead, NC, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210803531",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210803533",
      "Associate Banker, 30 Hours, Corsicana, TX - Corsicana Branch",
      "Corsicana, TX, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210803533",
      "title_exclude",
      "associate banker"
-    ],
-    [
-     "210803556",
-     "Workforce Planning - Data Scientist - Senior Associate",
-     "Plano, TX, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210803556",
-     "title_exclude",
-     "scientist"
     ],
     [
      "210803901",
@@ -10038,14 +9769,6 @@
      "banker"
     ],
     [
-     "210804291",
-     "Part Time (30 Hours) Associate Banker, Apple Valley Center Branch, Poughkeepsie, NY",
-     "Poughkeepsie, NY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804291",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210804402",
      "Associate Banker, 30 Hours, Elkhart, IN - Indiana and SR 19 Branch",
      "Elkhart, IN, United States",
@@ -10070,14 +9793,6 @@
      "marketing"
     ],
     [
-     "210804563",
-     "Associate Banker, 20 Hours, Kennesaw, GA - Kennesaw Chastain Rd Branch",
-     "Kennesaw, GA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804563",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210804597",
      "Compliance & Operations Risk Test Director - Consumer and Community Banking Testing Center of Excellence - Executive Director",
      "Columbus, OH, United States",
@@ -10090,38 +9805,6 @@
      "Associate Banker, 30 Hours, Doylestown, PA - Doylestown Branch",
      "Doylestown, PA, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804750",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210804777",
-     "Part Time (30 Hours) Associate Banker, Canandaigua Branch, Canandaigua, NY",
-     "Canandaigua, NY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804777",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210804794",
-     "Associate Banker, 20 Hours, Mount Pleasant, SC - Rivertowne Branch",
-     "Mount Pleasant, SC, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804794",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210804807",
-     "Associate Banker, 30 Hours, Beaumont, TX - Dowlen and Phelan Branch",
-     "Beaumont, TX, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804807",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210804900",
-     "Part Time 30 Hour Associate Banker, New Build Victory and Munster, Savannah",
-     "Savannah, GA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804900",
      "title_exclude",
      "associate banker"
     ],
@@ -10146,14 +9829,6 @@
      "Associate Banker, 30 Hours, Crawfordsville, IN - Crawfordsville Main Branch",
      "Crawfordsville, IN, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805176",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210805210",
-     "Associate Banker, 40 Hours, Duluth, GA - Duluth Reynolds Crossing Branch",
-     "Duluth, GA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805210",
      "title_exclude",
      "associate banker"
     ],
@@ -10214,34 +9889,10 @@
      "associate banker"
     ],
     [
-     "210805543",
-     "Part Time (30 Hours) Associate Banker, Monroe NY Branch, Monroe, NY",
-     "Monroe, NY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805543",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
      "210805597",
      "Part Time (30 Hours) Associate Banker, Lees Summit Hwy 291 Branch, Lees Summit, MO",
      "Lees Summit, MO, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805597",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210805630",
-     "Associate Banker, 30 Hours, Saginaw, MI - Bay Mccarty Branch",
-     "Saginaw, MI, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805630",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210805681",
-     "Associate Banker, 30 Hours, Covington, LA - Covington Branch",
-     "Covington, LA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805681",
      "title_exclude",
      "associate banker"
     ],
@@ -10342,30 +9993,6 @@
      "associate banker"
     ],
     [
-     "210806046",
-     "Associate Banker, 30 Hours, Mesa, AZ - Main and Greenfield Branch",
-     "Mesa, AZ, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806046",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210806069",
-     "Associate Banker, 30 Hours, Rockford, IL - State and Mulford Branch",
-     "Rockford, IL, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806069",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210806075",
-     "Associate Relationship Banker - Sun Prairie Branch - Sun Prairie,  WI",
-     "Sun Prairie, WI, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806075",
-     "title_exclude",
-     "relationship banker"
-    ],
-    [
      "210806118",
      "Risk Management and Compliance Executive Administrative Assistant",
      "Newark, DE, United States",
@@ -10438,36 +10065,12 @@
      "treasury sales"
     ],
     [
-     "210806351",
-     "Senior Associate, Travel Sales Manager II, Chase Travel",
-     "United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806351",
-     "title_exclude",
-     "sales manager"
-    ],
-    [
-     "210806362",
-     "Associate, Travel Sales Manager I, Chase Travel",
-     "United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806362",
-     "title_exclude",
-     "sales manager"
-    ],
-    [
      "210806403",
      "Part Time (30 Hours) Associate Banker, Chehalis Branch, Chehalis, WA",
      "Chehalis, WA, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806403",
      "title_exclude",
      "associate banker"
-    ],
-    [
-     "210806414",
-     "Strategic Threats Program Manager Senior Associate",
-     "Washington, DC, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806414",
-     "title_exclude",
-     "program manager"
     ],
     [
      "210806421",
@@ -10486,14 +10089,6 @@
      "relationship banker"
     ],
     [
-     "210806451",
-     "Client Onboarding Implementation Senior Associate",
-     "Charlotte, NC, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806451",
-     "title_exclude",
-     "client onboarding"
-    ],
-    [
      "210806462",
      "Part Time (30 Hours) Associate Banker, Dobbs Ferry Branch, Dobs Ferry, NY",
      "Dobbs Ferry, NY, United States",
@@ -10502,26 +10097,10 @@
      "associate banker"
     ],
     [
-     "210806472",
-     "Associate Relationship Banker - Bay McCarty - Saginaw, MI",
-     "Saginaw, MI, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806472",
-     "title_exclude",
-     "relationship banker"
-    ],
-    [
      "210806470",
      "Part Time (30 Hours) Associate Banker, Elmsford Main St Branch, Elmsford NY",
      "Elmsford, NY, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806470",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210806476",
-     "Associate Banker, 30 Hours, Wayne, PA - Devon Square Branch",
-     "Wayne, PA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806476",
      "title_exclude",
      "associate banker"
     ],
@@ -10588,14 +10167,6 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806630",
      "title_exclude",
      "associate banker"
-    ],
-    [
-     "210806637",
-     "Client Service Associate",
-     "Plano, TX, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806637",
-     "title_exclude",
-     "client service associate"
     ],
     [
      "210806646",
@@ -10668,6 +10239,22 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806897",
      "title_exclude",
      "marketing"
+    ],
+    [
+     "210806900",
+     "Associate Banker, 30 Hours, Sevierville, TN - Sevierville Branch",
+     "Sevierville, TN, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806900",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210806905",
+     "Associate Banker, 20 Hours, Sevierville, TN - Sevierville Branch",
+     "Sevierville, TN, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806905",
+     "title_exclude",
+     "associate banker"
     ],
     [
      "210806934",
@@ -10790,6 +10377,14 @@
      "customer success"
     ],
     [
+     "210807546",
+     "Associate Banker, 20 Hours, Cary, IL - Cary Branch",
+     "Cary, IL, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210807546",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
      "210807548",
      "Associate Relationship Banker - Oswego, NY",
      "Oswego, NY, United States",
@@ -10854,6 +10449,14 @@
      "marketing"
     ],
     [
+     "210808000",
+     "Associate Banker, 20 Hours, Munster, IN - White Oak Branch",
+     "Munster, IN, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808000",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
      "210808003",
      "Head of CCAR and Capital Reporting (FRRA) - Managing Director",
      "Brooklyn, NY, United States",
@@ -10876,6 +10479,14 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808073",
      "title_exclude",
      "relationship banker"
+    ],
+    [
+     "210808084",
+     "Associate Banker, 30 Hours, McHenry, IL - McHenry Branch",
+     "McHenry, IL, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808084",
+     "title_exclude",
+     "associate banker"
     ],
     [
      "210808101",
@@ -10926,6 +10537,14 @@
      "business development"
     ],
     [
+     "210808637",
+     "Product Delivery Associate",
+     "Wilmington, DE, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210808637",
+     "title_exclude",
+     "product delivery associate"
+    ],
+    [
      "210503426",
      "Securities Services - Private Equity Fund Administration - Vice President",
      "Brooklyn, NY, United States",
@@ -10962,6 +10581,14 @@
      "Asset Management - Everyday 401k Internal Client Advisor - Associate",
      "Columbus, OH, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210640823",
+     "title_exclude",
+     "internal client advisor"
+    ],
+    [
+     "210645140",
+     "Asset Management - Internal Client Advisor - Associate",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210645140",
      "title_exclude",
      "internal client advisor"
     ],
@@ -11228,9 +10855,305 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210765276",
      "title_exclude",
      "summer"
+    ],
+    [
+     "210765814",
+     "Treasury Sales Associate -Emerging Middle Market",
+     "Charlotte, NC, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210765814",
+     "title_exclude",
+     "treasury sales"
+    ],
+    [
+     "210766078",
+     "2027 Chase Associate Program - Summer Associate Opportunity (New York)",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210766078",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "210767069",
+     "2027 Chase Associate Program - Summer Associate Opportunity (OH, TX, DE)",
+     "Columbus, OH, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210767069",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "210767184",
+     "Software Engineer Associate III - Databricks",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210767184",
+     "title_exclude",
+     "software"
+    ],
+    [
+     "210767556",
+     "Quantitative Trading & Research - e-Trading - Executive Director",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210767556",
+     "title_exclude",
+     "executive director"
+    ],
+    [
+     "210768325",
+     "Trust and Security Product Control Manager - Consumer and Community Banking - Senior Associate",
+     "OH, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210768325",
+     "title_exclude",
+     "security"
+    ],
+    [
+     "210769271",
+     "Tech Risk and Controls Lead - Digital Platforms",
+     "Columbus, OH, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210769271",
+     "title_exclude",
+     "tech risk"
+    ],
+    [
+     "210769562",
+     "Salesforce Marketing Cloud Builder-Associate",
+     "Wilmington, DE, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210769562",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "210770811",
+     "Hiring Event - Part Time Associate Banker South San Jose (30 Hours)",
+     "San Jose, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770811",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210770822",
+     "Hiring Event - Part Time Associate Banker North San Jose (30 Hours)",
+     "San Jose, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770822",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210770862",
+     "Hiring Event - Part Time Associate Banker Contra Costa South (30 Hours)",
+     "Martinez, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770862",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210770887",
+     "Hiring Event - Part Time Associate Banker Sacramento East (30 Hours)",
+     "Sacramento, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770887",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210770938",
+     "Hiring Event - Part Time Associate Banker Sierra Mountain (30 Hours)",
+     "Citrus Heights, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770938",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771120",
+     "Financial Analysis - Marketing Expense Finance - Senior Associate",
+     "Wilmington, DE, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771120",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "210771252",
+     "Executive Director Portfolio Management & Governance",
+     "Jersey City, NJ, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771252",
+     "title_exclude",
+     "executive director"
+    ],
+    [
+     "210771286",
+     "AI/ML - Technology & Cybersecurity Risk Management - Compliance -  Vice President",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771286",
+     "title_exclude_unless",
+     "cybersecurity"
+    ],
+    [
+     "210771532",
+     "Asset Management, Internal Client Advisor (Internal Wholesaler), Associate",
+     "Chicago, IL, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771532",
+     "title_exclude",
+     "internal client advisor"
+    ],
+    [
+     "210771588",
+     "Hiring Event - Part Time Associate Banker Downtown LA South (30 Hours)",
+     "Inglewood, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771588",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771615",
+     "Hiring Event - Part Time Associate Banker Downtown LA North (30 Hours)",
+     "Los Angeles, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771615",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771634",
+     "Hiring Event - Part Time Associate Banker South Tarrant (30 Hours)",
+     "Mansfield, TX, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771634",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771646",
+     "Hiring Event - Part Time Associate Banker Greater Arlington (30 Hours)",
+     "Mansfield, TX, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771646",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771714",
+     "Hiring Event - Part Time Associate Banker North Central SD (30 Hours)",
+     "San Diego, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771714",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771723",
+     "Hiring Event - Part Time Associate Banker West Hollywood Hills (30 Hours)",
+     "West Hollywood, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771723",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771781",
+     "Hiring Event - Part Time Associate Banker Golden Gate  (30 Hours)",
+     "San Francisco, CA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771781",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210771815",
+     "Senior Associate, Paid Social ~ Card Acquisitions",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771815",
+     "title_exclude",
+     "senior associate, paid social ~ card acquisitions"
+    ],
+    [
+     "210772060",
+     "Technology Risk and Controls Lead",
+     "Plano, TX, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210772060",
+     "title_exclude",
+     "technology risk"
+    ],
+    [
+     "210772100",
+     "Structured Working Capital & Inventory Finance Sales - Executive Director",
+     "Jersey City, NJ, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210772100",
+     "title_exclude",
+     "executive director"
+    ],
+    [
+     "210772661",
+     "Technology Risk and Controls Lead - Business Aligned Specialized Solutions",
+     "OH, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210772661",
+     "title_exclude",
+     "technology risk"
+    ],
+    [
+     "210772826",
+     "Associate I - Global Fund Services Operations Service Delivery",
+     "Boston, MA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210772826",
+     "title_exclude_unless",
+     "fund services"
+    ],
+    [
+     "210773133",
+     "Senior Associate - Tech Risk & Controls - CORE",
+     "Tampa, FL, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210773133",
+     "title_exclude",
+     "tech risk"
+    ],
+    [
+     "210773351",
+     "UX Creative Technologist - Senior Associate",
+     "Brooklyn, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210773351",
+     "title_exclude",
+     "creative technologist"
+    ],
+    [
+     "210773423",
+     "Client Service Associate II",
+     "Brooklyn, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210773423",
+     "title_exclude",
+     "client service associate"
+    ],
+    [
+     "210773525",
+     "Executive Director - Card SMB Acquisitions Risk Strategy Director",
+     "Wilmington, DE, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210773525",
+     "title_exclude",
+     "executive director"
+    ],
+    [
+     "210773538",
+     "AI in Operations Strategy and Transformation Office - Senior Associate",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210773538",
+     "title_exclude_unless",
+     "transformation"
+    ],
+    [
+     "210773540",
+     "Lead Software Engineer - Regulatory Reporting",
+     "Jersey City, NJ, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210773540",
+     "title_exclude",
+     "software"
+    ],
+    [
+     "210774002",
+     "Experience Design Senior Associate",
+     "Brooklyn, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210774002",
+     "title_exclude",
+     "experience design"
+    ],
+    [
+     "210774061",
+     "2027 Quantitative Research \u2013 Markets \u2013 Summer Internship - Associate\u2013 United States",
+     "New York, NY, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210774061",
+     "title_exclude",
+     "summer"
     ]
    ],
-   "n": 1108
+   "n": 1109
   },
   "Bank of America": {
    "rows": [
@@ -11689,14 +11612,6 @@
      "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Albany/Merrill-Advisor-Development-Program---Financial-Advisor--NY-Capital-Central-NY-Market_26041353",
      "title_exclude",
      "financial advisor"
-    ],
-    [
-     "/job/Atlanta/Treasury-Sales-Associate--I---Global-Payment-Solutions---Healthcare--Higher-Education-and-Not-for-Profit_26039314",
-     "Treasury Sales Associate  I - Global Payment Solutions - Healthcare, Higher Education and Not for Profit",
-     "5 Locations (Atlanta)",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Atlanta/Treasury-Sales-Associate--I---Global-Payment-Solutions---Healthcare--Higher-Education-and-Not-for-Profit_26039314",
-     "title_exclude",
-     "treasury sales"
     ],
     [
      "/job/Greenwich/Registered-Wealth-Management-Client-Associate_26033290",
@@ -12779,7 +12694,7 @@
      "wealth management client associate"
     ]
    ],
-   "n": 193
+   "n": 192
   },
   "Morgan Stanley": {
    "rows": [
@@ -15781,14 +15696,6 @@
      "cybersecurity"
     ],
     [
-     "26015622",
-     "Associate Digital Product Operation",
-     "Phoenix, AZ, United States",
-     "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26015622",
-     "title_exclude",
-     "associate digital product operation"
-    ],
-    [
      "26016198",
      "Senior Associate-CyberOps & Assurance - Third Party Security",
      "Phoenix, AZ, United States",
@@ -15821,7 +15728,7 @@
      "technology risk"
     ]
    ],
-   "n": 8
+   "n": 7
   },
   "Schonfeld": {
    "rows": [],
@@ -18036,22 +17943,6 @@
      "business development"
     ],
     [
-     "38331",
-     "Underwriting Intern",
-     "Chattanooga, TN, United States",
-     "https://fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/38331",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "38333",
-     "Underwriting Intern",
-     "Chicago, IL, United States",
-     "https://fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/38333",
-     "title_exclude",
-     "intern"
-    ],
-    [
      "38410",
      "AVP, Treasury Operations - LATAM",
      "Philadelphia, PA, United States",
@@ -18146,6 +18037,22 @@
      "https://fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/38193",
      "title_exclude",
      "senior risk engineer, construction"
+    ],
+    [
+     "38331",
+     "Underwriting Intern",
+     "Chattanooga, TN, United States",
+     "https://fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/38331",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "38333",
+     "Underwriting Intern",
+     "Chicago, IL, United States",
+     "https://fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/38333",
+     "title_exclude",
+     "intern"
     ]
    ],
    "n": 16
@@ -19040,12 +18947,12 @@
      "full-stack"
     ],
     [
-     "83207",
-     "Senior Director, Head of Portfolio Construction",
-     "New York, NY, United States",
-     "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BNY-Careers/job/83207",
+     "70497",
+     "Senior Associate, Middle Office Operations",
+     "Lake Mary, FL, United States",
+     "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BNY-Careers/job/70497",
      "title_exclude",
-     "senior director"
+     "middle office operations"
     ]
    ],
    "n": 4
@@ -19223,22 +19130,6 @@
      "transformation"
     ],
     [
-     "213631",
-     "Associate Director - Workplace Design Project Manager/Architect",
-     "Jersey City, NJ, United States",
-     "https://ebxr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/213631",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "214752",
-     "Software Engineering Senior Associate",
-     "Dallas, TX, United States",
-     "https://ebxr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/214752",
-     "title_exclude",
-     "software"
-    ],
-    [
      "215210",
      "Cyber Security Engineering Senior Associate (Zscaler)",
      "Tampa, FL, United States",
@@ -19255,12 +19146,20 @@
      "cyber"
     ],
     [
-     "214903",
-     "Transformation Delivery Project Manager - Associate Director",
+     "213631",
+     "Associate Director - Workplace Design Project Manager/Architect",
      "Jersey City, NJ, United States",
-     "https://ebxr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/214903",
+     "https://ebxr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/213631",
      "title_exclude",
      "project manager"
+    ],
+    [
+     "214752",
+     "Software Engineering Senior Associate",
+     "Dallas, TX, United States",
+     "https://ebxr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/214752",
+     "title_exclude",
+     "software"
     ],
     [
      "214957",
@@ -19269,14 +19168,6 @@
      "https://ebxr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/214957",
      "title_exclude",
      "asset servicing"
-    ],
-    [
-     "215000",
-     "Software Engineering Senior Associate",
-     "Jersey City, NJ, United States",
-     "https://ebxr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/215000",
-     "title_exclude",
-     "software"
     ],
     [
      "215146",
@@ -19311,7 +19202,7 @@
      "security"
     ]
    ],
-   "n": 14
+   "n": 12
   },
   "CME Group": {
    "rows": [
@@ -21528,6 +21419,14 @@
   "Cigna": {
    "rows": [
     [
+     "/job/United-States-Work-at-Home/Associate-Medical-Director--Pediatrics_26014291",
+     "Associate Medical Director, Pediatrics",
+     "United States Work at Home",
+     "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/United-States-Work-at-Home/Associate-Medical-Director--Pediatrics_26014291",
+     "title_exclude",
+     "medical director"
+    ],
+    [
      "/job/Morris-Plains-NJ/Pharmacy-Underwriting-Development-Program--Senior-Analyst_26009220",
      "Pharmacy Underwriting Development Program\u202f Senior Analyst",
      "6 Locations (Morris Plains NJ)",
@@ -21680,7 +21579,7 @@
      "customer service associate"
     ]
    ],
-   "n": 19
+   "n": 20
   },
   "The Hartford": {
    "rows": [
@@ -21979,26 +21878,18 @@
   "Block": {
    "rows": [
     [
-     "5232007008",
-     "Business Development Rep Associate",
-     "Bay Area, CA, United States of America",
-     "http://block.xyz/careers/jobs/5232007008?gh_jid=5232007008",
-     "title_exclude",
-     "business development"
-    ],
-    [
-     "5232001008",
-     "Business Development Rep Associate",
-     "Los Angeles, CA, United States of America",
-     "http://block.xyz/careers/jobs/5232001008?gh_jid=5232001008",
-     "title_exclude",
-     "business development"
-    ],
-    [
      "5231999008",
      "Business Development Rep Associate",
      "Atlanta, GA, United States of America",
      "http://block.xyz/careers/jobs/5231999008?gh_jid=5231999008",
+     "title_exclude",
+     "business development"
+    ],
+    [
+     "5232007008",
+     "Business Development Rep Associate",
+     "Bay Area, CA, United States of America",
+     "http://block.xyz/careers/jobs/5232007008?gh_jid=5232007008",
      "title_exclude",
      "business development"
     ],
@@ -22019,18 +21910,26 @@
      "business development"
     ],
     [
-     "5232000008",
-     "Business Development Rep Associate",
-     "DC Metro, United States of America",
-     "http://block.xyz/careers/jobs/5232000008?gh_jid=5232000008",
-     "title_exclude",
-     "business development"
-    ],
-    [
      "5232002008",
      "Business Development Rep Associate",
      "Scottsdale, AZ, United States of America",
      "http://block.xyz/careers/jobs/5232002008?gh_jid=5232002008",
+     "title_exclude",
+     "business development"
+    ],
+    [
+     "5232001008",
+     "Business Development Rep Associate",
+     "Los Angeles, CA, United States of America",
+     "http://block.xyz/careers/jobs/5232001008?gh_jid=5232001008",
+     "title_exclude",
+     "business development"
+    ],
+    [
+     "5232000008",
+     "Business Development Rep Associate",
+     "DC Metro, United States of America",
+     "http://block.xyz/careers/jobs/5232000008?gh_jid=5232000008",
      "title_exclude",
      "business development"
     ],
@@ -32509,18 +32408,18 @@
      "customer success"
     ],
     [
-     "8831161002",
-     "Customer Success Associate",
-     "Dallas, TX",
-     "https://job-boards.greenhouse.io/figure/jobs/8831161002",
-     "title_exclude",
-     "customer success"
-    ],
-    [
      "8792016002",
      "Customer Success Associate",
      "Charlotte, NC",
      "https://job-boards.greenhouse.io/figure/jobs/8792016002",
+     "title_exclude",
+     "customer success"
+    ],
+    [
+     "8831161002",
+     "Customer Success Associate",
+     "Dallas, TX",
+     "https://job-boards.greenhouse.io/figure/jobs/8831161002",
      "title_exclude",
      "customer success"
     ]
@@ -32806,18 +32705,18 @@
      "medical director"
     ],
     [
-     "8330840",
-     "Associate, Member and Provider Programs",
-     "Tempe, Arizona, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8330840",
-     "title_exclude",
-     "associate, member and provider programs"
-    ],
-    [
      "8303620",
      "Associate, Member and Provider Programs",
      "New York, New York, United States",
      "https://oscarhealth.com/careers/jobs?gh_jid=8303620",
+     "title_exclude",
+     "associate, member and provider programs"
+    ],
+    [
+     "8330840",
+     "Associate, Member and Provider Programs",
+     "Tempe, Arizona, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8330840",
      "title_exclude",
      "associate, member and provider programs"
     ],
@@ -32846,18 +32745,18 @@
      "transformation"
     ],
     [
-     "8349798",
-     "Associate, Service Transformation",
-     "Tempe, Arizona, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8349798",
-     "title_exclude_unless",
-     "transformation"
-    ],
-    [
      "8319428",
      "Associate, Service Transformation",
      "Atlanta, Georgia, United States",
      "https://oscarhealth.com/careers/jobs?gh_jid=8319428",
+     "title_exclude_unless",
+     "transformation"
+    ],
+    [
+     "8349798",
+     "Associate, Service Transformation",
+     "Tempe, Arizona, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8349798",
      "title_exclude_unless",
      "transformation"
     ],
@@ -32870,18 +32769,18 @@
      "provider operations"
     ],
     [
-     "8157664",
-     "Process Management Associate, Provider Operations",
-     "Atlanta, Georgia, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8157664",
-     "title_exclude",
-     "provider operations"
-    ],
-    [
      "8157655",
      "Process Management Associate, Provider Operations",
      "Dallas, Texas, United States",
      "https://oscarhealth.com/careers/jobs?gh_jid=8157655",
+     "title_exclude",
+     "provider operations"
+    ],
+    [
+     "8157664",
+     "Process Management Associate, Provider Operations",
+     "Atlanta, Georgia, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8157664",
      "title_exclude",
      "provider operations"
     ],
@@ -33549,6 +33448,14 @@
      "executive director"
     ],
     [
+     "8004647003",
+     "Executive Director, US Portfolio Analytics",
+     "Redwood City, California, United States",
+     "https://www.revmed.com/careers-list/?gh_jid=8004647003",
+     "title_exclude",
+     "executive director"
+    ],
+    [
      "7998395003",
      "Senior Director, FP&A",
      "Redwood City, California, United States",
@@ -33573,7 +33480,7 @@
      "dmpk"
     ]
    ],
-   "n": 20
+   "n": 21
   },
   "Veeva Systems": {
    "rows": [
@@ -40972,14 +40879,6 @@
      "territory associate relations manager (atlanta)"
     ],
     [
-     "/job/STORE-SUPPORT-CENTER-ATLANTA---9090/Associate-Data-Scientist---Decision-Analytics_Req186435",
-     "Associate Data Scientist - Decision Analytics (Customer Experience Economics)",
-     "STORE SUPPORT CENTER, ATLANTA - 9090",
-     "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/STORE-SUPPORT-CENTER-ATLANTA---9090/Associate-Data-Scientist---Decision-Analytics_Req186435",
-     "title_exclude",
-     "scientist"
-    ],
-    [
      "/job/STORE-SUPPORT-CENTER-ATLANTA---9090/Associate-Data-Scientist_Req183993",
      "Associate Data Scientist, Marketing",
      "STORE SUPPORT CENTER, ATLANTA - 9090",
@@ -41004,7 +40903,7 @@
      "scientist"
     ]
    ],
-   "n": 10
+   "n": 9
   },
   "TransUnion": {
    "rows": [],
@@ -47708,6 +47607,14 @@
      "project engineer"
     ],
     [
+     "/job/Chicago-IL/Associate-Substation-Engineer_R-00189849-1",
+     "Associate Substation Engineer",
+     "Chicago, IL",
+     "https://leidos.wd5.myworkdayjobs.com/External/job/Chicago-IL/Associate-Substation-Engineer_R-00189849-1",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
      "/job/Walled-Lake-MI/Associate-Distribution-Engineer_R-00192712",
      "Associate Distribution Engineer",
      "Walled Lake, MI",
@@ -47770,14 +47677,6 @@
      "https://leidos.wd5.myworkdayjobs.com/External/job/Huntsville-AL/Associate-Buyer_R-00196418",
      "title_exclude",
      "associate buyer"
-    ],
-    [
-     "/job/Chicago-IL/Associate-Substation-Engineer_R-00189849-1",
-     "Associate Substation Engineer",
-     "Chicago, IL",
-     "https://leidos.wd5.myworkdayjobs.com/External/job/Chicago-IL/Associate-Substation-Engineer_R-00189849-1",
-     "title_exclude_unless",
-     "engineer"
     ]
    ],
    "n": 11
@@ -48446,6 +48345,22 @@
   },
   "Lowe's": {
    "rows": [
+    [
+     "/job/Issaquah-WA-0140/Merchandising-Service-Associate---Plant-Service-Lead_JR-02708463-1",
+     "Merchandising Service Associate - Plant Service Lead",
+     "Issaquah, WA 0140",
+     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Issaquah-WA-0140/Merchandising-Service-Associate---Plant-Service-Lead_JR-02708463-1",
+     "title_exclude",
+     "merchandising service"
+    ],
+    [
+     "/job/Arlington-WA-Smokey-Point-0061/Full-Time---Fulfillment-Associate---Day_JR-02708450",
+     "Full Time - Fulfillment Associate - Day",
+     "Arlington, WA (Smokey Point) 0061",
+     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Arlington-WA-Smokey-Point-0061/Full-Time---Fulfillment-Associate---Day_JR-02708450",
+     "title_exclude",
+     "fulfillment associate"
+    ],
     [
      "/job/Fayetteville-AR-0432/Full-Time---Sales-Associate---Building-Materials---Closing_JR-02708443-1",
      "Full Time - Sales Associate - Building Materials - Closing",
@@ -51629,25 +51544,9 @@
      "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Tampa-FL-Central-Tampa-0564/Part-Time---Loader-Cart-Associate---Flexible_JR-02706115",
      "title_exclude",
      "loader/cart"
-    ],
-    [
-     "/job/Ridgeland-MS-2622/Part-Time---Sales-Associate---Flexible_JR-02706110",
-     "Part Time - Sales Associate - Flexible",
-     "Ridgeland, MS 2622",
-     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Ridgeland-MS-2622/Part-Time---Sales-Associate---Flexible_JR-02706110",
-     "title_exclude",
-     "sales associate"
-    ],
-    [
-     "/job/Dallas-TX-N-Dallas-0515/Part-Time---Fulfillment-Associate---Flexible_JR-02706103",
-     "Part Time - Fulfillment Associate - Flexible",
-     "Dallas, TX (N Dallas) 0515",
-     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Dallas-TX-N-Dallas-0515/Part-Time---Fulfillment-Associate---Flexible_JR-02706103",
-     "title_exclude",
-     "fulfillment associate"
     ]
    ],
-   "n": 2540
+   "n": 2538
   },
   "Sonoco": {
    "rows": [
@@ -54956,14 +54855,6 @@
      "inventory associate"
     ],
     [
-     "/job/TX---Houston---Houston-North/Business-Office-Associate_JR-148749",
-     "Part-Time Business Office Associate",
-     "TX - Houston - Houston North",
-     "https://carmax.wd1.myworkdayjobs.com/External/job/TX---Houston---Houston-North/Business-Office-Associate_JR-148749",
-     "title_exclude",
-     "business office associate"
-    ],
-    [
      "/job/NC---Raleigh/Inventory-Associate_JR-074271",
      "Inventory Associate",
      "NC - Raleigh",
@@ -55026,6 +54917,14 @@
      "https://carmax.wd1.myworkdayjobs.com/External/job/TX---McAllen---Pharr/Flow-Inventory-Associate_JR-173716",
      "title_exclude",
      "inventory associate"
+    ],
+    [
+     "/job/TX---Houston---Houston-North/Business-Office-Associate_JR-148749",
+     "Part-Time Business Office Associate",
+     "TX - Houston - Houston North",
+     "https://carmax.wd1.myworkdayjobs.com/External/job/TX---Houston---Houston-North/Business-Office-Associate_JR-148749",
+     "title_exclude",
+     "business office associate"
     ]
    ],
    "n": 361
@@ -55049,6 +54948,22 @@
      "bilingual"
     ],
     [
+     "/job/USA-CA---Los-Angeles-2025-West-8th-Street---Retail-Branch-Location/Part-Time-Bilingual-Retail-Sales-and-Customer-Service-Associate-in-Los-Angeles--CA-at-West-8th-St_JR0132874",
+     "Part-Time Bilingual Retail Sales and Customer Service Associate in Los Angeles, CA at West 8th St",
+     "USA CA - Los Angeles 2025 West 8th Street - Retail Branch Location",
+     "https://westernunion.wd5.myworkdayjobs.com/WesternUnionJobs/job/USA-CA---Los-Angeles-2025-West-8th-Street---Retail-Branch-Location/Part-Time-Bilingual-Retail-Sales-and-Customer-Service-Associate-in-Los-Angeles--CA-at-West-8th-St_JR0132874",
+     "title_exclude",
+     "bilingual"
+    ],
+    [
+     "/job/USA---TX---Houston-5716-H-Bellair-Blvd---Retail-Branch-Location/Part-Time-Bilingual-Retail-Sales-and-Customer-Service-Associate-in-Houston--TX-at-Bellaire-Blvd_JR0132826",
+     "Part-Time Bilingual Retail Sales and Customer Service Associate in Houston, TX at Bellaire Blvd",
+     "USA - TX - Houston 5716 H Bellair Blvd - Retail Branch Location",
+     "https://westernunion.wd5.myworkdayjobs.com/WesternUnionJobs/job/USA---TX---Houston-5716-H-Bellair-Blvd---Retail-Branch-Location/Part-Time-Bilingual-Retail-Sales-and-Customer-Service-Associate-in-Houston--TX-at-Bellaire-Blvd_JR0132826",
+     "title_exclude",
+     "bilingual"
+    ],
+    [
      "/job/USA-CO---Aurora-10777-E-Colfax-Ave---Retail-Branch-Location/Bilingual-Part-Time-Retail-Sales-and-Customer-Service-Associate-in-Aurora--CO_JR0131148",
      "Bilingual Part-Time Retail Sales and Customer Service Associate in Aurora, CO",
      "USA CO - Aurora 10777 E Colfax Ave - Retail Branch Location",
@@ -55057,7 +54972,7 @@
      "bilingual"
     ]
    ],
-   "n": 3
+   "n": 5
   },
   "AES": {
    "rows": [
@@ -56561,6 +56476,22 @@
      "sales associate"
     ],
     [
+     "/job/Bend-OR/Retail-Sales-Associate-Flex_R284004-1",
+     "Retail Sales Associate Flex",
+     "Bend OR",
+     "https://usfoods.wd1.myworkdayjobs.com/usfoodscareersExternal/job/Bend-OR/Retail-Sales-Associate-Flex_R284004-1",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
+     "/job/CHEFSTORE-Everett-WA-553/Retail-Sales-Associate-PT_R283989-1",
+     "Retail Sales Associate PT",
+     "CHEFSTORE Everett WA 553",
+     "https://usfoods.wd1.myworkdayjobs.com/usfoodscareersExternal/job/CHEFSTORE-Everett-WA-553/Retail-Sales-Associate-PT_R283989-1",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
      "/job/Bellingham-WA/Sales-Associate-Chef-Store-FT_R283573-1",
      "Retail Sales Associate FT",
      "Bellingham WA",
@@ -56687,22 +56618,6 @@
      "https://usfoods.wd1.myworkdayjobs.com/usfoodscareersExternal/job/SY-Aurora-IL/Warehouse-Associate----Stock-Yards_R282001-1",
      "title_exclude",
      "warehouse associate"
-    ],
-    [
-     "/job/Bend-OR/Retail-Sales-Associate-Flex_R284004-1",
-     "Retail Sales Associate Flex",
-     "Bend OR",
-     "https://usfoods.wd1.myworkdayjobs.com/usfoodscareersExternal/job/Bend-OR/Retail-Sales-Associate-Flex_R284004-1",
-     "title_exclude",
-     "sales associate"
-    ],
-    [
-     "/job/CHEFSTORE-Everett-WA-553/Retail-Sales-Associate-PT_R283989-1",
-     "Retail Sales Associate PT",
-     "CHEFSTORE Everett WA 553",
-     "https://usfoods.wd1.myworkdayjobs.com/usfoodscareersExternal/job/CHEFSTORE-Everett-WA-553/Retail-Sales-Associate-PT_R283989-1",
-     "title_exclude",
-     "sales associate"
     ]
    ],
    "n": 29
@@ -57952,6 +57867,83 @@
   "Trimble": {
    "rows": [],
    "n": 0
+  },
+  "Jabil": {
+   "rows": [
+    [
+     "/job/San-Cristobal/Validation-Technician-III_J2469451",
+     "Validation Technician III",
+     "San Cristobal",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/San-Cristobal/Validation-Technician-III_J2469451",
+     "title_exclude_unless",
+     "technician"
+    ],
+    [
+     "/job/San-Cristobal/Validation-Technician-III_J2469654",
+     "Validation Technician III",
+     "San Cristobal",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/San-Cristobal/Validation-Technician-III_J2469654",
+     "title_exclude_unless",
+     "technician"
+    ],
+    [
+     "/job/Austin-TX/Product-Validation-Engineer_J2456698",
+     "Product Validation Engineer",
+     "Austin, TX",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Austin-TX/Product-Validation-Engineer_J2456698",
+     "title_exclude",
+     "validation engineer"
+    ],
+    [
+     "/job/Bray/Validation-Engineer-II_J2466336",
+     "Validation Engineer II",
+     "Bray",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Bray/Validation-Engineer-II_J2466336",
+     "title_exclude",
+     "validation engineer"
+    ],
+    [
+     "/job/San-Jose-CA/Associate-Failure-Analysis-Engineer_J2472515",
+     "Associate Failure Analysis Engineer",
+     "San Jose, CA",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/San-Jose-CA/Associate-Failure-Analysis-Engineer_J2472515",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "/job/Florence-KY/Engagement---Communication-Associate_J2467962",
+     "Engagement & Communication Associate",
+     "Florence, KY",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Florence-KY/Engagement---Communication-Associate_J2467962",
+     "title_exclude",
+     "engagement & communication associate"
+    ],
+    [
+     "/job/Clinton-MA/Technical-Business-Unit-Associate_J2467712",
+     "Technical Business Unit Associate",
+     "Clinton, MA",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/Clinton-MA/Technical-Business-Unit-Associate_J2467712",
+     "title_exclude",
+     "technical business unit associate"
+    ],
+    [
+     "/job/St-PetersburgTampa-FL/Associate-General-Counsel--Finance---based-onsite-in-St-Petersburg--FL_J2472644",
+     "Associate General Counsel, Finance - based onsite in St. Petersburg, FL",
+     "St. Petersburg/Tampa, FL",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/St-PetersburgTampa-FL/Associate-General-Counsel--Finance---based-onsite-in-St-Petersburg--FL_J2472644",
+     "title_exclude",
+     "counsel"
+    ],
+    [
+     "/job/St-PetersburgTampa-FL/Associate-Account-Manager_J2471723-1",
+     "Associate Account Manager",
+     "St. Petersburg/Tampa, FL",
+     "https://jabil.wd5.myworkdayjobs.com/Jabil_Careers/job/St-PetersburgTampa-FL/Associate-Account-Manager_J2471723-1",
+     "title_exclude",
+     "account manager"
+    ]
+   ],
+   "n": 9
   },
   "MGIC": {
    "rows": [],
@@ -60458,28 +60450,12 @@
      "software"
     ],
     [
-     "167674_GS_MID_CAREER",
-     "Human Capital Management (HCM) Strategy, Data Program Product Management, Vice President",
-     "New York, NY, United States",
-     "https://higher.gs.com/roles/167674",
-     "title_exclude",
-     "human capital management"
-    ],
-    [
      "148033_GS_MID_CAREER",
      "Executive Office, Marketing Analytics and Effectiveness, Associate, New York",
      "New York, NY, United States",
      "https://higher.gs.com/roles/148033",
      "title_exclude",
      "marketing"
-    ],
-    [
-     "182339_GS_MID_CAREER",
-     "Human Capital Management, Employee Relations, Vice President, New York City",
-     "New York, NY, United States",
-     "https://higher.gs.com/roles/182339",
-     "title_exclude",
-     "human capital management"
     ],
     [
      "172825_GS_MID_CAREER",
@@ -60514,7 +60490,7 @@
      "wealth advisor"
     ]
    ],
-   "n": 62
+   "n": 60
   },
   "Scotiabank": {
    "rows": [
@@ -60791,116 +60767,12 @@
   "New York Life": {
    "rows": [
     [
-     "44141182",
-     "Senior Associate, External Wholesaler",
-     "Remote,New York,United States | California, USA",
-     "https://careers.newyorklife.com/careers/job/44141182",
+     "45060796",
+     "HR Operations Associate, Human Resources",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45060796",
      "title_exclude",
-     "wholesaler"
-    ],
-    [
-     "45390180",
-     "SENIOR ASSOCIATE, Long Term Care External Wholesaler",
-     "Las Vegas,Nevada,United States",
-     "https://careers.newyorklife.com/careers/job/45390180",
-     "title_exclude",
-     "wholesaler"
-    ],
-    [
-     "41922162",
-     "Senior Associate - Senior GCP Security Engineer",
-     "Remote,New York,United States | United States",
-     "https://careers.newyorklife.com/careers/job/41922162",
-     "title_exclude",
-     "security engineer"
-    ],
-    [
-     "45059878",
-     "Associate, Sales Representative",
-     "Remote,New York,United States | Remote, New York | Remote, New Jersey",
-     "https://careers.newyorklife.com/careers/job/45059878",
-     "title_exclude",
-     "sales representative"
-    ],
-    [
-     "42487082",
-     "Senior Associate, Senior Sales Representative",
-     "Remote,New Jersey,United States",
-     "https://careers.newyorklife.com/careers/job/42487082",
-     "title_exclude",
-     "sales representative"
-    ],
-    [
-     "41787397",
-     "Senior Associate, National Implementation Manager",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/41787397",
-     "title_exclude",
-     "senior associate, national implementation manager"
-    ],
-    [
-     "45346932",
-     "Senior Associate - Cloud Engineer",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/45346932",
-     "title_exclude",
-     "cloud engineer"
-    ],
-    [
-     "45372487",
-     "Senior Associate - AI Security Engineer",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/45372487",
-     "title_exclude",
-     "security engineer"
-    ],
-    [
-     "41609873",
-     "Senior Associate - IAM Engineer",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/41609873",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
-     "43795750",
-     "Senior Associate, Cybersecurity Regulatory Compliance",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/43795750",
-     "title_exclude_unless",
-     "cybersecurity"
-    ],
-    [
-     "43941398",
-     "Senior Associate, Advisor Consultant (In-Market Internal Wholesaler)",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/43941398",
-     "title_exclude",
-     "wholesaler"
-    ],
-    [
-     "44600697",
-     "Associate General Counsel, Group Benefit Solutions Counsel, Absence Management",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/44600697",
-     "title_exclude",
-     "counsel"
-    ],
-    [
-     "43977195",
-     "2027 Apogem Capital Summer Internship - Tax",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/43977195",
-     "title_exclude",
-     "summer"
-    ],
-    [
-     "44140082",
-     "Assistant Vice President - Private Equity Fund Accounting & Operations",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/44140082",
-     "title_exclude",
-     "fund accounting"
+     "hr operations"
     ],
     [
      "45519532",
@@ -60911,20 +60783,12 @@
      "engineer"
     ],
     [
-     "45407261",
-     "Corporate Vice President, Head of Morbidity Underwriting",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/45407261",
+     "45499258",
+     "Senior Associate - Quality Engineer / QA Automation Lead",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45499258",
      "title_exclude",
-     "head of"
-    ],
-    [
-     "44648352",
-     "Senior Associate, Absence Consultant, Complex Implementations",
-     "Remote,New York,United States",
-     "https://careers.newyorklife.com/careers/job/44648352",
-     "title_exclude",
-     "senior associate, absence consultant, complex implementations"
+     "quality engineer"
     ],
     [
      "45480621",
@@ -60941,9 +60805,577 @@
      "https://careers.newyorklife.com/careers/job/45480599",
      "title_exclude_unless",
      "engineer"
+    ],
+    [
+     "45407261",
+     "Corporate Vice President, Head of Morbidity Underwriting",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45407261",
+     "title_exclude",
+     "head of"
+    ],
+    [
+     "45391858",
+     "Senior Associate, Full Stack Developer",
+     "Tampa,Florida,United States",
+     "https://careers.newyorklife.com/careers/job/45391858",
+     "title_exclude",
+     "full stack"
+    ],
+    [
+     "45390180",
+     "SENIOR ASSOCIATE, Long Term Care External Wholesaler",
+     "Las Vegas,Nevada,United States",
+     "https://careers.newyorklife.com/careers/job/45390180",
+     "title_exclude",
+     "wholesaler"
+    ],
+    [
+     "45372487",
+     "Senior Associate - AI Security Engineer",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45372487",
+     "title_exclude",
+     "security engineer"
+    ],
+    [
+     "45346932",
+     "Senior Associate - Cloud Engineer",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45346932",
+     "title_exclude",
+     "cloud engineer"
+    ],
+    [
+     "45313482",
+     "Senior Associate, Middleware & Platform Operations",
+     "Tampa,Florida,United States",
+     "https://careers.newyorklife.com/careers/job/45313482",
+     "title_exclude",
+     "senior associate, middleware & platform operations"
+    ],
+    [
+     "45262231",
+     "Senior Associate - AI Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45262231",
+     "title_exclude",
+     "ai engineer"
+    ],
+    [
+     "45162255",
+     "Senior Associate - Data Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45162255",
+     "title_exclude",
+     "data engineer"
+    ],
+    [
+     "45116901",
+     "2027 GBS ASCEND Program Associate - Sales Desk Phoenix",
+     "Phoenix,Arizona,United States",
+     "https://careers.newyorklife.com/careers/job/45116901",
+     "title_exclude_unless",
+     "sales"
+    ],
+    [
+     "45116886",
+     "2027 GBS ASCEND Program Associate - Sales Desk Seattle",
+     "Seattle,Washington,United States",
+     "https://careers.newyorklife.com/careers/job/45116886",
+     "title_exclude_unless",
+     "sales"
+    ],
+    [
+     "45116885",
+     "2027 GBS ASCEND Program Associate - Sales Desk San Diego",
+     "San Diego,California,United States",
+     "https://careers.newyorklife.com/careers/job/45116885",
+     "title_exclude",
+     "2027 gbs ascend program associate - sales desk san diego"
+    ],
+    [
+     "45116888",
+     "2027 GBS ASCEND Program Associate - Sales Desk Overland Park",
+     "Overland Park,Kansas,United States",
+     "https://careers.newyorklife.com/careers/job/45116888",
+     "title_exclude",
+     "2027 gbs ascend program associate - sales desk overland park"
+    ],
+    [
+     "45116887",
+     "2027 GBS ASCEND Program Associate - Sales Desk Chicago",
+     "Chicago,Illinois,United States",
+     "https://careers.newyorklife.com/careers/job/45116887",
+     "title_exclude",
+     "2027 gbs ascend program associate - sales desk chicago"
+    ],
+    [
+     "45116849",
+     "2027 GBS ASCEND Program Associate - Sales Desk Houston",
+     "Houston,Texas,United States",
+     "https://careers.newyorklife.com/careers/job/45116849",
+     "title_exclude",
+     "2027 gbs ascend program associate - sales desk houston"
+    ],
+    [
+     "45116827",
+     "2027 GBS ASCEND Program Associate - Sales Desk King of Prussia",
+     "King of Prussia,Pennsylvania,United States",
+     "https://careers.newyorklife.com/careers/job/45116827",
+     "title_exclude",
+     "2027 gbs ascend program associate - sales desk king of prussia"
+    ],
+    [
+     "45116826",
+     "2027 GBS ASCEND Program Associate - Sales Desk NYC",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45116826",
+     "title_exclude_unless",
+     "sales"
+    ],
+    [
+     "45093759",
+     "Senior Associate - Project Manager/Scrum Master",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45093759",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "45063593",
+     "Senior Associate - Technical Analyst",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/45063593",
+     "title_exclude",
+     "senior associate - technical analyst"
+    ],
+    [
+     "45059878",
+     "Associate, Sales Representative",
+     "Remote,New York,United States | Remote, New York | Remote, New Jersey",
+     "https://careers.newyorklife.com/careers/job/45059878",
+     "title_exclude",
+     "sales representative"
+    ],
+    [
+     "44997425",
+     "Learning Operations Associate",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44997425",
+     "title_exclude_unless",
+     "learning"
+    ],
+    [
+     "44980707",
+     "Senior Associate - Full Stack Engineer - Investment Technology",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44980707",
+     "title_exclude",
+     "full stack engineer"
+    ],
+    [
+     "44893839",
+     "Senior Associate - Product Designer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44893839",
+     "title_exclude",
+     "designer"
+    ],
+    [
+     "44875414",
+     "Senior Associate - Forward Deployed Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44875414",
+     "title_exclude",
+     "forward deployed engineer"
+    ],
+    [
+     "44875397",
+     "Senior Associate - Forward Deployed Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44875397",
+     "title_exclude",
+     "forward deployed engineer"
+    ],
+    [
+     "44829903",
+     "Associate, Social Media Coordinator, Content Production",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44829903",
+     "title_exclude",
+     "social media"
+    ],
+    [
+     "44828306",
+     "Senior Associate, Prospecting Activation Manager",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44828306",
+     "title_exclude",
+     "senior associate, prospecting activation manager"
+    ],
+    [
+     "44806795",
+     "Senior Associate - Full-Stack AI Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44806795",
+     "title_exclude",
+     "full-stack"
+    ],
+    [
+     "44806735",
+     "Senior Associate - Full-Stack AI Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44806735",
+     "title_exclude",
+     "full-stack"
+    ],
+    [
+     "44806717",
+     "Senior Associate - Full-Stack AI & Data Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44806717",
+     "title_exclude",
+     "full-stack"
+    ],
+    [
+     "44775352",
+     "Associate, Investor Relations",
+     "Chicago,Illinois,United States",
+     "https://careers.newyorklife.com/careers/job/44775352",
+     "title_exclude_unless",
+     "investor relations"
+    ],
+    [
+     "44648352",
+     "Senior Associate, Absence Consultant, Complex Implementations",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44648352",
+     "title_exclude",
+     "senior associate, absence consultant, complex implementations"
+    ],
+    [
+     "44600697",
+     "Associate General Counsel, Group Benefit Solutions Counsel, Absence Management",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44600697",
+     "title_exclude",
+     "counsel"
+    ],
+    [
+     "44561281",
+     "HRIS, Sr. Associate",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44561281",
+     "title_exclude",
+     "hris"
+    ],
+    [
+     "44445401",
+     "2027 New York Life Investment Management - Investments and Market Data Internship",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44445401",
+     "title_exclude",
+     "internship"
+    ],
+    [
+     "44417769",
+     "Senior Associate - SAP HR Technology Analyst",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44417769",
+     "title_exclude",
+     "hr"
+    ],
+    [
+     "44363733",
+     "Associate - Producer Management Developer Engineer - Unqork and AWS - Field Experience",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44363733",
+     "title_exclude_unless",
+     "developer"
+    ],
+    [
+     "44362938",
+     "Associate - Full-Stack Software Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44362938",
+     "title_exclude",
+     "full-stack"
+    ],
+    [
+     "44344890",
+     "Associate Service Leader Onsite Relationship Management  94805",
+     "Sunrise,Florida,United States",
+     "https://careers.newyorklife.com/careers/job/44344890",
+     "title_exclude",
+     "associate service leader onsite relationship management 94805"
+    ],
+    [
+     "44176745",
+     "2027 New York Life Investment Management - Investment Research & Analysis Internship",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44176745",
+     "title_exclude",
+     "internship"
+    ],
+    [
+     "44173452",
+     "Associate - Full-Stack AI Engineer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44173452",
+     "title_exclude",
+     "full-stack"
+    ],
+    [
+     "44141182",
+     "Senior Associate, External Wholesaler",
+     "Remote,New York,United States | California, USA",
+     "https://careers.newyorklife.com/careers/job/44141182",
+     "title_exclude",
+     "wholesaler"
+    ],
+    [
+     "44140082",
+     "Assistant Vice President - Private Equity Fund Accounting & Operations",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44140082",
+     "title_exclude",
+     "fund accounting"
+    ],
+    [
+     "44137151",
+     "Senior Associate, Product Owner Weath Experience",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/44137151",
+     "title_exclude",
+     "senior associate, product owner weath experience"
+    ],
+    [
+     "43977195",
+     "2027 Apogem Capital Summer Internship - Tax",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43977195",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "43959372",
+     "Associate Recruiter, Foundational Business",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43959372",
+     "title_exclude",
+     "recruiter"
+    ],
+    [
+     "43941674",
+     "Vice President | Investor Relations & Portfolio Monitoring, PE GP Stakes",
+     "Chicago,Illinois,United States | New York, NY",
+     "https://careers.newyorklife.com/careers/job/43941674",
+     "title_exclude_unless",
+     "investor relations"
+    ],
+    [
+     "43941398",
+     "Senior Associate, Advisor Consultant (In-Market Internal Wholesaler)",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43941398",
+     "title_exclude",
+     "wholesaler"
+    ],
+    [
+     "43795750",
+     "Senior Associate, Cybersecurity Regulatory Compliance",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43795750",
+     "title_exclude_unless",
+     "cybersecurity"
+    ],
+    [
+     "43598350",
+     "2027 Group Benefit Solutions (GBS) Underwriting Summer Internship Program (Overland Park, KS)",
+     "Overland Park,Kansas,United States",
+     "https://careers.newyorklife.com/careers/job/43598350",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "43598325",
+     "2027 Group Benefit Solutions (GBS) Underwriting Summer Internship Program (Philadelphia, PA)",
+     "Philadelphia,Pennsylvania,United States",
+     "https://careers.newyorklife.com/careers/job/43598325",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "43598289",
+     "2027 Group Benefit Solutions (GBS) Underwriting Summer Internship Program (Phoenix, AZ)",
+     "Phoenix,Arizona,United States",
+     "https://careers.newyorklife.com/careers/job/43598289",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "43598282",
+     "2027 Group Benefit Solutions (GBS) Underwriting Summer Internship Program  (Chattanooga, TN)",
+     "Chattanooga,Tennessee,United States",
+     "https://careers.newyorklife.com/careers/job/43598282",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "43598287",
+     "2027 Group Benefit Solutions (GBS) Underwriting Summer Internship Program  (Farmington, CT)",
+     "Farmington,Connecticut,United States",
+     "https://careers.newyorklife.com/careers/job/43598287",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "43392141",
+     "Senior Associate - Quality Engineer, AI & Automation",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43392141",
+     "title_exclude",
+     "quality engineer"
+    ],
+    [
+     "43389874",
+     "Senior Associate, OpenText Developer",
+     "Tampa,Florida,United States",
+     "https://careers.newyorklife.com/careers/job/43389874",
+     "title_exclude_unless",
+     "developer"
+    ],
+    [
+     "43349743",
+     "Senior Associate, Private Markets Product Marketing",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43349743",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "43317864",
+     "Senior Associate- Full Stack Software Engineer- AI",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43317864",
+     "title_exclude",
+     "full stack"
+    ],
+    [
+     "43168927",
+     "Senior Associate, Fixed Income Product Marketing",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/43168927",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "42845052",
+     "Senior Associate, Senior Brand Copywriter",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/42845052",
+     "title_exclude",
+     "copywriter"
+    ],
+    [
+     "42844364",
+     "Associate, Investor Relations",
+     "Richmond,Virginia,United States",
+     "https://careers.newyorklife.com/careers/job/42844364",
+     "title_exclude_unless",
+     "investor relations"
+    ],
+    [
+     "42603309",
+     "Associate General Counsel, Artificial Intelligence, Technology Transactions & Strategic Partnerships",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/42603309",
+     "title_exclude",
+     "counsel"
+    ],
+    [
+     "42487082",
+     "Senior Associate, Senior Sales Representative",
+     "Remote,New Jersey,United States",
+     "https://careers.newyorklife.com/careers/job/42487082",
+     "title_exclude",
+     "sales representative"
+    ],
+    [
+     "42247801",
+     "Corporate Vice President - Head of Third Party Risk Management",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/42247801",
+     "title_exclude",
+     "head of"
+    ],
+    [
+     "41922162",
+     "Senior Associate - Senior GCP Security Engineer",
+     "Remote,New York,United States | United States",
+     "https://careers.newyorklife.com/careers/job/41922162",
+     "title_exclude",
+     "security engineer"
+    ],
+    [
+     "41827391",
+     "Senior Associate - Full Stack Developer",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/41827391",
+     "title_exclude",
+     "full stack"
+    ],
+    [
+     "41789808",
+     "Senior Associate, Experience Design",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/41789808",
+     "title_exclude",
+     "experience design"
+    ],
+    [
+     "41787397",
+     "Senior Associate, National Implementation Manager",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/41787397",
+     "title_exclude",
+     "senior associate, national implementation manager"
+    ],
+    [
+     "41609873",
+     "Senior Associate - IAM Engineer",
+     "Remote,New York,United States",
+     "https://careers.newyorklife.com/careers/job/41609873",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "41135718",
+     "Senior Associate, Experience Design and Change Management",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/41135718",
+     "title_exclude",
+     "experience design"
+    ],
+    [
+     "40500350",
+     "Senior Associate, Internal Wholesaler",
+     "White Plains,New York,United States",
+     "https://careers.newyorklife.com/careers/job/40500350",
+     "title_exclude",
+     "wholesaler"
+    ],
+    [
+     "39690481",
+     "Associate General Counsel - Employment Law",
+     "New York,New York,United States",
+     "https://careers.newyorklife.com/careers/job/39690481",
+     "title_exclude",
+     "counsel"
     ]
    ],
-   "n": 19
+   "n": 76
   },
   "Moody's": {
    "rows": [
@@ -61341,6 +61773,14 @@
   "UBS": {
    "rows": [
     [
+     "354225",
+     "Client Associate",
+     "United States - Illinois",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=354225",
+     "title_exclude",
+     "client associate"
+    ],
+    [
      "354239",
      "Senior Wealth Strategy Associate",
      "United States - New York",
@@ -61355,14 +61795,6 @@
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=354238",
      "title_exclude",
      "service associate"
-    ],
-    [
-     "354225",
-     "Client Associate",
-     "United States - Illinois",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=354225",
-     "title_exclude",
-     "client associate"
     ],
     [
      "346801",
@@ -61597,22 +62029,6 @@
      "client associate"
     ],
     [
-     "353625",
-     "Client Associate",
-     "United States - Colorado",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353625",
-     "title_exclude",
-     "client associate"
-    ],
-    [
-     "353549",
-     "Associate Director, Engineer, STAAT",
-     "United States - New Jersey",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353549",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
      "342435",
      "Senior Wealth Strategy Associate (DOD SkillBridge Trainee)",
      "United States - California, United States - District of Columbia, United States - Florida, United States - New York, United States - Texas",
@@ -61645,20 +62061,20 @@
      "registered client associate"
     ],
     [
-     "349875",
-     "Client Associate",
-     "United States - Tennessee",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=349875",
-     "title_exclude",
-     "client associate"
-    ],
-    [
      "353326",
      "Registered Client Associate",
      "United States - California",
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353326",
      "title_exclude",
      "registered client associate"
+    ],
+    [
+     "349875",
+     "Client Associate",
+     "United States - Tennessee",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=349875",
+     "title_exclude",
+     "client associate"
     ],
     [
      "353281",
@@ -61691,14 +62107,6 @@
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353229",
      "title_exclude",
      "client service associate"
-    ],
-    [
-     "348087",
-     "Senior Wealth Strategy Associate",
-     "United States - Missouri",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=348087",
-     "title_exclude",
-     "wealth strategy associate"
     ],
     [
      "353013",
@@ -61933,6 +62341,14 @@
      "wealth strategy associate"
     ],
     [
+     "352421",
+     "Registered Client Associate",
+     "United States - Pennsylvania",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352421",
+     "title_exclude",
+     "registered client associate"
+    ],
+    [
      "349588",
      "Client Associate",
      "United States - New York",
@@ -61941,12 +62357,12 @@
      "client associate"
     ],
     [
-     "352421",
-     "Registered Client Associate",
-     "United States - Pennsylvania",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352421",
+     "352329",
+     "Client Associate - Part Time",
+     "United States - California",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352329",
      "title_exclude",
-     "registered client associate"
+     "client associate"
     ],
     [
      "338773",
@@ -61969,14 +62385,6 @@
      "Client Associate",
      "United States - California",
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=348703",
-     "title_exclude",
-     "client associate"
-    ],
-    [
-     "352329",
-     "Client Associate - Part Time",
-     "United States - California",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352329",
      "title_exclude",
      "client associate"
     ],
@@ -62013,22 +62421,6 @@
      "wealth strategy associate"
     ],
     [
-     "352222",
-     "Client Associate",
-     "United States - North Carolina",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352222",
-     "title_exclude",
-     "client associate"
-    ],
-    [
-     "351972",
-     "Client Associate",
-     "United States - North Carolina",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=351972",
-     "title_exclude",
-     "client associate"
-    ],
-    [
      "352101",
      "Client Associate",
      "United States - New York",
@@ -62041,6 +62433,22 @@
      "Client Associate",
      "United States - California",
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352190",
+     "title_exclude",
+     "client associate"
+    ],
+    [
+     "352222",
+     "Client Associate",
+     "United States - North Carolina",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352222",
+     "title_exclude",
+     "client associate"
+    ],
+    [
+     "351972",
+     "Client Associate",
+     "United States - North Carolina",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=351972",
      "title_exclude",
      "client associate"
     ],
@@ -62061,14 +62469,6 @@
      "client associate"
     ],
     [
-     "352011",
-     "Registered Client Associate",
-     "United States - California",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352011",
-     "title_exclude",
-     "registered client associate"
-    ],
-    [
      "352012",
      "Client Associate",
      "United States - Florida",
@@ -62083,6 +62483,14 @@
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352014",
      "title_exclude",
      "client associate"
+    ],
+    [
+     "352011",
+     "Registered Client Associate",
+     "United States - California",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352011",
+     "title_exclude",
+     "registered client associate"
     ],
     [
      "352102",
@@ -62213,7 +62621,7 @@
      "wealth management associate"
     ]
    ],
-   "n": 109
+   "n": 106
   },
   "Charles Schwab": {
    "rows": [
@@ -62335,10 +62743,10 @@
      "personal banking associate"
     ],
     [
-     "/job/Brooklyn-New-York/Associate-Banker-II--Midwood--PT-30-Hours--Bilingual-Russian-or-Urdu-preferred_R_1522780",
-     "Associate Banker II (Midwood) PT 30 Hours -Bilingual Russian or Urdu preferred",
+     "/job/Brooklyn-New-York/Associate-Banker-II--Carroll-Gardens--PT-20-Hours_R_1523097-1",
+     "Associate Banker II (Carroll Gardens) PT 20 Hours",
      "Brooklyn, New York",
-     "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Brooklyn-New-York/Associate-Banker-II--Midwood--PT-30-Hours--Bilingual-Russian-or-Urdu-preferred_R_1522780",
+     "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Brooklyn-New-York/Associate-Banker-II--Carroll-Gardens--PT-20-Hours_R_1523097-1",
      "title_exclude",
      "associate banker"
     ],
@@ -62347,6 +62755,30 @@
      "Associate Banker II (Hylan Blvd.) PT 20 Hours",
      "Staten Island, New York",
      "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Staten-Island-New-York/Associate-Banker-II--Hylan-Blvd--PT-20-Hours_R_1522682",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "/job/Darien-Connecticut/Associate-Banker-I--20-Hours-Weekly----Darien--Bilingual-Spanish-Preferred-_R_1519298",
+     "Associate Banker I (20 Hours Weekly) - Darien (Bilingual Spanish Preferred)",
+     "Darien, Connecticut",
+     "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Darien-Connecticut/Associate-Banker-I--20-Hours-Weekly----Darien--Bilingual-Spanish-Preferred-_R_1519298",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "/job/Hialeah-Florida/Associate-Banker-II--20-Hours-Weekly-Bilingual-Spanish-Preferred----Hialeah_R_1521680-1",
+     "Associate Banker II (20 Hours Weekly/Bilingual Spanish Preferred) - Hialeah",
+     "Hialeah, Florida",
+     "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Hialeah-Florida/Associate-Banker-II--20-Hours-Weekly-Bilingual-Spanish-Preferred----Hialeah_R_1521680-1",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "/job/Jackson-Heights-New-York/Associate-Banker-II--Jackson-Heights-Downtown-_R_1523086",
+     "Associate Banker II (Jackson Heights/Downtown)",
+     "Jackson Heights, New York",
+     "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Jackson-Heights-New-York/Associate-Banker-II--Jackson-Heights-Downtown-_R_1523086",
      "title_exclude",
      "associate banker"
     ],
@@ -63839,7 +64271,7 @@
      "personal banking associate"
     ]
    ],
-   "n": 190
+   "n": 193
   },
   "TIAA": {
    "rows": [
@@ -66644,18 +67076,18 @@
      "software"
     ],
     [
-     "1289222601",
-     "Structured Finance - RMBS, Senior Director - Chicago",
-     "Chicago, IL, US",
-     "https://careers.fitch.group/job/Chicago-Structured-Finance-RMBS%2C-Senior-Director-Chicago-IL-60290/1289222601/",
-     "title_exclude",
-     "senior director"
-    ],
-    [
      "1289222501",
      "Structured Finance - RMBS, Senior Director - New York",
      "New York, NY, US",
      "https://careers.fitch.group/job/New-York-Structured-Finance-RMBS%2C-Senior-Director-New-York-NY-10001/1289222501/",
+     "title_exclude",
+     "senior director"
+    ],
+    [
+     "1289222601",
+     "Structured Finance - RMBS, Senior Director - Chicago",
+     "Chicago, IL, US",
+     "https://careers.fitch.group/job/Chicago-Structured-Finance-RMBS%2C-Senior-Director-Chicago-IL-60290/1289222601/",
      "title_exclude",
      "senior director"
     ],
@@ -67255,20 +67687,20 @@
      "account manager"
     ],
     [
-     "MAMCGLOBALR372752EXTERNALENGLOBAL",
-     "Workforce and Rewards Summer Associate (MBA or Masters Track)- New York- MBA Program 2027",
-     "1166 Avenue of the Americas, New York, NY 10036-2708, United States of America",
-     "https://careers.marsh.com/global/en/job/MAMCGLOBALR372752EXTERNALENGLOBAL/Workforce-and-Rewards-Summer-Associate-MBA-or-Masters-Track-New-York-MBA-Program-2027",
-     "title_exclude",
-     "summer"
-    ],
-    [
      "MAMCGLOBALR372879EXTERNALENGLOBAL",
      "Business Insurance Production Associate",
      "4401 Northside Parkway, One Riverside, Atlanta, GA 30327, United States of America",
      "https://careers.marsh.com/global/en/job/MAMCGLOBALR372879EXTERNALENGLOBAL/Business-Insurance-Production-Associate",
      "title_exclude",
      "production associate"
+    ],
+    [
+     "MAMCGLOBALR372752EXTERNALENGLOBAL",
+     "Workforce and Rewards Summer Associate (MBA or Masters Track)- New York- MBA Program 2027",
+     "1166 Avenue of the Americas, New York, NY 10036-2708, United States of America",
+     "https://careers.marsh.com/global/en/job/MAMCGLOBALR372752EXTERNALENGLOBAL/Workforce-and-Rewards-Summer-Associate-MBA-or-Masters-Track-New-York-MBA-Program-2027",
+     "title_exclude",
+     "summer"
     ],
     [
      "MAMCGLOBALR372910EXTERNALENGLOBAL",
@@ -67303,20 +67735,20 @@
      "customer service associate"
     ],
     [
-     "MAMCGLOBALR368602EXTERNALENGLOBAL",
-     "Environmental Consulting and Risk Management Intern",
-     "5605 Carnegie Boulevard, Carnegie X, Charlotte, NC 28209, United States of America",
-     "https://careers.marsh.com/global/en/job/MAMCGLOBALR368602EXTERNALENGLOBAL/Environmental-Consulting-and-Risk-Management-Intern",
-     "title_exclude",
-     "intern"
-    ],
-    [
      "MAMCGLOBALR372018EXTERNALENGLOBAL",
      "Senior Account Manager - Complex Risk Management Book",
      "20 North Martingale Road, Woodfield Preserve Office Center, Schaumburg, IL 60173, United States of America",
      "https://careers.marsh.com/global/en/job/MAMCGLOBALR372018EXTERNALENGLOBAL/Senior-Account-Manager-Complex-Risk-Management-Book",
      "title_exclude",
      "account manager"
+    ],
+    [
+     "MAMCGLOBALR368602EXTERNALENGLOBAL",
+     "Environmental Consulting and Risk Management Intern",
+     "5605 Carnegie Boulevard, Carnegie X, Charlotte, NC 28209, United States of America",
+     "https://careers.marsh.com/global/en/job/MAMCGLOBALR368602EXTERNALENGLOBAL/Environmental-Consulting-and-Risk-Management-Intern",
+     "title_exclude",
+     "intern"
     ],
     [
      "MAMCGLOBALR372025EXTERNALENGLOBAL",
@@ -67327,20 +67759,20 @@
      "account manager"
     ],
     [
-     "MAMCGLOBALR367778EXTERNALENGLOBAL",
-     "Associate Client Manager, Business Insurance Select",
-     "3625 North Elm Street, Greensboro, NC 27455, United States of America",
-     "https://careers.marsh.com/global/en/job/MAMCGLOBALR367778EXTERNALENGLOBAL/Associate-Client-Manager-Business-Insurance-Select",
-     "title_exclude",
-     "associate client manager, business insurance select"
-    ],
-    [
      "MAMCGLOBALR372068EXTERNALENGLOBAL",
      "Associate Client Manager - Employee Health & Benefits",
      "2925 Palmer Street, Gateway Professional Plaza, Missoula, MT 59808, United States of America",
      "https://careers.marsh.com/global/en/job/MAMCGLOBALR372068EXTERNALENGLOBAL/Associate-Client-Manager-Employee-Health-Benefits",
      "title_exclude",
      "associate client manager - employee health & benefits"
+    ],
+    [
+     "MAMCGLOBALR367778EXTERNALENGLOBAL",
+     "Associate Client Manager, Business Insurance Select",
+     "3625 North Elm Street, Greensboro, NC 27455, United States of America",
+     "https://careers.marsh.com/global/en/job/MAMCGLOBALR367778EXTERNALENGLOBAL/Associate-Client-Manager-Business-Insurance-Select",
+     "title_exclude",
+     "associate client manager, business insurance select"
     ],
     [
      "MAMCGLOBALR323911EXTERNALENGLOBAL",
@@ -67463,20 +67895,20 @@
      "summer"
     ],
     [
-     "MAMCGLOBALR368240EXTERNALENGLOBAL",
-     "Associate I - Placement",
-     "155 North Wacker Drive, Chicago, IL 60606, United States of America",
-     "https://careers.marsh.com/global/en/job/MAMCGLOBALR368240EXTERNALENGLOBAL/Associate-I-Placement",
-     "title_exclude",
-     "associate i - placement"
-    ],
-    [
      "MAMCGLOBALR355944EXTERNALENGLOBAL",
      "Associate FinOps Engineer",
      "400 West Market Street, 400 West Market, Louisville, KY 40202, United States of America",
      "https://careers.marsh.com/global/en/job/MAMCGLOBALR355944EXTERNALENGLOBAL/Associate-FinOps-Engineer",
      "title_exclude_unless",
      "engineer"
+    ],
+    [
+     "MAMCGLOBALR368240EXTERNALENGLOBAL",
+     "Associate I - Placement",
+     "155 North Wacker Drive, Chicago, IL 60606, United States of America",
+     "https://careers.marsh.com/global/en/job/MAMCGLOBALR368240EXTERNALENGLOBAL/Associate-I-Placement",
+     "title_exclude",
+     "associate i - placement"
     ],
     [
      "MAMCGLOBALR371111EXTERNALENGLOBAL",
@@ -68241,20 +68673,20 @@
      "tax"
     ],
     [
-     "1408954433",
-     "EY-Parthenon - Deals - Sales and Purchase Agreement (SPA) Advisory - Senior Associate",
-     "Chicago, IL, US, 60606",
-     "https://careers.ey.com/ey/job/Chicago-EY-Parthenon-Deals-Sales-and-Purchase-Agreement-%28SPA%29-Advisory-Senior-Associate-IL-60606/1408954433/",
-     "title_exclude_unless",
-     "sales"
-    ],
-    [
      "1409052933",
      "EY-Parthenon- Software Strategy Group-Commercial Due Diligence - Sr. Associate / Consultant",
      "Boston, MA, US, 02116",
      "https://careers.ey.com/ey/job/Boston-EY-Parthenon-Software-Strategy-Group-Commercial-Due-Diligence-Sr_-Associate-Consultant-MA-02116/1409052933/",
      "title_exclude",
      "software"
+    ],
+    [
+     "1408954433",
+     "EY-Parthenon - Deals - Sales and Purchase Agreement (SPA) Advisory - Senior Associate",
+     "Chicago, IL, US, 60606",
+     "https://careers.ey.com/ey/job/Chicago-EY-Parthenon-Deals-Sales-and-Purchase-Agreement-%28SPA%29-Advisory-Senior-Associate-IL-60606/1408954433/",
+     "title_exclude_unless",
+     "sales"
     ],
     [
      "1444052733",
@@ -68388,6 +68820,14 @@
      "https://www.kpmguscareers.com/jobdetail/?jobId=136159",
      "title_exclude",
      "tax"
+    ],
+    [
+     "140037",
+     "Technology Assurance Associate, Financial Services | Hartford Summer/Fall 2027",
+     "Hartford, CT",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=140037",
+     "title_exclude",
+     "summer"
     ],
     [
      "135753",
@@ -69558,7 +69998,7 @@
      "tax"
     ]
    ],
-   "n": 161
+   "n": 162
   },
   "East West Bank": {
    "rows": [
@@ -69983,17 +70423,9 @@
      "https://fib.wd1.myworkdayjobs.com/FIBCareers/job/Red-Lodge-MT/Associate-Community-Banker_2026-15813-1",
      "title_exclude",
      "banker"
-    ],
-    [
-     "/job/Spokane-WA/Associate-Community-Banker_2026-15856",
-     "Associate Community Banker",
-     "Spokane, WA",
-     "https://fib.wd1.myworkdayjobs.com/FIBCareers/job/Spokane-WA/Associate-Community-Banker_2026-15856",
-     "title_exclude",
-     "banker"
     ]
    ],
-   "n": 10
+   "n": 9
   },
   "Popular": {
    "rows": [
@@ -70974,7 +71406,7 @@
      "5164",
      "Treasury Relationship Manager",
      "Dallas, TX, US",
-     "https://careers-wafd.icims.com/jobs/5164/treasury-relationship-manager/job",
+     "https://careers-wafd.icims.com/jobs/5164/2026-5164/job",
      "title_exclude",
      "relationship manager"
     ]
@@ -71197,14 +71629,6 @@
      "service associate"
     ],
     [
-     "4545",
-     "Service Associate",
-     "Woburn, MA, United States",
-     "https://gka.fa.us1.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/4545",
-     "title_exclude",
-     "service associate"
-    ],
-    [
      "4549",
      "Service Associate (Randolph 30 hours)",
      "Randolph, MA, United States",
@@ -71385,6 +71809,14 @@
      "Regional Service Associate (Various Metro South)",
      "Brockton, MA, United States",
      "https://gka.fa.us1.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/4538",
+     "title_exclude",
+     "service associate"
+    ],
+    [
+     "4545",
+     "Service Associate",
+     "Woburn, MA, United States",
+     "https://gka.fa.us1.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/4545",
      "title_exclude",
      "service associate"
     ]
@@ -71594,14 +72026,6 @@
      "reconciliation associate"
     ],
     [
-     "/job/Office---Chicago/Implementations-Project-Manager-Associate_R11493-1-1",
-     "Implementations Project Manager Associate",
-     "Office - Chicago",
-     "https://clearwateranalytics.wd1.myworkdayjobs.com/Clearwater_Analytics_Careers/job/Office---Chicago/Implementations-Project-Manager-Associate_R11493-1-1",
-     "title_exclude",
-     "project manager"
-    ],
-    [
      "/job/Office---Boise/Reconciliation-Associate_R12380",
      "Reconciliation Associate",
      "Office - Boise",
@@ -71674,7 +72098,7 @@
      "reconciliation implementation"
     ]
    ],
-   "n": 35
+   "n": 34
   },
   "Farmer Mac": {
    "rows": [],
@@ -72561,6 +72985,14 @@
      "internship"
     ],
     [
+     "/job/Lexington-KY/Underwriting-Internship---Summer-2027_R_14315",
+     "Underwriting Internship - Summer 2027",
+     "Lexington, KY",
+     "https://aoins.wd5.myworkdayjobs.com/AutoOwners/job/Lexington-KY/Underwriting-Internship---Summer-2027_R_14315",
+     "title_exclude",
+     "internship"
+    ],
+    [
      "/job/Montgomery-AL/Underwriting-Internship---Summer-2027_R_14564",
      "Commercial Lines Underwriting Internship - Summer 2027",
      "Montgomery, AL",
@@ -72647,14 +73079,6 @@
      "https://aoins.wd5.myworkdayjobs.com/AutoOwners/job/Brentwood-TN/Personal-Lines-Underwriting-Internship---Summer-2027_R_14319",
      "title_exclude",
      "internship"
-    ],
-    [
-     "/job/Lexington-KY/Underwriting-Internship---Summer-2027_R_14315",
-     "Underwriting Internship - Summer 2027",
-     "Lexington, KY",
-     "https://aoins.wd5.myworkdayjobs.com/AutoOwners/job/Lexington-KY/Underwriting-Internship---Summer-2027_R_14315",
-     "title_exclude",
-     "internship"
     ]
    ],
    "n": 21
@@ -72732,6 +73156,14 @@
      "internship"
     ],
     [
+     "1372139457",
+     "Underwriting Internship - Summer 2027 - Boston",
+     "Boston, MA, US",
+     "https://www.careers.zurich.com/job/Boston-Underwriting-Internship-Summer-2027-Boston-MA-02108/1372139457/",
+     "title_exclude",
+     "internship"
+    ],
+    [
      "1372139657",
      "Underwriting Internship - Summer 2027 - Dallas",
      "Addison, TX, US",
@@ -72744,14 +73176,6 @@
      "Underwriting Internship - Summer 2027 - Denver",
      "Denver, CO, US",
      "https://www.careers.zurich.com/job/Denver-Underwriting-Internship-Summer-2027-Denver-CO-80002/1372139757/",
-     "title_exclude",
-     "internship"
-    ],
-    [
-     "1372139457",
-     "Underwriting Internship - Summer 2027 - Boston",
-     "Boston, MA, US",
-     "https://www.careers.zurich.com/job/Boston-Underwriting-Internship-Summer-2027-Boston-MA-02108/1372139457/",
      "title_exclude",
      "internship"
     ],
@@ -73779,42 +74203,10 @@
      "seasonal audit"
     ],
     [
-     "114776",
-     "Corporate Tax Experienced Senior Associate - Provisions",
-     "New York, NY, United States",
-     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/114776",
-     "title_exclude",
-     "tax"
-    ],
-    [
-     "116225",
-     "Seasonal Audit Senior Associate",
-     "Dallas, TX, United States",
-     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116225",
-     "title_exclude",
-     "seasonal audit"
-    ],
-    [
      "116293",
      "International Tax Senior Associate",
      "New York, NY, United States",
      "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116293",
-     "title_exclude",
-     "tax"
-    ],
-    [
-     "116328",
-     "Sr Associate, Marketing Operations Integration",
-     "Chicago, IL, United States",
-     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116328",
-     "title_exclude",
-     "marketing"
-    ],
-    [
-     "116327",
-     "Associate, Tax & Audit Marketing",
-     "Chicago, IL, United States",
-     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116327",
      "title_exclude",
      "tax"
     ],
@@ -73835,12 +74227,28 @@
      "seasonal audit"
     ],
     [
+     "114776",
+     "Corporate Tax Experienced Senior Associate - Provisions",
+     "New York, NY, United States",
+     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/114776",
+     "title_exclude",
+     "tax"
+    ],
+    [
      "116021",
      "Cyber Offensive Security Senior Associate",
      "Philadelphia, PA, United States",
      "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116021",
      "title_exclude",
      "cyber"
+    ],
+    [
+     "116225",
+     "Seasonal Audit Senior Associate",
+     "Dallas, TX, United States",
+     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116225",
+     "title_exclude",
+     "seasonal audit"
     ],
     [
      "116246",
@@ -73857,6 +74265,22 @@
      "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116281",
      "title_exclude",
      "marketing"
+    ],
+    [
+     "116328",
+     "Sr Associate, Marketing Operations Integration",
+     "Chicago, IL, United States",
+     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116328",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "116327",
+     "Associate, Tax & Audit Marketing",
+     "Chicago, IL, United States",
+     "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116327",
+     "title_exclude",
+     "tax"
     ],
     [
      "114321",
@@ -74283,28 +74707,12 @@
      "silicon"
     ],
     [
-     "446717307122",
-     "CPU Post-Silicon Validation Engineer - Multiple Levels",
-     "Santa Clara, California, United States of America | Austin, Texas, United States of America | San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446717307122",
-     "title_exclude",
-     "silicon"
-    ],
-    [
      "446719364252",
      "DDRSS Validation Engineer (RTL + Silicon Debug)",
      "San Diego, California, United States of America",
      "https://careers.qualcomm.com/careers/job/446719364252",
      "title_exclude",
      "validation engineer"
-    ],
-    [
-     "446718428747",
-     "Lead CPU Firmware Verification and Validation Engineer/ Manager",
-     "Santa Clara, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446718428747",
-     "title_exclude",
-     "firmware"
     ],
     [
      "446720710088",
@@ -74323,6 +74731,14 @@
      "hardware validation"
     ],
     [
+     "446715485482",
+     "GPU Validation and Emulation Engineer, Senior",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446715485482",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
      "446717673112",
      "Director, Product Management - Ethernet Portfolio (PHY, NIC, & Switching)",
      "Santa Clara, California, United States of America",
@@ -74331,12 +74747,20 @@
      "director, product management - ethernet portfolio (phy, nic, & switching)"
     ],
     [
-     "446715485482",
-     "GPU Validation and Emulation Engineer, Senior",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446715485482",
-     "title_exclude_unless",
-     "engineer"
+     "446717307122",
+     "CPU Post-Silicon Validation Engineer - Multiple Levels",
+     "Santa Clara, California, United States of America | Austin, Texas, United States of America | San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446717307122",
+     "title_exclude",
+     "silicon"
+    ],
+    [
+     "446718428747",
+     "Lead CPU Firmware Verification and Validation Engineer/ Manager",
+     "Santa Clara, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446718428747",
+     "title_exclude",
+     "firmware"
     ]
    ],
    "n": 23
@@ -75274,22 +75698,6 @@
      "counsel"
     ],
     [
-     "8196675003",
-     "Associate, Service (Healthcare Degree) - April 2027 Start   ",
-     "Austin",
-     "https://glginsights.com/careers/jobs/8196675003?gh_jid=8196675003",
-     "title_exclude",
-     "associate, service (healthcare degree) - april 2027 start"
-    ],
-    [
-     "8196673003",
-     "Associate, Service (Healthcare Degree) - April 2027 Start   ",
-     "San Francisco",
-     "https://glginsights.com/careers/jobs/8196673003?gh_jid=8196673003",
-     "title_exclude",
-     "associate, service (healthcare degree) - april 2027 start"
-    ],
-    [
      "8196674003",
      "Associate, Service (Healthcare Degree) - April 2027 Start   ",
      "Boston",
@@ -75302,6 +75710,22 @@
      "Associate, Service (Healthcare Degree) - April 2027 Start   ",
      "New York",
      "https://glginsights.com/careers/jobs/8196669003?gh_jid=8196669003",
+     "title_exclude",
+     "associate, service (healthcare degree) - april 2027 start"
+    ],
+    [
+     "8196675003",
+     "Associate, Service (Healthcare Degree) - April 2027 Start   ",
+     "Austin",
+     "https://glginsights.com/careers/jobs/8196675003?gh_jid=8196675003",
+     "title_exclude",
+     "associate, service (healthcare degree) - april 2027 start"
+    ],
+    [
+     "8196673003",
+     "Associate, Service (Healthcare Degree) - April 2027 Start   ",
+     "San Francisco",
+     "https://glginsights.com/careers/jobs/8196673003?gh_jid=8196673003",
      "title_exclude",
      "associate, service (healthcare degree) - april 2027 start"
     ],
@@ -75694,14 +76118,6 @@
      "client advocate"
     ],
     [
-     "202607242",
-     "Early Careers: Corporate Risk and Broking - Internship - Financial Solutions - Trade Credit- New York -2027",
-     "New York, NY, United States",
-     "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202607242",
-     "title_exclude",
-     "internship"
-    ],
-    [
      "202607255",
      "Early Careers: Corporate Risk and Broking - Internship - Client Advocacy, Commercial Lines - New York, Chicago and Atlanta -2027",
      "New York, NY, United States",
@@ -75710,28 +76126,20 @@
      "internship"
     ],
     [
-     "202606519",
-     "Associate Broker - Marine Cargo",
-     "San Francisco, CA, United States",
-     "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202606519",
-     "title_exclude",
-     "associate broker - marine cargo"
-    ],
-    [
-     "202607097",
-     "Associate Client Advocate- Construction - Account Manager",
-     "United States",
-     "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202607097",
-     "title_exclude",
-     "client advocate"
-    ],
-    [
      "202607155",
      "Lead Associate - Client Service and Delivery",
      "Tampa, FL, United States",
      "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202607155",
      "title_exclude",
      "client service"
+    ],
+    [
+     "202607242",
+     "Early Careers: Corporate Risk and Broking - Internship - Financial Solutions - Trade Credit- New York -2027",
+     "New York, NY, United States",
+     "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202607242",
+     "title_exclude",
+     "internship"
     ],
     [
      "202502232",
@@ -75798,6 +76206,14 @@
      "client advocate"
     ],
     [
+     "202606519",
+     "Associate Broker - Marine Cargo",
+     "San Francisco, CA, United States",
+     "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202606519",
+     "title_exclude",
+     "associate broker - marine cargo"
+    ],
+    [
      "202606604",
      "Early Careers: Corporate Risk and Broking (CRB)- Internship - Mahoney Placement- Dallas - 2027",
      "Dallas, TX, United States",
@@ -75812,6 +76228,14 @@
      "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202606636",
      "title_exclude",
      "internship"
+    ],
+    [
+     "202607097",
+     "Associate Client Advocate- Construction - Account Manager",
+     "United States",
+     "https://eedu.fa.em3.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1003/job/202607097",
+     "title_exclude",
+     "client advocate"
     ]
    ],
    "n": 25
@@ -77028,14 +77452,6 @@
      "summer"
     ],
     [
-     "13693",
-     "Tax Experienced Associate, Core Tax Services",
-     "Anchorage, AK, United States",
-     "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOExperiencedCareers/job/13693",
-     "title_exclude",
-     "tax"
-    ],
-    [
      "13741",
      "Tax Associate, International Tax Services - Summer 2027 (Dallas)",
      "Dallas, TX, United States",
@@ -77172,7 +77588,7 @@
      "tax"
     ]
    ],
-   "n": 47
+   "n": 46
   },
   "West Monroe": {
    "rows": [],
@@ -78145,14 +78561,6 @@
      "ux design"
     ],
     [
-     "20278954",
-     "Sr. Portfolio Marketing Manager - Software",
-     "Westerville, OH, United States",
-     "https://egup.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/20278954",
-     "title_exclude",
-     "marketing"
-    ],
-    [
      "20279198",
      "Senior Infrastructure Project Manager - Facilities & Capital Projects",
      "Westerville, OH, United States",
@@ -78169,14 +78577,6 @@
      "account manager"
     ],
     [
-     "20286010",
-     "Global Portfolio Marketing Manager \u2013 Power",
-     "Westerville, OH, United States",
-     "https://egup.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/20286010",
-     "title_exclude",
-     "marketing"
-    ],
-    [
      "20286080",
      "Associate Project Manager, Hyperscale",
      "Columbus, OH, United States",
@@ -78185,12 +78585,28 @@
      "project manager"
     ],
     [
+     "20278954",
+     "Sr. Portfolio Marketing Manager - Software",
+     "Westerville, OH, United States",
+     "https://egup.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/20278954",
+     "title_exclude",
+     "marketing"
+    ],
+    [
      "20285458",
      "Service Sales Associate, Global Strategic Accounts",
      "Westerville, OH, United States",
      "https://egup.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/20285458",
      "title_exclude",
      "sales associate"
+    ],
+    [
+     "20286010",
+     "Global Portfolio Marketing Manager \u2013 Power",
+     "Westerville, OH, United States",
+     "https://egup.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/20286010",
+     "title_exclude",
+     "marketing"
     ],
     [
      "20278794",
