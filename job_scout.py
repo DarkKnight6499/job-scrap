@@ -699,6 +699,37 @@ def breezy(c):
     return jobs, True  # one uncapped call returns the whole board
 
 
+def yc(c):
+    """Y Combinator company jobs page at https://www.ycombinator.com/companies/{slug}/jobs (no login). Needs
+    'slug'. The page embeds every posting as JSON in its data-page attribute, including the employer's own
+    visa field. Verified live 2026-11-19 (ooak-data). The aggregate /jobs page lists only 5 rows, so it is
+    not used."""
+    raw = http(f"https://www.ycombinator.com/companies/{c['slug']}/jobs", raw=True, timeout=40,
+               headers={"Accept": "text/html, */*", "User-Agent": BROWSER_UA}).decode("utf-8", "ignore")
+    m = re.search(r'data-page="([^"]+)"', raw)
+    if not m:
+        return [], True
+    try:
+        rows = json.loads(html.unescape(m.group(1)))["props"].get("jobPostings") or []
+    except (ValueError, KeyError, AttributeError):
+        return [], True
+    jobs, seen = [], set()
+    for p in rows:
+        jid = str(p.get("id") or "")
+        if not jid or jid in seen or not p.get("url"):
+            continue
+        seen.add(jid)
+        visa = (p.get("visa") or "").strip()
+        facts = [f"Visa field: {visa}." if visa else "", f"Experience: {p['minExperience']}." if p.get("minExperience") else "",
+                 f"Salary: {p['salaryRange']}." if p.get("salaryRange") else ""]
+        if visa.lower().startswith("us citizen"):  # YC's wording for 'citizen or already authorized, no sponsorship'
+            facts.append("Candidates must be US citizens or already hold work authorization. The employer will not sponsor visas.")
+        jobs.append(dict(id=jid, title=(p.get("title") or "").strip(), url="https://www.ycombinator.com" + p["url"],
+                         location=(p.get("location") or "").replace(" / ", "; "), desc=" ".join(f for f in facts if f),
+                         posted=(p.get("createdAt") or "")[:10], posted_source="approx" if p.get("createdAt") else ""))
+    return jobs, True  # the page carries the company's whole board
+
+
 def jobvite(c):
     """Jobvite public job list: server-rendered HTML at https://jobs.jobvite.com/{company}/jobs (no auth).
     Needs 'company' (the slug in the URL). A wrong slug returns Jobvite's generic FAQ page with no rows,
@@ -2881,7 +2912,7 @@ FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=sm
              balyasny=balyasny, tal=tal,
              dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr,
              jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment,
-             teamtailor=teamtailor, comeet=comeet, kula=kula, breezy=breezy, jobvite=jobvite, isolvedhire=isolvedhire, silkroad=silkroad, jobaps=jobaps, applicantstack=applicantstack)
+             teamtailor=teamtailor, comeet=comeet, kula=kula, breezy=breezy, jobvite=jobvite, isolvedhire=isolvedhire, silkroad=silkroad, jobaps=jobaps, applicantstack=applicantstack, yc=yc)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 

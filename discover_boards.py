@@ -58,10 +58,11 @@ LINK_RE = {
     "silkroad": r"jobs\.silkroad\.com/([A-Za-z0-9_-]+/[A-Za-z0-9_-]+)",
     "jobaps": r"jobapscloud\.com/([A-Za-z0-9]{2,12})/",
     "applicantstack": r"([a-z0-9-]+\.applicantstack\.com)",
+    "yc": r"ycombinator\.com/companies/([a-z0-9-]+)(?:/jobs)?",
 }
 # Boards that are not a JSON slug API: their own key field in config, and a live-jobs check
 KEY_FIELD = {"icims": "host", "jobvite": "company", "isolvedhire": "host", "silkroad": "portal", "jobaps": "agency",
-             "applicantstack": "host"}
+             "applicantstack": "host", "yc": "slug"}
 WORKDAY_RE = r"https?://([a-z0-9-]+\.wd\d+\.myworkdayjobs\.com)/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)"
 ICIMS_RE = r"https?://([a-z0-9-]+\.icims\.com)"
 GENERIC_SLUGS = {"embed", "jobs", "careers", "api", "v1", "company", "www"}
@@ -120,8 +121,13 @@ def applicantstack_count(host):
     return get(f"https://{host}/x/openings").count("/x/detail/")
 
 
+def yc_count(slug):
+    return get(f"https://www.ycombinator.com/companies/{slug}/jobs").count("&quot;applyUrl&quot;")
+
+
 SPECIAL_COUNT = {"icims": icims_count, "jobvite": jobvite_count, "isolvedhire": isolved_count,
-                 "silkroad": silkroad_count, "jobaps": jobaps_count, "applicantstack": applicantstack_count}
+                 "silkroad": silkroad_count, "jobaps": jobaps_count, "applicantstack": applicantstack_count,
+                 "yc": yc_count}
 
 
 def count_jobs(ats, body):

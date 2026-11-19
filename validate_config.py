@@ -11,7 +11,7 @@ import unicodedata
 REQUIRED_FIELDS = {
     "greenhouse": ("slug",), "lever": ("slug",), "ashby": ("slug",),
     "jazzhr": ("host",), "workable": ("slug",), "nas_recruitment": ("host",),
-    "teamtailor": ("host",), "comeet": ("host",), "kula": ("slug",), "breezy": ("slug",), "jobvite": ("company",), "isolvedhire": ("host",), "silkroad": ("portal",), "jobaps": ("agency",), "applicantstack": ("host",),
+    "teamtailor": ("host",), "comeet": ("host",), "kula": ("slug",), "breezy": ("slug",), "jobvite": ("company",), "isolvedhire": ("host",), "silkroad": ("portal",), "jobaps": ("agency",), "applicantstack": ("host",), "yc": ("slug",),
     "smartrecruiters": ("slug",), "personio": ("slug",),
     "workday": ("host", "tenant", "site"), "oracle": ("host", "site"),
     "successfactors": ("host",), "icims": (),
