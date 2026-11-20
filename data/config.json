@@ -18497,6 +18497,90 @@
     "collateral",
     "spring 2027"
    ]
+  },
+  {
+   "name": "Two Harbors Investment Corp.",
+   "ats": "dayforce",
+   "namespace": "twoharbors",
+   "board": "CANDIDATEPORTAL"
+  },
+  {
+   "name": "Gen Re",
+   "ats": "csod",
+   "corp": "genre"
+  },
+  {
+   "name": "LACERA",
+   "ats": "neogov",
+   "agency": "lacera"
+  },
+  {
+   "name": "Wings Financial Credit Union",
+   "ats": "smartrecruiters",
+   "slug": "WingsCreditUnion"
+  },
+  {
+   "name": "Landmark Credit Union",
+   "ats": "dayforce",
+   "namespace": "landmarkcu",
+   "board": "CANDIDATEPORTAL"
+  },
+  {
+   "name": "Golden 1 Credit Union",
+   "ats": "dayforce",
+   "namespace": "golden1",
+   "board": "CANDIDATEPORTAL"
+  },
+  {
+   "name": "Best Egg",
+   "ats": "lever",
+   "slug": "BestEgg"
+  },
+  {
+   "name": "State of Michigan",
+   "ats": "neogov",
+   "agency": "michigan"
+  },
+  {
+   "name": "AgCarolina Farm Credit",
+   "ats": "oracle",
+   "host": "eozs.fa.us6.oraclecloud.com",
+   "site": "CX_1",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "State of Washington",
+   "ats": "neogov",
+   "agency": "washington"
+  },
+  {
+   "name": "Hotchkis & Wiley",
+   "ats": "bamboohr",
+   "slug": "hwcm"
+  },
+  {
+   "name": "American National Insurance",
+   "ats": "dayforce",
+   "namespace": "anico",
+   "board": "CANDIDATEPORTAL"
   }
  ],
  "keywords": [
