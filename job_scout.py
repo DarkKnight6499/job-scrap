@@ -699,6 +699,19 @@ def breezy(c):
     return jobs, True  # one uncapped call returns the whole board
 
 
+def _rel_to_iso(raw):
+    """ISO date from a YC createdAt: an ISO stamp, or relative text such as '3 months' or 'about 2 hours' (rendered 'NaNd ago' when stored raw)."""
+    raw = str(raw or "").strip()
+    if re.match(r"\d{4}-\d{2}-\d{2}", raw):
+        return raw[:10]
+    m = re.match(r"(?:about |over |almost )?(\d+|a|an)\s+(hour|day|week|month|year)s?\b", raw, re.I)
+    if not m:
+        return ""
+    n = 1 if m.group(1).lower() in ("a", "an") else int(m.group(1))
+    days = {"hour": 0, "day": 1, "week": 7, "month": 30, "year": 365}[m.group(2).lower()] * n
+    return (datetime.now(timezone.utc).date() - timedelta(days=days)).isoformat()
+
+
 def yc(c):
     """Y Combinator company jobs page at https://www.ycombinator.com/companies/{slug}/jobs (no login). Needs
     'slug'. The page embeds every posting as JSON in its data-page attribute, including the employer's own
@@ -726,7 +739,7 @@ def yc(c):
             facts.append("Candidates must be US citizens or already hold work authorization. The employer will not sponsor visas.")
         jobs.append(dict(id=jid, title=(p.get("title") or "").strip(), url="https://www.ycombinator.com" + p["url"],
                          location=(p.get("location") or "").replace(" / ", "; "), desc=" ".join(f for f in facts if f),
-                         posted=(p.get("createdAt") or "")[:10], posted_source="approx" if p.get("createdAt") else ""))
+                         posted=_rel_to_iso(p.get("createdAt")), posted_source="approx" if _rel_to_iso(p.get("createdAt")) else ""))
     return jobs, True  # the page carries the company's whole board
 
 
@@ -5335,7 +5348,7 @@ tr.hidden-by-filter {{ display: none; }}
     // marker survives the dynamic relabel instead of only appearing on first render.
     var prefix = tr.getAttribute('data-posted-source') === 'approx' ? '~' : '';
     var label;
-    if (posted) {{
+    if (posted && !isNaN(daysAgo(posted))) {{
       var n = daysAgo(posted);
       label = prefix + (n <= 0 ? 'today' : n === 1 ? 'yesterday' : n + 'd ago');
       tr.classList.toggle('today', n <= 0);
