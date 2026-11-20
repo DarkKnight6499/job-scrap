@@ -19306,6 +19306,23 @@
    "name": "SteelEye",
    "ats": "smartrecruiters",
    "slug": "steeleye"
+  },
+  {
+   "name": "Adelfi Credit Union",
+   "ats": "isolvedhire",
+   "host": "adelficreditunion.applicantpro.com"
+  },
+  {
+   "name": "Community America Credit Union",
+   "ats": "icims",
+   "hosts": [
+    "careers-cacu.icims.com"
+   ]
+  },
+  {
+   "name": "Sumitomo Mitsui Trust Bank (U.S.A.) Limited",
+   "ats": "smartrecruiters",
+   "slug": "sumitomomitsuitrustbankusalimited"
   }
  ],
  "keywords": [
