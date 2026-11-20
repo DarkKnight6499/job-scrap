@@ -699,6 +699,64 @@ def breezy(c):
     return jobs, True  # one uncapped call returns the whole board
 
 
+NEOGOV_PAGE_CAP = 30  # 20 rows per page
+
+
+def neogov(c):
+    """NEOGOV governmentjobs.com agency list through the XHR fragment
+    https://www.governmentjobs.com/careers/home/index?agency={agency}&page=N (no auth; the plain agency page is
+    JS rendered and empty). Needs 'agency' (the URL folder, e.g. lacounty). Verified live 2026-11-20 against
+    lacounty (20 rows per page, rel=next marks more pages). The list has no location, so the department stands in."""
+    jobs, seen = [], set()
+    for page in range(1, NEOGOV_PAGE_CAP + 1):
+        raw = http(f"https://www.governmentjobs.com/careers/home/index?agency={c['agency']}&sort=PostingDate&isDescendingSort=true&page={page}",
+                   raw=True, timeout=40, headers={"X-Requested-With": "XMLHttpRequest", "Accept": "text/html, */*"}).decode("utf-8", "ignore")
+        rows = re.findall(r'<li class="list-item" data-job-id="(\d+)">(.*?)(?=<li class="list-item" data-job-id=|</ul>\s*</div>\s*<div class="pagination|\Z)', raw, re.S)
+        before = len(seen)
+        for jid, body in rows:
+            m = re.search(r'<a [^>]*data-department-name="([^"]*)"[^>]*href="([^"]+)"[^>]*>(.*?)</a>', body, re.S)
+            if not m or jid in seen:
+                continue
+            seen.add(jid)
+            posted = datetime.now(timezone.utc).date().isoformat() if re.search(r"Posted today", body) else ""
+            jobs.append(dict(id=jid, title=strip_html(m.group(3)), location=html.unescape(m.group(1)).title(),
+                             url="https://www.governmentjobs.com" + html.unescape(m.group(2)), posted=posted))
+        if 'rel="next"' not in raw or not rows or len(seen) == before:  # a repeated page means the list ended
+            return jobs, True
+    return jobs, False
+
+
+def pinpoint(c):
+    """Pinpoint public list https://{slug}.pinpointhq.com/postings.json (no auth, description included). Needs
+    'slug'. Verified live 2026-11-20 against workwithus (3 postings)."""
+    d = http(f"https://{c['slug']}.pinpointhq.com/postings.json")
+    jobs = []
+    for p in d.get("data", []) if isinstance(d, dict) else []:
+        loc = p.get("location") or {}
+        jobs.append(dict(id=str(p.get("id") or ""), title=(p.get("title") or "").strip(), url=p.get("url") or "",
+                         location=(loc.get("name") or loc.get("city") or "") if isinstance(loc, dict) else "",
+                         desc=strip_html(p.get("description") or ""), posted=""))
+    return [j for j in jobs if j["id"]], True
+
+
+def trakstar(c):
+    """Trakstar Hire (Recruiterbox) JSON https://jsapi.recruiterbox.com/v1/openings?client_name={slug} (no auth,
+    description included). Needs 'slug' (the subdomain of {slug}.hire.trakstar.com). Response shape confirmed
+    2026-11-20 on htgc (empty board), so field names come from the vendor schema: UNVERIFIED on a populated board."""
+    jobs, offset = [], 0
+    while True:
+        d = http(f"https://jsapi.recruiterbox.com/v1/openings?client_name={c['slug']}&limit=100&offset={offset}")
+        rows = d.get("objects", []) if isinstance(d, dict) else []
+        for p in rows:
+            loc = p.get("location") or {}
+            jobs.append(dict(id=str(p.get("id") or ""), title=(p.get("title") or "").strip(), url=p.get("hosted_url") or "",
+                             location=", ".join(x for x in (loc.get("city"), loc.get("state"), loc.get("country")) if x) if isinstance(loc, dict) else "",
+                             desc=strip_html(p.get("description") or ""), posted=""))
+        offset += len(rows)
+        if not rows or offset >= (d.get("meta", {}).get("total") or 0):
+            return [j for j in jobs if j["id"]], True
+
+
 def _rel_to_iso(raw):
     """ISO date from a YC createdAt: an ISO stamp, or relative text such as '3 months' or 'about 2 hours' (rendered 'NaNd ago' when stored raw)."""
     raw = str(raw or "").strip()
@@ -2925,7 +2983,7 @@ FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=sm
              balyasny=balyasny, tal=tal,
              dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr,
              jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment,
-             teamtailor=teamtailor, comeet=comeet, kula=kula, breezy=breezy, jobvite=jobvite, isolvedhire=isolvedhire, silkroad=silkroad, jobaps=jobaps, applicantstack=applicantstack, yc=yc)
+             teamtailor=teamtailor, comeet=comeet, kula=kula, breezy=breezy, neogov=neogov, pinpoint=pinpoint, trakstar=trakstar, jobvite=jobvite, isolvedhire=isolvedhire, silkroad=silkroad, jobaps=jobaps, applicantstack=applicantstack, yc=yc)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
