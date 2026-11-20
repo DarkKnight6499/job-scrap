@@ -699,6 +699,87 @@ def breezy(c):
     return jobs, True  # one uncapped call returns the whole board
 
 
+SITEMAP_PAGE_CAP = 60        # job pages whose JSON-LD is read per run, newest lastmod first
+SITEMAP_CHILD_CAP = 8        # child sitemaps followed from a sitemap index
+SITEMAP_JOB_URL = r"/(?:jobs?|careers?|openings?|positions?|vacanc(?:y|ies)|requisitions?)/[^/]+/?$"
+
+
+def _jsonld_jobposting(page):
+    """First schema.org JobPosting object in a page's ld+json blocks, or None."""
+    for block in re.findall(r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', page, re.S | re.I):
+        try:
+            data = json.loads(block.strip())
+        except ValueError:
+            continue
+        stack = data if isinstance(data, list) else [data]
+        while stack:
+            node = stack.pop()
+            if isinstance(node, dict):
+                kind = node.get("@type")
+                if kind == "JobPosting" or (isinstance(kind, list) and "JobPosting" in kind):
+                    return node
+                stack.extend(node.get("@graph", []) if isinstance(node.get("@graph"), list) else [])
+            elif isinstance(node, list):
+                stack.extend(node)
+    return None
+
+
+def sitemap(c):
+    """Generic board for a career site without a supported ATS. Needs 'sitemap' (URL of a sitemap.xml, a sitemap
+    index, or an RSS job feed) and optional 'job_pattern' (regex for job page URLs, default SITEMAP_JOB_URL).
+    RSS feeds give title, link and date directly. A urlset is filtered by job_pattern and the newest
+    SITEMAP_PAGE_CAP pages are read for a JSON-LD JobPosting. Marks the list incomplete when pages were capped.
+    Verified live 2026-11-20 on careers.bankwithunited.com (RSS feed served at /sitemap.xml)."""
+    import xml.etree.ElementTree as ET
+
+    def strip_ns(tag):
+        return tag.rsplit("}", 1)[-1]
+
+    def load(url):
+        return ET.fromstring(http(url, raw=True, timeout=40, headers={"Accept": "application/xml, text/xml, */*"}))
+
+    root = load(c["sitemap"])
+    pattern = re.compile(c.get("job_pattern") or SITEMAP_JOB_URL, re.I)
+    jobs, complete = [], True
+    if strip_ns(root.tag) == "rss":
+        for item in root.iter("item"):
+            f = {strip_ns(e.tag): (e.text or "").strip() for e in item}
+            link = f.get("link") or f.get("guid", "")
+            if link:
+                jobs.append(dict(id=f.get("guid") or link, title=html.unescape(f.get("title", "")), url=link,
+                                 location=f.get("location", ""), desc=strip_html(html.unescape(f.get("description", ""))), posted=""))
+        return jobs, True
+    entries = []  # (lastmod, url)
+    if strip_ns(root.tag) == "sitemapindex":
+        for child in [e for e in root.iter() if strip_ns(e.tag) == "loc"][:SITEMAP_CHILD_CAP]:
+            try:
+                sub = load(child.text.strip())
+            except Exception:
+                continue
+            entries += [((u.findtext("{*}lastmod") or ""), (u.findtext("{*}loc") or "").strip()) for u in sub.iter() if strip_ns(u.tag) == "url"]
+    else:
+        entries = [((u.findtext("{*}lastmod") or ""), (u.findtext("{*}loc") or "").strip()) for u in root.iter() if strip_ns(u.tag) == "url"]
+    urls = sorted({(m, u) for m, u in entries if u and pattern.search(u)}, reverse=True)
+    if len(urls) > SITEMAP_PAGE_CAP:
+        urls, complete = urls[:SITEMAP_PAGE_CAP], False
+    for mod, url in urls:
+        try:
+            posting = _jsonld_jobposting(http(url, raw=True, timeout=30, headers={"Accept": "text/html"}).decode("utf-8", "ignore"))
+        except Exception:
+            continue
+        if not posting:
+            continue
+        place = posting.get("jobLocation")
+        place = place[0] if isinstance(place, list) and place else place
+        addr = (place or {}).get("address", {}) if isinstance(place, dict) else {}
+        where = ", ".join(x for x in (addr.get("addressLocality"), addr.get("addressRegion")) if x) if isinstance(addr, dict) else ""
+        ident = posting.get("identifier")
+        jobs.append(dict(id=str(ident.get("value") if isinstance(ident, dict) else ident or url), title=html.unescape(str(posting.get("title") or "")).strip(),
+                         url=url, location=where, desc=strip_html(html.unescape(str(posting.get("description") or ""))),
+                         posted=str(posting.get("datePosted") or mod)[:10]))
+    return jobs, complete
+
+
 NEOGOV_PAGE_CAP = 30  # 20 rows per page
 
 
@@ -2983,7 +3064,7 @@ FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=sm
              balyasny=balyasny, tal=tal,
              dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr,
              jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment,
-             teamtailor=teamtailor, comeet=comeet, kula=kula, breezy=breezy, neogov=neogov, pinpoint=pinpoint, trakstar=trakstar, jobvite=jobvite, isolvedhire=isolvedhire, silkroad=silkroad, jobaps=jobaps, applicantstack=applicantstack, yc=yc)
+             teamtailor=teamtailor, comeet=comeet, kula=kula, breezy=breezy, neogov=neogov, pinpoint=pinpoint, trakstar=trakstar, sitemap=sitemap, jobvite=jobvite, isolvedhire=isolvedhire, silkroad=silkroad, jobaps=jobaps, applicantstack=applicantstack, yc=yc)
 STALE_ALERT_HOURS = 10  # page shows a red banner when the last scout run is older than this
 FETCH_WORKERS = 12  # fetches are I/O-bound (network wait); parallelizing across companies cuts wall-clock a lot
 
