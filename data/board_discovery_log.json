@@ -12593,64 +12593,3404 @@
   "date": "2026-11-20",
   "found": null
  },
- "probe_psers": {
-  "name": "PSERS",
+ "everettcooperativebankeverettbankcom": {
+  "name": "Everett Co-operative Bank | everettbank.com",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: PSERS (neogov): 227 jobs "
+  "found": null
  },
- "probe_pennsylvaniasers": {
-  "name": "Pennsylvania SERS",
+ "fallriverfivecentssavingsbankbankfivecom": {
+  "name": "Fall River Five Cents Savings Bank | bankfive.com",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: Pennsylvania SERS (neogov): 0 jobs "
+  "found": null
  },
- "probe_nepc": {
-  "name": "NEPC",
+ "farmbureaubankfarmbureaubank": {
+  "name": "Farm Bureau Bank | farmbureau.bank",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: NEPC (ukg): 0 jobs "
+  "found": null
  },
- "probe_kinectafederalcreditunion": {
-  "name": "Kinecta Federal Credit Union",
+ "familysavings": {
+  "name": "Family Savings",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: Kinecta Federal Credit Union (adp_wfn): 0 jobs "
+  "found": null
  },
- "probe_tristatecapitalbank": {
-  "name": "TriState Capital Bank",
+ "fa": {
+  "name": "F & A",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: TriState Capital Bank (adp_wfn): 0 jobs "
+  "found": null
  },
- "probe_umbfinancial": {
-  "name": "UMB Financial",
+ "farmersmerchantsbankofcentralcaliforniafmbonlinecom": {
+  "name": "Farmers & Merchants Bank of Central California | fmbonline.com",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: UMB Financial: name already in config"
+  "found": null
  },
- "probe_firstbankpuertorico": {
-  "name": "FirstBank Puerto Rico",
+ "farmersandmerchantsbankoflongbeachfmbcom": {
+  "name": "Farmers and Merchants Bank of Long Beach | fmb.com",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: FirstBank Puerto Rico (csod): 0 jobs "
+  "found": null
  },
- "probe_guardianlife": {
-  "name": "Guardian Life",
+ "farmersandmerchantsbankbankfmbcom": {
+  "name": "Farmers and Merchants Bank | bankfmb.com",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: Guardian Life: name already in config"
+  "found": null
  },
- "probe_carnegiecorporationofnewyork": {
-  "name": "Carnegie Corporation of New York",
+ "farmersmerchantsbankfmbankvacom": {
+  "name": "Farmers & Merchants Bank | fmbankva.com",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: Carnegie Corporation of New York (adp_wfn): 0 jobs "
+  "found": null
  },
- "probe_merchantsfinancialgroup": {
-  "name": "Merchants Financial Group",
+ "farmersbanktrustfarmersbankkscom": {
+  "name": "Farmers Bank & Trust | farmersbankks.com",
   "date": "2026-11-20",
-  "found": null,
-  "note": "probe: Merchants Financial Group (dayforce): -1 jobs HTTPError: HTTP Error 404: Not Found"
+  "found": null
+ },
+ "farmersbanktrustcompanymyfarmersbank": {
+  "name": "Farmers Bank & Trust Company | myfarmers.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "farmersinsurance": {
+  "name": "Farmers Insurance",
+  "date": "2026-11-20",
+  "found": "breezy farmersinsurance"
+ },
+ "farmersmyfsbonlinecom": {
+  "name": "Farmers | myfsbonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "familysecurity": {
+  "name": "Family Security",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "elga": {
+  "name": "Elga",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fcbbanksfcbbankscom": {
+  "name": "FCB Banks | fcbbanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "farmersandmerchantstrustcompanyofchambersburgfmtrustbank": {
+  "name": "Farmers and Merchants Trust Company of Chambersburg | fmtrust.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fibre": {
+  "name": "Fibre",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fidelitybanktrustbankfidelitycomwwwbankfidelitybank": {
+  "name": "Fidelity Bank & Trust | bankfidelity.com; www.bankfidelity.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ffbbankffbbank": {
+  "name": "FFB Bank | ffb.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "financialfederalbankfinfedmemcom": {
+  "name": "Financial Federal Bank | finfedmem.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "financialpartners": {
+  "name": "Financial Partners",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "financialplus": {
+  "name": "Financial Plus",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstamericanbankandtrustfabtcom": {
+  "name": "First American Bank and Trust | fabt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fidelitycooperativebankfidelitybankonlinecom": {
+  "name": "Fidelity Co-operative Bank | fidelitybankonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstamericanbankfirstamericanbanknmcom": {
+  "name": "First American Bank | firstamericanbanknm.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstamericantrustfirstamtrustcom": {
+  "name": "First American Trust | firstamtrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstarkansasbankandtrustfabandtbank": {
+  "name": "First Arkansas Bank and Trust | fabandt.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbanktrustbankeasycom": {
+  "name": "First Bank & Trust | bankeasy.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbankchicagofirstbankchicagocom": {
+  "name": "First Bank Chicago | firstbankchicago.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbankofalabamafbalbank": {
+  "name": "First Bank of Alabama | fbal.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbankofbernefirstbankofbernecom": {
+  "name": "First Bank of Berne | firstbankofberne.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbankmidwestfirstbankmidwestcom": {
+  "name": "First Bank Midwest | firstbankmidwest.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbusinessbankfirstbusinessbank": {
+  "name": "First Business Bank | firstbusiness.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbankofthelakefblakebank": {
+  "name": "First Bank of the Lake | fblake.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbankerstrustcompanyfirstbankerscom": {
+  "name": "First Bankers Trust Company | firstbankers.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcapitalbankbankwithfirstcapitalbankcom": {
+  "name": "First Capital Bank | bankwithfirstcapitalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcarolinabankfirstcarolinabankcom": {
+  "name": "First Carolina Bank | firstcarolinabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcentralsavingsbankfirstcentralsavingscom": {
+  "name": "First Central Savings Bank | firstcentralsavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcitizenscommunitybankfirstcitizensbankcom": {
+  "name": "First Citizens Community Bank | firstcitizensbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcommandbankfirstcommandcom": {
+  "name": "First Command Bank | firstcommand.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcommercebankfirstcommercebkcom": {
+  "name": "First Commerce Bank | firstcommercebk.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcommerce": {
+  "name": "First Commerce",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcommonwealth": {
+  "name": "First Commonwealth",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcommunitybankfirstcommunitybankerscom": {
+  "name": "First Community Bank | firstcommunitybankers.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstdakotanationalbankfirstdakotacom": {
+  "name": "First Dakota National Bank | firstdakota.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcountybankfirstcountybankcom": {
+  "name": "First County Bank | firstcountybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcommunity": {
+  "name": "First Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfarmersandmerchantsbankmyfirstfarmerscom": {
+  "name": "First Farmers and Merchants Bank | myfirstfarmers.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfedbankourfirstfedcom": {
+  "name": "First Fed Bank | ourfirstfed.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfederalbankoflouisiaffblabank": {
+  "name": "First Federal Bank of Louisia | ffbla.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfarmersbanktrustcoffbtcom": {
+  "name": "First Farmers Bank & Trust Co. | ffbt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstentertainment": {
+  "name": "First Entertainment",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfederalbankffbtncom": {
+  "name": "First Federal Bank | ffbtn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfederalsavingsandloanassociationoflakewoodfflbank": {
+  "name": "First Federal Savings and Loan Association of Lakewood | ffl.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfederalsavingsbankoftwinfallsbankfirstfedcom": {
+  "name": "First Federal Savings Bank of Twin Falls | bankfirstfed.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfederalsavingsandloanassociationofgreenecoffgcbank": {
+  "name": "First Federal Savings and Loan Association of Greene Co | ffgc.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfidelitybankffbcom": {
+  "name": "First Fidelity Bank | ffb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfinancialofmaryland": {
+  "name": "First Financial Of Maryland",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "eecu": {
+  "name": "Eecu",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstgeneralbankfirstgeneralbankcom": {
+  "name": "First General Bank | firstgeneralbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstflorida": {
+  "name": "First Florida",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstfinancial": {
+  "name": "First Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstharrisonbankfirstharrisoncom": {
+  "name": "First Harrison Bank | firstharrison.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstinterfirstinterstatebankcom": {
+  "name": "First Inter | firstinterstatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstkeystonecommunitybankfkcbank": {
+  "name": "First Keystone Community Bank | fkc.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstmerchantsbankfirstmerchantscom": {
+  "name": "First Merchants Bank | firstmerchants.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstmetrobankfirstmetrocom": {
+  "name": "First Metro Bank | firstmetro.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstguarantybankfgbnet": {
+  "name": "First Guaranty Bank | fgb.net",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstinternetbankofindiafirstibcom": {
+  "name": "First Internet Bank of India | firstib.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankofamericafnbacom": {
+  "name": "First National Bank of America | fnba.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankofcentraltexasfnbctbank": {
+  "name": "First National Bank of Central Texas | fnbct.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankalaskafnbalaskacom": {
+  "name": "First National Bank Alaska | fnbalaska.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankofpennsylvaniafnbonlinecom": {
+  "name": "First National Bank of Pennsylvania | fnb-online.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankofpulaskifnbforyoucom": {
+  "name": "First National Bank of Pulaski | fnbforyou.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstinternationalbanktrustfibtcom": {
+  "name": "First International Bank & Trust | fibt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firefightersfirst": {
+  "name": "Firefighters First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankamesiowafnbamescom": {
+  "name": "First National Bank, Ames, Iowa | fnbames.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbank1stnatbkcom": {
+  "name": "First National Bank | 1stnatbk.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankandtrustcompanyofnewtownfnbncom": {
+  "name": "First National Bank and Trust Company of Newtown | fnbn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnorthernbankofdixonthatsmybankcom": {
+  "name": "First Northern Bank of Dixon | thatsmybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbanktexas1stnbcom": {
+  "name": "First National Bank Texas | 1stnb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstoklahomabankfirstoklahomabankcom": {
+  "name": "First Oklahoma Bank | firstoklahomabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstpremierbankfirstpremiercom": {
+  "name": "First PREMIER Bank | firstpremier.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstpalmettobankfirstpalmettocom": {
+  "name": "First Palmetto Bank | firstpalmetto.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstresourcebankmyfrbankcom": {
+  "name": "First Resource Bank | myfrbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstsavingsbankfirstsavingsbankscom": {
+  "name": "First Savings Bank | firstsavingsbanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstservicebankfirstservicebankcom": {
+  "name": "First Service Bank | firstservicebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstsource": {
+  "name": "First Source",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstsouthernbankfirstsouthernbanknet": {
+  "name": "First Southern Bank | firstsouthernbank.net",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstsouthernnationalbankfsnbnet": {
+  "name": "First Southern National Bank | fsnb.net",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstnationalbankoftennesseefnbotncom": {
+  "name": "First National Bank of Tennessee | fnbotn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firststatebanknebraska1fsbbank": {
+  "name": "First State Bank Nebraska | 1fsb.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstservice": {
+  "name": "First Service",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firststatebankofuvaldefsbuvaldebank": {
+  "name": "First State Bank of Uvalde | fsbuvalde.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firststatecommunitybankfscbcom": {
+  "name": "First State Community Bank | fscb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firsttexasbankfirsttexasbankbank": {
+  "name": "First Texas Bank | firsttexasbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstunitedbanktrustmybankcom": {
+  "name": "First United Bank & Trust | mybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstusbankfirstusbankcom": {
+  "name": "First US Bank | firstusbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstwesternbanktrustfirstwesternbank": {
+  "name": "First Western Bank & Trust | firstwestern.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firsttechnology": {
+  "name": "First Technology",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstwesterntrustbankmyfwcom": {
+  "name": "First Western Trust Bank | myfw.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstunitedbankandtrustcompanyfirstunitedbankcom": {
+  "name": "First United Bank and Trust Company | firstunitedbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstkeysbankcom": {
+  "name": "First | keysbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstarbankfirstarbank": {
+  "name": "Firstar Bank | firstar.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstierbankfirstierbankscom": {
+  "name": "FirsTier Bank | firstierbanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstbanksouthwestfbswcom": {
+  "name": "FirstBank Southwest | fbsw.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstrustsavingsbankfirstrustcom": {
+  "name": "Firstrust Savings Bank | firstrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fivepointsbank5pointsbankcom": {
+  "name": "Five Points Bank | 5pointsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstcitizensbanktrustcompanyfirstcitizenscom": {
+  "name": "First-Citizens Bank & Trust Company | firstcitizens.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "florencebankflorencebankcom": {
+  "name": "Florence Bank | florencebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "florida": {
+  "name": "Florida",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fivepoint": {
+  "name": "Fivepoint",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fivestar": {
+  "name": "Five Star",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fmbankandtrustmyfmbank": {
+  "name": "Fm Bank And Trust | myfm.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "forbrightbankforbrightbankcom": {
+  "name": "Forbright Bank | forbrightbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "forchtbankforchtbankcom": {
+  "name": "Forcht Bank | forchtbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "foresightbankffgbankcom": {
+  "name": "Foresight Bank | ffgbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fortisbankfortisbankuscom": {
+  "name": "Fortis Bank | fortisbankus.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "founders": {
+  "name": "Founders",
+  "date": "2026-11-20",
+  "found": "greenhouse founders"
+ },
+ "forwardbankforwardbank": {
+  "name": "Forward Bank | forward.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fourleaf": {
+  "name": "Fourleaf",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "foxcommunities": {
+  "name": "Fox Communities",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "frandsenbanktrustfrandsenbankcom": {
+  "name": "Frandsen Bank & Trust | frandsenbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "freedom": {
+  "name": "Freedom",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "franklinmint": {
+  "name": "Franklin Mint",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstmark": {
+  "name": "Firstmark",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "frontierbankoftexasfrontierbankoftexascom": {
+  "name": "Frontier Bank of Texas | frontierbankoftexas.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "freedomfirst": {
+  "name": "Freedom First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "frontwave": {
+  "name": "Frontwave",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fultonbankfultonbankcom": {
+  "name": "Fulton Bank | fultonbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fvcbankfvcbankcom": {
+  "name": "FVCbank | fvcbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gatecitybankgatecitybank": {
+  "name": "Gate City Bank | gatecity.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gatewayfirstbankgatewayfirstcom": {
+  "name": "Gateway First Bank | gatewayfirst.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gbankgbank": {
+  "name": "GBank | g.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gecu": {
+  "name": "Gecu",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "frankenmuth": {
+  "name": "Frankenmuth",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "generationsbankmygenerationsbank": {
+  "name": "Generations Bank | mygenerations.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "geneseeregionalbankgrbbankcom": {
+  "name": "Genesee Regional Bank | grbbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "generalelectric": {
+  "name": "General Electric",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "georgiaunited": {
+  "name": "Georgia United",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "georgiabankingcompanygeorgiabankingcom": {
+  "name": "Georgia Banking Company | georgiabanking.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gesa": {
+  "name": "Gesa",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gnbankgnbankcom": {
+  "name": "GNBank | gn-bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "global": {
+  "name": "Global",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "goldenbankgoldenbanknacom": {
+  "name": "Golden Bank | goldenbank-na.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "goldengoldenstatebankcom": {
+  "name": "Golden | goldenstatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "goldenwest": {
+  "name": "Goldenwest",
+  "date": "2026-11-20",
+  "found": "applicantstack None"
+ },
+ "goldenplains": {
+  "name": "Golden Plains",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "goldmansachsbankusamarcuscom": {
+  "name": "Goldman Sachs Bank USA | marcus.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "grandsavingsbankgrandsavingsbankcom": {
+  "name": "Grand Savings Bank | grandsavingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "grasshopperbankgrasshopperbank": {
+  "name": "Grasshopper Bank | grasshopper.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greatmidwestbankgreatmidwestbankcom": {
+  "name": "Great Midwest Bank | greatmidwestbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greatplainsnationalbankgpbankokcom": {
+  "name": "Great Plains National Bank | gpbankok.com.",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greaternevada": {
+  "name": "Greater Nevada",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greendotbankdbabonnevillebankbonnevillebankcom": {
+  "name": "Green Dot Bank DBA Bonneville Bank | bonnevillebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "georgiasown": {
+  "name": "Georgia'S Own",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greenecountycommercialbankbankofgreenecom": {
+  "name": "Greene County Commercial Bank | bankofgreene.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greenfieldsavingsbankgreenfieldsavingscom": {
+  "name": "Greenfield Savings Bank | greenfieldsavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greenstate": {
+  "name": "Greenstate",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "firstlight": {
+  "name": "Firstlight",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "grovebanktrustgrovebankandtrustcom": {
+  "name": "Grove Bank & Trust | grovebankandtrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greylock": {
+  "name": "Greylock",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gte": {
+  "name": "Gte",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "guarantybankandtrustcompanygbtonlinecom": {
+  "name": "Guaranty Bank and Trust Company | gbtonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "guarantybankgbankmocom": {
+  "name": "Guaranty Bank | gbankmo.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "guardian": {
+  "name": "Guardian",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "guardiansavingsbankguardiansavingsbankcom": {
+  "name": "Guardian Savings Bank | guardiansavingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gulfcoastbankandtrustcompanygulfbankcom": {
+  "name": "Gulf Coast Bank and Trust Company | gulfbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gulfcoasteducators": {
+  "name": "Gulf Coast Educators",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "gulfwinds": {
+  "name": "Gulf Winds",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hancockwhitneybankhancockwhitneycom": {
+  "name": "Hancock Whitney Bank | hancockwhitney.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "habibamericanbankhabbank": {
+  "name": "Habib American Bank | hab.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hanovercommunitybankhanoverbankcom": {
+  "name": "Hanover Community Bank | hanoverbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hapocommunity": {
+  "name": "Hapo Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "happenbankhappencom": {
+  "name": "Happen Bank | happen.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "growfinancial": {
+  "name": "Grow Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "harborstone": {
+  "name": "Harborstone",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "harvard": {
+  "name": "Harvard",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hawaiianfinancial": {
+  "name": "Hawaiian Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hawaiiusa": {
+  "name": "Hawaiiusa",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hawthornbankhawthornbankcom": {
+  "name": "Hawthorn Bank | hawthornbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "heartlandbankandtrustcompanyhbtbankcom": {
+  "name": "Heartland Bank and Trust Company | hbtbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "helmbankusahelmbankusacom": {
+  "name": "Helm Bank USA | helmbankusa.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "greatlakes": {
+  "name": "Great Lakes",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hfs": {
+  "name": "Hfs",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hillsbankandtrustcompanyhillsbankcom": {
+  "name": "Hills Bank and Trust Company | hillsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hilltopnationalbankhilltopbank": {
+  "name": "Hilltop National Bank | hilltop.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hinghaminstitutionforsavingshinghamsavingscom": {
+  "name": "Hingham Institution for Savings | hinghamsavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hinsdalebanktrustcompanyhinsdalebankcom": {
+  "name": "Hinsdale Bank & Trust Company | hinsdalebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hnbnationalbankhnbbankscom": {
+  "name": "HNB National Bank | hnbbanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hawaiistate": {
+  "name": "Hawaii State",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "homefederalbankoftennesseehomefederalbanktncom": {
+  "name": "Home Federal Bank of Tennessee | homefederalbanktn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hometrustbankhtbcom": {
+  "name": "HomeTrust Bank | htb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "homebankhome24bankcom": {
+  "name": "Home Bank | home24bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "forum": {
+  "name": "Forum",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "honor": {
+  "name": "Honor",
+  "date": "2026-11-20",
+  "found": "greenhouse honor"
+ },
+ "horizon": {
+  "name": "Horizon",
+  "date": "2026-11-20",
+  "found": "lever horizon"
+ },
+ "horiconbankhoriconbankcom": {
+  "name": "Horicon Bank | horiconbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "houstonpolice": {
+  "name": "Houston Police",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hsbcbankusaaboutushsbccom": {
+  "name": "HSBC Bank USA | about.us.hsbc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hughes": {
+  "name": "Hughes",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "hanscom": {
+  "name": "Hanscom",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "genisys": {
+  "name": "Genisys",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ihmississippivalley": {
+  "name": "I. H. Mississippi Valley",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "idahocentral": {
+  "name": "Idaho Central",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "idahofirstbankidahofirstbankcom": {
+  "name": "Idaho First Bank | idahofirstbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "inbankinbankcom": {
+  "name": "InBank | inbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ideal": {
+  "name": "Ideal",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "inbinbcom": {
+  "name": "INB | inb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "incrediblebankincrediblebank": {
+  "name": "IncredibleBank | incredible.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "independencebankofkentucky1776bankcom": {
+  "name": "Independence Bank of Kentucky | 1776bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "independentbankibankonlinecom": {
+  "name": "Independent Bank | i-bankonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "indianamembers": {
+  "name": "Indiana Members",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "indianauniversity": {
+  "name": "Indiana University",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "industrialandcommercialbankofchinausaicbcuscom": {
+  "name": "Industrial and Commercial Bank of China USA | icbc-us.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "institutionforsavingsinnewburyportanditsvicinityinstitutionforsavingscom": {
+  "name": "Institution for Savings in Newburyport and Its Vicinity | institutionforsavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "insbankinsbankcom": {
+  "name": "InsBank | insbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "interaudibankinteraudibankcom": {
+  "name": "Interaudi Bank | interaudibank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "interbankinterbankcom": {
+  "name": "InterBank | interbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "internationalbankofcommerceibccom": {
+  "name": "International Bank of Commerce | ibc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "internationalfinancebankifbbankcom": {
+  "name": "International Finance Bank | ifbbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "investarbankinvestarbankcom": {
+  "name": "Investar Bank | investarbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "interra": {
+  "name": "Interra",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "inwoodnationalbankinwoodbankcom": {
+  "name": "Inwood National Bank | inwoodbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "iowaiowastatebank": {
+  "name": "Iowa | iowastate.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "iq": {
+  "name": "Iq",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "isabellabankisabellabankcom": {
+  "name": "Isabella Bank | isabellabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "island": {
+  "name": "Island",
+  "date": "2026-11-20",
+  "found": "greenhouse island"
+ },
+ "ivesbankivesbankcom": {
+  "name": "Ives Bank | ivesbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "israeldiscountbankofnewyorkidbnycom": {
+  "name": "Israel Discount Bank of New York | idbny.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "heritage": {
+  "name": "Heritage",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ixoniabankixoniabankcom": {
+  "name": "Ixonia Bank | ixoniabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jacksoncountybankjcbankcom": {
+  "name": "Jackson County Bank | jcbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jdbankjdbankcom": {
+  "name": "JD Bank | jdbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "johndeerefinancialdeerecom": {
+  "name": "John Deere Financial | deere.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jeannedarc": {
+  "name": "Jeanne D'Arc",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "johnmarshallbankjohnmarshallbankcom": {
+  "name": "John Marshall Bank | johnmarshallbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jonesborojonesborostatebankcom": {
+  "name": "Jonesboro | jonesborostatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jeffersonbankjeffersonbankcom": {
+  "name": "Jefferson Bank | jeffersonbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jonestownbankandtrustcompanyofjonestownpennsylvaniajbtbank": {
+  "name": "Jonestown Bank and Trust Company, of Jonestown, Pennsylvania | jbt.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jpmorganchasebankjpmorganchasecom": {
+  "name": "JPMorgan Chase Bank | jpmorganchase.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "joviafinancial": {
+  "name": "Jovia Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "journeybankjourneybankcom": {
+  "name": "Journey Bank | journeybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "jsc": {
+  "name": "Jsc",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "justice": {
+  "name": "Justice",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "keesler": {
+  "name": "Keesler",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kelloggcommunity": {
+  "name": "Kellogg Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "katahdintrustcompanykatahdintrustcom": {
+  "name": "Katahdin Trust Company | katahdintrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kemba": {
+  "name": "Kemba",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kennebecsavingsbankkennebecsavingsbank": {
+  "name": "Kennebec Savings Bank | kennebecsavings.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kennebunksavingsbankkennebunksavingscom": {
+  "name": "Kennebunk Savings Bank | kennebunksavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kembafinancial": {
+  "name": "Kemba Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kirkpatrickbankkirkpatrickbankcom": {
+  "name": "Kirkpatrick Bank | kirkpatrickbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kinecta": {
+  "name": "Kinecta",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kirtland": {
+  "name": "Kirtland",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "kitsap": {
+  "name": "Kitsap",
+  "date": "2026-11-20",
+  "found": "greenhouse kitsap"
+ },
+ "kishbankmykishcom": {
+  "name": "Kish Bank | mykish.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "keypoint": {
+  "name": "Keypoint",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "knoxvilletvaemployees": {
+  "name": "Knoxville Tva Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ksstatebankksstatebank": {
+  "name": "KS StateBank | ksstate.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ln": {
+  "name": "L & N",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "honda": {
+  "name": "Honda",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lakemichigan": {
+  "name": "Lake Michigan",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lakeforestbanktrustcompanylakeforestbankcom": {
+  "name": "Lake Forest Bank & Trust Company | lakeforestbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lafayette": {
+  "name": "Lafayette",
+  "date": "2026-11-20",
+  "found": "greenhouse lafayette"
+ },
+ "lakesidebanklakesidebankcom": {
+  "name": "Lakeside Bank | lakesidebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "laketrust": {
+  "name": "Lake Trust",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "landmark": {
+  "name": "Landmark",
+  "date": "2026-11-20",
+  "found": "greenhouse landmark"
+ },
+ "hudsonvalley": {
+  "name": "Hudson Valley",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "landmarknationalbankbanklandmarkcom": {
+  "name": "Landmark National Bank | banklandmark.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "langley": {
+  "name": "Langley",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "latinocommunity": {
+  "name": "Latino Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "launchcreditunion": {
+  "name": "Launch Credit Union",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lawrencebanklawrencebank": {
+  "name": "Lawrence Bank | lawrence.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lcnbnationalbanklcnbcom": {
+  "name": "LCNB National Bank | lcnb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "leadbankleadbank": {
+  "name": "Lead Bank | lead.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lbsfinancial": {
+  "name": "Lbs Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "leaderbankleaderbankcom": {
+  "name": "Leader Bank | leaderbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ledyardnationalbankledyardbank": {
+  "name": "Ledyard National Bank | ledyard.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "legacybanktrustcompanylegacybankandtrustcom": {
+  "name": "Legacy Bank & Trust Company | legacybankandtrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lgecommunity": {
+  "name": "Lge Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lafcu": {
+  "name": "Lafcu",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "legacybanklegacyarcom": {
+  "name": "Legacy Bank | legacyar.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "legendbanklegendbank": {
+  "name": "Legend Bank | legend.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "leaderscreditunion": {
+  "name": "Leaders Credit Union",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "libertynationalbankwearelibertybank": {
+  "name": "Liberty National Bank | weareliberty.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "libertysavingsbanklibertysavingsbankcom": {
+  "name": "Liberty Savings Bank | libertysavingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lighthouse": {
+  "name": "Lighthouse",
+  "date": "2026-11-20",
+  "found": "greenhouse lighthouse"
+ },
+ "lincolnsavingsbankmylsbcom": {
+  "name": "Lincoln Savings Bank | mylsb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "libertyvillebanktrustcompanylibertyvillebankcom": {
+  "name": "Libertyville Bank & Trust Company | libertyvillebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "listerhill": {
+  "name": "Listerhill",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "libertybankandtrustcompanylibertybanknet": {
+  "name": "Liberty Bank and Trust Company | libertybank.net",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "logix": {
+  "name": "Logix",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "lonestarnationalbanklonestarnationalbankcom": {
+  "name": "Lone Star National Bank | lonestarnationalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ithinkfinancial": {
+  "name": "Ithink Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "luanasavingsbankluanasavingsbankcom": {
+  "name": "Luana Savings Bank | luanasavingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "losangeles": {
+  "name": "Los Angeles",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "liveoakbankingcompanyliveoakbank": {
+  "name": "Live Oak Banking Company | liveoak.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "macatawabankmacatawabankcom": {
+  "name": "Macatawa Bank | macatawabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "machiassavingsbankmachiassavingscom": {
+  "name": "Machias Savings Bank | machiassavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mabreybankmabreybankcom": {
+  "name": "Mabrey Bank | mabreybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "magyarbankmagbankcom": {
+  "name": "Magyar Bank | magbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "magnififinancial": {
+  "name": "Magnifi Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mainstreetbankbankmainstreetcom": {
+  "name": "Main Street Bank | bankmainstreet.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "losangelespolice": {
+  "name": "Los Angeles Police",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mainstreetbankcorpmymainstreetbankbank": {
+  "name": "Main Street Bank Corp. | mymainstreetbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mainecommunitybankmainebank": {
+  "name": "Maine Community Bank | maine.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "malagabankmalagabankcom": {
+  "name": "Malaga Bank | malagabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "manasquanbankmanasquanbankcom": {
+  "name": "Manasquan Bank | manasquanbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "maplemarkbankmaplemarkbankcom": {
+  "name": "MapleMark Bank | maplemarkbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "marionandpolkschools": {
+  "name": "Marion And Polk Schools",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "marquettebankemarquettebankcom": {
+  "name": "Marquette Bank | emarquettebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "marine": {
+  "name": "Marine",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "marquettesavingsbankmarquettesavingscom": {
+  "name": "Marquette Savings Bank | marquettesavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "manufacturersandtraderstrustcompanymtbcom": {
+  "name": "Manufacturers and Traders Trust Company | mtb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "marthasvineyardbankmvbankcom": {
+  "name": "Martha's Vineyard Bank | mvbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "maspethfederalsavingsandloanassociationmaspethfederalcom": {
+  "name": "Maspeth Federal Savings and Loan Association | maspethfederal.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mascomabankmascomabank": {
+  "name": "Mascoma Bank | mascoma.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "max": {
+  "name": "Max",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mayoemployees": {
+  "name": "Mayo Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mazuma": {
+  "name": "Mazuma",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "medallionbankmedallionbankcom": {
+  "name": "Medallion Bank | medallionbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mccoy": {
+  "name": "Mccoy",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "memberscooperative": {
+  "name": "Members Cooperative",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "merckemployees": {
+  "name": "Merck Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "merchantsbankmerchantsbankcom": {
+  "name": "Merchants Bank | merchantsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "merchantsbankofindiabankmerchantscom": {
+  "name": "Merchants Bank of India | bankmerchants.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "meredithvillagesavingsbankmvsbcom": {
+  "name": "Meredith Village Savings Bank | mvsb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mercksharpdohme": {
+  "name": "Merck Sharp & Dohme",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "merrimackcountysavingsbankmcsbnhcom": {
+  "name": "Merrimack County Savings Bank | mcsbnh.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "meriwest": {
+  "name": "Meriwest",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "members1st": {
+  "name": "Members 1St",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "metrobankmetrobankpccom": {
+  "name": "Metro Bank | metrobankpc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "metro": {
+  "name": "Metro",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "metrocitybankmetrocitybankbank": {
+  "name": "Metro City Bank | metrocitybank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "michiganeducational": {
+  "name": "Michigan Educational",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "michiganschoolsandgovernment": {
+  "name": "Michigan Schools And Government",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "michiganstateuniversity": {
+  "name": "Michigan State University",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "michiganfirst": {
+  "name": "Michigan First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "midcountrybankmidcountrybankcom": {
+  "name": "MidCountry Bank | midcountrybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "midflorida": {
+  "name": "Midflorida",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "middletownvalleybankmvbbankcom": {
+  "name": "Middletown Valley Bank | mvbbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "midwestamerica": {
+  "name": "Midwest America",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "midwestbankmidwestbank": {
+  "name": "Midwest Bank | midwest.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "midamericabankmidambkcom": {
+  "name": "Mid America Bank | midambk.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "midwestbankcentremidwestbankcentrecom": {
+  "name": "Midwest BankCentre | midwestbankcentre.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mission": {
+  "name": "Mission",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "missionbankmissionbankbank": {
+  "name": "Mission Bank | missionbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "minnwestbankminnwestbankcom": {
+  "name": "Minnwest Bank | minnwestbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mizuhobankusa": {
+  "name": "Mizuho Bank (USA)",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "monetbankmonetbank": {
+  "name": "Monet Bank | monet.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "montecitobanktrustmontecitobank": {
+  "name": "Montecito Bank & Trust | montecito.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "monterra": {
+  "name": "Monterra",
+  "date": "2026-11-20",
+  "found": "ashby monterra"
+ },
+ "montgomerybankmontgomerybankcom": {
+  "name": "Montgomery Bank | montgomerybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "morganstanleybank": {
+  "name": "Morgan Stanley Bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "morganstanleyprivatebanketradecom": {
+  "name": "Morgan Stanley Private Bank | etrade.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mirastar": {
+  "name": "Mirastar",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mortoncommunitybankhometownbankscom": {
+  "name": "Morton Community Bank | hometownbanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mountainamerica": {
+  "name": "Mountain America",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mountainonebankmountainonecom": {
+  "name": "MountainOne Bank | mountainone.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "multipli": {
+  "name": "Multipli",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "municipal": {
+  "name": "Municipal",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "municipalemplcreditunionofbalt": {
+  "name": "Municipal Empl.Credit Union Of Balt",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mutualonebankmutualonecom": {
+  "name": "MutualOne Bank | mutualone.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mvbbankmvbbankingcom": {
+  "name": "MVB Bank | mvbbanking.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nasa": {
+  "name": "Nasa",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nationalbankofcommercenbcbankingcom": {
+  "name": "National Bank of Commerce | nbcbanking.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nationalcooperativebankncbcoop": {
+  "name": "NATIONAL COOPERATIVE BANK | ncb.coop",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "navigant": {
+  "name": "Navigant",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nationalexchangebankandtrustnebatcom": {
+  "name": "National Exchange Bank and Trust | nebat.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nbkcbanknbkccom": {
+  "name": "nbkc bank | nbkc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nbhbanknbhbankcom": {
+  "name": "NBH Bank | nbhbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nebraskalandbanknebraskalandbankcom": {
+  "name": "Nebraskaland Bank | nebraskalandbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "neighborhood": {
+  "name": "Neighborhood",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "neches": {
+  "name": "Neches",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nelnetbanknelnetbankcom": {
+  "name": "Nelnet Bank | nelnetbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "newburyportfivecentssavingsbanknewburyportbankcom": {
+  "name": "Newburyport Five Cents Savings Bank | newburyportbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "newtekbanknewtekbankcom": {
+  "name": "Newtek Bank | newtekbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "newtownsavingsbanknsbonlinecom": {
+  "name": "Newtown Savings Bank | nsbonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nexbanknexbankcom": {
+  "name": "NexBank | nexbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nextierbanknextierbankcom": {
+  "name": "NEXTIER BANK | nextierbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "neighbors": {
+  "name": "Neighbors",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "noble": {
+  "name": "Noble",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "mizrahitefahotbankltd": {
+  "name": "Mizrahi Tefahot Bank, Ltd.",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northamericansavingsbanknasbcom": {
+  "name": "North American Savings Bank | nasb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northamericanbankingcompanynabankcocom": {
+  "name": "North American Banking Company | nabankco.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northeastonsavingsbanknortheastonsavingsbankcom": {
+  "name": "North Easton Savings Bank | northeastonsavingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northdallasbanktrustcondbtcom": {
+  "name": "North Dallas Bank & Trust Co. | ndbt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northshorebanknorthshorebankcom": {
+  "name": "North Shore Bank | northshorebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northnorthstatebankcom": {
+  "name": "North | northstatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northeastbanknortheastbankcom": {
+  "name": "Northeast Bank | northeastbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northbrookbankandtrustcompanynorthbrookbankcom": {
+  "name": "Northbrook Bank and Trust Company | northbrookbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northeastcommunitybanknecommunitybankcom": {
+  "name": "NorthEast Community Bank | necommunitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northfieldsavingsbanknsbvtcom": {
+  "name": "Northfield Savings Bank | nsbvt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northernbanktrustcompanynbtccom": {
+  "name": "Northern Bank & Trust Company | nbtc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northpointebanknorthpointecom": {
+  "name": "Northpointe Bank | northpointe.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northrimbanknorthrimcom": {
+  "name": "Northrim Bank | northrim.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northstarbanknorthstarathomebank": {
+  "name": "Northstar Bank | northstarathome.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northwest": {
+  "name": "Northwest",
+  "date": "2026-11-20",
+  "found": "workday Northwest_Careers"
+ },
+ "northropgrumman": {
+  "name": "Northrop Grumman",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northwestcommunitybanknwcommunitybankcom": {
+  "name": "Northwest Community Bank | nwcommunitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "norwaysavingsbanknorwaysavingsbank": {
+  "name": "Norway Savings Bank | norwaysavings.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "numerica": {
+  "name": "Numerica",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "liberty": {
+  "name": "Liberty",
+  "date": "2026-11-20",
+  "found": "bamboohr liberty"
+ },
+ "nuvision": {
+  "name": "Nuvision",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oakvalleycommunitybankovcbcom": {
+  "name": "Oak Valley Community Bank | ovcb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oakstarbankoakstarbankcom": {
+  "name": "Oakstar Bank | oakstarbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "notredame": {
+  "name": "Notre Dame",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oakworthcapitalbankoakworthcom": {
+  "name": "Oakworth Capital Bank | oakworth.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oceanbankoceanbankcom": {
+  "name": "Ocean Bank | oceanbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oldplanktrailcommunitybankoldplanktrailbankcom": {
+  "name": "Old Plank Trail Community Bank | oldplanktrailbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "midhudsonvalley": {
+  "name": "Mid-Hudson Valley",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "olddominionnationalbankodnbbank": {
+  "name": "Old Dominion National Bank | odnb.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "olympiafederalsavingsandloanassociationolyfedcom": {
+  "name": "Olympia Federal Savings and Loan Association | olyfed.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ombbankombbankcom": {
+  "name": "Omb Bank | ombbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "onebankoftennesseeonebanktncom": {
+  "name": "One Bank of Tennessee | onebanktn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oneaz": {
+  "name": "Oneaz",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oldsecondnationalbankoldsecondcom": {
+  "name": "Old Second National Bank | oldsecond.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "onelocalbankonelocalbankcom": {
+  "name": "OneLocal Bank | onelocalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "onpath": {
+  "name": "Onpath",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "onpointcommunity": {
+  "name": "Onpoint Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "operatingengineerslocalunion3": {
+  "name": "Operating Engineers Local Union #3",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "onenevada": {
+  "name": "One Nevada",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "opportunitybankofmontaopportunitybankcom": {
+  "name": "Opportunity Bank of Monta | opportunitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "optimumbankoptimumbankcom": {
+  "name": "OptimumBank | optimumbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "optumbankoptumbankcom": {
+  "name": "Optum Bank | optumbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "northcountry": {
+  "name": "North Country",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "orangecountys": {
+  "name": "Orange County'S",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oregoncommunity": {
+  "name": "Oregon Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "orangebanktrustcompanyorangebanktrustcom": {
+  "name": "Orange Bank & Trust Company | orangebanktrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ornl": {
+  "name": "Ornl",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "oregonstate": {
+  "name": "Oregon State",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pacificcoastbankersbankpcbbcom": {
+  "name": "Pacific Coast Bankers' Bank | pcbb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pacificnationalbankpnbcom": {
+  "name": "Pacific National Bank | pnb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "orsa": {
+  "name": "Orsa",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "parkparkstatebankcom": {
+  "name": "Park | parkstatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "parkebankparkebankcom": {
+  "name": "Parke Bank | parkebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "orientalbankorientalbankcom": {
+  "name": "Oriental Bank | orientalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "parksidefinancialbanktrustpfbtcom": {
+  "name": "Parkside Financial Bank & Trust | pfbt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "parkwaybankandtrustcompanyparkwaybankcom": {
+  "name": "Parkway Bank and Trust Company | parkwaybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pacificservice": {
+  "name": "Pacific Service",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "partnersbankofnewenglandpartnersbank": {
+  "name": "Partners Bank of New England | partners.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pathfinderbankpathfinderbankcom": {
+  "name": "Pathfinder Bank | pathfinderbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "partners": {
+  "name": "Partners",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "patelco": {
+  "name": "Patelco",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "patriotbankbankpatriotcom": {
+  "name": "Patriot Bank | bankpatriot.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pcbbankmypcbbankcom": {
+  "name": "PCB Bank | mypcbbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peak": {
+  "name": "Peak",
+  "date": "2026-11-20",
+  "found": "greenhouse peak"
+ },
+ "peapackprivatebanktrustpeapackprivatecom": {
+  "name": "Peapack Private Bank & Trust | peapackprivate.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pegasusbankpegasusbankdallascom": {
+  "name": "Pegasus Bank | pegasusbankdallas.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peachstate": {
+  "name": "Peach State",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "penair": {
+  "name": "Penair",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "penncommunitybankpenncommunitybankcom": {
+  "name": "Penn Community Bank | penncommunitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pennsylvaniastateemployees": {
+  "name": "Pennsylvania State Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pentagon": {
+  "name": "Pentagon",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pentucketbankpentucketbankcom": {
+  "name": "Pentucket  Bank | pentucketbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "patriot": {
+  "name": "Patriot",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peoplesbankofalabamapeoplesbankalcom": {
+  "name": "Peoples Bank of Alabama | peoplesbankal.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "meritrust": {
+  "name": "Meritrust",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peoplefirst": {
+  "name": "People First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peoplesbankandtrustcompanypeoplesbank": {
+  "name": "Peoples Bank and Trust Company | peoples.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peoplesbankpeoplescom": {
+  "name": "Peoples | bankpeoples.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peoplesnationalbankpeoplesnationalbankcom": {
+  "name": "Peoples National Bank | peoplesnationalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pibankpibankcom": {
+  "name": "Pibank | pibank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peoplessouthbankpeoplessouthcom": {
+  "name": "PeoplesSouth Bank | peoplessouth.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "peoplessecuritybankandtrustcompanypsbtcom": {
+  "name": "Peoples Security Bank and Trust Company | psbt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "piedmontfederalsavingsbankpiedmontfederalbank": {
+  "name": "Piedmont Federal Savings Bank | piedmontfederal.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pima": {
+  "name": "Pima",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pilotgrovesavingsbankpilotgrovesavingsbankcom": {
+  "name": "Pilot Grove Savings Bank | pilotgrovesavingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pinnaclebankpinnbanktxcom": {
+  "name": "Pinnacle Bank | pinnbanktx.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pioneerbanktrustpioneerbankandtrustcom": {
+  "name": "Pioneer Bank & Trust | pioneerbankandtrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pinnaclebankwyomingwypinnbankcom": {
+  "name": "Pinnacle Bank - Wyoming | wypinnbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "plainscommercebankplainscommercecom": {
+  "name": "Plains Commerce Bank | plainscommerce.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pioneerbankpioneerbank": {
+  "name": "Pioneer Bank | pioneer.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "plattevalleybankpvbankcom": {
+  "name": "Platte Valley Bank | pvbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "plantersbankplantersbankonlinecom": {
+  "name": "Planters Bank | plantersbankonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "palmettocitizens": {
+  "name": "Palmetto Citizens",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "plantersbanktrustcompanyplantersbankcom": {
+  "name": "Planters Bank & Trust Company | planters-bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "plumasbankplumasbankcom": {
+  "name": "Plumas Bank | plumasbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "philadelphia": {
+  "name": "Philadelphia",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pncbankpnccom": {
+  "name": "PNC Bank | pnc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pointbreeze": {
+  "name": "Point Breeze",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "pointbankpointbankcom": {
+  "name": "Pointbank | pointbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "poncebankponcebankcom": {
+  "name": "Ponce Bank | poncebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "poppybankpoppybank": {
+  "name": "Poppy Bank | poppy.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "popularbankpopularbankcom": {
+  "name": "Popular Bank | popularbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "polishslavic": {
+  "name": "Polish & Slavic",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "potlatchno1financial": {
+  "name": "Potlatch No. 1 Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "presidentialbankpresidentialcom": {
+  "name": "Presidential Bank | presidential.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "policefire": {
+  "name": "Police & Fire",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "premieramerica": {
+  "name": "Premier America",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "powerfinancial": {
+  "name": "Power Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "prevailbankprevailbank": {
+  "name": "Prevail Bank | prevail.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "primealliancebankprimealliancebank": {
+  "name": "Prime Alliance Bank | primealliance.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "principalbankprincipalcom": {
+  "name": "Principal Bank | principal.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "priorityonebankpriorityonebankcom": {
+  "name": "PriorityOne Bank | priorityonebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "primesouthbank": {
+  "name": "PrimeSouth Bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "providencebanktrustprovidencebank": {
+  "name": "Providence Bank & Trust | providence.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "providencebankpbknccom": {
+  "name": "Providence Bank | pbknc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "providentsavingsbankmyprovidentcom": {
+  "name": "Provident Savings Bank | myprovident.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "provident": {
+  "name": "Provident",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "publixemployees": {
+  "name": "Publix Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "qnbbankqnbbankcom": {
+  "name": "QNB Bank | qnbbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "quillbankquillbank": {
+  "name": "Quill Bank | quill.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "quadcitybankandtrustcompanyqcbtcom": {
+  "name": "Quad City Bank and Trust Company | qcbt.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "primisbankprimisbankcom": {
+  "name": "Primis Bank | primisbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "queensboroughnationalbanktrustcompanyqnbtrustbank": {
+  "name": "Queensborough National Bank & Trust Company | qnbtrust.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "radiant": {
+  "name": "Radiant",
+  "date": "2026-11-20",
+  "found": "ashby radiant"
+ },
+ "rbankrbank": {
+  "name": "R Bank | r.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "quorum": {
+  "name": "Quorum",
+  "date": "2026-11-20",
+  "found": "ashby quorum"
+ },
+ "raiz": {
+  "name": "Raiz",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rally": {
+  "name": "Rally",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "raymondjamesbankraymondjamesbankcom": {
+  "name": "Raymond James Bank | raymondjamesbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rbcbankgeorgiarbcbankcom": {
+  "name": "RBC Bank, (Georgia) | rbcbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "nusenda": {
+  "name": "Nusenda",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "redcanoe": {
+  "name": "Red Canoe",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "readingcooperativebankreadingcoopcom": {
+  "name": "Reading Co-operative Bank | readingcoop.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rcbbankrcbbankbank": {
+  "name": "RCB Bank | rcbbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ravefinancial": {
+  "name": "Rave Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "redriverbankredriverbanknet": {
+  "name": "Red River Bank | redriverbank.net",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "redwood": {
+  "name": "Redwood",
+  "date": "2026-11-20",
+  "found": "greenhouse redwoodsoftware"
+ },
+ "redriveremployees": {
+  "name": "Red River Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "redstone": {
+  "name": "Redstone",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rev": {
+  "name": "Rev",
+  "date": "2026-11-20",
+  "found": "ashby rev"
+ },
+ "relyancebankrelybank": {
+  "name": "Relyance Bank | rely.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rhinebeckbankrhinebeckbankcom": {
+  "name": "Rhinebeck Bank | rhinebeckbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "regentbankregentbank": {
+  "name": "Regent Bank | regent.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "riobankriobank": {
+  "name": "Rio Bank | rio.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "riverbanktrustriverbankandtrustcom": {
+  "name": "River Bank & Trust | riverbankandtrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "randolphbrooks": {
+  "name": "Randolph-Brooks",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rivercitybankrivercitybankcom": {
+  "name": "River City Bank | rivercitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "riverbankriverbankbiz": {
+  "name": "River Bank | riverbank.biz",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rivermarkcommunity": {
+  "name": "Rivermark Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rize": {
+  "name": "Rize",
+  "date": "2026-11-20",
+  "found": "bamboohr rize"
+ },
+ "republicbankofchicagorepublicebankcom": {
+  "name": "Republic Bank of Chicago | republicebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "riverviewbankriverviewbankcom": {
+  "name": "Riverview Bank | riverviewbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "robinsfinancial": {
+  "name": "Robins Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rockland": {
+  "name": "Rockland",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rosedalebankrosedalebank": {
+  "name": "Rosedale Bank | rosedale.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "royalbanksofmissouriroyalbanksofmocom": {
+  "name": "Royal Banks of Missouri | royalbanksofmo.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rocklandtrustcompanyrocklandtrustcom": {
+  "name": "Rockland Trust Company | rocklandtrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "royalbusinessbankroyalbusinessbankusacom": {
+  "name": "Royal Business Bank | royalbusinessbankusa.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "rogue": {
+  "name": "Rogue",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "safe": {
+  "name": "Safe",
+  "date": "2026-11-20",
+  "found": "ashby safe"
+ },
+ "scstate": {
+  "name": "S. C. State",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sacobiddefordsavingsinstitutionsbsavingsbank": {
+  "name": "Saco & Biddeford Savings Institution | sbsavings.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "salal": {
+  "name": "Salal",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sabinestatebankandtrustcompanysabinebankcom": {
+  "name": "Sabine State Bank and Trust Company | sabinebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "safe1": {
+  "name": "Safe 1",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "salemfivecentssavingsbanksalemfivecom": {
+  "name": "Salem Five Cents Savings Bank | salemfive.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sandiegocounty": {
+  "name": "San Diego County",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "salliemaebanksalliemaecom": {
+  "name": "Sallie Mae Bank | salliemae.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "purdue": {
+  "name": "Purdue",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sanfrancisco": {
+  "name": "San Francisco",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sandiaarea": {
+  "name": "Sandia Area",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "santanderbanksantandercom": {
+  "name": "Santander Bank | santander.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "savingsbankofmendocinocountysavingsbankcom": {
+  "name": "Savings Bank of Mendocino County | savingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "schoolsfirst": {
+  "name": "Schoolsfirst",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "royal": {
+  "name": "Royal",
+  "date": "2026-11-20",
+  "found": "bamboohr royal"
+ },
+ "scott": {
+  "name": "Scott",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "seacoastnationalbankseacoastbankcom": {
+  "name": "Seacoast National Bank | seacoastbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "seattlemetropolitan": {
+  "name": "Seattle Metropolitan",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "schaumburgbanktrustcompanybankschaumburgcom": {
+  "name": "Schaumburg Bank & Trust Company | bankschaumburg.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securitybanktrustcompanysecuritybankscom": {
+  "name": "Security Bank & Trust Company | security-banks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securitybankandtrustcompanysecuritybanktncom": {
+  "name": "Security Bank and Trust Company | securitybanktn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securityfederalbanksecurityfederalbankcom": {
+  "name": "Security Federal Bank | securityfederalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securitybankofkansascitysecuritybankkccom": {
+  "name": "Security Bank of Kansas City | securitybankkc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securityfinancialbanksfbankcom": {
+  "name": "Security Financial Bank | sfbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sanfranciscofire": {
+  "name": "San Francisco Fire",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securityfirstbanksecurity1stbankcom": {
+  "name": "Security First Bank | security1stbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securityservice": {
+  "name": "Security Service",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securitystatebanktrustssbtexascom": {
+  "name": "Security State Bank & Trust | ssbtexas.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "securityssbscottcom": {
+  "name": "Security | ssbscott.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "selcocommunity": {
+  "name": "Selco Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "selfreliancefinancial": {
+  "name": "Self Reliance Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "servbankservbankcom": {
+  "name": "Servbank | servbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "selfreliance": {
+  "name": "Selfreliance",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sesloc": {
+  "name": "Sesloc",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "selfhelp": {
+  "name": "Self-Help",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "shell": {
+  "name": "Shell",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sharoncrescentunited": {
+  "name": "Sharon & Crescent United",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "shinhanbankamericashbamericacom": {
+  "name": "Shinhan Bank America | shbamerica.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "service": {
+  "name": "Service",
+  "date": "2026-11-20",
+  "found": "bamboohr service"
+ },
+ "sharonview": {
+  "name": "Sharonview",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "shoreunitedbankshoreunitedbankcom": {
+  "name": "Shore United Bank | shoreunitedbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sidney": {
+  "name": "Sidney",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sierracentral": {
+  "name": "Sierra Central",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "signaturebanksignaturebanknacom": {
+  "name": "Signature Bank | signaturebankna.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "silverstateschools": {
+  "name": "Silver State Schools",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "signaturebankofarkansassignaturebank": {
+  "name": "Signature Bank of Arkansas | signature.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sikorskyfinancial": {
+  "name": "Sikorsky Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "smartbanksmartbankcom": {
+  "name": "SmartBank | smartbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "skylinenationalbankskylinenationalbankbank": {
+  "name": "SKYLINE NATIONAL BANK | skylinenationalbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "smbcmanubanksmbcmanubankcom": {
+  "name": "SMBC MANUBANK | smbcmanubank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sofibanksoficom": {
+  "name": "SoFi Bank | sofi.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "somersetregalbanksomersetregalbankcom": {
+  "name": "Somerset Regal Bank | somersetregalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sound": {
+  "name": "Sound",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "soundcommunitybanksoundcbcom": {
+  "name": "Sound Community Bank | soundcb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "soleranationalbanksolerabankcom": {
+  "name": "Solera National Bank | solerabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "skyla": {
+  "name": "Skyla",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "solvaybanksolvaybankcom": {
+  "name": "Solvay Bank | solvaybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southshorebanksouthshorebankcom": {
+  "name": "South Shore Bank | southshorebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "somersettrustcompanysomersettrustcom": {
+  "name": "Somerset Trust Company | somersettrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southatlanticbanksouthatlanticbank": {
+  "name": "South Atlantic Bank | southatlantic.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southsouthstatebankcom": {
+  "name": "South | southstatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southcarolina": {
+  "name": "South Carolina",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southeastbanksoutheastbankcom": {
+  "name": "SouthEast Bank | southeastbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southernbankbankwithsoutherncom": {
+  "name": "Southern Bank | bankwithsouthern.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southernbankandtrustcompanysouthernbankcom": {
+  "name": "Southern Bank and Trust Company | southernbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southcentralbanksouthcentralbankcom": {
+  "name": "South Central Bank | southcentralbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southernmichiganbanktrustsmbtcom": {
+  "name": "Southern Michigan Bank & Trust | smb-t.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southernenergy": {
+  "name": "Southern Energy",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southernfirstbanksouthernfirstcom": {
+  "name": "Southern First Bank | southernfirst.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southstarbanksouthstarbankcom": {
+  "name": "SouthStar Bank | southstarbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southpointbanksouthpointbank": {
+  "name": "SouthPoint Bank | southpoint.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southwestmissouribanksmbonlinecom": {
+  "name": "Southwest Missouri Bank | smbonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southwesternnationalbanksouthwesternbankcom": {
+  "name": "Southwestern National Bank | southwesternbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sovereignbankbanksovereigncom": {
+  "name": "Sovereign Bank | banksovereign.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "spencersavingsbankslaspencersavingscom": {
+  "name": "Spencer Savings Bank, SLA | spencersavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "spokaneteachers": {
+  "name": "Spokane Teachers",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "squarefinancialservicessquareupcom": {
+  "name": "Square Financial Services | squareup.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stannes": {
+  "name": "St. Anne'S",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stcharlesbanktrustcompanybankstcharlescom": {
+  "name": "St. Charles Bank & Trust Company | bankstcharles.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stlouisbankstlouisbankcom": {
+  "name": "St. Louis Bank | stlouisbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stmarys": {
+  "name": "St. Mary'S",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stmarysbank": {
+  "name": "St. Mary'S Bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stanford": {
+  "name": "Stanford",
+  "date": "2026-11-20",
+  "found": "lever stanford"
+ },
+ "srp": {
+  "name": "Srp",
+  "date": "2026-11-20",
+  "found": "bamboohr srp"
+ },
+ "starfinancialbankstarfinancialcom": {
+  "name": "STAR Financial Bank | starfinancial.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "starone": {
+  "name": "Star One",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "starionbankstarionbankcom": {
+  "name": "Starion Bank | starionbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "statebankofindiacaliforniasbicalcom": {
+  "name": "State Bank of India (California) | sbical.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "statebankofsouthernutahsbsucom": {
+  "name": "State Bank of Southern Utah | sbsu.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "statebankofindia": {
+  "name": "State Bank of India",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "statebankoftexassbtbank": {
+  "name": "State Bank of Texas | sbt.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "statedepartment": {
+  "name": "State Department",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "statebankofthelakessbotlcom": {
+  "name": "State Bank of the Lakes | sbotl.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stateemployees": {
+  "name": "State Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stearnsbankstearnsbankcom": {
+  "name": "Stearns Bank | stearnsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "statestreetbankandtrustcompanystatestreetcom": {
+  "name": "State Street Bank and Trust Company | statestreet.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sterlingbanksterbankbank": {
+  "name": "Sterling Bank | sterbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stateemployeescuofmarylandinc": {
+  "name": "State Employees Cu Of Maryland, Inc",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stifelbankandtruststifelbankcom": {
+  "name": "Stifel Bank and Trust | stifelbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stifelbankstifelbankstlcom": {
+  "name": "Stifel Bank | stifelbankstl.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stockmanbankofmontastockmanbankcom": {
+  "name": "Stockman Bank of Monta | stockmanbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "storybankdbastoryfinancialpartnersstorybank": {
+  "name": "Story Bank DBA Story Financial Partners | story.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stockyardsbanktrustcompanysybcom": {
+  "name": "Stock Yards Bank & Trust Company | syb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "stridebankstridebankcom": {
+  "name": "Stride Bank | stridebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sturdysavingsbanksturdyonlinecom": {
+  "name": "Sturdy Savings Bank | sturdyonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "studiobankstudiobankcom": {
+  "name": "Studio Bank | studiobank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "suffolk": {
+  "name": "Suffolk",
+  "date": "2026-11-20",
+  "found": "icims None"
+ },
+ "sumitomomitsuitrustbankusalimited": {
+  "name": "Sumitomo Mitsui Trust Bank (U.S.A.) Limited",
+  "date": "2026-11-20",
+  "found": "smartrecruiters sumitomomitsuitrustbankusalimited"
+ },
+ "sullivanbanksullivanbankcom": {
+  "name": "SULLIVAN BANK | sullivanbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "summit": {
+  "name": "Summit",
+  "date": "2026-11-20",
+  "found": "smartrecruiters summitelectricsupply"
+ },
+ "summitbanksbkobank": {
+  "name": "Summit Bank | sbko.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "suncoast": {
+  "name": "Suncoast",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sturgisbanktrustcompanysturgisbank": {
+  "name": "Sturgis Bank & Trust Company | sturgis.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sunflowerbanksunflowerbankcom": {
+  "name": "Sunflower Bank | sunflowerbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sunward": {
+  "name": "Sunward",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sunrisebankssunrisebankscom": {
+  "name": "Sunrise Banks | sunrisebanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sevenseventeen": {
+  "name": "Seven Seventeen",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "sunwestbanksunwestbankcom": {
+  "name": "Sunwest Bank | sunwestbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "superiorcreditunioninc": {
+  "name": "Superior Credit Union, Inc",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "superiornationalbanksnbtcom": {
+  "name": "Superior National Bank | snb-t.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "suttonbanksuttonbankcom": {
+  "name": "Sutton Bank | suttonbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "susserbanksusserbankcom": {
+  "name": "Susser Bank | susserbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "synergybanksynergybankcom": {
+  "name": "Synergy Bank | synergybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "synchronybanksynchronybankcom": {
+  "name": "Synchrony Bank | synchronybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "tdbankusatdcom": {
+  "name": "TD Bank USA | td.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "technology": {
+  "name": "Technology",
+  "date": "2026-11-20",
+  "found": "greenhouse technology"
+ },
+ "tbanktbankcom": {
+  "name": "T Bank | tbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "telhio": {
+  "name": "Telhio",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "texans": {
+  "name": "Texans",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "tennesseevalley": {
+  "name": "Tennessee Valley",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "texascommunitybanktxcommunitybankcom": {
+  "name": "Texas Community Bank | tx-communitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "southland": {
+  "name": "Southland",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "texasdowemployees": {
+  "name": "Texas Dow Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "texasbankandtrustcompanytexasbankandtrustcom": {
+  "name": "Texas Bank and Trust Company | texasbankandtrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "texasexchangebanktxexbankcom": {
+  "name": "Texas Exchange Bank | txexbank.com",
+  "date": "2026-11-20",
+  "found": null
  }
 }
