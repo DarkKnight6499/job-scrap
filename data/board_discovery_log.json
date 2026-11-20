@@ -2133,19 +2133,19 @@
   "name": "Comerica",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "midfirstbank": {
   "name": "MidFirst Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "everbank": {
   "name": "EverBank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "cadencebank": {
   "name": "Cadence Bank",
@@ -2163,7 +2163,7 @@
   "name": "FirstBank",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "bremerbank": {
   "name": "Bremer Bank",
@@ -2174,7 +2174,7 @@
   "name": "United Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "renasantbank": {
   "name": "Renasant Bank",
@@ -2185,7 +2185,7 @@
   "name": "Glacier Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "firstfinancialbancorp": {
   "name": "First Financial Bancorp",
@@ -2196,13 +2196,13 @@
   "name": "Centennial Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "centralbancompany": {
   "name": "Central Bancompany",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "firstfinancialbankshares": {
   "name": "First Financial Bankshares",
@@ -2213,13 +2213,13 @@
   "name": "PlainsCapital Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "woodforestnationalbank": {
   "name": "Woodforest National Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mechanicsbank": {
   "name": "Mechanics Bank",
@@ -2230,25 +2230,25 @@
   "name": "Veritex Community Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "pacificpremierbank": {
   "name": "Pacific Premier Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stellarbank": {
   "name": "Stellar Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmersmerchantsbankoflongbeach": {
   "name": "Farmers & Merchants Bank of Long Beach",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stbank": {
   "name": "S&T Bank",
@@ -2259,49 +2259,49 @@
   "name": "Tri Counties Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "firstfoundationbank": {
   "name": "First Foundation Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sandyspringbank": {
   "name": "Sandy Spring Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bellbank": {
   "name": "Bell Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "communitybanksystem": {
   "name": "Community Bank System",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "wesbanco": {
   "name": "WesBanco",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "berkshirebank": {
   "name": "Berkshire Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "brooklinebank": {
   "name": "Brookline Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "heartlandfinancialusa": {
   "name": "Heartland Financial USA",
@@ -2312,13 +2312,13 @@
   "name": "First BanCorp",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fbfinancialcorporation": {
   "name": "FB Financial Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "independentfinancial": {
   "name": "Independent Financial",
@@ -2341,13 +2341,13 @@
   "name": "TriState Capital Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "agfirstfarmcreditbank": {
   "name": "AgFirst Farm Credit Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmcreditbankoftexas": {
   "name": "Farm Credit Bank of Texas",
@@ -2358,37 +2358,37 @@
   "name": "AgriBank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmcreditservicesofamerica": {
   "name": "Farm Credit Services of America",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "arvestbank": {
   "name": "Arvest Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "federalfarmcreditbanksfundingcorporation": {
   "name": "Federal Farm Credit Banks Funding Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmcreditmidamerica": {
   "name": "Farm Credit Mid-America",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "greenstonefarmcreditservices": {
   "name": "GreenStone Farm Credit Services",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "americanagcredit": {
   "name": "American AgCredit",
@@ -2417,7 +2417,7 @@
   "name": "Farm Credit East",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "ibcbank": {
   "name": "IBC Bank",
@@ -2428,97 +2428,97 @@
   "name": "Carolina Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "colonialfarmcredit": {
   "name": "Colonial Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "firstsouthfarmcredit": {
   "name": "First South Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "agsouthfarmcredit": {
   "name": "AgSouth Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "aggeorgiafarmcredit": {
   "name": "AgGeorgia Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmcreditofsoutherncolorado": {
   "name": "Farm Credit of Southern Colorado",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmcreditofcentralflorida": {
   "name": "Farm Credit of Central Florida",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "southernagcredit": {
   "name": "Southern AgCredit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmcreditofwesternarkansas": {
   "name": "Farm Credit of Western Arkansas",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "texasfarmcredit": {
   "name": "Texas Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "yosemitefarmcredit": {
   "name": "Yosemite Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "frontierfarmcredit": {
   "name": "Frontier Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "goldenstatefarmcredit": {
   "name": "Golden State Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "farmcreditsysteminsurancecorporation": {
   "name": "Farm Credit System Insurance Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "federalhomeloanbanksofficeoffinance": {
   "name": "Federal Home Loan Banks Office of Finance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmcreditofnorthwestflorida": {
   "name": "Farm Credit of Northwest Florida",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "northwestbank": {
   "name": "Northwest Bank",
@@ -2541,19 +2541,19 @@
   "name": "Ginnie Mae",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "exportimportbankoftheunitedstates": {
   "name": "Export-Import Bank of the United States",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "usinternationaldevelopmentfinancecorporation": {
   "name": "U.S. International Development Finance Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "federalreservebankofcleveland": {
   "name": "Federal Reserve Bank of Cleveland",
@@ -2589,7 +2589,7 @@
   "name": "Progressive",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sentryinsurance": {
   "name": "Sentry Insurance",
@@ -2611,19 +2611,19 @@
   "name": "Mutual of Omaha",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "thehanoverinsurancegroup": {
   "name": "The Hanover Insurance Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "kinsaleinsurance": {
   "name": "Kinsale Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "rlicorp": {
   "name": "RLI Corp",
@@ -2640,31 +2640,31 @@
   "name": "Symetra Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "oneamericafinancial": {
   "name": "OneAmerica Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sammonsfinancialgroup": {
   "name": "Sammons Financial Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fgannuitieslife": {
   "name": "F&G Annuities & Life",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "securitybenefit": {
   "name": "Security Benefit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mutualofamerica": {
   "name": "Mutual of America",
@@ -2681,13 +2681,13 @@
   "name": "American National Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "aspeninsurance": {
   "name": "Aspen Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "nassaufinancialgroup": {
   "name": "Nassau Financial Group",
@@ -2698,12 +2698,13 @@
   "name": "OdysseyRe",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "genre": {
   "name": "Gen Re",
   "date": "2026-11-20",
-  "found": "csod (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "federatedinsurance": {
   "name": "Federated Insurance",
@@ -2719,7 +2720,7 @@
   "name": "Berkshire Hathaway Specialty Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "transre": {
   "name": "TransRe",
@@ -2748,43 +2749,43 @@
   "name": "Knights of Columbus",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "partnerre": {
   "name": "PartnerRe",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "woodmenlife": {
   "name": "Woodmen Life",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "modernwoodmenofamerica": {
   "name": "Modern Woodmen of America",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fresnomaderafarmcredit": {
   "name": "Fresno Madera Farm Credit",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "southernfarmbureaulifeinsurance": {
   "name": "Southern Farm Bureau Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "equitrustlifeinsurancecompany": {
   "name": "EquiTrust Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "proassurance": {
   "name": "ProAssurance",
@@ -2795,7 +2796,7 @@
   "name": "Employers Holdings",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "silacinsurancecompany": {
   "name": "SILAC Insurance Company",
@@ -2807,55 +2808,55 @@
   "name": "CalSTRS",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "newyorkstatecommonretirementfund": {
   "name": "New York State Common Retirement Fund",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "newyorkcityretirementsystems": {
   "name": "New York City Retirement Systems",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "plymouthrockassurance": {
   "name": "Plymouth Rock Assurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "kuvareholdings": {
   "name": "Kuvare Holdings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "texascountydistrictretirementsystem": {
   "name": "Texas County & District Retirement System",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stateboardofadministrationofflorida": {
   "name": "State Board of Administration of Florida",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stateofwisconsininvestmentboard": {
   "name": "State of Wisconsin Investment Board",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "washingtonstateinvestmentboard": {
   "name": "Washington State Investment Board",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "oregonstatetreasury": {
   "name": "Oregon State Treasury",
@@ -2866,31 +2867,31 @@
   "name": "Ohio Public Employees Retirement System",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stateteachersretirementsystemofohio": {
   "name": "State Teachers Retirement System of Ohio",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "psers": {
   "name": "PSERS",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "teacherretirementsystemoftexas": {
   "name": "Teacher Retirement System of Texas",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "pennsylvaniasers": {
   "name": "Pennsylvania SERS",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "virginiaretirementsystem": {
   "name": "Virginia Retirement System",
@@ -2901,42 +2902,43 @@
   "name": "Massachusetts PRIM Board",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "marylandstateretirementandpensionsystem": {
   "name": "Maryland State Retirement and Pension System",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "minnesotastateboardofinvestment": {
   "name": "Minnesota State Board of Investment",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "lacera": {
   "name": "LACERA",
   "date": "2026-11-20",
-  "found": "neogov (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "newjerseydivisionofinvestment": {
   "name": "New Jersey Division of Investment",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "harvardmanagementcompany": {
   "name": "Harvard Management Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stanfordmanagementcompany": {
   "name": "Stanford Management Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "princo": {
   "name": "PRINCO",
@@ -2948,31 +2950,31 @@
   "name": "MITIMCo",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "utimco": {
   "name": "UTIMCO",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "ucinvestments": {
   "name": "UC Investments",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "columbiainvestmentmanagementcompany": {
   "name": "Columbia Investment Management Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "dumac": {
   "name": "DUMAC",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "emoryinvestmentmanagement": {
   "name": "Emory Investment Management",
@@ -2988,7 +2990,7 @@
   "name": "DoubleLine Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "oldrepublicinternational": {
   "name": "Old Republic International",
@@ -3005,49 +3007,49 @@
   "name": "Wasatch Global Investors",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "westernassetmanagement": {
   "name": "Western Asset Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "causewaycapitalmanagement": {
   "name": "Causeway Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "brandesinvestmentpartners": {
   "name": "Brandes Investment Partners",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "affiliatedmanagersgroup": {
   "name": "Affiliated Managers Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "nepc": {
   "name": "NEPC",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "newyorkstockexchange": {
   "name": "New York Stock Exchange",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "meketainvestmentgroup": {
   "name": "Meketa Investment Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "longtermstockexchange": {
   "name": "Long-Term Stock Exchange",
@@ -3058,25 +3060,25 @@
   "name": "BOX Options Market",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "miaxexchangegroup": {
   "name": "MIAX Exchange Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "municipalsecuritiesrulemakingboard": {
   "name": "Municipal Securities Rulemaking Board",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bostonmutuallifeinsurancecompany": {
   "name": "Boston Mutual Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "otcmarketsgroup": {
   "name": "OTC Markets Group",
@@ -3088,13 +3090,13 @@
   "name": "CalPERS",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "nationalfuturesassociation": {
   "name": "National Futures Association",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "tpicap": {
   "name": "TP ICAP",
@@ -3105,13 +3107,13 @@
   "name": "Tradition SEF",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "instinet": {
   "name": "Instinet",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "liquidnet": {
   "name": "Liquidnet",
@@ -3123,13 +3125,13 @@
   "name": "Minneapolis Grain Exchange",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "wedbushsecurities": {
   "name": "Wedbush Securities",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bgcgroup": {
   "name": "BGC Group",
@@ -3146,13 +3148,13 @@
   "name": "Needham & Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bidstrading": {
   "name": "BIDS Trading",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "northlandsecurities": {
   "name": "Northland Securities",
@@ -3163,19 +3165,19 @@
   "name": "Ziegler",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stephensinc": {
   "name": "Stephens Inc.",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "cutlergroup": {
   "name": "Cutler Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "radixtrading": {
   "name": "Radix Trading",
@@ -3186,13 +3188,13 @@
   "name": "TradeStation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "davenportcompany": {
   "name": "Davenport & Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "gelbergroup": {
   "name": "Gelber Group",
@@ -3208,13 +3210,13 @@
   "name": "Hard Eight Trading",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "craighallumcapitalgroup": {
   "name": "Craig-Hallum Capital Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "headlandstechnologies": {
   "name": "Headlands Technologies",
@@ -3231,7 +3233,7 @@
   "name": "WH Trading",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "grouponetrading": {
   "name": "Group One Trading",
@@ -3249,7 +3251,7 @@
   "name": "Roberts & Ryan Investments",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "canaccordgenuity": {
   "name": "Canaccord Genuity",
@@ -3261,25 +3263,25 @@
   "name": "Bancroft Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "klarna": {
   "name": "Klarna",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sternbrothersco": {
   "name": "Stern Brothers & Co.",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "rseelausco": {
   "name": "R. Seelaus & Co.",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "moneylion": {
   "name": "MoneyLion",
@@ -3295,19 +3297,19 @@
   "name": "Jack Henry & Associates",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sunbit": {
   "name": "Sunbit",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "paydenrygel": {
   "name": "Payden & Rygel",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "snapfinance": {
   "name": "Snap Finance",
@@ -3328,7 +3330,7 @@
   "name": "Varo Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "possiblefinance": {
   "name": "Possible Finance",
@@ -3339,19 +3341,19 @@
   "name": "Rosenblatt Securities",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stepmobile": {
   "name": "Step Mobile",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "albert": {
   "name": "Albert",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "repayholdings": {
   "name": "Repay Holdings",
@@ -3368,7 +3370,7 @@
   "name": "Cantaloupe",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "blackhawknetwork": {
   "name": "Blackhawk Network",
@@ -3385,7 +3387,7 @@
   "name": "Paysafe",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "nuvei": {
   "name": "Nuvei",
@@ -3402,7 +3404,7 @@
   "name": "Dwolla",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "tabapay": {
   "name": "TabaPay",
@@ -3413,13 +3415,13 @@
   "name": "Priority Technology Holdings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "aeropay": {
   "name": "Aeropay",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "trustly": {
   "name": "Trustly",
@@ -3469,7 +3471,7 @@
   "name": "MineralTree",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "avidxchange": {
   "name": "AvidXchange",
@@ -3492,13 +3494,13 @@
   "name": "Stampli",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "unitedwholesalemortgage": {
   "name": "United Wholesale Mortgage",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "loandepot": {
   "name": "loanDepot",
@@ -3510,13 +3512,13 @@
   "name": "Guild Mortgage",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "coupasoftware": {
   "name": "Coupa Software",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fairwayindependentmortgagecorporation": {
   "name": "Fairway Independent Mortgage Corporation",
@@ -3537,7 +3539,7 @@
   "name": "Freedom Mortgage",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mrcoopergroup": {
   "name": "Mr. Cooper Group",
@@ -3554,7 +3556,7 @@
   "name": "Planet Home Lending",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "carringtonmortgageservices": {
   "name": "Carrington Mortgage Services",
@@ -3566,13 +3568,13 @@
   "name": "Finance of America",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "plazahomemortgage": {
   "name": "Plaza Home Mortgage",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "cardinalfinancialcompany": {
   "name": "Cardinal Financial Company",
@@ -3584,7 +3586,7 @@
   "name": "Embrace Home Loans",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "ruoffmortgage": {
   "name": "Ruoff Mortgage",
@@ -3608,30 +3610,31 @@
   "name": "MFA Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "twoharborsinvestmentcorp": {
   "name": "Two Harbors Investment Corp.",
   "date": "2026-11-20",
-  "found": "dayforce (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "redwoodtrust": {
   "name": "Redwood Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "dynexcapital": {
   "name": "Dynex Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "armourresidentialreit": {
   "name": "ARMOUR Residential REIT",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "readycapital": {
   "name": "Ready Capital",
@@ -3642,67 +3645,67 @@
   "name": "Claros Mortgage Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "herculescapital": {
   "name": "Hercules Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "horizontechnologyfinance": {
   "name": "Horizon Technology Finance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "runwaygrowthcapital": {
   "name": "Runway Growth Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "incommpayments": {
   "name": "InComm Payments",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "trinitycapital": {
   "name": "Trinity Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mainstreetcapitalcorporation": {
   "name": "Main Street Capital Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "pennantpark": {
   "name": "PennantPark",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "gladstonecapitalcorporation": {
   "name": "Gladstone Capital Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "prospectcapitalcorporation": {
   "name": "Prospect Capital Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "collegeavestudentloans": {
   "name": "College Ave Student Loans",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "ascentfunding": {
   "name": "Ascent Funding",
@@ -3714,31 +3717,31 @@
   "name": "PHEAA",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "westlakefinancial": {
   "name": "Westlake Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "americancreditacceptance": {
   "name": "American Credit Acceptance",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "penfedcreditunion": {
   "name": "PenFed Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "suncoastcreditunion": {
   "name": "Suncoast Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mountainamericacreditunion": {
   "name": "Mountain America Credit Union",
@@ -3755,25 +3758,25 @@
   "name": "Security Service Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "penserrasecurities": {
   "name": "Penserra Securities",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bethpagefederalcreditunion": {
   "name": "Bethpage Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "digitalfederalcreditunion": {
   "name": "Digital Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "randolphbrooksfederalcreditunion": {
   "name": "Randolph-Brooks Federal Credit Union",
@@ -3785,7 +3788,7 @@
   "name": "Star One Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "chimerainvestmentcorporation": {
   "name": "Chimera Investment Corporation",
@@ -3797,7 +3800,7 @@
   "name": "Idaho Central Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "greenstatecreditunion": {
   "name": "GreenState Credit Union",
@@ -3809,13 +3812,13 @@
   "name": "TriplePoint Venture Growth",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "patelcocreditunion": {
   "name": "Patelco Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "entcreditunion": {
   "name": "Ent Credit Union",
@@ -3826,70 +3829,73 @@
   "name": "Desert Financial Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "spacecoastcreditunion": {
   "name": "Space Coast Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "landmarkcreditunion": {
   "name": "Landmark Credit Union",
   "date": "2026-11-20",
-  "found": "dayforce (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "wingsfinancialcreditunion": {
   "name": "Wings Financial Credit Union",
   "date": "2026-11-20",
-  "found": "smartrecruiters (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "golden1creditunion": {
   "name": "Golden 1 Credit Union",
   "date": "2026-11-20",
-  "found": "dayforce (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "onpointcommunitycreditunion": {
   "name": "OnPoint Community Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "eslfederalcreditunion": {
   "name": "ESL Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "tinkerfederalcreditunion": {
   "name": "Tinker Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "deltacommunitycreditunion": {
   "name": "Delta Community Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bellcocreditunion": {
   "name": "Bellco Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "sandiegocountycreditunion": {
   "name": "San Diego County Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "royalcreditunion": {
   "name": "Royal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "psecu": {
   "name": "PSECU",
@@ -3900,7 +3906,7 @@
   "name": "Members 1st Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "traviscreditunion": {
   "name": "Travis Credit Union",
@@ -3930,37 +3936,37 @@
   "name": "Coastal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "affinityfederalcreditunion": {
   "name": "Affinity Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bessemertrust": {
   "name": "Bessemer Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "kinectafederalcreditunion": {
   "name": "Kinecta Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "dfcufinancial": {
   "name": "DFCU Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "theglenmedetrustcompany": {
   "name": "The Glenmede Trust Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "sasinstitute": {
   "name": "SAS Institute",
@@ -3971,7 +3977,7 @@
   "name": "Fiduciary Trust Company International",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "darlingconsultinggroup": {
   "name": "Darling Consulting Group",
@@ -3989,19 +3995,19 @@
   "name": "Empyrean Solutions",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "miacanalytics": {
   "name": "MIAC Analytics",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "optimalblue": {
   "name": "Optimal Blue",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "truliantfederalcreditunion": {
   "name": "Truliant Federal Credit Union",
@@ -4027,7 +4033,7 @@
   "name": "Wilary Winn",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "ambest": {
   "name": "AM Best",
@@ -4039,31 +4045,31 @@
   "name": "Intex Solutions",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "demotech": {
   "name": "Demotech",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "andrewdavidsonco": {
   "name": "Andrew Davidson & Co.",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "weissratings": {
   "name": "Weiss Ratings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "rapidratings": {
   "name": "RapidRatings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "virginiacreditunion": {
   "name": "Virginia Credit Union",
@@ -4074,12 +4080,13 @@
   "name": "Credit Benchmark",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "marlettefunding": {
   "name": "Marlette Funding",
   "date": "2026-11-20",
-  "found": "lever (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "lexisnexisrisksolutions": {
   "name": "LexisNexis Risk Solutions",
@@ -4096,13 +4103,13 @@
   "name": "Quantifi",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "beaconplatform": {
   "name": "Beacon Platform",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "riskspan": {
   "name": "RiskSpan",
@@ -4119,13 +4126,13 @@
   "name": "Envestnet",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "plansmith": {
   "name": "Plansmith",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "intapp": {
   "name": "Intapp",
@@ -4151,7 +4158,7 @@
   "name": "RiXtrema",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "costargroup": {
   "name": "CoStar Group",
@@ -4167,49 +4174,49 @@
   "name": "SymphonyAI Sensa",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "actico": {
   "name": "Actico",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "featurespace": {
   "name": "Featurespace",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "finsightgroup": {
   "name": "Finsight Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "alpinebank": {
   "name": "Alpine Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "americansavingsbank": {
   "name": "American Savings Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "opengamma": {
   "name": "OpenGamma",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "cassinisystems": {
   "name": "Cassini Systems",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "broadwaybank": {
   "name": "Broadway Bank",
@@ -4221,19 +4228,19 @@
   "name": "Bank of Stockton",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "argenttrustcompany": {
   "name": "Argent Trust Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "burkeherbertbank": {
   "name": "Burke & Herbert Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "camdennationalbank": {
   "name": "Camden National Bank",
@@ -4268,31 +4275,31 @@
   "name": "Dollar Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmersnationalbank": {
   "name": "Farmers National Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fiduciarytrustinternational": {
   "name": "Fiduciary Trust International",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "capecod5": {
   "name": "Cape Cod 5",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "firstmidbanktrust": {
   "name": "First Mid Bank & Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "dunbradstreet": {
   "name": "Dun & Bradstreet",
@@ -4308,13 +4315,13 @@
   "name": "First Security Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "eganjonesratingscompany": {
   "name": "Egan-Jones Ratings Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fremontbank": {
   "name": "Fremont Bank",
@@ -4325,7 +4332,7 @@
   "name": "Five Star Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "glenmede": {
   "name": "Glenmede",
@@ -4342,31 +4349,31 @@
   "name": "HarborOne Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "greatsouthernbank": {
   "name": "Great Southern Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "heritagebank": {
   "name": "Heritage Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "germanamericanbank": {
   "name": "German American Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "heritagebankofcommerce": {
   "name": "Heritage Bank of Commerce",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "horizonbank": {
   "name": "Horizon Bank",
@@ -4377,7 +4384,7 @@
   "name": "Comerica Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "idbbank": {
   "name": "IDB Bank",
@@ -4388,7 +4395,7 @@
   "name": "Institution for Savings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "intrustbank": {
   "name": "INTRUST Bank",
@@ -4400,7 +4407,7 @@
   "name": "Johnson Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "kearnybank": {
   "name": "Kearny Bank",
@@ -4411,7 +4418,7 @@
   "name": "HTLF Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mercantilebank": {
   "name": "Mercantile Bank",
@@ -4423,7 +4430,7 @@
   "name": "Liberty Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "merchantsbankofindiana": {
   "name": "Merchants Bank of Indiana",
@@ -4440,7 +4447,7 @@
   "name": "Lake City Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "bangorsavingsbank": {
   "name": "Bangor Savings Bank",
@@ -4458,13 +4465,13 @@
   "name": "Nicolet National Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "midpennbank": {
   "name": "Mid Penn Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "peoplesbank": {
   "name": "Peoples Bank",
@@ -4475,25 +4482,25 @@
   "name": "Orrstown Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "peapackgladstonebank": {
   "name": "Peapack-Gladstone Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "premierbank": {
   "name": "Premier Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "preferredbank": {
   "name": "Preferred Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "qcrholdings": {
   "name": "QCR Holdings",
@@ -4504,31 +4511,31 @@
   "name": "Republic Bank & Trust Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "safranationalbankofnewyork": {
   "name": "Safra National Bank of New York",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "salemfivebank": {
   "name": "Salem Five Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "securitynationalbankofomaha": {
   "name": "Security National Bank of Omaha",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "southsidebank": {
   "name": "Southside Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "tbkbank": {
   "name": "TBK Bank",
@@ -4539,13 +4546,13 @@
   "name": "Stock Yards Bank & Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "stockmanbank": {
   "name": "Stockman Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "tricitynationalbank": {
   "name": "Tri City National Bank",
@@ -4556,7 +4563,7 @@
   "name": "Texas Regional Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "thefirstbank": {
   "name": "The First Bank",
@@ -4568,25 +4575,25 @@
   "name": "Trustco Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "unionbanktrust": {
   "name": "Union Bank & Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "univestbankandtrustco": {
   "name": "Univest Bank and Trust Co.",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "westamericabank": {
   "name": "Westamerica Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "wilsonbanktrust": {
   "name": "Wilson Bank & Trust",
@@ -4597,7 +4604,7 @@
   "name": "Whittier Trust Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "middlesexsavingsbank": {
   "name": "Middlesex Savings Bank",
@@ -4609,13 +4616,13 @@
   "name": "California Housing Finance Agency",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "masshousing": {
   "name": "MassHousing",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "pennsylvaniahousingfinanceagency": {
   "name": "Pennsylvania Housing Finance Agency",
@@ -4626,13 +4633,13 @@
   "name": "FirstBank Puerto Rico",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "illinoishousingdevelopmentauthority": {
   "name": "Illinois Housing Development Authority",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "virginiahousing": {
   "name": "Virginia Housing",
@@ -4643,64 +4650,67 @@
   "name": "FCS Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "stateofnewyorkmortgageagency": {
   "name": "State of New York Mortgage Agency",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "ohiohousingfinanceagency": {
   "name": "Ohio Housing Finance Agency",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "michiganstatehousingdevelopmentauthority": {
   "name": "Michigan State Housing Development Authority",
   "date": "2026-11-20",
-  "found": "neogov (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "floridahousingfinancecorporation": {
   "name": "Florida Housing Finance Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "coloradohousingandfinanceauthority": {
   "name": "Colorado Housing and Finance Authority",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "washingtonstatehousingfinancecommission": {
   "name": "Washington State Housing Finance Commission",
   "date": "2026-11-20",
-  "found": "neogov (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "agcarolinafarmcredit": {
   "name": "AgCarolina Farm Credit",
   "date": "2026-11-20",
-  "found": "oracle (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "northcarolinahousingfinanceagency": {
   "name": "North Carolina Housing Finance Agency",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "alaskahousingfinancecorporation": {
   "name": "Alaska Housing Finance Corporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "newjerseyhousingandmortgagefinanceagency": {
   "name": "New Jersey Housing and Mortgage Finance Agency",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "connecticuthousingfinanceauthority": {
   "name": "Connecticut Housing Finance Authority",
@@ -4792,7 +4802,7 @@
   "name": "Visions Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "servicecreditunion": {
   "name": "Service Credit Union",
@@ -4804,43 +4814,43 @@
   "name": "Baxter Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mohela": {
   "name": "MOHELA",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mefa": {
   "name": "MEFA",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "vsac": {
   "name": "VSAC",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "edfinancialservices": {
   "name": "Edfinancial Services",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "mainstreetcapital": {
   "name": "Main Street Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "rhodeislandhousing": {
   "name": "Rhode Island Housing",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "lendmarkfinancialservices": {
   "name": "Lendmark Financial Services",
@@ -4851,37 +4861,37 @@
   "name": "Republic Finance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "oxfordfinance": {
   "name": "Oxford Finance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "midcapfinancial": {
   "name": "MidCap Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "csileasing": {
   "name": "CSI Leasing",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "whiteoakcommercialfinance": {
   "name": "White Oak Commercial Finance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "brazoshighereducation": {
   "name": "Brazos Higher Education",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "delagelanden": {
   "name": "De Lage Landen",
@@ -4893,7 +4903,7 @@
   "name": "PEAC Solutions",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "afgroup": {
   "name": "AF Group",
@@ -4905,7 +4915,7 @@
   "name": "Allianz Life Insurance Company of North America",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "americanequityinvestmentlifeinsurancecompany": {
   "name": "American Equity Investment Life Insurance Company",
@@ -4958,7 +4968,7 @@
   "name": "Armed Forces Benefit Association",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "assurantsolutions": {
   "name": "Assurant Solutions",
@@ -4974,13 +4984,13 @@
   "name": "Aspen Insurance Holdings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "berkshirelifeinsurancecompanyofamerica": {
   "name": "Berkshire Life Insurance Company of America",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "coloniallifeaccidentinsurancecoloniallifecom": {
   "name": "Colonial Life & Accident Insurance | coloniallife.com",
@@ -4991,13 +5001,13 @@
   "name": "Columbian Mutual Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "cottonstatesmutualinsurance": {
   "name": "Cotton States Mutual Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "coverys": {
   "name": "Coverys",
@@ -5019,13 +5029,13 @@
   "name": "CSS Life",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "deltadentalplansassociation": {
   "name": "Delta Dental Plans Association",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "emcinsurancecompanies": {
   "name": "EMC Insurance Companies",
@@ -5036,7 +5046,7 @@
   "name": "Stonebriar Commercial Finance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "autoclubgroup": {
   "name": "Auto Club Group",
@@ -5069,13 +5079,13 @@
   "name": "Fairfax Financial Holdings US",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "aflacincorporated": {
   "name": "Aflac Incorporated",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "farmbureaulifeinsurancecompany": {
   "name": "Farm Bureau Life Insurance Company",
@@ -5098,19 +5108,19 @@
   "name": "Folksamerica Reinsurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fmglobal": {
   "name": "FM Global",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "generalamericanlifeinsurance": {
   "name": "General American Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fglholdingsfglifecom": {
   "name": "FGL Holdings | fglife.com",
@@ -5146,7 +5156,7 @@
   "name": "Hanover Insurance Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "hcigroup": {
   "name": "HCI Group",
@@ -5157,13 +5167,13 @@
   "name": "Global Indemnity Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "churchmutualinsurance": {
   "name": "Church Mutual Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "horacemanneducatorscorporation": {
   "name": "Horace Mann Educators Corporation",
@@ -5180,7 +5190,7 @@
   "name": "Independence Holding Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "icwgroup": {
   "name": "ICW Group",
@@ -5191,13 +5201,13 @@
   "name": "Inland Empire Health Plan",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "kansascitylifeinsurancecompany": {
   "name": "Kansas City Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "lafayettelifeinsurancecompanylafayettelifecom": {
   "name": "Lafayette Life Insurance Company | lafayettelife.com",
@@ -5208,31 +5218,31 @@
   "name": "Liberty Bankers Insurance Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "lumicolifeinsurance": {
   "name": "Lumico Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "meadowbrookinsurancegroup": {
   "name": "Meadowbrook Insurance Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "merchantsbondingcompany": {
   "name": "Merchants Bonding Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "erieindemnitycompany": {
   "name": "Erie Indemnity Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mercurygeneralcorporation": {
   "name": "Mercury General Corporation",
@@ -5249,13 +5259,13 @@
   "name": "Fidelity Life Association",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "farmersgroup": {
   "name": "Farmers Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "minnesotalifeinsurancecompanyminnesotalifecom": {
   "name": "Minnesota Life Insurance Company | minnesotalife.com",
@@ -5276,7 +5286,7 @@
   "name": "Nerdio Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "nfpaonnfpcom": {
   "name": "NFP (Aon) | nfp.com",
@@ -5287,7 +5297,7 @@
   "name": "Ohio National Financial Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "pacificmutualholdingcompany": {
   "name": "Pacific Mutual Holding Company",
@@ -5314,7 +5324,7 @@
   "name": "Penn-America Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "philadelphiainsurancecompaniesphlycom": {
   "name": "Philadelphia Insurance Companies | phly.com",
@@ -5325,7 +5335,7 @@
   "name": "Pekin Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "preferredemployersinsurance": {
   "name": "Preferred Employers Insurance",
@@ -5346,13 +5356,13 @@
   "name": "Patriot National",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "platinumunderwritersholdings": {
   "name": "Platinum Underwriters Holdings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "protectivelifecorporation": {
   "name": "Protective Life Corporation",
@@ -5368,61 +5378,61 @@
   "name": "Scottish Annuity & Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "providencemutualfireinsurancecompany": {
   "name": "Providence Mutual Fire Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sagicorlifeinsurancecompanyusa": {
   "name": "Sagicor Life Insurance Company USA",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "shelterinsurancecompanies": {
   "name": "Shelter Insurance Companies",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "southernmutualinsurance": {
   "name": "Southern Mutual Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "securityplanlifeinsurance": {
   "name": "Security Plan Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "indianafarmbureauinsurance": {
   "name": "Indiana Farm Bureau Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "squirepattonboggs": {
   "name": "Squire Patton Boggs",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "securitybenefitgroup": {
   "name": "Security Benefit Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "stateautoinsurancecompanies": {
   "name": "State Auto Insurance Companies",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "standardinsurancecompanystandardcom": {
   "name": "Standard Insurance Company | standard.com",
@@ -5433,37 +5443,37 @@
   "name": "Surest Health Plans",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "tokiomarineamerica": {
   "name": "Tokio Marine America",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stonebridgelifeinsurancecompany": {
   "name": "Stonebridge Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "statemutualinsurancecompany": {
   "name": "State Mutual Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "texaslifeinsurancecompany": {
   "name": "Texas Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "trenwickgroup": {
   "name": "Trenwick Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "transamericalifeinsurancecompanytransamericacom": {
   "name": "Transamerica Life Insurance Company | transamerica.com",
@@ -5479,7 +5489,7 @@
   "name": "Tri-Star Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "trustmarkmutualholdingcompany": {
   "name": "Trustmark Mutual Holding Company",
@@ -5497,13 +5507,13 @@
   "name": "United Farm Family Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "magnoliainsurancegroup": {
   "name": "Magnolia Insurance Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "unitedstatesfireinsurancecompany": {
   "name": "United States Fire Insurance Company",
@@ -5519,7 +5529,7 @@
   "name": "USLI (United States Liability Insurance Group)",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "universalinsuranceholdings": {
   "name": "Universal Insurance Holdings",
@@ -5530,13 +5540,13 @@
   "name": "United of Omaha Life Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "westcoastlifeinsurance": {
   "name": "West Coast Life Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "westernsouthernlifeinsurancecompany": {
   "name": "Western & Southern Life Insurance Company",
@@ -5548,13 +5558,13 @@
   "name": "Windstream Insurance Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "wiltonreholdings": {
   "name": "Wilton Re Holdings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "zenithnationalinsurance": {
   "name": "Zenith National Insurance",
@@ -5566,7 +5576,7 @@
   "name": "Pennsylvania Public School Employees' Retirement System",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "newyorkstateteachersretirementsystem": {
   "name": "New York State Teachers' Retirement System",
@@ -5577,25 +5587,25 @@
   "name": "Pennsylvania State Employees' Retirement System",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "worldlifeandaccidentinsurancecompany": {
   "name": "World Life and Accident Insurance Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "illinoismunicipalretirementfund": {
   "name": "Illinois Municipal Retirement Fund",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "stateuniversitiesretirementsystem": {
   "name": "State Universities Retirement System",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "losangelescountyemployeesretirementassociation": {
   "name": "Los Angeles County Employees Retirement Association",
@@ -5607,13 +5617,13 @@
   "name": "Colorado Public Employees' Retirement Association",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "arizonastateretirementsystem": {
   "name": "Arizona State Retirement System",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "utahretirementsystems": {
   "name": "Utah Retirement Systems",
@@ -5629,7 +5639,7 @@
   "name": "MIT Investment Management Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "arrowstreetcapital": {
   "name": "Arrowstreet Capital",
@@ -5646,7 +5656,7 @@
   "name": "Carnegie Corporation of New York",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "faralloncapital": {
   "name": "Farallon Capital",
@@ -5658,19 +5668,19 @@
   "name": "The Baupost Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "rokoscapitalmanagement": {
   "name": "Rokos Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "goldentreeassetmanagement": {
   "name": "GoldenTree Asset Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "quantbottechnologies": {
   "name": "Quantbot Technologies",
@@ -5681,7 +5691,7 @@
   "name": "Trexquant Investment",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "walleyecapital": {
   "name": "Walleye Capital",
@@ -5692,13 +5702,13 @@
   "name": "Cinctive Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "kingstreetcapitalmanagement": {
   "name": "King Street Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "aspectcapital": {
   "name": "Aspect Capital",
@@ -5710,7 +5720,7 @@
   "name": "Universal American Corp",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "quberesearchtechnologies": {
   "name": "Qube Research & Technologies",
@@ -5722,85 +5732,85 @@
   "name": "Gresham Investment Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "corvexmanagement": {
   "name": "Corvex Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "starboardvalue": {
   "name": "Starboard Value",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sachemheadcapitalmanagement": {
   "name": "Sachem Head Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "scopiacapitalmanagement": {
   "name": "Scopia Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "campbellcompany": {
   "name": "Campbell & Company",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "janapartners": {
   "name": "Jana Partners",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "taconiccapitaladvisors": {
   "name": "Taconic Capital Advisors",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "holoceneadvisors": {
   "name": "Holocene Advisors",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "centerbridgepartners": {
   "name": "Centerbridge Partners",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "whalerockcapitalmanagement": {
   "name": "Whale Rock Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "hitchwoodcapitalmanagement": {
   "name": "Hitchwood Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "clearbridgeinvestments": {
   "name": "ClearBridge Investments",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "brandywineglobal": {
   "name": "Brandywine Global",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "parametricportfolioassociates": {
   "name": "Parametric Portfolio Associates",
@@ -5811,13 +5821,13 @@
   "name": "Acadian Asset Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "eatonvance": {
   "name": "Eaton Vance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "panagoraassetmanagement": {
   "name": "PanAgora Asset Management",
@@ -5828,7 +5838,7 @@
   "name": "Canyon Partners",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sandscapital": {
   "name": "Sands Capital",
@@ -5845,13 +5855,13 @@
   "name": "Amundi US",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "mackayshields": {
   "name": "MacKay Shields",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fredalgermanagement": {
   "name": "Fred Alger Management",
@@ -5862,13 +5872,13 @@
   "name": "Harding Loevner",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "royceinvestmentpartners": {
   "name": "Royce Investment Partners",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "torchmarkcorporation": {
   "name": "Torchmark Corporation",
@@ -5879,19 +5889,19 @@
   "name": "Tweedy, Browne",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "segallbryanthamill": {
   "name": "Segall Bryant & Hamill",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "putnaminvestments": {
   "name": "Putnam Investments",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "wisdomtree": {
   "name": "WisdomTree",
@@ -5907,31 +5917,32 @@
  "hotchkiswiley": {
   "name": "Hotchkis & Wiley",
   "date": "2026-11-20",
-  "found": "bamboohr (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "pennantparkinvestmentadvisers": {
   "name": "PennantPark Investment Advisers",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "prospectcapital": {
   "name": "Prospect Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "gladstonecapital": {
   "name": "Gladstone Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "vaneck": {
   "name": "VanEck",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "barrowhanleyglobalinvestors": {
   "name": "Barrow Hanley Global Investors",
@@ -5943,19 +5954,19 @@
   "name": "Oxford Square Capital",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "saratogainvestmentcorp": {
   "name": "Saratoga Investment Corp",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "twinbrookcapitalpartners": {
   "name": "Twin Brook Capital Partners",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "varagoncapitalpartners": {
   "name": "Varagon Capital Partners",
@@ -5966,18 +5977,19 @@
   "name": "New York Mortgage Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "commonfund": {
   "name": "Commonfund",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "americannationalinsurance": {
   "name": "American National Insurance",
   "date": "2026-11-20",
-  "found": "dayforce (agy gap url)"
+  "found": null,
+  "note": "no_supported_url"
  },
  "bancorpbank": {
   "name": "Bancorp Bank",
@@ -6001,7 +6013,7 @@
   "name": "Carter Bank & Trust",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "citgroupfirstcitizenscom": {
   "name": "CIT Group | firstcitizens.com",
@@ -6024,13 +6036,13 @@
   "name": "BOK Financial Securities",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "curinos": {
   "name": "Curinos",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "columbiafinancial": {
   "name": "Columbia Financial",
@@ -6046,19 +6058,19 @@
   "name": "HarborOne Bancorp",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "endeavorbusinessmedia": {
   "name": "Endeavor Business Media",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "homebridgefinancialservices": {
   "name": "HomeBridge Financial Services",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "hilltopholdings": {
   "name": "Hilltop Holdings",
@@ -6302,7 +6314,7 @@
   "name": "Summit Financial Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "sompointernational": {
   "name": "Sompo International",
@@ -6314,49 +6326,49 @@
   "name": "Provident Financial Services",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "timberlandbancorp": {
   "name": "Timberland Bancorp",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "thirdfederalsavings": {
   "name": "Third Federal Savings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "tompkinsfinancial": {
   "name": "Tompkins Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "twoharborsinvestment": {
   "name": "Two Harbors Investment",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "seaportglobalsecurities": {
   "name": "Seaport Global Securities",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "unitedbankshares": {
   "name": "United Bankshares",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "unitedcommunityfinancial": {
   "name": "United Community Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "triumphfinancial": {
   "name": "Triumph Financial",
@@ -6367,13 +6379,13 @@
   "name": "Univest Financial",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "teachersfederalcreditunion": {
   "name": "Teachers Federal Credit Union",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "washingtonfederal": {
   "name": "Washington Federal",
@@ -6385,13 +6397,13 @@
   "name": "Westamerica Bancorporation",
   "date": "2026-11-20",
   "found": null,
-  "note": "empty"
+  "note": "no_supported_url"
  },
  "simmonsfinancialgroup": {
   "name": "Simmons Financial Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "worldacceptancecorporation": {
   "name": "World Acceptance Corporation",
@@ -6402,7 +6414,7 @@
   "name": "Zions Bank",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "umbbank": {
   "name": "UMB Bank",
@@ -6414,31 +6426,31 @@
   "name": "Semper Capital Management",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "unitedfinancialbancorp": {
   "name": "United Financial Bancorp",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "wisdomtreeinvestments": {
   "name": "WisdomTree Investments",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "coloniallifeaccidentinsurance": {
   "name": "Colonial Life & Accident Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "dairylandinsurance": {
   "name": "Dairyland Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "americangenerallifeinsurance": {
   "name": "American General Life Insurance",
@@ -6449,19 +6461,19 @@
   "name": "Equitable Life Insurance Company of Iowa",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fidelityguarantylife": {
   "name": "Fidelity & Guaranty Life",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "fglholdings": {
   "name": "FGL Holdings",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "lafayettelifeinsurancecompany": {
   "name": "Lafayette Life Insurance Company",
@@ -6473,13 +6485,13 @@
   "name": "NFP (Aon)",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "northamericancompanyforlifeandhealthinsurance": {
   "name": "North American Company for Life and Health Insurance",
   "date": "2026-11-20",
   "found": null,
-  "note": "fetch_error"
+  "note": "no_supported_url"
  },
  "minnesotalifeinsurancecompany": {
   "name": "Minnesota Life Insurance Company",
@@ -6511,7 +6523,7 @@
   "name": "CIT Group",
   "date": "2026-11-20",
   "found": null,
-  "note": "custom site, no supported ATS"
+  "note": "no_supported_url"
  },
  "investorsbank": {
   "name": "Investors Bank",
@@ -11030,5 +11042,1615 @@
   "name": "Associated Bank | associatedbank.com",
   "date": "2026-11-20",
   "found": null
+ },
+ "auburnbankauburnbankcom": {
+  "name": "AuburnBank | auburnbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "arizonafinancial": {
+  "name": "Arizona Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "austintelco": {
+  "name": "Austin Telco",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "americasfirst": {
+  "name": "America'S First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "avadian": {
+  "name": "Avadian",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "avidbankavidbankcom": {
+  "name": "Avidbank | avidbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "austinbanktexasaustinbankcom": {
+  "name": "Austin Bank, Texas | austinbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "availabankavailabank": {
+  "name": "Availa Bank | availa.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "atlanticregional": {
+  "name": "Atlantic Regional",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "avidiabankavidiabankcom": {
+  "name": "Avidia Bank | avidiabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "b1bankb1bankcom": {
+  "name": "b1BANK | b1bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ballstonspanationalbanknbcoxsackiecom": {
+  "name": "Ballston Spa National Bank | nbcoxsackie.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bancopopulardepuertoricopopularcom": {
+  "name": "Banco Popular de Puerto Rico | popular.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bancodobrasilamericasbbamericascom": {
+  "name": "Banco do Brasil Americas | bbamericas.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "banescousabanescousacom": {
+  "name": "Banesco USA | banescousa.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bank7bank7com": {
+  "name": "Bank 7 | bank7.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankcmgbankcmgcom": {
+  "name": "Bank Cmg | bankcmg.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankfiveninebankfiveninecom": {
+  "name": "Bank Five Nine | bankfivenine.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankforwardbankforwardcom": {
+  "name": "Bank Forward | bankforward.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankindependentbibankcom": {
+  "name": "Bank Independent | bibank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankiowabankiowabank": {
+  "name": "Bank Iowa | bankiowa.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankhapoalimbm": {
+  "name": "Bank Hapoalim B.M.",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankmidwestbankmidwestcom": {
+  "name": "Bank Midwest | bankmidwest.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofbirdinhandbihbankcom": {
+  "name": "Bank of Bird-in-Hand | bihbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofcentralfloridabankofcentralfloridacom": {
+  "name": "Bank of Central Florida | bankofcentralflorida.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankfundstaff": {
+  "name": "Bank Fund Staff",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofamericacaliforniabankofamericacom": {
+  "name": "Bank of America California | bankofamerica.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofannarborbankofannarborcom": {
+  "name": "Bank of Ann Arbor | bankofannarbor.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofcoloradobankofcoloradocom": {
+  "name": "Bank of Colorado | bankofcolorado.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofcommercebankcomcom": {
+  "name": "Bank of Commerce | bankcom.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofguambankofguamcom": {
+  "name": "Bank of Guam | bankofguam.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofgreenebankofgreenecom": {
+  "name": "Bank of Greene | bankofgreene.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofchi": {
+  "name": "Bank of Chi",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankoflaborbankoflaborcom": {
+  "name": "Bank of Labor | bankoflabor.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofmarinbankofmarincom": {
+  "name": "Bank of Marin | bankofmarin.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofclarkebankofclarkebank": {
+  "name": "Bank Of Clarke | bankofclarke.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofbaroda": {
+  "name": "Bank of Baroda",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofindia": {
+  "name": "Bank of India",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofnewenglandbankofnewenglandcom": {
+  "name": "Bank of New England | bankofnewengland.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofnewhampshirebnhbank": {
+  "name": "Bank of New Hampshire | bnh.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofspringfieldbankwithboscom": {
+  "name": "Bank of Springfield | bankwithbos.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankoftennesseebankoftennesseecom": {
+  "name": "Bank of Tennessee | bankoftennessee.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofpontiacbankofpontiaccom": {
+  "name": "Bank of Pontiac | bankofpontiac.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofthesierrabankofthesierracom": {
+  "name": "Bank of the Sierra | bankofthesierra.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofthejamesbankofthejamesbank": {
+  "name": "Bank of the James | bankofthejames.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofutahbankofutahcom": {
+  "name": "Bank of Utah | bankofutah.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofwashingtonbankofwashingtoncom": {
+  "name": "Bank of Washington | bankofwashington.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofwisconsindellsdellsbankbank": {
+  "name": "Bank of Wisconsin Dells | dellsbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankoftravelersrestbankoftravelersrestcom": {
+  "name": "Bank of Travelers Rest | bankoftravelersrest.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankoftheorientbankorientcom": {
+  "name": "Bank of the Orient | bankorient.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankersbankbankersbankcom": {
+  "name": "Bankers' Bank | bankersbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankofuticabankofuticacom": {
+  "name": "Bank of Utica | bankofutica.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankfirstmybankfirstbank": {
+  "name": "BankFirst | mybankfirst.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankfirstfinancialservicesbankfirstfscom": {
+  "name": "BankFirst Financial Services | bankfirstfs.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankplusbankplusnet": {
+  "name": "BankPlus | bankplus.net",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "banknewportbanknewportcom": {
+  "name": "BankNewport | banknewport.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankwellbankmybankwellcom": {
+  "name": "Bankwell Bank | mybankwell.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "banksouthbanksouthcom": {
+  "name": "BankSouth | banksouth.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankerstrustcompanybankerstrustcom": {
+  "name": "Bankers Trust Company | bankerstrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bankwestbankwestsdcom": {
+  "name": "BankWest | bankwest-sd.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "banterrabankbanterrabank": {
+  "name": "Banterra Bank | banterra.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "barharborbanktrustbarharborbank": {
+  "name": "Bar Harbor Bank & Trust | barharbor.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "barksdale": {
+  "name": "Barksdale",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "barclaysbankdelawarebarclaysuscom": {
+  "name": "Barclays Bank Delaware | barclaysus.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "baxter": {
+  "name": "Baxter",
+  "date": "2026-11-20",
+  "found": "workday baxter"
+ },
+ "bay": {
+  "name": "Bay",
+  "date": "2026-11-20",
+  "found": "ashby bay"
+ },
+ "bathsavingsinstitutionbathsavingsbank": {
+  "name": "Bath Savings Institution | bathsavings.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "baycoastbankbaycoastbank": {
+  "name": "BayCoast Bank | baycoast.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bayfirstnationalbankbayfirstfinancialcom": {
+  "name": "BayFirst National Bank | bayfirstfinancial.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "barringtonbanktrustcompanybarringtonbankcom": {
+  "name": "Barrington Bank & Trust Company | barringtonbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bcbcommunitybankbcbbank": {
+  "name": "BCB Community Bank | bcb.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "beacon": {
+  "name": "Beacon",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "beaconbankandtrustbeaconbankcom": {
+  "name": "Beacon Bank and Trust | beaconbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bellco": {
+  "name": "Bellco",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "benchmarkbankbenchmarkbankcom": {
+  "name": "Benchmark Bank | benchmarkbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "belmontbanktrustcompanybelmontbankcom": {
+  "name": "Belmont Bank & Trust Company | belmontbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "benchmarkcommunitybankbcbforlifebank": {
+  "name": "Benchmark Community Bank | bcbforlife.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "beginnings": {
+  "name": "Beginnings",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "beneficialbeneficialstatebankcom": {
+  "name": "Beneficial | beneficialstatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "blackhills": {
+  "name": "Black Hills",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "blackhawkbanktrustchoosethechiefcom": {
+  "name": "Blackhawk Bank & Trust | choosethechief.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "beverlybanktrustcompanythebeverlybankcom": {
+  "name": "Beverly Bank & Trust Company | thebeverlybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "blue": {
+  "name": "Blue",
+  "date": "2026-11-20",
+  "found": "lever blue"
+ },
+ "bessemertrustcompanybessemertrustcom": {
+  "name": "Bessemer Trust Company | bessemertrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "blueridgebankmybrbcom": {
+  "name": "Blue Ridge Bank | mybrb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bluestonebankbluestonebank": {
+  "name": "Bluestone Bank | bluestone.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "blueskybankblueskybank": {
+  "name": "Blue Sky Bank | bluesky.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bmwbankofnorthamericabmwusacom": {
+  "name": "BMW Bank of North America | bmwusa.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bmobankbmocom": {
+  "name": "BMO Bank | bmo.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "blupeak": {
+  "name": "Blupeak",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bncnationalbankbncbankcom": {
+  "name": "BNC National Bank | bncbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "boeingemployees": {
+  "name": "Boeing Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bokfbokfinancialcom": {
+  "name": "BOKF | bokfinancial.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bombankbofmcom": {
+  "name": "BOM Bank | bofm.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bonvenubankbonvenubankcom": {
+  "name": "Bonvenu Bank | bonvenubank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "borderbankborderbank": {
+  "name": "Border Bank | border.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bradescobankbradescobankcom": {
+  "name": "Bradesco Bank | bradescobank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "brannenbankbrannenbankscom": {
+  "name": "Brannen Bank | brannenbanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "brazosvalleyschools": {
+  "name": "Brazos Valley Schools",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "brentwoodbankbrentwoodbankcom": {
+  "name": "Brentwood Bank | brentwoodbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "brightbridge": {
+  "name": "Brightbridge",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "braverabankbraverabank": {
+  "name": "Bravera Bank | bravera.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bristolcountysavingsbankbristolcountysavingscom": {
+  "name": "Bristol County Savings Bank | bristolcountysavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bridgewaterbankbridgewaterbankmncom": {
+  "name": "Bridgewater Bank | bridgewaterbankmn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "broadview": {
+  "name": "Broadview",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "brightstar": {
+  "name": "Brightstar",
+  "date": "2026-11-20",
+  "found": "bamboohr brightstar"
+ },
+ "broadwaynationalbankbroadwaybank": {
+  "name": "Broadway National Bank | broadway.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "brooksbankbrooksbank": {
+  "name": "Brooks Bank | brooks.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bryantbankbryantbankcom": {
+  "name": "Bryant Bank | bryantbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "btcbankbtcbankbank": {
+  "name": "BTC Bank | btcbank.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "builtwellbankbuiltwellbank": {
+  "name": "Builtwell Bank | builtwell.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cachevalleybankcachevalleybankcom": {
+  "name": "Cache Valley Bank | cachevalleybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "california": {
+  "name": "California",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "californiabankofcommercecaliforniabankofcommercecom": {
+  "name": "California Bank of Commerce | californiabankofcommerce.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "calprivatebankcalprivatebank": {
+  "name": "CalPrivate Bank | calprivate.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "burkeherbertbanktrustcompanyburkeandherbertbankcom": {
+  "name": "Burke & Herbert Bank & Trust Company | burkeandherbertbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "californiacoast": {
+  "name": "California Coast",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "caltechemployees": {
+  "name": "Caltech Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "calvinbtaylorbankingcompanyofberlinmarylandtaylorbankcom": {
+  "name": "Calvin B. Taylor Banking Company of Berlin, Maryland | taylorbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "canvas": {
+  "name": "Canvas",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "campususa": {
+  "name": "Campus Usa",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "capecoastbankcapeandcoastbankcom": {
+  "name": "Cape & Coast Bank | capeandcoastbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "capeannsavingsbankcapeannsavingsbank": {
+  "name": "Cape Ann Savings Bank | capeannsavings.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "capitalbankcapitalbankmdcom": {
+  "name": "Capital Bank | capitalbankmd.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "canyonview": {
+  "name": "Canyon View",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "capitalcitybankccbgcom": {
+  "name": "Capital City Bank | ccbg.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "capital": {
+  "name": "Capital",
+  "date": "2026-11-20",
+  "found": "lever capital"
+ },
+ "capitaleducators": {
+  "name": "Capital Educators",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "capitolfederalsavingsbankcapfedcom": {
+  "name": "Capitol Federal Savings Bank | capfed.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "caprabankcaprabankcom": {
+  "name": "Capra Bank | caprabank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "carrolltonbankcarrolltonbankingcom": {
+  "name": "Carrollton Bank | carrolltonbanking.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cashmerevalleybankcashmerevalleybankcom": {
+  "name": "Cashmere Valley Bank | cashmerevalleybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cbsbankcbsbankcom": {
+  "name": "CB&S Bank | cbsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "casscommercialbankcassbankcom": {
+  "name": "Cass Commercial Bank | cassbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cbibanktrustcbibtbank": {
+  "name": "CBI Bank & Trust | cbibt.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ccfbankccfus": {
+  "name": "CCFBank | ccf.us",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "celticbankcelticbankcom": {
+  "name": "Celtic Bank | celticbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centerparc": {
+  "name": "Center Parc",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centra": {
+  "name": "Centra",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cedarrapidsbankandtrustcompanycrbtbank": {
+  "name": "Cedar Rapids Bank and Trust Company | crbt.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centralbankillinoiscentralbankcom": {
+  "name": "Central Bank Illinois | central-bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centralbankcentralbankhoustoncom": {
+  "name": "Central Bank | centralbankhouston.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "bayport": {
+  "name": "Bayport",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centralbanktrustcocentralbankcom": {
+  "name": "Central Bank & Trust Co. | centralbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centralnationalbankcentralnationalcom": {
+  "name": "Central National Bank | centralnational.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centralpennbanktrustcentralpennbankcom": {
+  "name": "Central Penn Bank & Trust | centralpennbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centrevillebankcentrevillebankcom": {
+  "name": "Centreville Bank | centrevillebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centris": {
+  "name": "Centris",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "centurybankmycenturybankcom": {
+  "name": "Century Bank | mycenturybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cfbankcfbank": {
+  "name": "CFBank | cf.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cfgbankcfgbank": {
+  "name": "CFG Bank | cfg.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "chainbridgebankchainbridgebankcom": {
+  "name": "Chain Bridge Bank | chainbridgebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "charlesschwabbankschwabbankcom": {
+  "name": "Charles Schwab Bank | schwabbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "charlesschwabpremierbank": {
+  "name": "Charles Schwab Premier Bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "charlesschwabtrustbank": {
+  "name": "Charles Schwab Trust Bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "blaze": {
+  "name": "Blaze",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "chelseagrotonbankchelseagrotoncom": {
+  "name": "Chelsea Groton Bank | chelseagroton.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "chartway": {
+  "name": "Chartway",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "chesapeakebankchesbank": {
+  "name": "Chesapeake Bank | ches.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "chambersbankchambersbank": {
+  "name": "Chambers Bank | chambers.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "chevron": {
+  "name": "Chevron",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "charteroak": {
+  "name": "Charter Oak",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "chemungcanaltrustcompanychemungcanalcom": {
+  "name": "Chemung Canal Trust Company | chemungcanal.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cibcbankusauscibccom": {
+  "name": "CIBC Bank USA | us.cibc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "choiceonebankchoiceonebank": {
+  "name": "ChoiceOne Bank | choiceone.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citibankcitibankcom": {
+  "name": "Citibank | citibank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "christianfinancial": {
+  "name": "Christian Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensbanktrustcitizensbanktrustcom": {
+  "name": "Citizens Bank & Trust | citizensbanktrust.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensbankandtrustcitizensbankcom": {
+  "name": "Citizens Bank and Trust | citizens-bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensbankoflascrucescitizenslccom": {
+  "name": "Citizens Bank of Las Cruces | citizenslc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "choicefinancialgroupbankwithchoicecom": {
+  "name": "Choice Financial Group | bankwithchoice.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensalliancebankcitizensalliancebankcom": {
+  "name": "Citizens Alliance Bank | citizensalliancebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensnorthernbankcnbankpacom": {
+  "name": "Citizens & Northern Bank | cnbankpa.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensequityfirst": {
+  "name": "Citizens Equity First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensandfarmersbankcffccom": {
+  "name": "Citizens and Farmers Bank | cffc.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensnationalbankoftexascnboftexascom": {
+  "name": "Citizens National Bank of Texas | cnboftexas.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizensnationalbankcnbtncom": {
+  "name": "Citizens National Bank | cnbtn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citizenstricountybankctcbonlinecom": {
+  "name": "Citizens Tri-County Bank | ctcbonline.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citycounty": {
+  "name": "City & County",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "americanairlines": {
+  "name": "American Airlines",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "citybankcitybank": {
+  "name": "City Bank | city.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cityfirstbankcityfirstbankcom": {
+  "name": "City First Bank | cityfirstbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "clearwater": {
+  "name": "Clearwater",
+  "date": "2026-11-20",
+  "found": "greenhouse clearwater"
+ },
+ "citynationalbankofwestvirginiabankatcitycom": {
+  "name": "City National Bank of West Virginia | bankatcity.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "civic": {
+  "name": "Civic",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "clearmountainbankclearmountainbank": {
+  "name": "Clear Mountain Bank | clearmountain.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "clearforkbankclearforkbank": {
+  "name": "Clear Fork Bank | clearfork.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coastal": {
+  "name": "Coastal",
+  "date": "2026-11-20",
+  "found": "ashby coastal"
+ },
+ "climatefirstbankclimatefirstbankcom": {
+  "name": "Climate First Bank | climatefirstbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "clearview": {
+  "name": "Clearview",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coastal1": {
+  "name": "Coastal1",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coastalcommunitybankcoastalbankcom": {
+  "name": "Coastal Community Bank | coastalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coastcentral": {
+  "name": "Coast Central",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coastalstatesbankcoastalstatesbankcom": {
+  "name": "Coastal States Bank | coastalstatesbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coastalcarolinanationalbankmyccnbcom": {
+  "name": "Coastal Carolina National Bank | myccnb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "colonybankcolonybank": {
+  "name": "Colony Bank | colony.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "collinscommunity": {
+  "name": "Collins Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coloradofederalsavingsbankcoloradofederalbankcom": {
+  "name": "Colorado Federal Savings Bank | coloradofederalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "coasthills": {
+  "name": "Coasthills",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commercewestbankcwbkcom": {
+  "name": "Commerce West Bank | cwbk.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "comenitycapitalbanksavingsbreadfinancialcom": {
+  "name": "Comenity Capital Bank | savings.breadfinancial.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commerceonebankcommerceonebankcom": {
+  "name": "CommerceOne Bank | commerceonebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "columbiacommunity": {
+  "name": "Columbia Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commercialbankcbtncom": {
+  "name": "Commercial Bank | cbtn.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commercialbankofcaliforniacbcalcom": {
+  "name": "Commercial Bank of California | cbcal.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commonwealth": {
+  "name": "Commonwealth",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commercialbankoftexascbtxcom": {
+  "name": "Commercial Bank of Texas | cbtx.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cobalt": {
+  "name": "Cobalt",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commercialbanktrustcocbtcnetcom": {
+  "name": "Commercial Bank & Trust Co. | cbtcnet.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "commonwealthbusinessbankcbbbankcom": {
+  "name": "Commonwealth Business Bank | cbb-bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitybankofmississippicommunitybanknet": {
+  "name": "Community Bank of Mississippi | communitybank.net",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitybankcbbank": {
+  "name": "Community Bank | cb.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "community1st": {
+  "name": "Community 1St",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitycreditunionofflorida": {
+  "name": "Community Credit Union Of Florida",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communityfinancialservicesbankyourlifeyourbankcom": {
+  "name": "Community Financial Services Bank | yourlifeyourbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communication": {
+  "name": "Communication",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communityfirst": {
+  "name": "Community First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communityfirstcreditunionofflo": {
+  "name": "Community First Credit Union Of Flo",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitynationalbanktrustmybankcnbcom": {
+  "name": "Community National Bank & Trust | mybankcnb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitynationalbanktrustoftexasmybanktxcom": {
+  "name": "Community National Bank & Trust of Texas | mybanktx.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communityamerica": {
+  "name": "Communityamerica",
+  "date": "2026-11-20",
+  "found": "icims None"
+ },
+ "communitynationalbankcommunitynationalbankcom": {
+  "name": "Community National Bank | communitynationalbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitytrustbankctbicom": {
+  "name": "Community Trust Bank | ctbi.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitybankcsbcom": {
+  "name": "Community | bankcsb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitywestbankcommunitywestbankcom": {
+  "name": "Community West Bank | communitywestbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "connex": {
+  "name": "Connex",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "connecticutstateemployees": {
+  "name": "Connecticut State Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "connexus": {
+  "name": "Connexus",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "corebankcorebankcom": {
+  "name": "Core Bank | corebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "corefirstbanktrustcbtkscom": {
+  "name": "CoreFirst Bank & Trust | cbtks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "communitychoice": {
+  "name": "Community Choice",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "consumers": {
+  "name": "Consumers",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "consumersnationalbankconsumersbank": {
+  "name": "Consumers National Bank | consumers.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cornerstonebankcornerstonebank": {
+  "name": "Cornerstone Bank | cornerstone.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cornhuskerbankcornhuskerbank": {
+  "name": "Cornhusker Bank | cornhusker.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cortrustbankcortrustbankcom": {
+  "name": "CorTrust Bank | cortrustbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cornerstonecapitalbankcornerstonecapitalcom": {
+  "name": "Cornerstone Capital Bank | cornerstonecapital.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "countrybankforsavingscountrybankcom": {
+  "name": "Country Bank for Savings | countrybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "countynationalbankcnbbbank": {
+  "name": "County National Bank | cnbb.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "crane": {
+  "name": "Crane",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "create": {
+  "name": "Create",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cornerstonenationalbanktrustcompanycnbtcbank": {
+  "name": "Cornerstone National Bank & Trust Company | cnbtc.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunion1": {
+  "name": "Credit Union 1",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunionofcoloradoa": {
+  "name": "Credit Union Of Colorado, A",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunionofsoutherncaa": {
+  "name": "Credit Union Of Southern Ca, A",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunionoftexas": {
+  "name": "Credit Union Of Texas",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunionone": {
+  "name": "Credit Union One",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "crescentbankcrescentbankcom": {
+  "name": "Crescent Bank | crescentbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunionofamerica": {
+  "name": "Credit Union Of America",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunionofdenver": {
+  "name": "Credit Union Of Denver",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "crewsbanktrustcrewsbank": {
+  "name": "Crews Bank & Trust | crews.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "creditunionwest": {
+  "name": "Credit Union West",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "crystallakebankandtrustcompanycrystallakebankcom": {
+  "name": "Crystal Lake Bank and Trust Company | crystallakebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "cyprus": {
+  "name": "Cyprus",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ctbcbankcorpusactbcbankusacom": {
+  "name": "CTBC Bank Corp. (USA) | ctbcbankusa.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dacotahbankdacotahbankcom": {
+  "name": "Dacotah Bank | dacotahbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dakotacommunitybanktrustdakotacommunitybankcom": {
+  "name": "Dakota Community Bank & Trust | dakotacommunitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dlevansbankdlevanscom": {
+  "name": "D. L. Evans Bank | dlevans.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "datcu": {
+  "name": "Datcu",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dayspringbankdayspringbank": {
+  "name": "Dayspring Bank | dayspring.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dadecounty": {
+  "name": "Dade County",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "deltacommunity": {
+  "name": "Delta Community",
+  "date": "2026-11-20",
+  "found": "workday IntermountainCareers"
+ },
+ "dedhaminstitutionforsavingsdedhamsavingscom": {
+  "name": "Dedham Institution for Savings | dedhamsavings.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "deseretfirst": {
+  "name": "Deseret First",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "desertfinancial": {
+  "name": "Desert Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "deerwoodbankdeerwoodbankcom": {
+  "name": "Deerwood Bank | deerwoodbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "diamond": {
+  "name": "Diamond",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dieterichbankdieterichbankcom": {
+  "name": "Dieterich Bank | dieterichbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "covantage": {
+  "name": "Covantage",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dimebankdimebankcom": {
+  "name": "Dime Bank | dime-bank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dimecommercialbankdimecom": {
+  "name": "Dime Commercial Bank | dime.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "directions": {
+  "name": "Directions",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dollarbankfederalsavingsbankdollarbank": {
+  "name": "Dollar Bank, Federal Savings Bank | dollar.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dupacocommunity": {
+  "name": "Dupaco Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dortfinancial": {
+  "name": "Dort Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "deutschebanktrustcompanyamericasdbcom": {
+  "name": "Deutsche Bank Trust Company Americas | db.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dupontcommunity": {
+  "name": "Dupont Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "dutraccommunity": {
+  "name": "Dutrac Community",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "eastcambridgesavingsbankecsbcom": {
+  "name": "East Cambridge Savings Bank | ecsb.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "easttexasprofessional": {
+  "name": "East Texas Professional",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "eastman": {
+  "name": "Eastman",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "corning": {
+  "name": "Corning",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "edmontonedmontonstatebankcom": {
+  "name": "Edmonton | edmontonstatebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "eastrise": {
+  "name": "Eastrise",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "educationalemployees": {
+  "name": "Educational Employees",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "educational": {
+  "name": "Educational",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "educationalsystems": {
+  "name": "Educational Systems",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "educators": {
+  "name": "Educators",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "eglin": {
+  "name": "Eglin",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "delnorte": {
+  "name": "Del Norte",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "eldoradosavingsbankeldoradosavingsbankcom": {
+  "name": "El Dorado Savings Bank | eldoradosavingsbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "elevations": {
+  "name": "Elevations",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "efcufinancial": {
+  "name": "Efcu Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "elementsfinancial": {
+  "name": "Elements Financial",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "empeople": {
+  "name": "Empeople",
+  "date": "2026-11-20",
+  "found": "icims None"
+ },
+ "elkhornvalleybanktrustevbbank": {
+  "name": "Elkhorn Valley Bank & Trust | evb.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "embassybankforthelehighvalleyembassybankcom": {
+  "name": "Embassy Bank for the Lehigh Valley | embassybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "emprisebankemprisebankcom": {
+  "name": "Emprise Bank | emprisebank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "encorebankbankencorecom": {
+  "name": "ENCORE BANK | bankencore.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "equitybankequitybankcom": {
+  "name": "Equity Bank | equitybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "evertrustbankevertrustbankcom": {
+  "name": "EverTrust Bank | evertrustbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "esl": {
+  "name": "Esl",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "everwise": {
+  "name": "Everwise",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "evolvebanktrustgetevolvedcom": {
+  "name": "Evolve Bank & Trust | getevolved.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "ereborbankereborbank": {
+  "name": "Erebor Bank | erebor.bank",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "exchangebankebuscom": {
+  "name": "Exchange Bank | eb-us.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "extracobanksextracobankscom": {
+  "name": "Extraco Banks | extracobanks.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fairwinds": {
+  "name": "Fairwinds",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "fairfieldcountybankfairfieldcountybankcom": {
+  "name": "Fairfield County Bank | fairfieldcountybank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "falconinternationalbankfalconbankcom": {
+  "name": "Falcon International Bank | falconbank.com",
+  "date": "2026-11-20",
+  "found": null
+ },
+ "probe_psers": {
+  "name": "PSERS",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: PSERS (neogov): 227 jobs "
+ },
+ "probe_pennsylvaniasers": {
+  "name": "Pennsylvania SERS",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: Pennsylvania SERS (neogov): 0 jobs "
+ },
+ "probe_nepc": {
+  "name": "NEPC",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: NEPC (ukg): 0 jobs "
+ },
+ "probe_kinectafederalcreditunion": {
+  "name": "Kinecta Federal Credit Union",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: Kinecta Federal Credit Union (adp_wfn): 0 jobs "
+ },
+ "probe_tristatecapitalbank": {
+  "name": "TriState Capital Bank",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: TriState Capital Bank (adp_wfn): 0 jobs "
+ },
+ "probe_umbfinancial": {
+  "name": "UMB Financial",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: UMB Financial: name already in config"
+ },
+ "probe_firstbankpuertorico": {
+  "name": "FirstBank Puerto Rico",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: FirstBank Puerto Rico (csod): 0 jobs "
+ },
+ "probe_guardianlife": {
+  "name": "Guardian Life",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: Guardian Life: name already in config"
+ },
+ "probe_carnegiecorporationofnewyork": {
+  "name": "Carnegie Corporation of New York",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: Carnegie Corporation of New York (adp_wfn): 0 jobs "
+ },
+ "probe_merchantsfinancialgroup": {
+  "name": "Merchants Financial Group",
+  "date": "2026-11-20",
+  "found": null,
+  "note": "probe: Merchants Financial Group (dayforce): -1 jobs HTTPError: HTTP Error 404: Not Found"
  }
 }

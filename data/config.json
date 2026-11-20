@@ -18581,6 +18581,217 @@
    "ats": "dayforce",
    "namespace": "anico",
    "board": "CANDIDATEPORTAL"
+  },
+  {
+   "name": "Stephens Inc.",
+   "ats": "ukg",
+   "board": "https://recruiting2.ultipro.com/STE1004/JobBoard/fbeef081-b55b-0ae3-a2ac-7b4fb3db6826"
+  },
+  {
+   "name": "Embrace Home Loans",
+   "ats": "adp_wfn",
+   "cid": "3d151ed3-e7af-4141-8c52-8628f6cedc53"
+  },
+  {
+   "name": "Redwood Trust",
+   "ats": "adp_wfn",
+   "cid": "1367e3fe-0095-4657-b0e2-9265cc103f80"
+  },
+  {
+   "name": "Seaport Global Securities",
+   "ats": "lever",
+   "slug": "seaportglobal"
+  },
+  {
+   "name": "UTIMCO",
+   "ats": "ukg",
+   "board": "https://recruiting2.ultipro.com/UNI1086TAMIM/JobBoard/36bde31a-2829-41f6-8302-00354faf172a"
+  },
+  {
+   "name": "Causeway Capital Management",
+   "ats": "taleo_cws",
+   "host": "phg.tbe.taleo.net",
+   "path": "phg03",
+   "org": "CAUSCAPI",
+   "cws": "37"
+  },
+  {
+   "name": "Prospect Capital Corporation",
+   "ats": "bamboohr",
+   "slug": "prospect"
+  },
+  {
+   "name": "AgriBank",
+   "ats": "dayforce",
+   "namespace": "fcf",
+   "board": "AGRIBANK-EXTERNAL"
+  },
+  {
+   "name": "American Savings Bank",
+   "ats": "adp_wfn",
+   "cid": "00412a20-c4c9-4058-a872-befbe89e2d6f"
+  },
+  {
+   "name": "Five Star Bank",
+   "ats": "adp_wfn",
+   "cid": "4eb28d17-fd54-44ef-903a-5c168d78f591"
+  },
+  {
+   "name": "Institution for Savings",
+   "ats": "adp_wfn",
+   "cid": "88de05ec-eff1-48a8-8bd9-40298fe3ad35"
+  },
+  {
+   "name": "Mid Penn Bank",
+   "ats": "adp_wfn",
+   "cid": "701c1e8d-907d-4848-a96b-bd89a43106c1"
+  },
+  {
+   "name": "Orrstown Bank",
+   "ats": "adp_wfn",
+   "cid": "8b9bf0bb-65c0-4afa-bfe7-86a113592b54"
+  },
+  {
+   "name": "Peapack-Gladstone Bank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/PEA1006PEAA/JobBoard/c36308a9-3cc9-405a-a034-40797ac7607e"
+  },
+  {
+   "name": "Salem Five Bank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/SAL1006SALMF/JobBoard/607f69f4-a710-3384-9a79-badbea6a9eb4"
+  },
+  {
+   "name": "Republic Bank & Trust Company",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/REP1009RBTCO/JobBoard/14c95af9-22e9-47a9-a87a-9700767f54b6"
+  },
+  {
+   "name": "Stockman Bank",
+   "ats": "adp_wfn",
+   "cid": "065d286d-2aa9-4105-b556-2b1d2db1c515"
+  },
+  {
+   "name": "Whittier Trust Company",
+   "ats": "ukg",
+   "board": "https://recruiting2.ultipro.com/WHI1008WHTR/JobBoard/d093c596-db1a-456d-8d2f-86ca20735c6a"
+  },
+  {
+   "name": "Union Bank & Trust",
+   "ats": "ukg",
+   "board": "https://myubt.rec.pro.ukg.net/UNI1120UBTC/JobBoard/56baf6a9-3cb4-4d34-922a-eb69f2137926"
+  },
+  {
+   "name": "Southside Bank",
+   "ats": "adp_wfn",
+   "cid": "391482ad-f8fc-414b-b65e-ee22171ebb9f"
+  },
+  {
+   "name": "New Jersey Housing and Mortgage Finance Agency",
+   "ats": "neogov",
+   "agency": "njhmfa"
+  },
+  {
+   "name": "Visions Federal Credit Union",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/VIS1010VFCU/JobBoard/8aa6443c-bdeb-4ca6-a33d-6c538463a2c4"
+  },
+  {
+   "name": "MassHousing",
+   "ats": "paylocity",
+   "board": "https://recruiting.paylocity.com/recruiting/jobs/All/e6cafb30-0e61-4e81-911e-923efee38e5d/Massachusetts-Housing-Finance-Agency"
+  },
+  {
+   "name": "Baxter Credit Union",
+   "ats": "dayforce",
+   "namespace": "bcu",
+   "board": "CANDIDATEPORTAL"
+  },
+  {
+   "name": "Colonial Farm Credit",
+   "ats": "oracle",
+   "host": "eozs.fa.us6.oraclecloud.com",
+   "site": "CX_20"
+  },
+  {
+   "name": "AgGeorgia Farm Credit",
+   "ats": "oracle",
+   "host": "eozs.fa.us6.oraclecloud.com",
+   "site": "CX_14"
+  },
+  {
+   "name": "First South Farm Credit",
+   "ats": "oracle",
+   "host": "eozs.fa.us6.oraclecloud.com",
+   "site": "CX_4"
+  },
+  {
+   "name": "Voya Financial",
+   "ats": "workday",
+   "host": "godirect.wd5.myworkdayjobs.com",
+   "tenant": "godirect",
+   "site": "voya_jobs"
+  },
+  {
+   "name": "Fidelity & Guaranty Life",
+   "ats": "greenhouse",
+   "slug": "fidelityguarantylife"
+  },
+  {
+   "name": "Southern AgCredit",
+   "ats": "oracle",
+   "host": "eozs.fa.us6.oraclecloud.com",
+   "site": "CX_31"
+  },
+  {
+   "name": "Fidelity Life Association",
+   "ats": "ukg",
+   "board": "https://recruiting2.ultipro.com/VER1023VERI/JobBoard/7564b954-75b4-4c6f-8ca4-c0aca3154b9b"
+  },
+  {
+   "name": "Pekin Life Insurance Company",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/PEK1000PEKIN/JobBoard/f50c3047-3e5f-4b04-8da7-b988adac0b54"
+  },
+  {
+   "name": "Penn-America Group",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/GLO1021GIGS/JobBoard/c8c87fcf-f7aa-499e-97ac-6306bc6d2eb9"
+  },
+  {
+   "name": "Security Plan Life Insurance",
+   "ats": "adp_wfn",
+   "cid": "301f0d53-2daa-4dac-a38e-578dc7383bc6"
+  },
+  {
+   "name": "Campbell & Company",
+   "ats": "adp_wfn",
+   "cid": "27d05e4e-8c09-4ef6-b344-6d123d187916"
+  },
+  {
+   "name": "Acadian Asset Management",
+   "ats": "greenhouse",
+   "slug": "acadianassetmanagementllc"
+  },
+  {
+   "name": "HomeBridge Financial Services",
+   "ats": "adp_wfn",
+   "cid": "c05080f7-673f-4841-85b4-5a4b93092437"
+  },
+  {
+   "name": "Curinos",
+   "ats": "adp_wfn",
+   "cid": "4d6d36b1-bedf-4c57-88e7-3817e50bbf21"
+  },
+  {
+   "name": "Ion Bank",
+   "ats": "ukg",
+   "board": "https://recruiting.ultipro.com/ION1001IONBN/JobBoard/04354723-0fd6-465e-a8c8-d97e9dbb8631"
+  },
+  {
+   "name": "Peoples Bancorp",
+   "ats": "adp_wfn",
+   "cid": "16c73aad-d909-4f4d-8ed3-2548ec1139b9"
   }
  ],
  "keywords": [
