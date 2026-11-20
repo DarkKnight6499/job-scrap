@@ -1,31 +1,1896 @@
 {
  "note": "Employers the scout cannot poll yet. Shown in the page's 'Not covered' dropdown. Remove an entry once its fetcher is live.",
  "companies": [
-  {"name": "BNP Paribas", "reason": "Akamai blocks the group job list (403 to scripts). The applicant system bwelcome.hr.bnpparibas serves single jobs but has no list, job sitemap or open search; about 60 US roles exist but finding them means probing about 9000 job ids per run"},
-  {"name": "Citadel", "reason": "Cloudflare Turnstile challenge on citadel.com, also in a real browser; no public ATS board found (Greenhouse, Lever, Ashby and The Muse have none)"},
-  {"name": "Rabobank", "reason": "WAF 403 to scripts on rabobank.jobs, including its own search API (POST /api/v1/jobs/); about 116 jobs, mostly Netherlands"},
-  {"name": "UniCredit", "reason": "Reachable now: it is an Avature site (careers.unicredit.eu/en_GB/jobsuche/SearchJobs, about 500 jobs) but none are in the US (Romania, Czech Republic, Italy, Hungary, Germany and others), so it was not added"},
-  {"name": "ABN AMRO", "reason": "werkenbijabnamro.nl vacancy API pages with pageNumber (8 per page, with sort params) but stops at page 9 (72 of 134), and its country facet is only Netherlands, Belgium and UK, so no US roles"},
-  {"name": "NatWest", "reason": "Cloudflare Turnstile challenge on jobs.natwestgroup.com, also in a real browser; no other public board found"},
-  {"name": "OCC", "reason": "Careers site returns 403 to scripts; no public ATS board found"},
-  {"name": "Euroclear", "reason": "Careers site returns 403 to scripts; no public ATS board found"},
-  {"name": "Tower Research", "reason": "Careers site returns 403 to scripts; no public ATS board found"},
-  {"name": "Susquehanna (SIG)", "reason": "iCIMS board (sig.icims.com); no iCIMS fetcher in the scout"},
-  {"name": "SS&C", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Hannover Re", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Annaly", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Rithm Capital", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Squarepoint Capital", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Elliott Management", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Cumberland", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "NICE Actimize", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Global Atlantic", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Munich Re", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Talcott", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Starwood Capital", "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"},
-  {"name": "Jackson Financial", "reason": "Careers site timed out; no board found"},
-  {"name": "FactSet", "reason": "careers domain did not resolve; no board found"},
-  {"name": "Mercer", "reason": "Phenom careers site, no public job list API found"},
-  {"name": "Guy Carpenter", "reason": "Phenom careers site, no public job list API found"}
+  {
+   "name": "BNP Paribas",
+   "reason": "Akamai blocks the group job list (403 to scripts). The applicant system bwelcome.hr.bnpparibas serves single jobs but has no list, job sitemap or open search; about 60 US roles exist but finding them means probing about 9000 job ids per run"
+  },
+  {
+   "name": "Citadel",
+   "reason": "Cloudflare Turnstile challenge on citadel.com, also in a real browser; no public ATS board found (Greenhouse, Lever, Ashby and The Muse have none)"
+  },
+  {
+   "name": "Rabobank",
+   "reason": "WAF 403 to scripts on rabobank.jobs, including its own search API (POST /api/v1/jobs/); about 116 jobs, mostly Netherlands"
+  },
+  {
+   "name": "UniCredit",
+   "reason": "Reachable now: it is an Avature site (careers.unicredit.eu/en_GB/jobsuche/SearchJobs, about 500 jobs) but none are in the US (Romania, Czech Republic, Italy, Hungary, Germany and others), so it was not added"
+  },
+  {
+   "name": "ABN AMRO",
+   "reason": "werkenbijabnamro.nl vacancy API pages with pageNumber (8 per page, with sort params) but stops at page 9 (72 of 134), and its country facet is only Netherlands, Belgium and UK, so no US roles"
+  },
+  {
+   "name": "NatWest",
+   "reason": "Cloudflare Turnstile challenge on jobs.natwestgroup.com, also in a real browser; no other public board found"
+  },
+  {
+   "name": "OCC",
+   "reason": "Careers site returns 403 to scripts; no public ATS board found"
+  },
+  {
+   "name": "Euroclear",
+   "reason": "Careers site returns 403 to scripts; no public ATS board found"
+  },
+  {
+   "name": "Tower Research",
+   "reason": "Careers site returns 403 to scripts; no public ATS board found"
+  },
+  {
+   "name": "SS&C",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Hannover Re",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Annaly",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Rithm Capital",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Elliott Management",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Cumberland",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "NICE Actimize",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Global Atlantic",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Munich Re",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Talcott",
+   "reason": "No ATS board link found on the careers page and no Workday tenant under common names; check by hand"
+  },
+  {
+   "name": "Jackson Financial",
+   "reason": "Careers site timed out; no board found"
+  },
+  {
+   "name": "FactSet",
+   "reason": "careers domain did not resolve; no board found"
+  },
+  {
+   "name": "Mercer",
+   "reason": "Phenom careers site, no public job list API found"
+  },
+  {
+   "name": "Guy Carpenter",
+   "reason": "Phenom careers site, no public job list API found"
+  },
+  {
+   "name": "MidFirst Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.midfirst.jobs"
+  },
+  {
+   "name": "PlainsCapital Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://cloud.hilltop.com"
+  },
+  {
+   "name": "Veritex Community Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://veritexbank.com/careers"
+  },
+  {
+   "name": "Pacific Premier Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ppbi.com/careers"
+  },
+  {
+   "name": "Stellar Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.stellar.bank/about/careers"
+  },
+  {
+   "name": "Farmers & Merchants Bank of Long Beach",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fmb.com/about-fmb/careers"
+  },
+  {
+   "name": "First Foundation Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.firstfoundationinc.com/careers"
+  },
+  {
+   "name": "Sandy Spring Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sandyspringbank.com/careers"
+  },
+  {
+   "name": "Bell Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://bell.bank/careers"
+  },
+  {
+   "name": "Community Bank System",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://cbna.com/careers"
+  },
+  {
+   "name": "WesBanco",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.wesbanco.com/about/careers/"
+  },
+  {
+   "name": "Berkshire Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.berkshirebank.com/About/Who-We-Are/Careers"
+  },
+  {
+   "name": "Brookline Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.brooklinebank.com"
+  },
+  {
+   "name": "First BanCorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.1firstbank.com"
+  },
+  {
+   "name": "CalPERS",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://calcareers.ca.gov/"
+  },
+  {
+   "name": "National Futures Association",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.nfa.futures.org/careers/search-jobs.html"
+  },
+  {
+   "name": "Tradition SEF",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.traditionsef.com"
+  },
+  {
+   "name": "Instinet",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.instinet.com/careers"
+  },
+  {
+   "name": "Minneapolis Grain Exchange",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.mgex.com"
+  },
+  {
+   "name": "Wedbush Securities",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://wedbush.atsondemand.com/"
+  },
+  {
+   "name": "Needham & Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.needhamco.com/careers/"
+  },
+  {
+   "name": "BIDS Trading",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.bidstrading.com"
+  },
+  {
+   "name": "Ziegler",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ziegler.com/careers/"
+  },
+  {
+   "name": "Stephens Inc.",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.stephens.com/careers/experienced-professionals/"
+  },
+  {
+   "name": "Cutler Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.cutlergroupllc.com"
+  },
+  {
+   "name": "TradeStation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.tradestation.com/"
+  },
+  {
+   "name": "Davenport & Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://investdavenport.com/careers"
+  },
+  {
+   "name": "Hard Eight Trading",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.hard8trading.com/"
+  },
+  {
+   "name": "Craig-Hallum Capital Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://craig-hallum.com/careers/"
+  },
+  {
+   "name": "WH Trading",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://whtrading.com/"
+  },
+  {
+   "name": "Roberts & Ryan Investments",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://roberts-ryan.com/careers"
+  },
+  {
+   "name": "Bancroft Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.bancroft4vets.com/veteran-training-program/"
+  },
+  {
+   "name": "Stern Brothers & Co.",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://sternbrothers.com/careers/"
+  },
+  {
+   "name": "R. Seelaus & Co.",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://rseelaus.com/careers"
+  },
+  {
+   "name": "Payden & Rygel",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.payden.com/careers"
+  },
+  {
+   "name": "Varo Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.varomoney.com/careers"
+  },
+  {
+   "name": "Rosenblatt Securities",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.rosenblattsecurities.com/careers"
+  },
+  {
+   "name": "Albert",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://albert.com/careers"
+  },
+  {
+   "name": "Cantaloupe",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.cantaloupe.com/careers/"
+  },
+  {
+   "name": "Paysafe",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://jobs.paysafe.com/job/"
+  },
+  {
+   "name": "Priority Technology Holdings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careersidc.prioritycommerce.com/"
+  },
+  {
+   "name": "Aeropay",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://jobs.gem.com/aeropay"
+  },
+  {
+   "name": "MineralTree",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.mineraltree.com/about/careers/"
+  },
+  {
+   "name": "Guild Mortgage",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.guildmortgage.com/careers/"
+  },
+  {
+   "name": "Coupa Software",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.coupa.com/"
+  },
+  {
+   "name": "Freedom Mortgage",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://jobs.freedommortgage.com/en-US/search"
+  },
+  {
+   "name": "Planet Home Lending",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://planethomelending.com/careers/"
+  },
+  {
+   "name": "Finance of America",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.financeofamericacompanies.com"
+  },
+  {
+   "name": "Plaza Home Mortgage",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.plazahomemortgage.com/careers"
+  },
+  {
+   "name": "Embrace Home Loans",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.embracehomeloans.com/about/careers/"
+  },
+  {
+   "name": "MFA Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.mfafinancial.com"
+  },
+  {
+   "name": "Redwood Trust",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.redwoodtrust.com/careers"
+  },
+  {
+   "name": "Dynex Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.dynexcapital.com/"
+  },
+  {
+   "name": "ARMOUR Residential REIT",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.armourreit.com"
+  },
+  {
+   "name": "Claros Mortgage Trust",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.clarosmortgage.com"
+  },
+  {
+   "name": "Horizon Technology Finance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.horizontechnologyfinance.com/"
+  },
+  {
+   "name": "Runway Growth Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://runwaygrowth.com/careers/"
+  },
+  {
+   "name": "Trinity Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://trinitycapital.com/careers"
+  },
+  {
+   "name": "Summit Financial Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Provident Financial Services",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.provident.bank/careers"
+  },
+  {
+   "name": "Timberland Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.timberlandbank.com/careers"
+  },
+  {
+   "name": "Third Federal Savings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.thirdfederal.com/careers"
+  },
+  {
+   "name": "Tompkins Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://tompkinsfinancial.com/careers/opportunities"
+  },
+  {
+   "name": "Two Harbors Investment",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://twoharborsinvestment.com/who-we-are/careers"
+  },
+  {
+   "name": "Seaport Global Securities",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://seaportglobal.com/careers"
+  },
+  {
+   "name": "United Bankshares",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.bankwithunited.com/"
+  },
+  {
+   "name": "United Community Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Univest Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.univest.net/about-us/careers"
+  },
+  {
+   "name": "Teachers Federal Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.teachersfcu.org/about/careers"
+  },
+  {
+   "name": "Simmons Financial Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Zions Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.zionsbank.com"
+  },
+  {
+   "name": "Semper Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "United Financial Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Mutual of Omaha",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.mutualofomaha.com/careers/job-search"
+  },
+  {
+   "name": "Kinsale Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.kinsaleins.com/"
+  },
+  {
+   "name": "Symetra Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.symetra.com/"
+  },
+  {
+   "name": "OneAmerica Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.oneamerica.com/about-us/careers/employment-opportunities"
+  },
+  {
+   "name": "F&G Annuities & Life",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fglife.com/about/careers"
+  },
+  {
+   "name": "Security Benefit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.securitybenefit.com/"
+  },
+  {
+   "name": "American National Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.americannational.com/careers"
+  },
+  {
+   "name": "Aspen Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://aspen.co"
+  },
+  {
+   "name": "OdysseyRe",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.odysseygroup.com"
+  },
+  {
+   "name": "Berkshire Hathaway Specialty Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.bhspecialty.com/career-home/"
+  },
+  {
+   "name": "Knights of Columbus",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.kofc.org"
+  },
+  {
+   "name": "PartnerRe",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://partnerre.com/careers/open-positions/"
+  },
+  {
+   "name": "Modern Woodmen of America",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.modernwoodmen.org/about-us/careers/"
+  },
+  {
+   "name": "Fresno Madera Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fmfarmcredit.com/careers"
+  },
+  {
+   "name": "Southern Farm Bureau Life Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sfbli.com"
+  },
+  {
+   "name": "CalSTRS",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.calcareers.ca.gov"
+  },
+  {
+   "name": "New York State Common Retirement Fund",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.statejobsny.com"
+  },
+  {
+   "name": "New York City Retirement Systems",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://cityjobs.nyc.gov"
+  },
+  {
+   "name": "Kuvare Holdings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://kuvare.com/kuvare-culture-and-values/job-postings/"
+  },
+  {
+   "name": "Texas County & District Retirement System",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.tcdrs.org/about/careers/"
+  },
+  {
+   "name": "State Board of Administration of Florida",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sbafla.com/fsb/EmploymentInformation.aspx"
+  },
+  {
+   "name": "Washington State Investment Board",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sib.wa.gov/job_searches.asp"
+  },
+  {
+   "name": "Ohio Public Employees Retirement System",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.opers.org/"
+  },
+  {
+   "name": "PSERS",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.employment.pa.gov"
+  },
+  {
+   "name": "Teacher Retirement System of Texas",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://trs.texas.gov/Pages/careers.aspx"
+  },
+  {
+   "name": "Pennsylvania SERS",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.employment.pa.gov"
+  },
+  {
+   "name": "Massachusetts PRIM Board",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.mapension.com/careers/"
+  },
+  {
+   "name": "Minnesota State Board of Investment",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://mn.gov/mmb/careers/"
+  },
+  {
+   "name": "New Jersey Division of Investment",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.nj.gov/treasury/administration/hr-employment.shtml"
+  },
+  {
+   "name": "Stanford Management Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careersearch.stanford.edu/"
+  },
+  {
+   "name": "MITIMCo",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://mitimco.org/job-opening/investor/"
+  },
+  {
+   "name": "UTIMCO",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.utimco.org/careers/"
+  },
+  {
+   "name": "UC Investments",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://jobs.ucop.edu/"
+  },
+  {
+   "name": "Columbia Investment Management Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.columbia.edu/"
+  },
+  {
+   "name": "DUMAC",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://hr.duke.edu/careers/"
+  },
+  {
+   "name": "DoubleLine Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://doubleline.com"
+  },
+  {
+   "name": "Wasatch Global Investors",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://wasatchglobal.com/careers/"
+  },
+  {
+   "name": "Western Asset Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.franklintempleton.com"
+  },
+  {
+   "name": "Causeway Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.causewaycap.com/about-causeway/careers/"
+  },
+  {
+   "name": "Brandes Investment Partners",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.brandes.com/careers"
+  },
+  {
+   "name": "Affiliated Managers Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://amg.com"
+  },
+  {
+   "name": "NEPC",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.nepc.com/about/careers"
+  },
+  {
+   "name": "New York Stock Exchange",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.ice.com"
+  },
+  {
+   "name": "Meketa Investment Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://meketa.com"
+  },
+  {
+   "name": "BOX Options Market",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://boxexchange.com/employment/"
+  },
+  {
+   "name": "MIAX Exchange Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.miaxglobal.com/careers"
+  },
+  {
+   "name": "Municipal Securities Rulemaking Board",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.msrb.org/Careers"
+  },
+  {
+   "name": "Main Street Capital Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://mainstcapital.com/careers/open-positions/"
+  },
+  {
+   "name": "PennantPark",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.pennantpark.com/"
+  },
+  {
+   "name": "Gladstone Capital Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://gladstonecapital.com/careers"
+  },
+  {
+   "name": "Prospect Capital Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.prospectcap.com/careers/"
+  },
+  {
+   "name": "College Ave Student Loans",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.collegeave.com/careers/"
+  },
+  {
+   "name": "PenFed Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.penfed.org"
+  },
+  {
+   "name": "Security Service Federal Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ssfcu.org/careers"
+  },
+  {
+   "name": "Penserra Securities",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://penserra.com/careers/"
+  },
+  {
+   "name": "Bethpage Federal Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://fourleaf.jobboardview.com/"
+  },
+  {
+   "name": "Star One Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.starone.org/about-us/careers/"
+  },
+  {
+   "name": "TriplePoint Venture Growth",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.tpvg.com/"
+  },
+  {
+   "name": "Desert Financial Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://jobs.desertfinancial.com"
+  },
+  {
+   "name": "Space Coast Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sccu.com/careers"
+  },
+  {
+   "name": "Coastal Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://coastal24.applicantpool.com/jobs/"
+  },
+  {
+   "name": "Affinity Federal Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.affinityfcu.com"
+  },
+  {
+   "name": "Kinecta Federal Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.kinecta.org/careers"
+  },
+  {
+   "name": "Empyrean Solutions",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://empyreansolutions.com/careers/"
+  },
+  {
+   "name": "MIAC Analytics",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://miacanalytics.com/current-job-opportunities/"
+  },
+  {
+   "name": "Wilary Winn",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://wilwinn.com/careers/"
+  },
+  {
+   "name": "Intex Solutions",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.intex.com/main/careers/"
+  },
+  {
+   "name": "Demotech",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.demotech.com"
+  },
+  {
+   "name": "Andrew Davidson & Co.",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ad-co.com/join-our-team"
+  },
+  {
+   "name": "Weiss Ratings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://weissratings.com"
+  },
+  {
+   "name": "RapidRatings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.rapidratings.com/careers"
+  },
+  {
+   "name": "Credit Benchmark",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.creditbenchmark.com/careers/"
+  },
+  {
+   "name": "Quantifi",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://quantifisolutions.freshteam.com/jobs"
+  },
+  {
+   "name": "Beacon Platform",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.beacon.io/careers"
+  },
+  {
+   "name": "TriState Capital Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://tristatecapitalbank.com/careers/"
+  },
+  {
+   "name": "AgFirst Farm Credit Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.agfirst.com/careers"
+  },
+  {
+   "name": "AgriBank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.agribank.com/careers/"
+  },
+  {
+   "name": "Farm Credit Services of America",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fcsamerica.com/careers"
+  },
+  {
+   "name": "Arvest Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.arvest.com/careers"
+  },
+  {
+   "name": "Federal Farm Credit Banks Funding Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.farmcreditfunding.com"
+  },
+  {
+   "name": "Farm Credit Mid-America",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fcma.com/careers"
+  },
+  {
+   "name": "GreenStone Farm Credit Services",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.greenstonefcs.com/careers"
+  },
+  {
+   "name": "Farm Credit East",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.farmcrediteast.com/careers"
+  },
+  {
+   "name": "Envestnet",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.envestnet.com/search/jobs"
+  },
+  {
+   "name": "Plansmith",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://info.plansmith.com/job-postings"
+  },
+  {
+   "name": "RiXtrema",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.rixtrema.com"
+  },
+  {
+   "name": "SymphonyAI Sensa",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://symphonyai.com/careers/"
+  },
+  {
+   "name": "Actico",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.actico.com/company/careers/"
+  },
+  {
+   "name": "Featurespace",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.featurespace.com"
+  },
+  {
+   "name": "Finsight Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://finsight.com/careers"
+  },
+  {
+   "name": "American Savings Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.asbhawaii.com/careers"
+  },
+  {
+   "name": "OpenGamma",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://opengamma.com/careers/"
+  },
+  {
+   "name": "Cassini Systems",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://cassini.com/careers/"
+  },
+  {
+   "name": "Bank of Stockton",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.bankofstockton.com/careers"
+  },
+  {
+   "name": "Argent Trust Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://argentfinancial.com/join-our-team/"
+  },
+  {
+   "name": "Burke & Herbert Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.burkeandherbertbank.com"
+  },
+  {
+   "name": "Farmers National Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://farmersbankgroup.com/careers"
+  },
+  {
+   "name": "Fiduciary Trust International",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.franklintempleton.com/"
+  },
+  {
+   "name": "Cape Cod 5",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.capecodfive.com/about-us/careers"
+  },
+  {
+   "name": "First Mid Bank & Trust",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.firstmid.com/about/careers"
+  },
+  {
+   "name": "First Security Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fsbank.com/about-us/join-us/"
+  },
+  {
+   "name": "Egan-Jones Ratings Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://egan-jones.com/careers"
+  },
+  {
+   "name": "Five Star Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.five-starbank.com/about/careers"
+  },
+  {
+   "name": "HarborOne Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.easternbank.com"
+  },
+  {
+   "name": "Great Southern Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.greatsouthernbank.com/about-us/careers"
+  },
+  {
+   "name": "Heritage Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.heritagebanknw.com/jobs"
+  },
+  {
+   "name": "German American Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://germanamerican.com/about/careers"
+  },
+  {
+   "name": "Heritage Bank of Commerce",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.cbbank.com"
+  },
+  {
+   "name": "Comerica Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.comerica.com/careers"
+  },
+  {
+   "name": "Institution for Savings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.institutionforsavings.com/careers"
+  },
+  {
+   "name": "Johnson Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.johnsonfinancialgroup.com/careers"
+  },
+  {
+   "name": "HTLF Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.htlf.com/careers"
+  },
+  {
+   "name": "Lake City Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.lakecitybank.com/careers/"
+  },
+  {
+   "name": "Nicolet National Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.nicoletbank.com/careers"
+  },
+  {
+   "name": "Mid Penn Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://midpennbank.com/careers/"
+  },
+  {
+   "name": "Orrstown Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.orrstown.com/careers"
+  },
+  {
+   "name": "Peapack-Gladstone Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.peapackprivate.com/careers"
+  },
+  {
+   "name": "Premier Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.bankwithpremier.com/careers/"
+  },
+  {
+   "name": "Preferred Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.preferredbank.com"
+  },
+  {
+   "name": "Republic Bank & Trust Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.republicbank.com/careers"
+  },
+  {
+   "name": "Safra National Bank of New York",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.safra.com"
+  },
+  {
+   "name": "Salem Five Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.salemfive.com/about-us/careers/"
+  },
+  {
+   "name": "Security National Bank of Omaha",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://securitynational.bank/content.php?page=Careers"
+  },
+  {
+   "name": "Southside Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.southside.com/careers"
+  },
+  {
+   "name": "Stockman Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.stockmanbank.com/careers"
+  },
+  {
+   "name": "Texas Regional Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://trb.bank/careers/"
+  },
+  {
+   "name": "Trustco Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.trustcobank.com/careers"
+  },
+  {
+   "name": "Union Bank & Trust",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ubt.com/careers/current-openings"
+  },
+  {
+   "name": "Univest Bank and Trust Co.",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.univest.net/about-us/careers"
+  },
+  {
+   "name": "Westamerica Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.westamerica.com/about/careers/"
+  },
+  {
+   "name": "Whittier Trust Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.whittiertrust.com/careers/"
+  },
+  {
+   "name": "California Housing Finance Agency",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://calcareers.ca.gov/"
+  },
+  {
+   "name": "MassHousing",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.masshousing.com/careers"
+  },
+  {
+   "name": "FirstBank Puerto Rico",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.1firstbank.com/pr/en/about-us/careers.html"
+  },
+  {
+   "name": "Illinois Housing Development Authority",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ihda.org/about-ihda/join-the-team-careers/"
+  },
+  {
+   "name": "State of New York Mortgage Agency",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://statejobsny.com"
+  },
+  {
+   "name": "Ohio Housing Finance Agency",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.ohio.gov"
+  },
+  {
+   "name": "Florida Housing Finance Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.floridahousing.org/about-florida-housing/employment"
+  },
+  {
+   "name": "Colorado Housing and Finance Authority",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.chfainfo.com/careers"
+  },
+  {
+   "name": "North Carolina Housing Finance Agency",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.nchfa.com/careers"
+  },
+  {
+   "name": "Alaska Housing Finance Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ahfc.us/about-us/jobs"
+  },
+  {
+   "name": "New Jersey Housing and Mortgage Finance Agency",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.nj.gov/dca/hmfa/about/careers/"
+  },
+  {
+   "name": "Visions Federal Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.visionsfcu.org/careers"
+  },
+  {
+   "name": "Baxter Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.bcu.org/about-us/careers"
+  },
+  {
+   "name": "MOHELA",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.mohela.com/careers"
+  },
+  {
+   "name": "MEFA",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.mefa.org/careers"
+  },
+  {
+   "name": "VSAC",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.vsac.org/careers"
+  },
+  {
+   "name": "Main Street Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://mainstcapital.com/open-positions/"
+  },
+  {
+   "name": "Rhode Island Housing",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://osa.rihousing.com/"
+  },
+  {
+   "name": "Republic Finance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://jobs.republicfinance.com/"
+  },
+  {
+   "name": "Oxford Finance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://oxfordfinance.com/contact-us/"
+  },
+  {
+   "name": "MidCap Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.midcapfinancial.com/careers/"
+  },
+  {
+   "name": "CSI Leasing",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.csileasing.com/about-us/careers/employment-opportunities/"
+  },
+  {
+   "name": "White Oak Commercial Finance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://whiteoaksf.com/careers/"
+  },
+  {
+   "name": "Brazos Higher Education",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://studentloans.com/about-us/career-opportunities/"
+  },
+  {
+   "name": "PEAC Solutions",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.peacsolutions.com/"
+  },
+  {
+   "name": "Armed Forces Benefit Association",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://career.afba.com"
+  },
+  {
+   "name": "Aspen Insurance Holdings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.aspen.co/careers/"
+  },
+  {
+   "name": "Berkshire Life Insurance Company of America",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.guardianlife.com/careers"
+  },
+  {
+   "name": "Colonial Life & Accident Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.coloniallife.com/about-colonial-life/careers"
+  },
+  {
+   "name": "Columbian Mutual Life Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.cfglife.com/index.php?option=com_content&view=article&id=51&Itemid=162"
+  },
+  {
+   "name": "Cotton States Mutual Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.countryfinancial.com"
+  },
+  {
+   "name": "Dairyland Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.dairylandinsurance.com"
+  },
+  {
+   "name": "CSS Life",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.csslife.com"
+  },
+  {
+   "name": "Delta Dental Plans Association",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.deltadental.com/us/en/about-us/careers.html"
+  },
+  {
+   "name": "Stonebriar Commercial Finance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.stonebriarcf.com"
+  },
+  {
+   "name": "Carolina Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://agcarolina.com"
+  },
+  {
+   "name": "Colonial Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.colonialfarmcredit.com/about/careers"
+  },
+  {
+   "name": "First South Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.firstsouthfarmcredit.com/about/careers"
+  },
+  {
+   "name": "AgSouth Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.agsouthfc.com/careers/search-jobs"
+  },
+  {
+   "name": "AgGeorgia Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.aggeorgia.com/who-we-are/careers"
+  },
+  {
+   "name": "Farm Credit of Southern Colorado",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fcscolorado.com/careers"
+  },
+  {
+   "name": "Farm Credit of Central Florida",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://farmcreditcfl.com/resources/career-opportunities"
+  },
+  {
+   "name": "Southern AgCredit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://southernagcredit.com/about/careers/"
+  },
+  {
+   "name": "Farm Credit of Western Arkansas",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://myaglender.com/about/careers"
+  },
+  {
+   "name": "Texas Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://texasfarmcredit.com/careers-opportunity/"
+  },
+  {
+   "name": "Yosemite Farm Credit",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://yosemitefarmcredit.com/about-yfc/careers-with-yosemite-farm-credit/"
+  },
+  {
+   "name": "Farm Credit System Insurance Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fcsic.gov/about-us/careers"
+  },
+  {
+   "name": "Equitable Life Insurance Company of Iowa",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.voya.com"
+  },
+  {
+   "name": "Fairfax Financial Holdings US",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fairfax.ca"
+  },
+  {
+   "name": "Fidelity & Guaranty Life",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fglife.com/about/careers/opportunities"
+  },
+  {
+   "name": "Folksamerica Reinsurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.siriuspt.com"
+  },
+  {
+   "name": "General American Life Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.metlife.com"
+  },
+  {
+   "name": "FGL Holdings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fglife.com/about/careers/opportunities"
+  },
+  {
+   "name": "Independence Holding Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ihcgroup.com"
+  },
+  {
+   "name": "Kansas City Life Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.kclife.com/careers"
+  },
+  {
+   "name": "Liberty Bankers Insurance Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://lbig.com/careers"
+  },
+  {
+   "name": "Lumico Life Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://lumico.com"
+  },
+  {
+   "name": "Merchants Bonding Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.merchantsbonding.com/About/Careers"
+  },
+  {
+   "name": "Fidelity Life Association",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://fidelitylife.com/careers/"
+  },
+  {
+   "name": "Nerdio Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://getnerdio.com"
+  },
+  {
+   "name": "Ohio National Financial Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://constellationinsurance.com/careers"
+  },
+  {
+   "name": "Penn-America Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://penn-america.com/"
+  },
+  {
+   "name": "Pekin Life Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.pekininsurance.com/careers"
+  },
+  {
+   "name": "Patriot National",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sec.gov/edgar/browse/?CIK=0001607598"
+  },
+  {
+   "name": "Platinum Underwriters Holdings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.renre.com"
+  },
+  {
+   "name": "Scottish Annuity & Life Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.scottishre.com"
+  },
+  {
+   "name": "Providence Mutual Fire Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.providencemutual.com/careers"
+  },
+  {
+   "name": "Sagicor Life Insurance Company USA",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sagicor.com/en-US/usa-landing-page/careers"
+  },
+  {
+   "name": "Southern Mutual Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Security Plan Life Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.citizensinc.com/careers"
+  },
+  {
+   "name": "Squire Patton Boggs",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.squirepattonboggs.com/en/join-us"
+  },
+  {
+   "name": "Tokio Marine America",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.tmamerica.com/"
+  },
+  {
+   "name": "Stonebridge Life Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "State Mutual Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://statemutualinsurance.com/"
+  },
+  {
+   "name": "Texas Life Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.texaslife.com/careers"
+  },
+  {
+   "name": "Trenwick Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Tri-Star Life Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Magnolia Insurance Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "USLI (United States Liability Insurance Group)",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.usli.com/careers"
+  },
+  {
+   "name": "West Coast Life Insurance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Windstream Insurance Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Wilton Re Holdings",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.wiltonre.com/careers/"
+  },
+  {
+   "name": "World Life and Accident Insurance Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Illinois Municipal Retirement Fund",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.imrf.org/en/about-imrf/employment-at-imrf/career-opportunities"
+  },
+  {
+   "name": "State Universities Retirement System",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.surs.org"
+  },
+  {
+   "name": "Colorado Public Employees' Retirement Association",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.copera.org/careers"
+  },
+  {
+   "name": "Arizona State Retirement System",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.azstatejobs.gov"
+  },
+  {
+   "name": "Carnegie Corporation of New York",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://carnegie.org/about/careers/"
+  },
+  {
+   "name": "The Baupost Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Rokos Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.rokoscapital.com/careers"
+  },
+  {
+   "name": "GoldenTree Asset Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Trexquant Investment",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://trexquant.com/ico/careers"
+  },
+  {
+   "name": "Cinctive Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.cinctive.com/careers"
+  },
+  {
+   "name": "King Street Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.kingstreet.com/"
+  },
+  {
+   "name": "Universal American Corp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly"
+  },
+  {
+   "name": "Gresham Investment Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.greshamllc.com"
+  },
+  {
+   "name": "Corvex Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.corvexcap.com"
+  },
+  {
+   "name": "Starboard Value",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.starboardvalue.com"
+  },
+  {
+   "name": "Sachem Head Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sachemhead.com"
+  },
+  {
+   "name": "Scopia Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.scopiacapital.com"
+  },
+  {
+   "name": "Campbell & Company",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.campbell.com/careers/"
+  },
+  {
+   "name": "Jana Partners",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.janapartners.com"
+  },
+  {
+   "name": "Taconic Capital Advisors",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://taconiccap.com/culture-careers/"
+  },
+  {
+   "name": "Holocene Advisors",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://holocene.com/careers/"
+  },
+  {
+   "name": "Centerbridge Partners",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.centerbridge.com/culture-careers/"
+  },
+  {
+   "name": "Whale Rock Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.whalerockcapital.com"
+  },
+  {
+   "name": "Hitchwood Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.hitchwoodcapital.com"
+  },
+  {
+   "name": "ClearBridge Investments",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.franklintempleton.com/"
+  },
+  {
+   "name": "Brandywine Global",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.franklintempleton.com/"
+  },
+  {
+   "name": "Acadian Asset Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.acadian-asset.com/careers/open-positions"
+  },
+  {
+   "name": "Eaton Vance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.eatonvance.com"
+  },
+  {
+   "name": "Canyon Partners",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.canyonpartners.com/careers/"
+  },
+  {
+   "name": "Amundi US",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://jobs.amundi.com"
+  },
+  {
+   "name": "MacKay Shields",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://workforcenow.adp.com"
+  },
+  {
+   "name": "Harding Loevner",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://recruit.hirebridge.com/v3/ilearn/w/default.aspx?cid=7729"
+  },
+  {
+   "name": "Royce Investment Partners",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.royceinvest.com"
+  },
+  {
+   "name": "Tweedy, Browne",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.tweedy.com"
+  },
+  {
+   "name": "Segall Bryant & Hamill",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.cisbh.com/careers"
+  },
+  {
+   "name": "Putnam Investments",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.putnam.com/careers"
+  },
+  {
+   "name": "PennantPark Investment Advisers",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.pennantpark.com"
+  },
+  {
+   "name": "Prospect Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.prospectcap.com/careers/"
+  },
+  {
+   "name": "Gladstone Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.gladstonecapital.com/"
+  },
+  {
+   "name": "VanEck",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.vaneck.com/us/en/careers/"
+  },
+  {
+   "name": "Oxford Square Capital",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.oxfordsquarecapital.com"
+  },
+  {
+   "name": "Saratoga Investment Corp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.saratogainvestmentcorp.com"
+  },
+  {
+   "name": "Twin Brook Capital Partners",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://twincp.com/careers/"
+  },
+  {
+   "name": "New York Mortgage Trust",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.adamasreit.com/"
+  },
+  {
+   "name": "Commonfund",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.commonfund.org"
+  },
+  {
+   "name": "Federal Home Loan Banks Office of Finance",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.fhlb-of.com/careers"
+  },
+  {
+   "name": "Farm Credit of Northwest Florida",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.farmcredit-fl.com/careers"
+  },
+  {
+   "name": "Ginnie Mae",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ginniemae.gov"
+  },
+  {
+   "name": "Export-Import Bank of the United States",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.usajobs.gov"
+  },
+  {
+   "name": "U.S. International Development Finance Corporation",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://dfc.usajobs.gov/"
+  },
+  {
+   "name": "Carter Bank & Trust",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.carterbank.com/career"
+  },
+  {
+   "name": "Curinos",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://curinos.com/careers/"
+  },
+  {
+   "name": "HarborOne Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.harborone.com"
+  },
+  {
+   "name": "Endeavor Business Media",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.endeavorb2b.com/careers"
+  },
+  {
+   "name": "HomeBridge Financial Services",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.homebridge.com/careers/"
+  },
+  {
+   "name": "Hood River Capital Management",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.hoodrivercapital.com"
+  },
+  {
+   "name": "Westwood Holdings Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://westwoodgroup.com/careers-opportunities/"
+  },
+  {
+   "name": "Innovation Credit Union",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.innovationcu.ca"
+  },
+  {
+   "name": "Integrated Mortgage Solutions",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.imstx.com"
+  },
+  {
+   "name": "Incenter Financial Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://incenterdiligence.com/careers/"
+  },
+  {
+   "name": "Ion Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://ionbank.com/about-ion/careers/"
+  },
+  {
+   "name": "Manufacturers Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.smbcmanubank.com/ManufacturersBank/Careers"
+  },
+  {
+   "name": "Maxim Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.maximgrp.com/careers"
+  },
+  {
+   "name": "Merchants Financial Group",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.merchantsbank.com/Careers"
+  },
+  {
+   "name": "Nevada State Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.nsbank.com"
+  },
+  {
+   "name": "OceanFirst Financial",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://oceanfirst.com/about-us/careers"
+  },
+  {
+   "name": "Mission Community Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.missioncommunitybank.com"
+  },
+  {
+   "name": "Pacific Premier Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.ppbi.com"
+  },
+  {
+   "name": "Peoples Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.peoplesbancorp.com/about-us/find-a-career/"
+  },
+  {
+   "name": "Premier Financial Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.peoplesbancorp.com"
+  },
+  {
+   "name": "Republic Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://recruiting.ultipro.com"
+  },
+  {
+   "name": "Sandy Spring Bancorp",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.sandyspringbank.com/careers"
+  },
+  {
+   "name": "White Oak Global Advisors",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://whiteoaksf.com"
+  },
+  {
+   "name": "Solifi",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.solifi.com/careers"
+  },
+  {
+   "name": "Meridian Bank",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://careers.meridianbanker.com"
+  },
+  {
+   "name": "Southern First Bancshares",
+   "reason": "Custom careers site with no supported ATS (checked 2026-11-20); check the site directly",
+   "url": "https://www.southernfirst.com/careers"
+  }
  ]
 }

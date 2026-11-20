@@ -5183,7 +5183,12 @@ def write_queue_html(q, path, updated_at=None, closed_json=None, filtered_json=N
     uns = [c for c in load_json(HOME / "unsupported.json", {}).get("companies", []) if c.get("name")]
     unsupported_html = ""
     if uns:
-        items = "".join(f"<li>{html.escape(c['name'])}<span>{html.escape(c.get('reason', ''))}</span></li>"
+        def uns_name(c):
+            name = html.escape(c["name"])
+            if not c.get("url"):
+                return name
+            return f'<a href="{html.escape(c["url"], quote=True)}" target="_blank" rel="noopener">{name}</a>'
+        items = "".join(f"<li>{uns_name(c)}<span>{html.escape(c.get('reason', ''))}</span></li>"
                         for c in sorted(uns, key=lambda c: c["name"].lower()))
         unsupported_html = (f'<details id="unsupported"><summary title="Employers this scout cannot read yet">Not covered ({len(uns)})</summary>'
                             f'<div class="uns-panel"><p>Postings from these employers will not appear here. Check their sites directly.</p>'
