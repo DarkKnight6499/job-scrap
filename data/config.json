@@ -19359,6 +19359,58 @@
    "name": "Farm Bureau Financial Services",
    "ats": "csod",
    "corp": "fbfs"
+  },
+  {
+   "name": "EverBank",
+   "ats": "adp_rm",
+   "domain": "everbank"
+  },
+  {
+   "name": "United Bank",
+   "ats": "successfactors",
+   "host": "careers.bankwithunited.com",
+   "locale": "en_US"
+  },
+  {
+   "name": "Glacier Bank",
+   "ats": "jibe",
+   "host": "www.gbcijobs.com",
+   "job_path": "/jobs"
+  },
+  {
+   "name": "Central Bancompany",
+   "ats": "adp_rm",
+   "domain": "centralbancompany"
+  },
+  {
+   "name": "Sammons Financial Group",
+   "ats": "jibe",
+   "host": "sammonsfinancialgroup.jibeapply.com",
+   "job_path": "jobs"
+  },
+  {
+   "name": "PHEAA",
+   "ats": "silkroad",
+   "portal": "PHEAA"
+  },
+  {
+   "name": "Suncoast Credit Union",
+   "ats": "jibe",
+   "host": "careers.suncoastcreditunion.com",
+   "job_path": "jobs"
+  },
+  {
+   "name": "Patelco Credit Union",
+   "ats": "jibe",
+   "host": "careers.patelco.org",
+   "job_path": "en/jobs"
+  },
+  {
+   "name": "Dollar Bank",
+   "ats": "brassring",
+   "host": "sjobs.brassring.com",
+   "partnerid": "25950",
+   "siteid": "5192"
   }
  ],
  "keywords": [
