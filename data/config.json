@@ -18121,6 +18121,356 @@
     "collateral",
     "spring 2027"
    ]
+  },
+  {
+   "name": "Dun & Bradstreet",
+   "ats": "lever",
+   "slug": "dnb"
+  },
+  {
+   "name": "IDB Bank",
+   "ats": "greenhouse",
+   "slug": "idbny"
+  },
+  {
+   "name": "Lake Michigan Credit Union",
+   "ats": "workday",
+   "host": "lmcu.wd5.myworkdayjobs.com",
+   "tenant": "lmcu",
+   "site": "lmcucareersite",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Tri City National Bank",
+   "ats": "icims",
+   "hosts": [
+    "careers-tcnb.icims.com"
+   ]
+  },
+  {
+   "name": "Pennsylvania Housing Finance Agency",
+   "ats": "workday",
+   "host": "phfa.wd5.myworkdayjobs.com",
+   "tenant": "phfa",
+   "site": "PHFA",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Virginia Credit Union",
+   "ats": "workday",
+   "host": "vacu.wd1.myworkdayjobs.com",
+   "tenant": "vacu",
+   "site": "VACU_Careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Redstone Federal Credit Union",
+   "ats": "workday",
+   "host": "redfcu.wd503.myworkdayjobs.com",
+   "tenant": "redfcu",
+   "site": "RFCU",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Auto Club Group",
+   "ats": "workday",
+   "host": "acg.wd1.myworkdayjobs.com",
+   "tenant": "acg",
+   "site": "Careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "IBC Bank",
+   "ats": "workday",
+   "host": "ibc.wd5.myworkdayjobs.com",
+   "tenant": "ibc",
+   "site": "ibc_careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Porch Group",
+   "ats": "workday",
+   "host": "porch.wd1.myworkdayjobs.com",
+   "tenant": "porch",
+   "site": "careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Pan-American Life Insurance Group",
+   "ats": "workday",
+   "host": "palig.wd5.myworkdayjobs.com",
+   "tenant": "palig",
+   "site": "palig",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Crum & Forster",
+   "ats": "icims",
+   "hosts": [
+    "careers-cfins.icims.com"
+   ]
+  },
+  {
+   "name": "Utah Retirement Systems",
+   "ats": "icims",
+   "hosts": [
+    "careers-urs.icims.com"
+   ]
+  },
+  {
+   "name": "NYSTRS",
+   "ats": "workday",
+   "host": "nystrs.wd12.myworkdayjobs.com",
+   "tenant": "nystrs",
+   "site": "NYSTRS_Careers",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Triumph Financial",
+   "ats": "workday",
+   "host": "tbkbank.wd1.myworkdayjobs.com",
+   "tenant": "tbkbank",
+   "site": "tfin",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Virginia Retirement System",
+   "ats": "workday",
+   "host": "varetire.wd108.myworkdayjobs.com",
+   "tenant": "varetire",
+   "site": "VRS_External_Career_Site",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Emory University",
+   "ats": "icims",
+   "hosts": [
+    "staff-emory.icims.com"
+   ]
+  },
+  {
+   "name": "State of Oregon",
+   "ats": "workday",
+   "host": "oregon.wd5.myworkdayjobs.com",
+   "tenant": "oregon",
+   "site": "SOR_External_Career_Site",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
   }
  ],
  "keywords": [
