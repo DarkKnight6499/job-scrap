@@ -11,7 +11,7 @@ import unicodedata
 REQUIRED_FIELDS = {
     "greenhouse": ("slug",), "lever": ("slug",), "ashby": ("slug",),
     "jazzhr": ("host",), "workable": ("slug",), "nas_recruitment": ("host",),
-    "teamtailor": ("host",), "comeet": ("host",), "kula": ("slug",), "breezy": ("slug",), "jobvite": ("company",), "isolvedhire": ("host",), "silkroad": ("portal",), "jobaps": ("agency",), "applicantstack": ("host",), "yc": ("slug",),
+    "teamtailor": ("host",), "comeet": ("host",), "kula": ("slug",), "breezy": ("slug",), "jobvite": ("company",), "isolvedhire": ("host",), "silkroad": ("portal",), "jobaps": ("agency",), "applicantstack": ("host",), "yc": ("slug",), "neogov": ("agency",), "trakstar": ("slug",), "pinpoint": ("slug",), "sitemap": ("sitemap",),
     "smartrecruiters": ("slug",), "personio": ("slug",),
     "workday": ("host", "tenant", "site"), "oracle": ("host", "site"),
     "successfactors": ("host",), "icims": (),
@@ -68,6 +68,10 @@ def endpoints(company):
         return {(ats, _host(company.get("host", "jobs.silkroad.com")), _path(company["portal"]).lower())}
     if ats == "jobaps":
         return {(ats, _path(company["agency"]).lower())}
+    if ats == "neogov":
+        return {(ats, _path(company["agency"]).lower())}
+    if ats == "sitemap":
+        return {(ats, company["sitemap"].strip().lower())}
     if ats == "lever":
         return {(ats, "eu" if company.get("region") == "eu" else "global", _path(company["slug"]))}
     if "slug" in REQUIRED_FIELDS[ats]:
