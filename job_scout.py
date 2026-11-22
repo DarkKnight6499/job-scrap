@@ -2583,6 +2583,40 @@ def jibe(c):
     return out, False
 
 
+def amazon(c):
+    """Amazon.jobs public /en/search.json (no login). One call per search term, 100 rows a page, newest first;
+    `country` defaults to USA. Each row carries the full description and qualifications and a "Month D, YYYY"
+    posted date, so no describe() call is needed. Verified live 2026-11-21 ("treasury": 28 hits)."""
+    out, seen = [], set()
+    complete = True
+    cap = int(c.get("max_per_term", 200))
+    for term in _terms(c):
+        offset, term_done = 0, False
+        while offset < cap:
+            q = urllib.parse.urlencode({"base_query": term, "country": c.get("country", "USA"), "result_limit": 100,
+                                        "offset": offset, "sort": "recent"})
+            d = http(f"https://www.amazon.jobs/en/search.json?{q}", headers={"Accept": "application/json"}, timeout=40)
+            rows = d.get("jobs") or []
+            for r in rows:
+                jid = str(r.get("id_icims") or "")
+                if not jid or jid in seen:
+                    continue
+                seen.add(jid)
+                try:
+                    posted = datetime.strptime(r.get("posted_date") or "", "%B %d, %Y").date().isoformat()
+                except ValueError:
+                    posted = ""
+                text = " ".join(strip_html(r.get(k) or "") for k in ("description", "basic_qualifications", "preferred_qualifications"))
+                out.append(dict(id=jid, title=r.get("title", "") or "", location=r.get("normalized_location") or r.get("location") or "",
+                                url="https://www.amazon.jobs" + (r.get("job_path") or f"/en/jobs/{jid}"), posted=posted, desc=text))
+            offset += 100
+            if len(rows) < 100 or offset >= int(d.get("hits") or 0):
+                term_done = True
+                break
+        complete = complete and term_done
+    return out, complete
+
+
 _TALEO_AGE_BUCKETS = {1: (0, 0), 2: (1, 1), 3: (2, 7), 4: (8, 14), 5: (15, 21), 6: (22, 28)}  # POSTING_DATE filter id -> age range in days
 
 
@@ -3061,7 +3095,7 @@ def phenom(c):
 
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
              oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, ukg_ready=ukg_ready, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
-             balyasny=balyasny, tal=tal,
+             balyasny=balyasny, tal=tal, amazon=amazon,
              dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr,
              jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment,
              teamtailor=teamtailor, comeet=comeet, kula=kula, breezy=breezy, neogov=neogov, pinpoint=pinpoint, trakstar=trakstar, sitemap=sitemap, jobvite=jobvite, isolvedhire=isolvedhire, silkroad=silkroad, jobaps=jobaps, applicantstack=applicantstack, yc=yc)

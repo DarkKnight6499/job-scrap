@@ -22,7 +22,7 @@ REQUIRED_FIELDS = {
     "hrmdirect": ("host",), "goldman": (), "deshaw": (),
     "commerzbank": (), "dzbank": (), "marketaxess": (), "balyasny": (), "tal": ("host",), "dayforce": ("namespace", "board"), "rippling": ("slug",), "careerpuck": ("slug",), "bamboohr": ("slug",), "sitecore_search": ("discover_id", "api_key", "entity"), "phenom": ("host", "ref_num", "page_id"),
     "kpmg": (), "adp_rm": ("domain",), "adp_wfn": ("cid",), "ukg": ("board",),
-    "taleo_be": ("host", "search_id", "site_name"), "taleo_cws": ("host", "path", "org", "cws"), "csod": ("corp",), "peoplesoft_hrs": ("host",), "talentsoft": ("host",), "bpce": ("host",), "paylocity": ("board",), "ukg_ready": ("board",),
+    "taleo_be": ("host", "search_id", "site_name"), "taleo_cws": ("host", "path", "org", "cws"), "csod": ("corp",), "peoplesoft_hrs": ("host",), "talentsoft": ("host",), "bpce": ("host",), "paylocity": ("board",), "ukg_ready": ("board",), "amazon": (),
 }
 ROOT = Path(__file__).resolve().parent
 

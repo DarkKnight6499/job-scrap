@@ -232,3 +232,14 @@ def test_successfactors_skips_page_two_once_a_feed_is_seen_to_ignore_startrow():
         jobs, complete = js.successfactors(dict(host="h", search=["x"], term_workers=1))
     js._SF_NO_PAGING.discard("h")
     assert complete and len(jobs) == 20 and len(calls) == 4  # term a: page 1 and the repeat; b and c: page 1 only
+
+
+def test_amazon_rows_dates_and_completeness():
+    row = lambda i, d: {"id_icims": str(i), "title": f"Analyst {i}", "normalized_location": "New York, New York, USA", "posted_date": d,
+                        "job_path": f"/en/jobs/{i}/x", "description": "<p>Desc</p>", "basic_qualifications": "- BS", "preferred_qualifications": ""}
+    page = {"hits": 2, "jobs": [row(1, "November 18, 2026"), row(2, "bad date")]}
+    with mock.patch.object(js, "http", fake_http({"amazon.jobs/en/search.json": page})):
+        jobs, complete = js.amazon(dict(name="Amazon", ats="amazon", search=["treasury"]))
+    assert complete and [j["id"] for j in jobs] == ["1", "2"]
+    assert jobs[0]["posted"] == "2026-11-18" and jobs[1]["posted"] == ""
+    assert jobs[0]["url"] == "https://www.amazon.jobs/en/jobs/1/x" and "Desc" in jobs[0]["desc"]
