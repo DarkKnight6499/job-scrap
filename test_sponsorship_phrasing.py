@@ -21,6 +21,7 @@ OPT_ONLY = [
     "Bachelor's degree in Finance, STEM, or a related field. We do not provide visa sponsorship for this role.",
     "Applicants must be authorized to work in the U.S. without current or future employer support.",
     "We will not sponsor now or in the future.",
+    "Visa sponsorship is not available for this role at this time.",
 ]
 HARD_BLOCKED = [
     "This position is for a government client and we can only hire US citizens.",
@@ -44,11 +45,9 @@ UNCLEAR = [
     "Sponsorship: No longer needed once you join the program.",
     "Our members are not sponsored by agencies of the United States.",
     "We will not sponsor new industry registrations for this fund.",
-    "We offer visa sponsorship and immigration support for qualified candidates.",
-    "Immigration support is available for the right candidate.",
+    "Sponsorship available: No",
     "Do not apply unless you are passionate about risk management.",
     "Please do not apply through third parties; use our careers site.",
-    "Candidates must be eligible to work in the United States. We will sponsor H-1B visas where appropriate.",
     "The role supports our immigration law practice clients and does not require travel.",
     "Authorized to work in the U.S. is required; we provide relocation assistance.",
 ]
@@ -75,6 +74,27 @@ def test_plain_no_sponsorship_is_opt_only(text):
 @pytest.mark.parametrize("text", UNCLEAR)
 def test_benign_lookalikes_stay_unclear(text):
     assert js.classify_sponsorship(text)[0] == "Unclear"
+
+
+ALLOWED = [
+    "Immigration sponsorship may be available.",
+    "We offer visa sponsorship and immigration support for qualified candidates.",
+    "Immigration support is available for the right candidate.",
+    "Candidates must be eligible to work in the United States. We will sponsor H-1B visas where appropriate.",
+    "Visa sponsorship available for qualified candidates.",
+]
+
+
+@pytest.mark.parametrize("text", ALLOWED)
+def test_explicit_offer_of_sponsorship_is_allowed(text):
+    status, evidence = js.classify_sponsorship(text)
+    assert status == "Allowed" and evidence
+
+
+def test_block_wording_beats_an_offer():
+    text = "Immigration sponsorship may be available for some roles. This role requires U.S. citizenship."
+    assert js.classify_sponsorship(text)[0] == "Blocked"
+    assert js.classify_sponsorship("Sponsorship may be available elsewhere. For this role we will not sponsor now or in the future.")[0] == "OPT Only"
 
 
 def test_us_abbreviation_before_space_is_normalized():

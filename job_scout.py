@@ -190,6 +190,15 @@ _SIGNOFF_RE = re.compile(r"documentation|\bsign(?:ing)?\b|execution of|execute (
 _STEM_OPT_WELCOME_RE = re.compile(r"\b(?:welcome|accepts?|accepted|open\s+to|eligible\s+to\s+apply|(?:can|may)\s+apply)\b", re.I)
 OPT_WINDOW_CHARS = 400 # an OPT/STEM/F-1 mention this close to a no-sponsorship phrase is read as an OPT exclusion
 
+# 2026-11-22 (Yazad): explicit offers of sponsorship classify as Allowed; checked only after every block pattern missed.
+ALLOW_PATTERNS = [
+    r"\b(?:visa|immigration|work\s+visa|employment[- ]based)?\s*(?:sponsorship|support|assistance)\s+(?:is|are|may\s+be|might\s+be|can\s+be|could\s+be|will\s+be)\s+(?:available|offered|provided)\b",
+    r"\b(?:we|company|firm|employer|bank)\s+(?:will|do|does|can|may|could|might)?\s*(?:offer|provide|sponsor)s?\s+(?:visa|h-?1b|immigration|work\s+visa|employment\s+visa|employment[- ]based)",
+    r"\bvisa\s+sponsorship\s+(?:available|offered|provided)\b",
+]
+ALLOW_RES = [re.compile(p, re.I) for p in ALLOW_PATTERNS]
+_ALLOW_NEGATED_RE = re.compile(r"\b(?:not|no|never|cannot|can't|won't|unable|without|neither|nor)\b|n't\b", re.I)
+
 # Abbreviations whose internal periods break the "[^.]{0,N}" same-sentence
 # windows above (a period-based window can't span "U.S." without this) -
 # normalized out of the text before matching, in classify_sponsorship() only.
@@ -3722,7 +3731,8 @@ def matches(job, f):
 
 def classify_sponsorship(text):
     """Blocked on language that rules out OPT too (citizenship, clearance, permanent authorization, OPT
-    exclusion), "OPT Only" on plain no-sponsorship language, else Unclear. Never Allowed."""
+    exclusion), "OPT Only" on plain no-sponsorship language, "Allowed" on an explicit offer of sponsorship
+    (only when no block wording is present), else Unclear."""
     if not text:
         return "Unclear", "Description unavailable; not checked."
     normalized = _normalize_abbreviations(text)  # same length as `text` - offsets stay valid
@@ -3756,6 +3766,13 @@ def classify_sponsorship(text):
         if not tag and re.search(r"\bfuture\b", normalized[first.start():first.end() + 60], re.I):
             tag = "[now or future] "
         return "OPT Only", tag + evidence(first)
+    for rx in ALLOW_RES:
+        for m in rx.finditer(normalized):
+            before = normalized[max(0, m.start() - 40):m.start()]
+            after = normalized[m.end():m.end() + 25]
+            if _ALLOW_NEGATED_RE.search(before) or re.match(r"\s*[:\-]?\s*no\b", after, re.I):
+                continue  # "no immigration support is available", "Sponsorship available: No"
+            return "Allowed", evidence(m)
     return "Unclear", "No sponsorship language in the description."
 
 
