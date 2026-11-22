@@ -19459,6 +19459,75 @@
     "spring 2027"
    ],
    "max_per_term": 100
+  },
+  {
+   "name": "PBF Energy",
+   "ats": "workday",
+   "host": "pbfenergy.wd1.myworkdayjobs.com",
+   "tenant": "pbfenergy",
+   "site": "PBF",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "Sompo",
+   "ats": "workday",
+   "host": "endurance.wd103.myworkdayjobs.com",
+   "tenant": "endurance",
+   "site": "SompoInternational",
+   "search": [
+    "treasury",
+    "liquidity",
+    "asset liability",
+    "model risk",
+    "market risk",
+    "counterparty",
+    "fixed income",
+    "capital",
+    "model validation",
+    "stress testing",
+    "ccar",
+    "balance sheet",
+    "regulatory reporting",
+    "quantitative",
+    "derivatives",
+    "collateral",
+    "spring 2027"
+   ]
+  },
+  {
+   "name": "New American Funding",
+   "ats": "icims",
+   "hosts": [
+    "careers-nafinc.icims.com"
+   ]
+  },
+  {
+   "name": "Duetti",
+   "ats": "lever",
+   "slug": "duetti"
+  },
+  {
+   "name": "InfiniteQuant",
+   "ats": "smartrecruiters",
+   "slug": "infinitequant"
   }
  ],
  "keywords": [
