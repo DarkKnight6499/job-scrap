@@ -716,12 +716,12 @@
  },
  "centerviewpartners": {
   "name": "Centerview Partners",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": null
  },
  "rothschildco": {
   "name": "Rothschild & Co",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": null
  },
  "cowen": {
@@ -756,7 +756,7 @@
  },
  "nuveen": {
   "name": "Nuveen",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": null
  },
  "pgim": {
@@ -776,7 +776,7 @@
  },
  "bnpparibas": {
   "name": "BNP Paribas",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": null
  },
  "daiwacapitalmarkets": {
@@ -1001,7 +1001,7 @@
  },
  "citadel": {
   "name": "Citadel",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": null
  },
  "nuveenchurchill": {
@@ -1091,7 +1091,7 @@
  },
  "globalatlantic": {
   "name": "Global Atlantic",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": null
  },
  "munichre": {
@@ -1156,7 +1156,7 @@
  },
  "aqr": {
   "name": "AQR",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": "greenhouse aqr"
  },
  "virtu": {
@@ -1391,7 +1391,7 @@
  },
  "tudorinvestment": {
   "name": "Tudor Investment",
-  "date": "2026-11-10",
+  "date": "2026-11-22",
   "found": null
  },
  "caxtonassociates": {
@@ -1695,8 +1695,8 @@
   "found": null
  },
  "federalhomeloanbankofdesmoines": {
-  "name": "Federal Home Loan Bank of Des Moines",
-  "date": "2026-11-11",
+  "name": "Federal Home Loan Bank Of Des Moines",
+  "date": "2026-11-22",
   "found": null
  },
  "thecloroxcompany": {
@@ -1846,7 +1846,7 @@
  },
  "creditonebank": {
   "name": "Credit One Bank",
-  "date": "2026-11-15",
+  "date": "2026-11-22",
   "found": null
  },
  "axonicinsurance": {
@@ -1911,7 +1911,7 @@
  },
  "nodalexchange": {
   "name": "Nodal Exchange",
-  "date": "2026-11-15",
+  "date": "2026-11-22",
   "found": null
  },
  "rhythmpharmaceuticals": {
@@ -5684,7 +5684,7 @@
  },
  "quantbottechnologies": {
   "name": "Quantbot Technologies",
-  "date": "2026-11-20",
+  "date": "2026-11-22",
   "found": "greenhouse quantbot-technologies"
  },
  "trexquantinvestment": {
@@ -7499,8 +7499,8 @@
   "found": null
  },
  "webbank": {
-  "name": "WebBank",
-  "date": "2026-11-20",
+  "name": "Webbank",
+  "date": "2026-11-22",
   "found": null
  },
  "celticbank": {
@@ -17249,7 +17249,7 @@
   "found": "breezy google"
  },
  "federalhomeloanbankofcincinnati": {
-  "name": "Federal Home Loan Bank of Cincinnati",
+  "name": "Federal Home Loan Bank Of Cincinnati",
   "date": "2026-11-22",
   "found": null
  },
@@ -17405,6 +17405,311 @@
  },
  "sumitomomitsuifinancialgroupinc": {
   "name": "Sumitomo Mitsui Financial Group, Inc.",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "wallstreetoasis": {
+  "name": "Wall Street Oasis",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "zoox": {
+  "name": "Zoox",
+  "date": "2026-11-22",
+  "found": "lever zoox"
+ },
+ "talisman": {
+  "name": "talisman",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "weaverpartners": {
+  "name": "Weaver Partners",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "moran": {
+  "name": "Moran",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "mckinseycompany": {
+  "name": "McKinsey & Company",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "geico": {
+  "name": "GEICO",
+  "date": "2026-11-22",
+  "found": "smartrecruiters geico"
+ },
+ "globalatlanticfinancial": {
+  "name": "Global Atlantic Financial",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "mercuria": {
+  "name": "Mercuria",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "woodlinepartners": {
+  "name": "Woodline Partners",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "bankershealthcaregroup": {
+  "name": "Bankers Healthcare Group",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "imc": {
+  "name": "Imc",
+  "date": "2026-11-22",
+  "found": "greenhouse imc"
+ },
+ "socialfinance": {
+  "name": "Social Finance",
+  "date": "2026-11-22",
+  "found": "greenhouse socialfinance"
+ },
+ "ice": {
+  "name": "ICE",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "bnymellon": {
+  "name": "BNY Mellon",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "dfscorporate": {
+  "name": "Dfs Corporate",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "teambelvedere": {
+  "name": "Team Belvedere",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "bankershealthcare": {
+  "name": "Bankers Healthcare",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "bmobank": {
+  "name": "Bmo Bank",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "ctctrading": {
+  "name": "Ctc Trading",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "federalhomeloanbankchicago": {
+  "name": "Federal Home Loan Bank Chicago",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "discoverproducts": {
+  "name": "Discover Products",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "miopartners": {
+  "name": "Mio Partners",
+  "date": "2026-11-22",
+  "found": "greenhouse miopartners"
+ },
+ "viac": {
+  "name": "Viac",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "royalbankofcanada": {
+  "name": "Royal Bank Of Canada",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "taniustechnology": {
+  "name": "Tanius Technology",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "cubistsystematicstrategies": {
+  "name": "Cubist Systematic Strategies",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "atlanticus": {
+  "name": "Atlanticus",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "lmrpartners": {
+  "name": "Lmr Partners",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "sunrisefutures": {
+  "name": "Sunrise Futures",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "sescopjmstrategy": {
+  "name": "Sesco Pjm Strategy",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "sandpopco": {
+  "name": "S And P Opco",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "iceclearcredit": {
+  "name": "Ice Clear Credit",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "scientechresearch": {
+  "name": "Scientech Research",
+  "date": "2026-11-22",
+  "found": "ashby scientech-research"
+ },
+ "granthammayovanotterlooand": {
+  "name": "Grantham Mayo Van Otterloo And",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "nexteraenergymarketing": {
+  "name": "Nextera Energy Marketing",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "federalhomeloanbankofdallas": {
+  "name": "Federal Home Loan Bank Of Dallas",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "mortgageguarantyinsurance": {
+  "name": "Mortgage Guaranty Insurance",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "gicspecialinvestmentspte": {
+  "name": "Gic Special Investments Pte",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "federalhomeloanbankofindianapolis": {
+  "name": "Federal Home Loan Bank Of Indianapolis",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "alphasquares": {
+  "name": "Alpha Square S",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "mavensecurities": {
+  "name": "Maven Securities",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "federalhomeloanbankofatlanta": {
+  "name": "Federal Home Loan Bank Of Atlanta",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "ecesisinvestments": {
+  "name": "Ecesis Investments",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "nhinvestmentandsecurities": {
+  "name": "Nh Investment And Securities",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "acsunshinesecurities": {
+  "name": "Ac Sunshine Securities",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "ifminvestors": {
+  "name": "Ifm Investors ( )",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "siemensfinancial": {
+  "name": "Siemens Financial",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "refinitiv": {
+  "name": "Refinitiv",
+  "date": "2026-11-22",
+  "found": "workday Careers"
+ },
+ "sequoiabenefitsandinsurance": {
+  "name": "Sequoia Benefits And Insurance",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "deltadentalofcalifornia": {
+  "name": "Delta Dental Of California",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "lendingpoint": {
+  "name": "Lendingpoint",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "gtssecurities": {
+  "name": "Gts Securities",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "ccficompanies": {
+  "name": "Ccfi Companies",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "mscience": {
+  "name": "M Science",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "finco": {
+  "name": "Finco",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "dv": {
+  "name": "Dv",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "federalhomeloanbankofpittsburgh": {
+  "name": "Federal Home Loan Bank Of Pittsburgh",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "firstcover": {
+  "name": "First Cover",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "beneficient": {
+  "name": "Beneficient ( )",
+  "date": "2026-11-22",
+  "found": null
+ },
+ "avenuesecurities": {
+  "name": "Avenue Securities",
   "date": "2026-11-22",
   "found": null
  }
