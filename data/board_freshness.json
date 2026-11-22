@@ -6,10 +6,10 @@
   "changed": "2026-11-20"
  },
  "Stripe": {
-  "n": 778,
-  "sig": "532817981bc5",
+  "n": 777,
+  "sig": "7d38e612665b",
   "checked": "2026-11-22",
-  "changed": "2026-11-21"
+  "changed": "2026-11-22"
  },
  "Robinhood": {
   "n": 163,
@@ -414,10 +414,10 @@
   "changed": "2026-11-21"
  },
  "Santander": {
-  "n": 1033,
-  "sig": "be99938425db",
+  "n": 1032,
+  "sig": "4bf42e6bf6ce",
   "checked": "2026-11-22",
-  "changed": "2026-11-21"
+  "changed": "2026-11-22"
  },
  "CIBC Capital Markets": {
   "n": 608,
@@ -978,8 +978,8 @@
   "changed": "2026-11-20"
  },
  "PayPal": {
-  "n": 368,
-  "sig": "159a098f6e9b",
+  "n": 369,
+  "sig": "204d3ba8d25a",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -1236,10 +1236,10 @@
   "changed": "2026-11-21"
  },
  "Applied Materials": {
-  "n": 2318,
-  "sig": "78c990b8079a",
+  "n": 2319,
+  "sig": "70b099f87d0e",
   "checked": "2026-11-22",
-  "changed": "2026-11-21"
+  "changed": "2026-11-22"
  },
  "Ardent Mills": {
   "n": 57,
@@ -3600,10 +3600,10 @@
   "changed": "2026-11-21"
  },
  "Lowe's": {
-  "n": 13011,
-  "sig": "fa8e9f3cf64e",
+  "n": 12850,
+  "sig": "ab0a39743f64",
   "checked": "2026-11-22",
-  "changed": "2026-11-21"
+  "changed": "2026-11-22"
  },
  "Sonoco": {
   "n": 289,
@@ -4705,13 +4705,13 @@
  },
  "Scotiabank": {
   "n": 249,
-  "sig": "6fbc4c0e3f5d",
+  "sig": "5204ae6086cd",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
  "Standard Chartered": {
-  "n": 252,
-  "sig": "44eeb94bf321",
+  "n": 253,
+  "sig": "e93172a521ef",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -4734,8 +4734,8 @@
   "changed": "2026-11-18"
  },
  "New York Life": {
-  "n": 326,
-  "sig": "46b1aa2f30f1",
+  "n": 66,
+  "sig": "222ea782c468",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -4776,8 +4776,8 @@
   "changed": "2026-11-22"
  },
  "UBS": {
-  "n": 596,
-  "sig": "eb5364f48c29",
+  "n": 591,
+  "sig": "211674fbd355",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -5028,8 +5028,8 @@
   "changed": "2026-11-21"
  },
  "EY": {
-  "n": 459,
-  "sig": "fa82fde16564",
+  "n": 463,
+  "sig": "6214f53ecc35",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -5736,8 +5736,8 @@
   "changed": "2026-11-22"
  },
  "Qualcomm": {
-  "n": 2061,
-  "sig": "3a03173a3a19",
+  "n": 2053,
+  "sig": "7910c3316c19",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -6342,8 +6342,8 @@
   "changed": "2026-11-20"
  },
  "Accenture": {
-  "n": 10531,
-  "sig": "cdca8596b2a1",
+  "n": 10520,
+  "sig": "0c7896ec602c",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -7092,8 +7092,8 @@
   "changed": "2026-11-21"
  },
  "State of Washington": {
-  "n": 234,
-  "sig": "42ee57dbcb0a",
+  "n": 268,
+  "sig": "f53e8dc745dc",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  },
@@ -7820,6 +7820,24 @@
  "Duke University": {
   "n": 265,
   "sig": "ea6264f8b0ef",
+  "checked": "2026-11-22",
+  "changed": "2026-11-22"
+ },
+ "Marathon Capital": {
+  "n": 2,
+  "sig": "cbd8a8cfefde",
+  "checked": "2026-11-22",
+  "changed": "2026-11-22"
+ },
+ "Mellon Foundation": {
+  "n": 6,
+  "sig": "ab478f482530",
+  "checked": "2026-11-22",
+  "changed": "2026-11-22"
+ },
+ "Capital Fund Management": {
+  "n": 28,
+  "sig": "58c4ad9a22ea",
   "checked": "2026-11-22",
   "changed": "2026-11-22"
  }
