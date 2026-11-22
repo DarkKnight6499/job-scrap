@@ -1,102 +1,53 @@
-# Filter audit (2026-11-19)
+# Filter audit (2026-11-22)
 
-12181 roles hidden by title rules across 935 companies; 164 look like core fits, 70 new since the last audit.
+12520 roles hidden by title rules across 1131 companies; 177 look like core fits, 21 new since the last audit.
 
 ## New flagged roles (check each rule)
-- Akuna Capital: [Junior Quantitative Developer & Strategist](https://www.akunacapital.com/careers/job/8016687/?gh_jid=8016687) (Chicago, IL ) hidden by title_exclude: **quantitative developer**
-- Alpaca: [Cyber & AI Risk Analyst  ](https://job-boards.greenhouse.io/alpaca/jobs/6254372004) (Remote - EMEA) hidden by title_exclude: **cyber**
-- Audax Group: [Security Risk Analyst](https://job-boards.greenhouse.io/audaxgroup/jobs/4738501005) (Boston, MA) hidden by title_exclude: **security**
-- Axos Bank: [VP, Treasury Relationship Manager](https://axos.wd5.myworkdayjobs.com/axos/job/HQ---San-Diego-CA/VP--Treasury-Relationship-Manager_JR5134) (HQ - San Diego, CA) hidden by title_exclude: **relationship manager**
-- Balyasny: [Quantitative Developer - Systematic Strategies (Summer Internship)](https://bambusdev.my.site.com/s/details?jobReq=Quantitative-Developer---Systematic-Strategies--Summer-Internship-_REQ8625) (San Francisco | New York) hidden by title_exclude: **quantitative developer**
-- Balyasny: [Quantitative Developer - Systematic Research Technology](https://bambusdev.my.site.com/s/details?jobReq=Quantitative-Developer---Systematic-Research-Technology_REQ8621) (New York) hidden by title_exclude: **quantitative developer**
-- Bank of America: [Treasury Product Sales Mgr II](https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Chicago/Treasury-Product-Sales-Mgr-II_26042781) (6 Locations (Chicago)) hidden by title_exclude: **treasury product sales**
-- BlackRock: [Vice President, Quantitative Developer - SpiderRock](https://blackrock.wd1.myworkdayjobs.com/BlackRock_Professional/job/Chicago-IL/Vice-President--Quantitative-Developer---SpiderRock_R266804) (Chicago, IL) hidden by title_exclude: **quantitative developer**
-- Citi: [Security and Derivatives Associate Analyst](https://citi.wd5.myworkdayjobs.com/2/job/Tampa-Florida-United-States/Security-and-Derivatives-Associate-Analyst_261006839) (Tampa Florida United States) hidden by title_exclude: **security**
-- Citizens Financial Group: [Sr. Liquidity Relationship Manager – (DACA)](https://hcgn.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/47243) (United States) hidden by title_exclude: **relationship manager**
-- Citizens Financial Group: [Liquidity Relationship Manager – (Escrow)](https://hcgn.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/47246) (United States) hidden by title_exclude: **relationship manager**
-- Citizens Financial Group: [Senior Treasury Relationship Manager – Government Banking - NJ](https://hcgn.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/47753) (United States) hidden by title_exclude: **relationship manager**
-- Clearwater Analytics: [Quantitative Developer III, Securitized Products](https://clearwateranalytics.wd1.myworkdayjobs.com/Clearwater_Analytics_Careers/job/Office---New-York/Quantitative-Developer-III--Securitized-Products_R12518) (Office - New York) hidden by title_exclude: **quantitative developer**
-- Clearwater Analytics: [Staff Quantitative Developer,  FX](https://clearwateranalytics.wd1.myworkdayjobs.com/Clearwater_Analytics_Careers/job/Office---New-York/Quantitative-Developer--Associate---FX_R10839) (Office - New York) hidden by title_exclude: **quantitative developer**
-- Clearwater Analytics: [Staff Quantitative Developer, Commodities](https://clearwateranalytics.wd1.myworkdayjobs.com/Clearwater_Analytics_Careers/job/Office---New-York/Quantitative-Developer---Commodities_R10881) (Office - New York) hidden by title_exclude: **quantitative developer**
-- Commerce Bank: [Customer Support Specialist - Treasury](https://commercebank.wd1.myworkdayjobs.com/CommerceJobs/job/MO---Kansas-City-DowntownPlaza---Kansas-City---KC-Downtown-Trust-Building-922-Walnut-64106/Customer-Support-Specialist---Treasury_38721) (MO - Kansas City Downtown/Plaza - Kansas City - KC Downtown Trust Building (922 Walnut) (64106)) hidden by title_exclude: **customer support specialist - treasury**
-- DRW: [Quantitative Developer](https://job-boards.greenhouse.io/drweng/jobs/7985591) (New York) hidden by title_exclude: **quantitative developer**
-- DriveWealth: [Staff Quantitative Developer](https://boards.greenhouse.io/drivewealth/jobs/5447511003?gh_jid=5447511003) (Austin, Texas, United States; Dallas, Texas, United States; Denver, Colorado, United States; Office - Chicago; San Francisco, California, United States; Seattle, Washington, United States) hidden by title_exclude: **quantitative developer**
-- East West Bank: [Treasury Relationship Manager](https://careers-eastwestbank.icims.com/jobs/13204/treasury-relationship-manager/job) (Pasadena, CA, US) hidden by title_exclude: **relationship manager**
-- FIS: [Representative II, BPS Derivatives Operations](https://fis.wd5.myworkdayjobs.com/SearchJobs/job/US-IL-CHI-222-STE-1700/Representative-II--BPS-Derivatives-Operations_JR0310193) (US IL CHI 222 STE 1700) hidden by title_exclude: **derivatives operations**
-- FIS: [Representative II, BPS Derivatives Operations](https://fis.wd5.myworkdayjobs.com/SearchJobs/job/US-FL-JAX-347/Representative-II--BPS-Derivatives-Operations_JR0310192) (US FL JAX 347) hidden by title_exclude: **derivatives operations**
-- Federal Reserve Bank of New York: [Cyber Security Risk Analyst](https://rb.wd5.myworkdayjobs.com/FRS/job/New-York-NY/Cyber-Software-Security-Specialist_R-0000032025) (New York, NY) hidden by title_exclude: **cyber**
-- Fidelity Investments: [Senior Quantitative Developer](https://fmr.wd1.myworkdayjobs.com/FidelityCareers/job/Merrimack-NH/Senior-Quantitative-Developer_2132011-1) (Merrimack, NH) hidden by title_exclude: **quantitative developer**
-- First Citizens Bank: [Cyber Risk Analyst III (Remote)](https://jobs.firstcitizens.com/jobs/36410) (Raleigh, North Carolina; Austin, Texas; North Carolina, United States; Arizona, United States) hidden by title_exclude: **cyber**
-- First Hawaiian Bank: [Enterprise Information Security & Technology Risk Analyst](https://ibfhqy.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/FHBCareers/job/570) (Honolulu, HI, United States) hidden by title_exclude: **security**
-- IMC Trading: [Quantitative Developer - Python](https://job-boards.eu.greenhouse.io/imc/jobs/4874399101) (Chicago, United States) hidden by title_exclude: **quantitative developer**
-- Jain Global: [Quantitative Developer, Risk Technology ](https://jainglobal.wd5.myworkdayjobs.com/LinkedInCareerSite/job/New-York-New-York/Quantitative-Developer--Risk-Technology-_JR100595-1) (New York, New York) hidden by title_exclude: **quantitative developer**
-- Janus Henderson: [Asset Servicing and Treasury Team Lead](https://jobs.janushenderson.com/job/Denver-Asset-Servicing-and-Treasury-Team-Lead-CO-80206/1451820200/) (Denver, CO, US, 80206) hidden by title_exclude: **asset servicing**
-- MSCI: [Quantitative Developer](https://uscareers-msci.icims.com/jobs/6000/quantitative-developer/job) (New York, NY, US) hidden by title_exclude: **quantitative developer**
-- MUFG: [Treasury Relationship Manager, Vice President - Sponsor, Growth & Middle Market](https://mufgub.wd3.myworkdayjobs.com/MUFG-Careers/job/New-York-NY/Treasury-Relationship-Manager--Vice-President_10080131-WD-1) (New York, NY) hidden by title_exclude: **relationship manager**
-- MUFG: [Vice President, Treasury Relationship Manager Sales FIG](https://mufgub.wd3.myworkdayjobs.com/MUFG-Careers/job/New-York-NY/VP-TRM-Sales-FIG_10077345-WD-1) (New York, NY) hidden by title_exclude: **relationship manager**
-- Man Group: [Senior Quantitative Developer](https://job-boards.eu.greenhouse.io/mangroup/jobs/4936364101) (Massachusetts) hidden by title_exclude: **quantitative developer**
-- Millennium Management: [Quantitative Developer](https://mlp.eightfold.ai/careers/job/755959724535) (New York, New York, United States of America) hidden by title_exclude: **quantitative developer**
-- Millennium Management: [Senior Quantitative Developer](https://mlp.eightfold.ai/careers/job/755957773457) (New York, New York, United States of America) hidden by title_exclude: **quantitative developer**
-- Millennium Management: [Quantitative Developer, C++ I Low-Latency Systems](https://mlp.eightfold.ai/careers/job/755956532578) (New York, New York, United States of America) hidden by title_exclude: **quantitative developer**
-- Millennium Management: [Quantitative Developer (Python) -  Central Liquidity Strategies](https://mlp.eightfold.ai/careers/job/755954183338) (New York, New York, United States of America) hidden by title_exclude: **quantitative developer**
-- Millennium Management: [Quantitative Developer](https://mlp.eightfold.ai/careers/job/755952876477) (New York, New York, United States of America) hidden by title_exclude: **quantitative developer**
-- PNC: [Business Banking Treasury Management Advisor - Relationship Manager I](https://pnc.wd5.myworkdayjobs.com/External/job/CO---Boulder-80301/Business-Banking-Treasury-Management-Advisor---Relationship-Manager-I_R236612-1) (CO - Boulder (80301)) hidden by title_exclude: **relationship manager**
-- PNC: [Technology Risk Advisor - Risk Quant](https://pnc.wd5.myworkdayjobs.com/External/job/PA---Pittsburgh-15222/Technology-Risk-Advisor_R234418-1) (10 Locations (PA   Pittsburgh 15222)) hidden by title_exclude: **technology risk**
-- PNC: [Business Banking Treasury Management Advisor - Relationship Manager I](https://pnc.wd5.myworkdayjobs.com/External/job/CO---Fort-Collins-80525/Business-Banking-Treasury-Management-Advisor---Relationship-Manager-I_R228666-1) (CO - Fort Collins (80525)) hidden by title_exclude: **relationship manager**
-- Point72: [Quantitative Developer](https://boards.greenhouse.io/point72/jobs/7297511002?gh_jid=7297511002) (Chicago) hidden by title_exclude: **quantitative developer**
-- Point72: [Quantitative Developer - CIO Office](https://boards.greenhouse.io/point72/jobs/7297653002?gh_jid=7297653002) (New York) hidden by title_exclude: **quantitative developer**
-- Point72: [Quantitative Developer Intern](https://boards.greenhouse.io/point72/jobs/7609197002?gh_jid=7609197002) (New York) hidden by title_exclude: **quantitative developer**
-- Principal Financial: [Quantitative Developer (Machine Learning & AI)](https://careers.principal.com/us/jobs/52604) (Des Moines, Iowa; Chicago, Illinois) hidden by title_exclude: **quantitative developer**
-- Provident Bank: [Senior Technology Risk Analyst - Iselin, NJ (Hybrid)](https://careers.provident.bank/job/Iselin-Senior-Technology-Risk-Analyst-Iselin%2C-NJ-%28Hybrid%29-NJ-08830/1355783600/) (Iselin, NJ, US) hidden by title_exclude: **technology risk**
-- Regions Bank: [Treasury Management Relationship Manager](https://regions.wd5.myworkdayjobs.com/Regions_Careers/job/Chattanooga-TN---Chattanooga-Market-Street-Branch/Treasury-Management-Relationship-Manager_R107550) (Chattanooga, TN - Chattanooga Market Street Branch) hidden by title_exclude: **relationship manager**
-- Regions Bank: [Treasury Management Relationship Manager](https://regions.wd5.myworkdayjobs.com/Regions_Careers/job/Charlotte-NC---Charlotte-Uptown-Branch/Treasury-Management-Relationship-Manager_R103854) (2 Locations (Charlotte NC   Charlotte Uptown Branch)) hidden by title_exclude: **relationship manager**
-- Regions Bank: [Treasury Management Relationship Manager](https://regions.wd5.myworkdayjobs.com/Regions_Careers/job/Atlanta-GA---Regions-Plaza-Office/Treasury-Management-Relationship-Manager_R104601) (Atlanta, GA - Regions Plaza Office) hidden by title_exclude: **relationship manager**
-- SMBC: [Quantitative Developer - Systematic Trading, Rates, Associate](https://careers.smbcgroup.com/smbc/job/New-York-Quantitative-Developer-Systematic-Trading%2C-Rates%2C-Associate-NY-10172/1433859200/) (New York, NY, US, 10172) hidden by title_exclude: **quantitative developer**
-- Sanofi: [2027 Spring Co-op Quantitative Pharmacology, Morristown, NJ](https://sanofi.wd3.myworkdayjobs.com/SanofiCareers/job/Morristown-NJ/XMLNAME-2027-Spring-Co-op-Quantitative-Pharmacology--Morristown--NJ_R2851923) (Morristown, NJ) hidden by title_exclude: **pharmacology**
-- SoFi: [Loan Funding Specialist](https://sofi.com/careers/job/8207825003?gh_jid=8207825003) (Frisco, TX) hidden by title_exclude: **loan funding**
-- Stryker: [Senior Technology Risk Analyst (IT Audit) - remote](https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Dallas-Texas/Senior-Technology-Risk-Analyst--IT-Audit----remote_R573541) (4 Locations (Dallas Texas)) hidden by title_exclude: **technology risk**
-- Stryker: [Lead Technology Risk Analyst (IT Audit) - remote](https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Dallas-Texas/Lead-Technology-Risk-Analyst--IT-Audit----remote_R573540) (4 Locations (Dallas Texas)) hidden by title_exclude: **technology risk**
-- Susquehanna International Group: [Quantitative Developer | C++ |Options Pricing | Experienced Hire](https://careers.sig.com/jobs/10071) (Bala Cynwyd (Philadelphia Area), Pennsylvania) hidden by title_exclude: **quantitative developer**
-- Susquehanna International Group: [C++ Quantitative Developer | Trading Strategies | Experienced Hire](https://careers.sig.com/jobs/9880) (New York, New York) hidden by title_exclude: **quantitative developer**
-- T. Rowe Price: [Sr. Manager, FP&A (HR & Global Benefits)](https://troweprice.wd5.myworkdayjobs.com/TRowePrice/job/Owings-Mills-MD/Sr-Manager--FP-A--HR---Global-Benefits-_84369) (Owings Mills, MD) hidden by title_exclude: **hr**
-- Tokio Marine HCC: [Lead Cat Risk Analyst-Casualty & Cyber](https://tmhcc.wd108.myworkdayjobs.com/External/job/Georgia---Duluth/Lead-Cat-Risk-Analyst-Casualty---Cyber_2026-1074) (Georgia - Duluth) hidden by title_exclude: **cyber**
-- Tower Research Capital: [Quantitative Developer Intern - Summer 2027](https://www.tower-research.com/open-positions/?gh_jid=8044334) (New York, Chicago) hidden by title_exclude: **quantitative developer**
-- Truist: [Commercial Real Estate Deposit & Treasury Banker](https://truist.wd1.myworkdayjobs.com/Careers/job/Charlotte-NC/Commercial-Real-Estate-Deposit---Treasury-Banker_R0121394) (2 Locations (Charlotte NC)) hidden by title_exclude: **banker**
-- UMB Financial: [Treasury Service Specialist](https://umb.wd1.myworkdayjobs.com/umbExternal/job/Kansas-City-MO/Treasury-Service-Specialist_R-9677) (Kansas City MO) hidden by title_exclude: **service specialist**
-- UMB Financial: [Relationship Manager III - CLO](https://umb.wd1.myworkdayjobs.com/umbExternal/job/TX-REMOTE/Relationship-Manager-III---CLO_R-9313) (TX-REMOTE) hidden by title_exclude: **relationship manager**
-- US Bancorp: [Treasury Management Project Manager](https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Brookfield-WI/Treasury-Management-Project-Manager_2026-0035504-1) (7 Locations (Brookfield WI)) hidden by title_exclude: **project manager**
-- US Bancorp: [Technology Risk Analyst](https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Minneapolis-MN/Technology-Risk-Analyst_2026-0035585) (4 Locations (Minneapolis MN)) hidden by title_exclude: **technology risk**
-- Vatic Labs: [Quantitative Developer](https://job-boards.greenhouse.io/vaticlabs/jobs/598228) (New York) hidden by title_exclude: **quantitative developer**
-- Voloridge Investment Management: [Quantitative Developer - New University Graduate](https://job-boards.greenhouse.io/voloridgeinvestmentmanagement/jobs/4419326009) (Jupiter, FL) hidden by title_exclude: **quantitative developer**
-- Voloridge Investment Management: [Senior Quantitative Developer (C++)](https://job-boards.greenhouse.io/voloridgeinvestmentmanagement/jobs/4373568009) (Jupiter, FL) hidden by title_exclude: **quantitative developer**
-- WaFd Bank: [Treasury Relationship Manager](https://careers-wafd.icims.com/jobs/5164/2026-5164/job) (Dallas, TX, US) hidden by title_exclude: **relationship manager**
-- Wells Fargo: [Institutional Investment Operations Associate - Funding Operations](https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/CHARLOTTE-NC/Institutional-Investment-Operations-Associate---Funding-Operations_R-566307) (CHARLOTTE, NC) hidden by title_exclude: **investment operations associate**
-- Wells Fargo: [Vice President ( Lead Securities Python Quantitative Developer )](https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/CHARLOTTE-NC/Vice-President---Lead-Securities-Python-Quantitative-Developer--_R-585626) (CHARLOTTE, NC) hidden by title_exclude: **quantitative developer**
-- WorldQuant: [Quantitative Developer ](https://job-boards.greenhouse.io/worldquant/jobs/4649227006) (Ramat Gan) hidden by title_exclude: **quantitative developer**
+- 1st Source Bank: [Specialist I, Sales Support Treasury, South Bend, IN](https://recruiting.ultipro.com/STS1000SCO/JobBoard/bdcbc22d-c568-4b9f-bc84-421f9522fd47/OpportunityDetail?opportunityId=d947cda6-7db4-41c7-8912-8d9cd12a1130) (South Bend, IN, USA) hidden by title_exclude: **sales support**
+- Arrowstreet Capital: [Senior Quantitative Developer](https://arrowstreetcapital.wd5.myworkdayjobs.com/Arrowstreet/job/Boston/Quantitative-Developer_R958) (Boston) hidden by title_exclude: **quantitative developer**
+- Arrowstreet Capital: [Quantitative Developer](https://arrowstreetcapital.wd5.myworkdayjobs.com/Arrowstreet/job/Boston/Quantitative-Developer_R1433-1) (Boston) hidden by title_exclude: **quantitative developer**
+- Bank of America: [Quantitative Operations Associate](https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Plano/Quantitative-Operations-Associate_26040938) (13 Locations (Plano)) hidden by title_exclude: **quantitative operations**
+- Bank of America: [– Senior Engineer - AMRS Non-Linear Fixed Income Trading.](https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Jersey-City/XMLNAME---Senior-Engineer---AMRS-Non-Linear-Fixed-Income-Trading_26043142-1) (Jersey City) hidden by title_exclude: **senior engineer**
+- Chubb: [AVP, Treasury Operations - Bilingual Spanish/English Required](https://fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/38410) (Philadelphia, PA, United States) hidden by title_exclude: **bilingual**
+- Community America Credit Union: [Senior Treasury Services Relationship Manager](https://careers-cacu.icims.com/jobs/3203/senior-treasury-services-relationship-manager/job) (Lenexa, KS, US) hidden by title_exclude: **relationship manager**
+- Community America Credit Union: [Treasury Services Relationship Manager](https://careers-cacu.icims.com/jobs/3129/treasury-services-relationship-manager/job) (Irvine, CA, US) hidden by title_exclude: **relationship manager**
+- First Financial Bank: [Treasury Management Onboarding Specialist](https://bankatfirst.wd1.myworkdayjobs.com/FFB/job/OH---Cincinnati---Pictoria-Dr/Treasury-Management-Onboarding-Specialist_R9267) (3 Locations (OH   Cincinnati   Pictoria Dr)) hidden by title_exclude: **onboarding specialist**
+- First Financial Bankshares: [Treasury Management Administrative Assistant](https://ffin.wd1.myworkdayjobs.com/first_financial_bank/job/Operations-Center/Operations-Admin-Assistant--PT_JR102933) (Operations Center) hidden by title_exclude: **administrative assistant**
+- First Financial Bankshares: [Treasury Management Support Representative I](https://ffin.wd1.myworkdayjobs.com/first_financial_bank/job/Operations-Center/Treasury-Management-Support-Representative-I_JR102962) (Operations Center) hidden by title_exclude: **support representative**
+- First National Bank (FNB Corp): [Treasury Account Manager](https://firstnational.wd12.myworkdayjobs.com/fnbocareers/job/Omaha---FN-Tower/Associate-ll--Portfolio-Servicing-Manager_R-20262056) (3 Locations (Omaha   FN Tower)) hidden by title_exclude: **account manager**
+- InfiniteQuant: [Quantitative Developer - Internship - Summer 2027](https://jobs.smartrecruiters.com/infinitequant/744000147163879) (New York, New York, us) hidden by title_exclude: **quantitative developer**
+- Landmark Credit Union: [Treasury Management Business Development Officer](https://jobs.dayforcehcm.com/en-US/landmarkcu/CANDIDATEPORTAL/jobs/18959) (Appleton, WI, USA) hidden by title_exclude: **business development**
+- Mid Penn Bank: [Loan Funding Specialist - Harrisburg, PA](https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid=701c1e8d-907d-4848-a96b-bd89a43106c1&ccId=19000101_000001&jobId=3406&lang=en_US) ( Harrisburg, PA, US) hidden by title_exclude: **loan funding**
+- RLI Corp: [Sr. Technology Risk Analyst](https://rlicorp.wd1.myworkdayjobs.com/RLI_Corp_Careers/job/Peoria-IL/Sr-Technology-Risk-Analyst_R1911-1) (Peoria, IL) hidden by title_exclude: **technology risk**
+- Scientech Research: [Junior Quantitative Developer](https://jobs.ashbyhq.com/scientech-research/40bfdae5-2f60-4760-974e-eb469618cf8a) (New Jersey) hidden by title_exclude: **quantitative developer**
+- Scientech Research: [Quantitative Developer Intern](https://jobs.ashbyhq.com/scientech-research/47be106e-4a2a-4814-bca8-4a7b97816d7c) (New Jersey) hidden by title_exclude: **quantitative developer**
+- Scientech Research: [Mid-level Quantitative Developer](https://jobs.ashbyhq.com/scientech-research/42a646e3-f4d9-4984-af09-0ff9b3d2a5da) (New Jersey) hidden by title_exclude: **quantitative developer**
+- Trexquant: [Quantitative Developer (USA)](https://apply.workable.com/trexquant/j/A01358D160/) (New York, New York, United States) hidden by title_exclude: **quantitative developer**
+- YipitData: [Senior Business Development Executive - Quant Sales](https://job-boards.greenhouse.io/yipitdata/jobs/7315707) (US Remote) hidden by title_exclude: **business development**
 
 ## Top rules by roles hidden
-- sales associate: 515
-- associate banker: 479
-- client service associate: 350
-- personal banker: 344
-- tax: 297
-- summer: 251
-- intern: 213
-- warehouse associate: 203
-- marketing: 189
-- wealth management associate: 182
-- scientist: 172
-- wealth management client associate: 152
-- sales representative: 136
-- software: 129
-- counsel: 126
-- inventory associate: 123
-- fulfillment associate: 118
+- sales associate: 534
+- associate banker: 444
+- client service associate: 349
+- personal banker: 346
+- tax: 335
+- summer: 296
+- intern: 270
+- marketing: 240
+- scientist: 214
+- warehouse associate: 207
+- wealth management associate: 194
+- software: 151
+- wealth management client associate: 145
+- counsel: 134
+- inventory associate: 125
+- fulfillment associate: 122
+- senior director: 116
 - engineer: 105
-- client associate: 105
-- relationship manager: 98
-- service associate: 93
-- clinical: 91
-- business development: 89
-- internship: 88
-- head of: 83
+- head of: 102
+- relationship manager: 102
+- client associate: 98
+- clinical: 96
+- service associate: 96
+- business development: 95
+- sales representative: 94
