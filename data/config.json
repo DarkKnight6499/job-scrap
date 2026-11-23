@@ -23740,6 +23740,14 @@
    "name": "Constellation Insurance",
    "ats": "adp_rm",
    "domain": "constellationinsurancecareers"
+  },
+  {
+   "name": "Synechron",
+   "ats": "workday",
+   "host": "synechron.wd1.myworkdayjobs.com",
+   "tenant": "synechron",
+   "site": "SynechronCareers",
+   "search": "risk"
   }
  ],
  "keywords": [
