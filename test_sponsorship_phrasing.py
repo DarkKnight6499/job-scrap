@@ -22,6 +22,7 @@ OPT_ONLY = [
     "Applicants must be authorized to work in the U.S. without current or future employer support.",
     "We will not sponsor now or in the future.",
     "Visa sponsorship is not available for this role at this time.",
+    "Visa Sponsorship through PayPal is not available for this position now or any time in the future.",
 ]
 HARD_BLOCKED = [
     "This position is for a government client and we can only hire US citizens.",

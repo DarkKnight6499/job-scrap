@@ -122,6 +122,7 @@ BLOCK_PATTERNS = [
     r"visa\s+sponsorship\s+(?:is\s+)?not\s+(?:available|offered|provided)",
     r"not\s+(?:available|offered|provided)\s+for[^.]{0,60}sponsorship",
     r"\bsponsorship\s+(?:is\s+|are\s+)?not\s+(?:available|offered|provided)",
+    r"\bsponsorship\s+(?:through|by|from|with)\s+[^.]{0,40}?\b(?:is|are)\s+not\s+(?:available|offered|provided)",  # PayPal 2026-11-23: "Visa Sponsorship through PayPal is not available ... now or any time in the future"
     r"\bsponsorship\s+offered\W{0,3}no\b",
     r"\bvisa\s+sponsorship\s*\??\W{0,3}no\b",
     r"(?<!visa )\bsponsorship\s*:\s*no\b(?!\s+(?:longer|restrictions?|required|needed))",  # header field "Sponsorship: No" (Nissan 2026-11-10)
