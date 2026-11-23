@@ -4626,7 +4626,7 @@ JD_PROXY_URL = "https://job-scout-jd-proxy.yazad-jobscout.workers.dev"
 
 ACTIONS_TD = '<td class="act"><button type="button" class="skip-btn copy-act">Copy JD</button></td>'
 
-HIDE_COMPANY = "JPMorgan Chase"
+HIDE_COMPANIES = ["JPMorgan Chase", "Capital One"]  # one "Hide <company>" chip each; the first keeps the legacy localStorage key
 
 # Title-only, word-boundary matched in the page script; unticked = no restriction.
 _FINE_ROLE_CATEGORIES = {
@@ -4877,7 +4877,7 @@ function copyText(text) {
 }
 (function() {
   var CATEGORIES = __CATEGORIES__;
-  var COMPANY = __COMPANY__;
+  var COMPANIES = __COMPANY__;
   var JD_COMPANIES = __JD_COMPANIES__;
   var bar = document.getElementById('filterBar');
   var rows = Array.prototype.slice.call(document.querySelectorAll('table tbody tr'));
@@ -4961,28 +4961,39 @@ function copyText(text) {
     checkboxes.forEach(function(cb) { cb.checked = false; });
     applyCategory();
     if (metroBox) { metroBox.checked = false; applyLocation(); }
-    hideBox.checked = false;
+    hideBoxes.forEach(function(h) { h.box.checked = false; });
     applyCompany();
   });
 
   // Hide one company
   var toggles = document.getElementById('fbToggles');
-  var label = document.createElement('label');
-  label.className = 'chip';
-  label.innerHTML = '<input type="checkbox" id="hideCompanyBox"> Hide ' + COMPANY;
-  if (toggles && resetBtn) toggles.insertBefore(label, resetBtn);
-  else if (bar) bar.appendChild(label);
-  var hideBox = label.querySelector('input');
+  var label = null;
+  var hideBoxes = [];
   function applyCompany() {
+    var hidden = {};
+    hideBoxes.forEach(function(h) { if (h.box.checked) hidden[h.name] = true; });
     rows.forEach(function(tr) {
       var c = textOf(tr, COL_COMPANY).trim();
-      tr.classList.toggle('hidden-by-company', hideBox.checked && c === COMPANY);
+      tr.classList.toggle('hidden-by-company', hidden[c] === true);
     });
     recount();
-    try { localStorage.setItem('jobScoutHideCompany', hideBox.checked ? '1' : '0'); } catch (e) {}
+    hideBoxes.forEach(function(h) {
+      try { localStorage.setItem(h.key, h.box.checked ? '1' : '0'); } catch (e) {}
+    });
   }
-  try { hideBox.checked = localStorage.getItem('jobScoutHideCompany') === '1'; } catch (e) {}
-  hideBox.addEventListener('change', applyCompany);
+  COMPANIES.forEach(function(name, i) {
+    var chip = document.createElement('label');
+    chip.className = 'chip';
+    chip.innerHTML = '<input type="checkbox"> Hide ' + name;
+    if (toggles && resetBtn) toggles.insertBefore(chip, resetBtn);
+    else if (bar) bar.appendChild(chip);
+    var box = chip.querySelector('input');
+    var key = i === 0 ? 'jobScoutHideCompany' : 'jobScoutHideCompany:' + name;  // first company keeps the old key so a saved choice survives
+    try { box.checked = localStorage.getItem(key) === '1'; } catch (e) {}
+    box.addEventListener('change', applyCompany);
+    hideBoxes.push({name: name, key: key, box: box});
+    label = chip;
+  });
 
   // NY metro only: NY/NJ/CT area by location text; upstate NY cities excluded.
   var METRO_RE = /\b(new york|nyc|manhattan|brooklyn|queens|bronx|long island|westchester|white plains|new jersey|nj|jersey city|newark|hoboken|harrison|stamford|greenwich|norwalk|connecticut|ct|ny)\b/;
@@ -5122,7 +5133,7 @@ def _extra_script():
     cats.append(dict(key="other", label="Other (no category)", terms=[], exclude=[]))
     return (_EXTRA_SCRIPT
             .replace("__CATEGORIES__", json.dumps(cats))
-            .replace("__COMPANY__", json.dumps(HIDE_COMPANY))
+            .replace("__COMPANY__", json.dumps(HIDE_COMPANIES))
             .replace("__JD_COMPANIES__", json.dumps(_jd_company_map(), separators=(",", ":")))
             .replace("__JD_URL__", json.dumps(JD_PROXY_URL)))
 
