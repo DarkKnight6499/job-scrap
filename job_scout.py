@@ -1810,6 +1810,8 @@ def eightfold(c):
         start, term_complete, limit = 0, False, cap
         try:
             while start < limit:
+                if deadline and time.time() > deadline:  # checked per page: one term's 429 retries can outlast the budget
+                    break
                 d = _eightfold_page(c, term, start)
                 total = d.get("count")
                 if start == 0 and isinstance(total, int):

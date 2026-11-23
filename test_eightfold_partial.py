@@ -72,3 +72,14 @@ def test_clean_read_is_complete():
     with mock.patch.object(js, "_eightfold_page", _fake(set())):
         jobs, complete = js.eightfold(_company(partial_ok=True))
     assert len(jobs) == len(TERMS) and complete is True
+
+
+def test_time_budget_is_checked_per_page_inside_a_term():
+    clock = iter([0, 0, 0, 1000, 1000, 1000, 1000, 1000])
+
+    def page(c, term, start):
+        return {"count": 50, "positions": [{"id": f"id-{term}-{start}-{i}", "name": "Role", "locations": ["NYC"]} for i in range(10)]}
+    company = dict(_company(time_budget_s=10), _terms=["treasury"])
+    with mock.patch.object(js, "_eightfold_page", page), mock.patch.object(js.time, "time", lambda: next(clock)):
+        jobs, complete = js.eightfold(company)
+    assert 0 < len(jobs) < 50 and complete is False
