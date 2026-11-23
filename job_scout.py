@@ -1731,6 +1731,8 @@ def _icims_description(job):
 
 def _eightfold_page(c, term, start):
     q = urllib.parse.urlencode({"domain": c["domain"], "start": start, "num": 10, "query": term})
+    if c.get("request_gap"):
+        time.sleep(float(c["request_gap"]))  # spaces requests for hosts that 429 on bursts (Microsoft)
     if c.get("pcsx"):  # PCSX tenants (Qualcomm) reject /api/apply/v2 with 403 "Not authorized for PCSX"
         return http(f"https://{c['host']}/api/pcsx/search?{q}", headers={"Accept": "application/json"}).get("data") or {}
     return http(f"https://{c['host']}/api/apply/v2/jobs?{q}", headers={"Accept": "application/json"})
@@ -1787,7 +1789,10 @@ def eightfold(c):
     so it opts into 'search' terms). The endpoint caps every page at 10 results whatever `num` says,
     so it pages with start += 10, once per search term (no 'search' key = the whole board, capped by
     max_per_term). With several terms a board under full_board_max is read whole instead (_eightfold_board).
-    The list rows carry no description; describe() reads it from the per-job endpoint."""
+    The list rows carry no description; describe() reads it from the per-job endpoint.
+    Throttled hosts opt in with `partial_ok` (keep pages read when a term fails; stop after `max_term_failures`
+    consecutive failed terms, default 3), `time_budget_s` (stop cleanly, listing incomplete) and `request_gap`
+    (seconds before each request). Microsoft 429s on bursts and never completed a fetch before (2026-11-23)."""
     page = 10
     terms = _terms(c)
     terms = [terms] if isinstance(terms, str) else terms
@@ -1795,20 +1800,38 @@ def eightfold(c):
     ceiling = int(c.get("term_ceiling", 1000))
     out, seen = [], set()
     complete = True
+    partial_ok = bool(c.get("partial_ok"))  # opt-in: a throttled board (Microsoft) keeps the pages it read instead of failing whole
+    deadline = time.time() + float(c["time_budget_s"]) if c.get("time_budget_s") else None
+    max_fail, fails, first_err = int(c.get("max_term_failures", 3)), 0, None
     for term in terms:
+        if deadline and time.time() > deadline:
+            complete = False  # out of time: what was read is queued, nothing is closed on an incomplete listing
+            break
         start, term_complete, limit = 0, False, cap
-        while start < limit:
-            d = _eightfold_page(c, term, start)
-            total = d.get("count")
-            if start == 0 and isinstance(total, int):
-                limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
-            rows = d.get("positions") or []
-            _eightfold_rows(c, rows, seen, out)
-            start += page
-            if len(rows) < page or (total is not None and start >= total):
-                term_complete = True
-                break
+        try:
+            while start < limit:
+                d = _eightfold_page(c, term, start)
+                total = d.get("count")
+                if start == 0 and isinstance(total, int):
+                    limit = max(cap, min(total, ceiling))  # page past cap, up to ceiling, so a broad term can still complete
+                rows = d.get("positions") or []
+                _eightfold_rows(c, rows, seen, out)
+                start += page
+                if len(rows) < page or (total is not None and start >= total):
+                    term_complete = True
+                    break
+            fails = 0
+        except Exception as e:  # noqa: BLE001
+            if not partial_ok:
+                raise
+            first_err = first_err or e
+            fails += 1
         complete = complete and term_complete
+        if fails >= max_fail:  # the host is refusing us: stop instead of hammering it
+            complete = False
+            break
+    if not out and first_err:
+        raise first_err  # nothing read at all: a real failure, not an empty board
     return out, complete
 
 

@@ -20853,6 +20853,10 @@
    "domain": "microsoft.com",
    "pcsx": true,
    "max_per_term": 100,
+   "term_workers": 1,
+   "request_gap": 3,
+   "time_budget_s": 600,
+   "partial_ok": true,
    "search": [
     "treasury",
     "liquidity",
