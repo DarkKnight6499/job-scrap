@@ -26,6 +26,8 @@ QUERIES = [
     "funds transfer pricing", "interest rate risk analyst", "market risk analyst",
     "model validation analyst", "regulatory capital analyst", "securitized products analyst",
     "structured finance analyst", "fixed income analyst", "credit risk analyst bank",
+    "fp&a analyst", "investor relations analyst", "equity research associate", "corporate development analyst",
+    "treasury analyst", "financial planning analyst",
 ]
 INTERN_QUERIES = [
     "spring 2027 intern finance", "spring 2027 internship risk", "spring 2027 treasury intern",
