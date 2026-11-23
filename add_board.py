@@ -25,9 +25,17 @@ def norm(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
 
+def write_json(path, data, previous_raw):
+    """indent=1, UTF-8, ensure_ascii off; keeps the file's CRLF or LF and its trailing newline (config.json is CRLF, see Job_Scrap_Notes.md)."""
+    text = json.dumps(data, indent=1, ensure_ascii=False) + ("\n" if previous_raw.endswith("\n") else "")
+    if "\r\n" in previous_raw:
+        text = text.replace("\n", "\r\n")
+    open(path, "w", encoding="utf-8", newline="").write(text)
+
+
 def add_board(config_path, log_path, name, ats, fields, fetch, today, aliases=(), note="", dry_run=False):
     """Verify, then append. Returns (ok, message, jobs). `fetch` is job_scout.FETCH[ats]-shaped: entry -> (jobs, complete)."""
-    raw = Path(config_path).read_text(encoding="utf-8")
+    raw = open(config_path, encoding="utf-8", newline="").read()  # newline="" keeps CRLF visible so the file keeps its line endings
     cfg = json.loads(raw)
     companies = cfg["companies"]
     if any(norm(c["name"]) == norm(name) for c in companies):
@@ -45,12 +53,13 @@ def add_board(config_path, log_path, name, ats, fields, fetch, today, aliases=()
     if dry_run:
         return True, f"dry run: {len(jobs)} jobs, nothing written", jobs
     companies.append(entry)
-    Path(config_path).write_text(json.dumps(cfg, indent=1, ensure_ascii=False) + ("\n" if raw.endswith("\n") else ""), encoding="utf-8", newline="")
-    log = json.loads(Path(log_path).read_text(encoding="utf-8")) if Path(log_path).exists() else {}
+    write_json(config_path, cfg, raw)
+    log_raw = open(log_path, encoding="utf-8", newline="").read() if Path(log_path).exists() else ""
+    log = json.loads(log_raw) if log_raw else {}
     found = f"{ats} {next(iter(fields.values()), '')}".strip()
     for label in (name, *aliases):
         log[norm(label)] = {"name": label, "date": today, "found": found, "note": note or f"added by hand, {len(jobs)} jobs verified {today}"}
-    Path(log_path).write_text(json.dumps(log, indent=1, ensure_ascii=False), encoding="utf-8", newline="")
+    write_json(log_path, log, log_raw)
     return True, f"added {name} ({len(jobs)} jobs)", jobs
 
 

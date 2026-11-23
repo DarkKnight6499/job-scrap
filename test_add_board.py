@@ -33,6 +33,14 @@ def test_refuses_duplicate_name_empty_board_and_shared_endpoint(tmp_path):
     assert not log.exists()  # nothing written on a refusal
 
 
+def test_keeps_crlf_line_endings(tmp_path):
+    cfg, log = _setup(tmp_path)
+    cfg.write_bytes(cfg.read_bytes().replace(b"\n", b"\r\n"))  # config.json in the working copy is CRLF
+    ok, _, _ = add_board.add_board(cfg, log, "Zeta", "adp_rm", {"domain": "zetacareers"}, _fetch_ok, "2026-11-23")
+    raw = cfg.read_bytes()
+    assert ok and raw.count(b"\r\n") == raw.count(b"\n") and raw.endswith(b"\r\n")
+
+
 def test_dry_run_writes_nothing(tmp_path):
     cfg, log = _setup(tmp_path)
     before = cfg.read_text(encoding="utf-8")
