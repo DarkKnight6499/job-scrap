@@ -225,22 +225,384 @@
    "rows": [],
    "n": 0
   },
-  "State of Michigan": {
-   "rows": [
-    [
-     "5548223",
-     "Toxicologist 10-P11, Chemical Hazards & Assessment of Risk Unit",
-     "Health And Human Services - Central Office",
-     "https://www.governmentjobs.com/careers/michigan/jobs/5548223/toxicologist-10-p11-chemical-hazards-assessment-of-risk-unit",
-     "title_exclude",
-     "toxicologist"
-    ]
-   ],
-   "n": 1
-  },
   "Diameter Capital Partners": {
    "rows": [],
    "n": 0
+  },
+  "Millennium Management": {
+   "rows": [
+    [
+     "755959724535",
+     "Quantitative Developer",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755959724535",
+     "title_exclude",
+     "quantitative developer"
+    ],
+    [
+     "755959070627",
+     "Quant Researcher/Data Scientist - Volatility Alpha Technology",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755959070627",
+     "title_exclude",
+     "scientist"
+    ],
+    [
+     "755959006848",
+     "Associate General Counsel, Equity Capital Markets",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755959006848",
+     "title_exclude",
+     "counsel"
+    ],
+    [
+     "755957773457",
+     "Senior Quantitative Developer",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755957773457",
+     "title_exclude",
+     "quantitative developer"
+    ],
+    [
+     "755956532578",
+     "Quantitative Developer, C++ I Low-Latency Systems",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755956532578",
+     "title_exclude",
+     "quantitative developer"
+    ],
+    [
+     "755956234836",
+     "Project Manager / Business Analyst - Treasury Technology",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755956234836",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "755954587117",
+     "Senior Software Engineer - EQ Derivatives Pricing & Risk",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755954587117",
+     "title_exclude",
+     "software"
+    ],
+    [
+     "755954374057",
+     "Quantitative Developer (C++) -  Central Liquidity Strategies",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755954374057",
+     "title_exclude",
+     "quantitative developer (c++) - central liquidity strategies"
+    ],
+    [
+     "755954183338",
+     "Quantitative Developer (Python) -  Central Liquidity Strategies",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755954183338",
+     "title_exclude",
+     "quantitative developer"
+    ],
+    [
+     "755952876477",
+     "Quantitative Developer",
+     "New York, New York, United States of America",
+     "https://mlp.eightfold.ai/careers/job/755952876477",
+     "title_exclude",
+     "quantitative developer"
+    ]
+   ],
+   "n": 10
+  },
+  "Target": {
+   "rows": [
+    [
+     "/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
+     "Full Time Hourly Warehouse Associate Openings - $1,000 SIGN ON BONUS (T0579)",
+     "129 North Rd, Wilton,NY 12831-1308",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
+     "title_exclude",
+     "warehouse associate"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
+     "Financial Analyst Intern -  Minneapolis, MN (Starting Summer, 2027)",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
+     "Associate Buyer - Bedding Essentials, Mattresses, Sheets & Blankets",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
+     "Associate Technical Developer, Owned Brands - Intimates/Sleep",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
+     "title_exclude_unless",
+     "developer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
+     "Associate Buyer, Collection Bedding",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
+     "Associate Buyer - Women's Swim",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
+     "Associate Buyer - Lunchbox",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
+     "Associate Sourcing Manager, Western Hemisphere - Home",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
+     "title_exclude",
+     "sourcing manager"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
+     "Associate Product Designer- Furniture and Lighting",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
+     "title_exclude",
+     "designer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
+     "Associate Designer - Menswear",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
+     "title_exclude",
+     "designer"
+    ],
+    [
+     "/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
+     "Seasonal Part Time Hourly Warehouse Associate Openings Only (T3863)",
+     "900 River Rd, King of Prussia,PA 19406",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
+     "title_exclude",
+     "warehouse associate"
+    ],
+    [
+     "/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
+     "Seasonal Full Time Hourly Warehouse Associate Openings (T3863)",
+     "900 River Rd, King of Prussia,PA 19406",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
+     "title_exclude",
+     "warehouse associate"
+    ]
+   ],
+   "n": 12
+  },
+  "Qualcomm": {
+   "rows": [
+    [
+     "446722198935",
+     "Senior Near-Memory Compute System Validation Engineer",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446722198935",
+     "title_exclude",
+     "system validation"
+    ],
+    [
+     "446721491121",
+     "Multimedia-System HW Validation and Integration Engineer",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721491121",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "446719655199",
+     "Power Delivery and Voltage Regulator Validation Engineer \u2013 Datacenter",
+     "Santa Clara, California, United States of America | Austin, Texas, United States of America",
+     "https://careers.qualcomm.com/careers/job/446719655199",
+     "title_exclude",
+     "validation engineer"
+    ],
+    [
+     "446722062213",
+     "Associate Creative Director, Campaign Creative",
+     "Santa Clara, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446722062213",
+     "title_exclude",
+     "creative director"
+    ],
+    [
+     "446722004999",
+     "Marketing Communications Specialist, Associate - Strategic Planning & Integration",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446722004999",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "446722040241",
+     "SoC Power Validation Engineer",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446722040241",
+     "title_exclude",
+     "validation engineer"
+    ],
+    [
+     "446717827966",
+     "Associate Attorney, Senior",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446717827966",
+     "title_exclude",
+     "attorney"
+    ],
+    [
+     "446721831785",
+     "Calibration Engineer, Associate",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721831785",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "446721831795",
+     "Technical Support Engineer, Associate",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721831795",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "446720269361",
+     "Associate Creative Director, Campaign Creative",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446720269361",
+     "title_exclude",
+     "creative director"
+    ],
+    [
+     "446721409165",
+     "Marketing Specialist, Associate - Integrated Marketing (Snapdragon & Qualcomm)",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721409165",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "446721346865",
+     "High-Bandwidth Memory (HBM) System Validation Lead (AI Accelerator Platform)",
+     "San Diego, California, United States of America | Austin, Texas, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721346865",
+     "title_exclude",
+     "system validation"
+    ],
+    [
+     "446721331002",
+     "Graphics System/Silicon Validation Engineer",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721331002",
+     "title_exclude",
+     "silicon"
+    ],
+    [
+     "446721217312",
+     "Sr. Staff Engineer - Verification & Validation Lead",
+     "Novi, Michigan, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721217312",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "446720361954",
+     "SoC Systems & Infrastructure Engineer (Design \u2022 Validation \u2022 Debug \u2022 FPGA \u2022 Emulation \u2022 Software)",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446720361954",
+     "title_exclude",
+     "infrastructure engineer"
+    ],
+    [
+     "446721160053",
+     "Post-Silicon Validation Technical Program Manager",
+     "Santa Clara, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446721160053",
+     "title_exclude",
+     "silicon"
+    ],
+    [
+     "446718428747",
+     "Lead CPU Firmware Verification and Validation Engineer/ Manager",
+     "Santa Clara, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446718428747",
+     "title_exclude",
+     "firmware"
+    ],
+    [
+     "446717673112",
+     "Director, Product Management - Ethernet Portfolio (PHY, NIC, & Switching)",
+     "Santa Clara, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446717673112",
+     "title_exclude",
+     "director, product management - ethernet portfolio (phy, nic, & switching)"
+    ],
+    [
+     "446719364252",
+     "DDRSS Validation Engineer (RTL + Silicon Debug)",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446719364252",
+     "title_exclude",
+     "validation engineer"
+    ],
+    [
+     "446720177120",
+     "Senior System and Hardware Validation Engineer",
+     "San Diego, California, United States of America | Austin, Texas, United States of America",
+     "https://careers.qualcomm.com/careers/job/446720177120",
+     "title_exclude",
+     "hardware validation"
+    ],
+    [
+     "446720710088",
+     "Sr. Post-Silicon Validation Engineer, RF/Mixed-Signal",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446720710088",
+     "title_exclude",
+     "silicon"
+    ],
+    [
+     "446715485482",
+     "GPU Validation and Emulation Engineer, Senior",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446715485482",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "446717307122",
+     "CPU Post-Silicon Validation Engineer - Multiple Levels",
+     "Santa Clara, California, United States of America | Austin, Texas, United States of America | San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446717307122",
+     "title_exclude",
+     "silicon"
+    ]
+   ],
+   "n": 23
   },
   "Point72": {
    "rows": [
@@ -742,6 +1104,14 @@
   "Brex": {
    "rows": [
     [
+     "8935085002",
+     "Director, Head of Private Equity",
+     "San Francisco, California, United States",
+     "https://www.brex.com/careers/8935085002?gh_jid=8935085002",
+     "title_exclude",
+     "head of"
+    ],
+    [
      "8935086002",
      "Director, Head of Private Equity",
      "Seattle, Washington, United States",
@@ -754,14 +1124,6 @@
      "Director, Head of Private Equity",
      "New York, New York, United States",
      "https://www.brex.com/careers/8842998002?gh_jid=8842998002",
-     "title_exclude",
-     "head of"
-    ],
-    [
-     "8935085002",
-     "Director, Head of Private Equity",
-     "San Francisco, California, United States",
-     "https://www.brex.com/careers/8935085002?gh_jid=8935085002",
      "title_exclude",
      "head of"
     ],
@@ -2389,30 +2751,6 @@
      "scientist"
     ],
     [
-     "/job/Houston-TX/Sr-Associate--Product-Management---PULSE_R248860-1",
-     "Sr Associate, Product Management - PULSE",
-     "6 Locations (Houston TX)",
-     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/Houston-TX/Sr-Associate--Product-Management---PULSE_R248860-1",
-     "title_exclude_unless",
-     "product management"
-    ],
-    [
-     "/job/McLean-VA/Senior-Business-Analyst---Business-Analysis-for-Talent-Acquisition_R1000440-1",
-     "Senior Business Analyst - Business Analysis for Talent Acquisition",
-     "McLean, VA",
-     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/McLean-VA/Senior-Business-Analyst---Business-Analysis-for-Talent-Acquisition_R1000440-1",
-     "title_exclude",
-     "talent acquisition"
-    ],
-    [
-     "/job/Plano-TX/Senior-Associate--Process-Manager--Decision-the-Deal_R1000178-1",
-     "Senior Associate, Process Manager- Decision the Deal",
-     "Plano, TX",
-     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/Plano-TX/Senior-Associate--Process-Manager--Decision-the-Deal_R1000178-1",
-     "title_exclude",
-     "process manager"
-    ],
-    [
      "/job/Richmond-VA/Director--Agency-Partnerships-Ad-Sales---Capital-One-Ad-Solutions--Remote-_R1000653-1",
      "Director, Agency Partnerships Ad Sales - Capital One Ad Solutions (Remote)",
      "2 Locations (Richmond VA)",
@@ -2557,14 +2895,6 @@
      "counsel"
     ],
     [
-     "/job/McLean-VA/Director--Assistant-General-Counsel---Global-Payment-Network--Network-Participant-Risk_R248980-1",
-     "Director, Assistant General Counsel - Global Payment Network, Network Participant Risk",
-     "5 Locations (McLean VA)",
-     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/McLean-VA/Director--Assistant-General-Counsel---Global-Payment-Network--Network-Participant-Risk_R248980-1",
-     "title_exclude",
-     "counsel"
-    ],
-    [
      "/job/McLean-VA/Principal-Associate--Data-Scientist---Card-Intelligence_R245083-2",
      "Principal Associate, Data Scientist - Card Intelligence",
      "3 Locations (McLean VA)",
@@ -2699,6 +3029,38 @@
      "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/McLean-VA/Manager--Data-Scientist---Model-Risk-Office_R233003-1",
      "title_exclude",
      "scientist"
+    ],
+    [
+     "/job/Houston-TX/Sr-Associate--Product-Management---PULSE_R248860-1",
+     "Sr Associate, Product Management - PULSE",
+     "6 Locations (Houston TX)",
+     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/Houston-TX/Sr-Associate--Product-Management---PULSE_R248860-1",
+     "title_exclude_unless",
+     "product management"
+    ],
+    [
+     "/job/McLean-VA/Senior-Business-Analyst---Business-Analysis-for-Talent-Acquisition_R1000440-1",
+     "Senior Business Analyst - Business Analysis for Talent Acquisition",
+     "McLean, VA",
+     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/McLean-VA/Senior-Business-Analyst---Business-Analysis-for-Talent-Acquisition_R1000440-1",
+     "title_exclude",
+     "talent acquisition"
+    ],
+    [
+     "/job/Plano-TX/Senior-Associate--Process-Manager--Decision-the-Deal_R1000178-1",
+     "Senior Associate, Process Manager- Decision the Deal",
+     "Plano, TX",
+     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/Plano-TX/Senior-Associate--Process-Manager--Decision-the-Deal_R1000178-1",
+     "title_exclude",
+     "process manager"
+    ],
+    [
+     "/job/McLean-VA/Director--Assistant-General-Counsel---Global-Payment-Network--Network-Participant-Risk_R248980-1",
+     "Director, Assistant General Counsel - Global Payment Network, Network Participant Risk",
+     "5 Locations (McLean VA)",
+     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/McLean-VA/Director--Assistant-General-Counsel---Global-Payment-Network--Network-Participant-Risk_R248980-1",
+     "title_exclude",
+     "counsel"
     ]
    ],
    "n": 208
@@ -5680,6 +6042,30 @@
      "fund accounting"
     ],
     [
+     "/job/Boston-Massachusetts/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799209",
+     "Associate Regional Consultant, Model Portfolios \u2013 US Wealth, AVP, State Street Investment Management",
+     "Boston, Massachusetts",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799209",
+     "title_exclude",
+     "regional consultant"
+    ],
+    [
+     "/job/Scottsdale/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799210",
+     "Associate Regional Consultant, Model Portfolios \u2013 US Wealth, AVP, State Street Investment Management",
+     "Scottsdale",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Scottsdale/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799210",
+     "title_exclude",
+     "regional consultant"
+    ],
+    [
+     "/job/CR1---700-District/Business-Analyst---Middle-Office--AVP_R-799233",
+     "Business Analyst - Middle Office, AVP",
+     "CR1 - 700 District",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/CR1---700-District/Business-Analyst---Middle-Office--AVP_R-799233",
+     "title_exclude",
+     "business analyst - middle office"
+    ],
+    [
      "/job/Boston-Massachusetts/Data-Platform-Engineering---Senior-Lead--AVP---State-Street-Investment-Management_R-799218",
      "Data Platform Engineering - Senior Lead, AVP - State Street Investment Management",
      "Boston, Massachusetts",
@@ -5736,22 +6122,6 @@
      "head of"
     ],
     [
-     "/job/Clifton-New-Jersey/Fund-Accounting---Administration--Private-Equity---Officer--Hybrid-_R-783944",
-     "Fund Accounting & Administration (Private Equity), Officer (Hybrid)",
-     "3 Locations (Clifton New Jersey)",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Clifton-New-Jersey/Fund-Accounting---Administration--Private-Equity---Officer--Hybrid-_R-783944",
-     "title_exclude",
-     "fund accounting"
-    ],
-    [
-     "/job/Boston-Massachusetts/COO---Global-Head-of-Business-Operations--MD---State-Street-Investment-Management_R-798552",
-     "COO - Global Head of Business Operations, MD - State Street Investment Management",
-     "4 Locations (Boston Massachusetts)",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/COO---Global-Head-of-Business-Operations--MD---State-Street-Investment-Management_R-798552",
-     "title_exclude",
-     "head of"
-    ],
-    [
      "/job/Quincy-Massachusetts/Product-Owner---Investments-Technology--VP-II---State-Street-Investment-Management_R-797824-1",
      "Product Owner \u2013 Investments Technology, VP II - State Street Investment Management",
      "Quincy, Massachusetts",
@@ -5768,28 +6138,20 @@
      "head of"
     ],
     [
-     "/job/Boston-Massachusetts/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799209",
-     "Associate Regional Consultant, Model Portfolios \u2013 US Wealth, AVP, State Street Investment Management",
-     "Boston, Massachusetts",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799209",
+     "/job/Clifton-New-Jersey/Fund-Accounting---Administration--Private-Equity---Officer--Hybrid-_R-783944",
+     "Fund Accounting & Administration (Private Equity), Officer (Hybrid)",
+     "3 Locations (Clifton New Jersey)",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Clifton-New-Jersey/Fund-Accounting---Administration--Private-Equity---Officer--Hybrid-_R-783944",
      "title_exclude",
-     "regional consultant"
+     "fund accounting"
     ],
     [
-     "/job/Scottsdale/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799210",
-     "Associate Regional Consultant, Model Portfolios \u2013 US Wealth, AVP, State Street Investment Management",
-     "Scottsdale",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Scottsdale/Associate-Regional-Consultant--Model-Portfolio-Solutions---US-Wealth--Assistant-Vice-President_R-799210",
+     "/job/Boston-Massachusetts/COO---Global-Head-of-Business-Operations--MD---State-Street-Investment-Management_R-798552",
+     "COO - Global Head of Business Operations, MD - State Street Investment Management",
+     "4 Locations (Boston Massachusetts)",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/COO---Global-Head-of-Business-Operations--MD---State-Street-Investment-Management_R-798552",
      "title_exclude",
-     "regional consultant"
-    ],
-    [
-     "/job/CR1---700-District/Business-Analyst---Middle-Office--AVP_R-799233",
-     "Business Analyst - Middle Office, AVP",
-     "CR1 - 700 District",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/CR1---700-District/Business-Analyst---Middle-Office--AVP_R-799233",
-     "title_exclude",
-     "business analyst - middle office"
+     "head of"
     ]
    ],
    "n": 113
@@ -7439,6 +7801,14 @@
      "banker"
     ],
     [
+     "/job/Tampa-FL/Wealth-Management-Client-Associate---Tampa--FL_2026-0033641-1",
+     "Wealth Management Client Associate - Tampa, FL",
+     "Tampa, FL",
+     "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Tampa-FL/Wealth-Management-Client-Associate---Tampa--FL_2026-0033641-1",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
      "/job/Milwaukee-WI/Client-Operations-Associate_2026-0032829",
      "Client Operations Associate",
      "2 Locations (Milwaukee WI)",
@@ -7539,14 +7909,6 @@
      "Wealth Management Client Associate",
      "2 Locations (Rio Rancho NM)",
      "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Rio-Rancho-NM/Wealth-Management-Client-Associate_2026-0028317-1",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/Tampa-FL/Wealth-Management-Client-Associate---Tampa--FL_2026-0033641-1",
-     "Wealth Management Client Associate - Tampa, FL",
-     "Tampa, FL",
-     "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Tampa-FL/Wealth-Management-Client-Associate---Tampa--FL_2026-0033641-1",
      "title_exclude",
      "wealth management client associate"
     ]
@@ -19753,14 +20115,6 @@
      "data engineer"
     ],
     [
-     "/job/New-York-NY/XMLNAME-2-Year-Associate--Direct-Lending--Summer-2027-_R-00343",
-     "2-Year Associate, Direct Lending (Summer 2027)",
-     "New York, NY",
-     "https://carlyle.wd1.myworkdayjobs.com/Carlyle/job/New-York-NY/XMLNAME-2-Year-Associate--Direct-Lending--Summer-2027-_R-00343",
-     "title_exclude",
-     "summer"
-    ],
-    [
      "/job/New-York-NY/Internal-Sales-Associate--Global-Wealth_R-00313",
      "Internal Sales Associate, Global Wealth",
      "New York, NY",
@@ -19775,6 +20129,14 @@
      "https://carlyle.wd1.myworkdayjobs.com/Carlyle/job/Washington-DC/Senior-Auditor--Internal-Audit---Cyber---Technology_R-00099-1",
      "title_exclude",
      "cyber"
+    ],
+    [
+     "/job/New-York-NY/XMLNAME-2-Year-Associate--Direct-Lending--Summer-2027-_R-00343",
+     "2-Year Associate, Direct Lending (Summer 2027)",
+     "New York, NY",
+     "https://carlyle.wd1.myworkdayjobs.com/Carlyle/job/New-York-NY/XMLNAME-2-Year-Associate--Direct-Lending--Summer-2027-_R-00343",
+     "title_exclude",
+     "summer"
     ]
    ],
    "n": 4
@@ -19994,20 +20356,20 @@
      "sales associate"
     ],
     [
-     "FTGFTMUS869180EXTERNALENUS",
-     "Sales Associate/ Vice President, Insurance General Account Solutions",
-     "New York, New York, United States of America",
-     "https://careers.franklintempleton.com/us/en/job/FTGFTMUS869180EXTERNALENUS/Sales-Associate-Vice-President-Insurance-General-Account-Solutions",
-     "title_exclude",
-     "sales associate"
-    ],
-    [
      "FTGFTMUS870166EXTERNALENUS",
      "Equity Research Analyst (Software and AI) - Clearbridge",
      "New York, New York, United States of America",
      "https://careers.franklintempleton.com/us/en/job/FTGFTMUS870166EXTERNALENUS/Equity-Research-Analyst-Software-and-AI-Clearbridge",
      "title_exclude",
      "software"
+    ],
+    [
+     "FTGFTMUS869180EXTERNALENUS",
+     "Sales Associate/ Vice President, Insurance General Account Solutions",
+     "New York, New York, United States of America",
+     "https://careers.franklintempleton.com/us/en/job/FTGFTMUS869180EXTERNALENUS/Sales-Associate-Vice-President-Insurance-General-Account-Solutions",
+     "title_exclude",
+     "sales associate"
     ],
     [
      "FTGFTMUS868724EXTERNALENUS",
@@ -20059,91 +20421,6 @@
     ]
    ],
    "n": 13
-  },
-  "Millennium Management": {
-   "rows": [
-    [
-     "755959724535",
-     "Quantitative Developer",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755959724535",
-     "title_exclude",
-     "quantitative developer"
-    ],
-    [
-     "755959070627",
-     "Quant Researcher/Data Scientist - Volatility Alpha Technology",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755959070627",
-     "title_exclude",
-     "scientist"
-    ],
-    [
-     "755959006848",
-     "Associate General Counsel, Equity Capital Markets",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755959006848",
-     "title_exclude",
-     "counsel"
-    ],
-    [
-     "755957773457",
-     "Senior Quantitative Developer",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755957773457",
-     "title_exclude",
-     "quantitative developer"
-    ],
-    [
-     "755956532578",
-     "Quantitative Developer, C++ I Low-Latency Systems",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755956532578",
-     "title_exclude",
-     "quantitative developer"
-    ],
-    [
-     "755956234836",
-     "Project Manager / Business Analyst - Treasury Technology",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755956234836",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "755954587117",
-     "Senior Software Engineer - EQ Derivatives Pricing & Risk",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755954587117",
-     "title_exclude",
-     "software"
-    ],
-    [
-     "755954374057",
-     "Quantitative Developer (C++) -  Central Liquidity Strategies",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755954374057",
-     "title_exclude",
-     "quantitative developer (c++) - central liquidity strategies"
-    ],
-    [
-     "755954183338",
-     "Quantitative Developer (Python) -  Central Liquidity Strategies",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755954183338",
-     "title_exclude",
-     "quantitative developer"
-    ],
-    [
-     "755952876477",
-     "Quantitative Developer",
-     "New York, New York, United States of America",
-     "https://mlp.eightfold.ai/careers/job/755952876477",
-     "title_exclude",
-     "quantitative developer"
-    ]
-   ],
-   "n": 10
   },
   "Houlihan Lokey": {
    "rows": [
@@ -31623,18 +31900,18 @@
      "production associate"
     ],
     [
-     "6123020004",
-     "Production Associate",
-     "Ridgeville, South Carolina, United States",
-     "https://boards.greenhouse.io/redwoodmaterials/jobs/6123020004?gh_jid=6123020004",
-     "title_exclude",
-     "production associate"
-    ],
-    [
      "6116686004",
      "Production Associate",
      "McCarran, NV",
      "https://boards.greenhouse.io/redwoodmaterials/jobs/6116686004?gh_jid=6116686004",
+     "title_exclude",
+     "production associate"
+    ],
+    [
+     "6123020004",
+     "Production Associate",
+     "Ridgeville, South Carolina, United States",
+     "https://boards.greenhouse.io/redwoodmaterials/jobs/6123020004?gh_jid=6123020004",
      "title_exclude",
      "production associate"
     ],
@@ -32496,18 +32773,18 @@
      "account executive"
     ],
     [
-     "6014075003",
-     "Senior Associate, Tax Delivery",
-     "Seattle, WA",
-     "https://job-boards.greenhouse.io/carta/jobs/6014075003",
-     "title_exclude",
-     "tax"
-    ],
-    [
      "6652041003",
      "Senior Associate, Tax Delivery",
      "Sandy, UT",
      "https://job-boards.greenhouse.io/carta/jobs/6652041003",
+     "title_exclude",
+     "tax"
+    ],
+    [
+     "6014075003",
+     "Senior Associate, Tax Delivery",
+     "Seattle, WA",
+     "https://job-boards.greenhouse.io/carta/jobs/6014075003",
      "title_exclude",
      "tax"
     ],
@@ -32541,14 +32818,6 @@
      "medical director"
     ],
     [
-     "8330840",
-     "Associate, Member and Provider Programs",
-     "Tempe, Arizona, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8330840",
-     "title_exclude",
-     "associate, member and provider programs"
-    ],
-    [
      "8303620",
      "Associate, Member and Provider Programs",
      "New York, New York, United States",
@@ -32557,10 +32826,18 @@
      "associate, member and provider programs"
     ],
     [
-     "8412417",
-     "Associate, Payment Integrity",
+     "8330840",
+     "Associate, Member and Provider Programs",
      "Tempe, Arizona, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8412417",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8330840",
+     "title_exclude",
+     "associate, member and provider programs"
+    ],
+    [
+     "8394175",
+     "Associate, Payment Integrity",
+     "New York, New York, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8394175",
      "title_exclude",
      "payment integrity"
     ],
@@ -32573,20 +32850,12 @@
      "payment integrity"
     ],
     [
-     "8394175",
+     "8412417",
      "Associate, Payment Integrity",
-     "New York, New York, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8394175",
+     "Tempe, Arizona, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8412417",
      "title_exclude",
      "payment integrity"
-    ],
-    [
-     "8319428",
-     "Associate, Service Transformation",
-     "Atlanta, Georgia, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8319428",
-     "title_exclude_unless",
-     "transformation"
     ],
     [
      "8329391",
@@ -32597,10 +32866,10 @@
      "transformation"
     ],
     [
-     "8349798",
+     "8319428",
      "Associate, Service Transformation",
-     "Tempe, Arizona, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8349798",
+     "Atlanta, Georgia, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8319428",
      "title_exclude_unless",
      "transformation"
     ],
@@ -32609,6 +32878,14 @@
      "Associate, Service Transformation",
      "New York, New York, United States",
      "https://oscarhealth.com/careers/jobs?gh_jid=8349789",
+     "title_exclude_unless",
+     "transformation"
+    ],
+    [
+     "8349798",
+     "Associate, Service Transformation",
+     "Tempe, Arizona, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8349798",
      "title_exclude_unless",
      "transformation"
     ],
@@ -32645,18 +32922,10 @@
      "senior director"
     ],
     [
-     "8232867",
+     "8224484",
      "Senior Director, Strategic Finance & Enterprise Planning",
-     "Dallas, Texas, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8232867",
-     "title_exclude",
-     "senior director"
-    ],
-    [
-     "8232870",
-     "Senior Director, Strategic Finance & Enterprise Planning",
-     "Atlanta, Georgia, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8232870",
+     "New York, New York, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8224484",
      "title_exclude",
      "senior director"
     ],
@@ -32669,10 +32938,18 @@
      "senior director"
     ],
     [
-     "8224484",
+     "8232870",
      "Senior Director, Strategic Finance & Enterprise Planning",
-     "New York, New York, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8224484",
+     "Atlanta, Georgia, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8232870",
+     "title_exclude",
+     "senior director"
+    ],
+    [
+     "8232867",
+     "Senior Director, Strategic Finance & Enterprise Planning",
+     "Dallas, Texas, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8232867",
      "title_exclude",
      "senior director"
     ],
@@ -33103,18 +33380,18 @@
      "software"
     ],
     [
-     "8927340002",
-     "Senior Software Engineer, Forecasting & Real-Time Optimization",
-     "Seattle, WA",
-     "https://app.careerpuck.com/job-board/lyft/job/8927340002?gh_jid=8927340002",
-     "title_exclude",
-     "software"
-    ],
-    [
      "8927263002",
      "Senior Software Engineer, Forecasting & Real-Time Optimization",
      "San Francisco, CA",
      "https://app.careerpuck.com/job-board/lyft/job/8927263002?gh_jid=8927263002",
+     "title_exclude",
+     "software"
+    ],
+    [
+     "8927340002",
+     "Senior Software Engineer, Forecasting & Real-Time Optimization",
+     "Seattle, WA",
+     "https://app.careerpuck.com/job-board/lyft/job/8927340002?gh_jid=8927340002",
      "title_exclude",
      "software"
     ]
@@ -36123,18 +36400,10 @@
   "Braze": {
    "rows": [
     [
-     "8350782",
+     "8350806",
      "Partner Sales Manager, Venture Capital",
-     "New York City",
-     "https://job-boards.greenhouse.io/braze/jobs/8350782",
-     "title_exclude",
-     "sales manager"
-    ],
-    [
-     "8350801",
-     "Partner Sales Manager, Venture Capital",
-     "San Francisco",
-     "https://job-boards.greenhouse.io/braze/jobs/8350801",
+     "Chicago",
+     "https://job-boards.greenhouse.io/braze/jobs/8350806",
      "title_exclude",
      "sales manager"
     ],
@@ -36147,10 +36416,18 @@
      "sales manager"
     ],
     [
-     "8350806",
+     "8350782",
      "Partner Sales Manager, Venture Capital",
-     "Chicago",
-     "https://job-boards.greenhouse.io/braze/jobs/8350806",
+     "New York City",
+     "https://job-boards.greenhouse.io/braze/jobs/8350782",
+     "title_exclude",
+     "sales manager"
+    ],
+    [
+     "8350801",
+     "Partner Sales Manager, Venture Capital",
+     "San Francisco",
+     "https://job-boards.greenhouse.io/braze/jobs/8350801",
      "title_exclude",
      "sales manager"
     ]
@@ -37349,6 +37626,14 @@
      "roadway engineer"
     ],
     [
+     "/job/US---WA-Seattle/Associate-Utility-Engineer_R187661",
+     "Associate Utility Engineer",
+     "",
+     "https://parsons.wd5.myworkdayjobs.com/Search/job/US---WA-Seattle/Associate-Utility-Engineer_R187661",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
      "/job/US---Remote-Any-Location/Risk-Manager--Risk-Register-Mitigation-_R187507-1",
      "Risk Manager (Risk Register/Mitigation)",
      "",
@@ -37517,7 +37802,7 @@
      "roadway engineer"
     ]
    ],
-   "n": 31
+   "n": 32
   },
   "GlobalFoundries": {
    "rows": [
@@ -40279,6 +40564,30 @@
      "cell therapy"
     ],
     [
+     "/job/Pittsburgh---PA---US/Associate-Director---Key-Account-Manager-Neuroscience--COBENFY--Pittsburgh--PA_R1602551",
+     "Associate Director - Key Account Manager Neuroscience, COBENFY- Pittsburgh, PA",
+     "Pittsburgh - PA - US",
+     "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS/job/Pittsburgh---PA---US/Associate-Director---Key-Account-Manager-Neuroscience--COBENFY--Pittsburgh--PA_R1602551",
+     "title_exclude",
+     "account manager"
+    ],
+    [
+     "/job/Remote---United-States---US/Associate-Director--Biostatistics_R1607780",
+     "Associate Director, Biostatistics",
+     "Remote - United States - US",
+     "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS/job/Remote---United-States---US/Associate-Director--Biostatistics_R1607780",
+     "title_exclude",
+     "biostatistics"
+    ],
+    [
+     "/job/Princeton---NJ---US/Spring-2027-Early-Clinical-Development-Clinical-Science-Co-op_R1608648",
+     "Spring 2027 Early Clinical Development Clinical Science Co-op",
+     "3 Locations (Princeton   NJ   US)",
+     "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS/job/Princeton---NJ---US/Spring-2027-Early-Clinical-Development-Clinical-Science-Co-op_R1608648",
+     "title_exclude",
+     "clinical"
+    ],
+    [
      "/job/New-Brunswick---NJ---US/Associate-Scientist_R1607544",
      "Associate Scientist",
      "New Brunswick - NJ - US",
@@ -40773,30 +41082,6 @@
      "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS/job/Devens---MA---US/Manufacturing-Associate--Cell-Therapy-in-Devens--MA_R1605119",
      "title_exclude",
      "manufacturing associate"
-    ],
-    [
-     "/job/Pittsburgh---PA---US/Associate-Director---Key-Account-Manager-Neuroscience--COBENFY--Pittsburgh--PA_R1602551",
-     "Associate Director - Key Account Manager Neuroscience, COBENFY- Pittsburgh, PA",
-     "Pittsburgh - PA - US",
-     "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS/job/Pittsburgh---PA---US/Associate-Director---Key-Account-Manager-Neuroscience--COBENFY--Pittsburgh--PA_R1602551",
-     "title_exclude",
-     "account manager"
-    ],
-    [
-     "/job/Remote---United-States---US/Associate-Director--Biostatistics_R1607780",
-     "Associate Director, Biostatistics",
-     "Remote - United States - US",
-     "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS/job/Remote---United-States---US/Associate-Director--Biostatistics_R1607780",
-     "title_exclude",
-     "biostatistics"
-    ],
-    [
-     "/job/Princeton---NJ---US/Spring-2027-Early-Clinical-Development-Clinical-Science-Co-op_R1608648",
-     "Spring 2027 Early Clinical Development Clinical Science Co-op",
-     "3 Locations (Princeton   NJ   US)",
-     "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS/job/Princeton---NJ---US/Spring-2027-Early-Clinical-Development-Clinical-Science-Co-op_R1608648",
-     "title_exclude",
-     "clinical"
     ]
    ],
    "n": 72
@@ -41380,6 +41665,38 @@
      "summer"
     ],
     [
+     "/job/Jefferson-Hills-PA-15025-565-Coal-Valley-Road/Environmental-Service-Associate---Teamsters-JH--Housekeeping-FT-Day--Jefferson-Hospital_J287783-1",
+     "Environmental Service Associate / Teamsters JH (Housekeeping-FT Day) Jefferson Hospital",
+     "Jefferson Hills PA, 15025, 565 Coal Valley Road",
+     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Jefferson-Hills-PA-15025-565-Coal-Valley-Road/Environmental-Service-Associate---Teamsters-JH--Housekeeping-FT-Day--Jefferson-Hospital_J287783-1",
+     "title_exclude",
+     "service associate"
+    ],
+    [
+     "/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-FT-Evening--Saint-Vincent-Hospital_J287766-1",
+     "Environmental Services Associate (Housekeeping-FT Evening) Saint Vincent Hospital",
+     "Erie PA, 16502, 232 West 25th St",
+     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-FT-Evening--Saint-Vincent-Hospital_J287766-1",
+     "title_exclude",
+     "environmental services associate"
+    ],
+    [
+     "/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-PT-Day--Saint-Vincent-Hospital_J287776",
+     "Environmental Services Associate (Housekeeping-PT Day) Saint Vincent Hospital",
+     "Erie PA, 16502, 232 West 25th St",
+     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-PT-Day--Saint-Vincent-Hospital_J287776",
+     "title_exclude",
+     "environmental services associate"
+    ],
+    [
+     "/job/Pittsburgh-PA-15224-West-Penn-4800-Friendship-Ave/Food-Service-Associate--PT-Rotational--West-Penn-Hospital_J287568",
+     "Food Service Associate (PT Rotational) West Penn Hospital",
+     "Pittsburgh PA, 15224, West Penn 4800 Friendship Ave",
+     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Pittsburgh-PA-15224-West-Penn-4800-Friendship-Ave/Food-Service-Associate--PT-Rotational--West-Penn-Hospital_J287568",
+     "title_exclude",
+     "food service"
+    ],
+    [
      "/job/Pittsburgh-PA-15224-West-Penn-4800-Friendship-Ave/Sterile-Processing-Technician-Associate--Evenings---West-Penn-Hospital_J287288-1",
      "Sterile Processing Technician Associate (Evenings)- West Penn Hospital",
      "Pittsburgh PA, 15224, West Penn 4800 Friendship Ave",
@@ -41444,14 +41761,6 @@
      "billing associate - ahn cancer institute - allegheny general hospital"
     ],
     [
-     "/job/Pittsburgh-PA-15212-320-E-N-Ave/Environmental-Services-Associate---SEIU---D_J282308",
-     "Environmental Services Associate / SEIU - D (Housekeeping-FT Rotational) Allegheny General Hospital OR",
-     "Pittsburgh PA, 15212, 320 E N Ave.",
-     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Pittsburgh-PA-15212-320-E-N-Ave/Environmental-Services-Associate---SEIU---D_J282308",
-     "title_exclude",
-     "environmental services associate"
-    ],
-    [
      "/job/Monroeville-PA-15146-2626-Haymaker-Rd/Billing-Associate---AHN-Cancer-Institute---Radiation-Oncology---Forbes_J281208",
      "Billing Associate - AHN Cancer Institute / Radiation Oncology - Forbes",
      "Monroeville PA, 15146, 2626 Haymaker Rd",
@@ -41476,36 +41785,12 @@
      "associate lab / teamsters jh"
     ],
     [
-     "/job/Jefferson-Hills-PA-15025-565-Coal-Valley-Road/Environmental-Service-Associate---Teamsters-JH--Housekeeping-FT-Day--Jefferson-Hospital_J287783-1",
-     "Environmental Service Associate / Teamsters JH (Housekeeping-FT Day) Jefferson Hospital",
-     "Jefferson Hills PA, 15025, 565 Coal Valley Road",
-     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Jefferson-Hills-PA-15025-565-Coal-Valley-Road/Environmental-Service-Associate---Teamsters-JH--Housekeeping-FT-Day--Jefferson-Hospital_J287783-1",
-     "title_exclude",
-     "service associate"
-    ],
-    [
-     "/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-FT-Evening--Saint-Vincent-Hospital_J287766-1",
-     "Environmental Services Associate (Housekeeping-FT Evening) Saint Vincent Hospital",
-     "Erie PA, 16502, 232 West 25th St",
-     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-FT-Evening--Saint-Vincent-Hospital_J287766-1",
+     "/job/Pittsburgh-PA-15212-320-E-N-Ave/Environmental-Services-Associate---SEIU---D_J282308",
+     "Environmental Services Associate / SEIU - D (Housekeeping-FT Rotational) Allegheny General Hospital OR",
+     "Pittsburgh PA, 15212, 320 E N Ave.",
+     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Pittsburgh-PA-15212-320-E-N-Ave/Environmental-Services-Associate---SEIU---D_J282308",
      "title_exclude",
      "environmental services associate"
-    ],
-    [
-     "/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-PT-Day--Saint-Vincent-Hospital_J287776",
-     "Environmental Services Associate (Housekeeping-PT Day) Saint Vincent Hospital",
-     "Erie PA, 16502, 232 West 25th St",
-     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Erie-PA-16502-232-West-25th-St/Environmental-Services-Associate--Housekeeping-PT-Day--Saint-Vincent-Hospital_J287776",
-     "title_exclude",
-     "environmental services associate"
-    ],
-    [
-     "/job/Pittsburgh-PA-15224-West-Penn-4800-Friendship-Ave/Food-Service-Associate--PT-Rotational--West-Penn-Hospital_J287568",
-     "Food Service Associate (PT Rotational) West Penn Hospital",
-     "Pittsburgh PA, 15224, West Penn 4800 Friendship Ave",
-     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Pittsburgh-PA-15224-West-Penn-4800-Friendship-Ave/Food-Service-Associate--PT-Rotational--West-Penn-Hospital_J287568",
-     "title_exclude",
-     "food service"
     ]
    ],
    "n": 67
@@ -43563,22 +43848,6 @@
      "senior associate quality assurance"
     ],
     [
-     "/job/US---California---Thousand-Oaks/Executive-Director--US-Medical-Affairs-Cardiovascular-Portfolio-Lead_R-256058",
-     "Executive Director, U.S. Medical Affairs Cardiovascular Portfolio Lead",
-     "US - California - Thousand Oaks",
-     "https://amgen.wd1.myworkdayjobs.com/Careers/job/US---California---Thousand-Oaks/Executive-Director--US-Medical-Affairs-Cardiovascular-Portfolio-Lead_R-256058",
-     "title_exclude",
-     "executive director"
-    ],
-    [
-     "/job/United-States---Remote/Senior-Associate-Paralegal---Trademark--US---Remote-_R-256566-1",
-     "Senior Associate Paralegal - Trademark (US - Remote)",
-     "United States - Remote",
-     "https://amgen.wd1.myworkdayjobs.com/Careers/job/United-States---Remote/Senior-Associate-Paralegal---Trademark--US---Remote-_R-256566-1",
-     "title_exclude",
-     "paralegal"
-    ],
-    [
      "/job/US---California---Thousand-Oaks/Process-Development-Associate--Attribute-Sciences_R-256271",
      "Process Development Associate- Attribute Sciences",
      "US - California - Thousand Oaks",
@@ -43641,6 +43910,22 @@
      "https://amgen.wd1.myworkdayjobs.com/Careers/job/United-States---Remote/Associate-Director--Digital-Product-Management--Catalysts_R-252761",
      "title_exclude_unless",
      "product management"
+    ],
+    [
+     "/job/US---California---Thousand-Oaks/Executive-Director--US-Medical-Affairs-Cardiovascular-Portfolio-Lead_R-256058",
+     "Executive Director, U.S. Medical Affairs Cardiovascular Portfolio Lead",
+     "US - California - Thousand Oaks",
+     "https://amgen.wd1.myworkdayjobs.com/Careers/job/US---California---Thousand-Oaks/Executive-Director--US-Medical-Affairs-Cardiovascular-Portfolio-Lead_R-256058",
+     "title_exclude",
+     "executive director"
+    ],
+    [
+     "/job/United-States---Remote/Senior-Associate-Paralegal---Trademark--US---Remote-_R-256566-1",
+     "Senior Associate Paralegal - Trademark (US - Remote)",
+     "United States - Remote",
+     "https://amgen.wd1.myworkdayjobs.com/Careers/job/United-States---Remote/Senior-Associate-Paralegal---Trademark--US---Remote-_R-256566-1",
+     "title_exclude",
+     "paralegal"
     ],
     [
      "/job/United-States---Remote/Associate-Director--Supply-Chain-Data-Science_R-242484",
@@ -43926,6 +44211,30 @@
      "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Virginia-Beach-Virginia/Associate-Sales-Representative---Hampton-Roads-Virginia---Interventional-Spine---IVS-_R577693-1",
      "title_exclude",
      "sales representative"
+    ],
+    [
+     "/job/Little-Rock-Arkansas/Sales-Associate---Little-Rock--AR---Sports-Medicine_R577270",
+     "Sales Associate - Little Rock, AR - Sports Medicine",
+     "Little Rock, Arkansas",
+     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Little-Rock-Arkansas/Sales-Associate---Little-Rock--AR---Sports-Medicine_R577270",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
+     "/job/Phoenix-Arizona/Upper-Extremities-Sales-Associate---Phoenix--AZ_R576882",
+     "Upper Extremities Sales Associate - Phoenix, AZ",
+     "Phoenix, Arizona",
+     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Phoenix-Arizona/Upper-Extremities-Sales-Associate---Phoenix--AZ_R576882",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
+     "/job/Wood-Dale-Illinois/Field-Operations-Associate---2nd-Shift----2630-hr----1-hr-shift-premium_R577245",
+     "Field Operations Associate - 2nd Shift - $26.30/hr + $1/hr shift premium",
+     "Wood Dale, Illinois",
+     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Wood-Dale-Illinois/Field-Operations-Associate---2nd-Shift----2630-hr----1-hr-shift-premium_R577245",
+     "title_exclude",
+     "field operations"
     ],
     [
      "/job/Portage-Michigan/Downstream-Marketing-Associate---IVS_R577319",
@@ -44998,30 +45307,6 @@
      "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Seattle-Washington/Sales-Associate---Seattle--WA---Sports-Medicine_R567413",
      "title_exclude",
      "sales associate"
-    ],
-    [
-     "/job/Little-Rock-Arkansas/Sales-Associate---Little-Rock--AR---Sports-Medicine_R577270",
-     "Sales Associate - Little Rock, AR - Sports Medicine",
-     "Little Rock, Arkansas",
-     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Little-Rock-Arkansas/Sales-Associate---Little-Rock--AR---Sports-Medicine_R577270",
-     "title_exclude",
-     "sales associate"
-    ],
-    [
-     "/job/Phoenix-Arizona/Upper-Extremities-Sales-Associate---Phoenix--AZ_R576882",
-     "Upper Extremities Sales Associate - Phoenix, AZ",
-     "Phoenix, Arizona",
-     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Phoenix-Arizona/Upper-Extremities-Sales-Associate---Phoenix--AZ_R576882",
-     "title_exclude",
-     "sales associate"
-    ],
-    [
-     "/job/Wood-Dale-Illinois/Field-Operations-Associate---2nd-Shift----2630-hr----1-hr-shift-premium_R577245",
-     "Field Operations Associate - 2nd Shift - $26.30/hr + $1/hr shift premium",
-     "Wood Dale, Illinois",
-     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Wood-Dale-Illinois/Field-Operations-Associate---2nd-Shift----2630-hr----1-hr-shift-premium_R577245",
-     "title_exclude",
-     "field operations"
     ]
    ],
    "n": 170
@@ -52022,7 +52307,7 @@
      "sales associate"
     ]
    ],
-   "n": 2371
+   "n": 2370
   },
   "Sonoco": {
    "rows": [
@@ -56184,14 +56469,6 @@
      "supply chain"
     ],
     [
-     "/job/US-MN-BURNSVILLE-WEST--14300-Judicial-Rd--WEST-BLDG/Material-Associate-I---1st-Shift_01890552",
-     "Material Associate I - 1st Shift",
-     "US-MN-BURNSVILLE-WEST ~ 14300 Judicial Rd ~ WEST BLDG",
-     "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MN-BURNSVILLE-WEST--14300-Judicial-Rd--WEST-BLDG/Material-Associate-I---1st-Shift_01890552",
-     "title_exclude",
-     "shift"
-    ],
-    [
      "/job/US-CA-FAIRFIELD-3530--3530-Branscombe-Rd--BRANSCOMBE/Production-Associate-I_01885163",
      "Production Associate I",
      "US-CA-FAIRFIELD-3530 ~ 3530 Branscombe Rd ~ BRANSCOMBE",
@@ -56566,110 +56843,17 @@
      "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Principal-Engineer--Data-Analytics-and-Machine-Learning--Hybrid---Aguadilla--PR-_01846859",
      "title_exclude",
      "principal engineer"
+    ],
+    [
+     "/job/US-MN-BURNSVILLE-WEST--14300-Judicial-Rd--WEST-BLDG/Material-Associate-I---1st-Shift_01890552",
+     "Material Associate I - 1st Shift",
+     "US-MN-BURNSVILLE-WEST ~ 14300 Judicial Rd ~ WEST BLDG",
+     "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MN-BURNSVILLE-WEST--14300-Judicial-Rd--WEST-BLDG/Material-Associate-I---1st-Shift_01890552",
+     "title_exclude",
+     "shift"
     ]
    ],
    "n": 56
-  },
-  "Target": {
-   "rows": [
-    [
-     "/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
-     "Full Time Hourly Warehouse Associate Openings - $1,000 SIGN ON BONUS (T0579)",
-     "129 North Rd, Wilton,NY 12831-1308",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
-     "title_exclude",
-     "warehouse associate"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
-     "Financial Analyst Intern -  Minneapolis, MN (Starting Summer, 2027)",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
-     "Associate Buyer - Bedding Essentials, Mattresses, Sheets & Blankets",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
-     "Associate Technical Developer, Owned Brands - Intimates/Sleep",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
-     "title_exclude_unless",
-     "developer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
-     "Associate Buyer, Collection Bedding",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
-     "Associate Buyer - Women's Swim",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
-     "Associate Buyer - Lunchbox",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
-     "Associate Sourcing Manager, Western Hemisphere - Home",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
-     "title_exclude",
-     "sourcing manager"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
-     "Associate Product Designer- Furniture and Lighting",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
-     "title_exclude",
-     "designer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
-     "Associate Designer - Menswear",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
-     "title_exclude",
-     "designer"
-    ],
-    [
-     "/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
-     "Seasonal Part Time Hourly Warehouse Associate Openings Only (T3863)",
-     "900 River Rd, King of Prussia,PA 19406",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
-     "title_exclude",
-     "warehouse associate"
-    ],
-    [
-     "/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
-     "Seasonal Full Time Hourly Warehouse Associate Openings (T3863)",
-     "900 River Rd, King of Prussia,PA 19406",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
-     "title_exclude",
-     "warehouse associate"
-    ]
-   ],
-   "n": 12
   },
   "FTI Consulting": {
    "rows": [
@@ -61732,38 +61916,6 @@
   "New York Life": {
    "rows": [
     [
-     "43598289",
-     "2027 Group Benefit Solutions (GBS) Underwriting Summer Internship Program (Phoenix, AZ)",
-     "Phoenix,Arizona,United States",
-     "https://careers.newyorklife.com/careers/job/43598289",
-     "title_exclude",
-     "summer"
-    ],
-    [
-     "45116901",
-     "2027 GBS ASCEND Program Associate - Sales Desk Phoenix",
-     "Phoenix,Arizona,United States",
-     "https://careers.newyorklife.com/careers/job/45116901",
-     "title_exclude_unless",
-     "sales"
-    ],
-    [
-     "45390180",
-     "SENIOR ASSOCIATE, Long Term Care External Wholesaler",
-     "Las Vegas,Nevada,United States",
-     "https://careers.newyorklife.com/careers/job/45390180",
-     "title_exclude",
-     "wholesaler"
-    ],
-    [
-     "41922162",
-     "Senior Associate - Senior GCP Security Engineer",
-     "Remote,New York,United States | United States",
-     "https://careers.newyorklife.com/careers/job/41922162",
-     "title_exclude",
-     "security engineer"
-    ],
-    [
      "45059878",
      "Associate, Sales Representative",
      "Remote,New York,United States | Remote, New York | Remote, New Jersey",
@@ -61778,6 +61930,14 @@
      "https://careers.newyorklife.com/careers/job/42487082",
      "title_exclude",
      "sales representative"
+    ],
+    [
+     "41922162",
+     "Senior Associate - Senior GCP Security Engineer",
+     "Remote,New York,United States | United States",
+     "https://careers.newyorklife.com/careers/job/41922162",
+     "title_exclude",
+     "security engineer"
     ],
     [
      "44140082",
@@ -61890,9 +62050,17 @@
      "https://careers.newyorklife.com/careers/job/45372487",
      "title_exclude",
      "security engineer"
+    ],
+    [
+     "45390180",
+     "SENIOR ASSOCIATE, Long Term Care External Wholesaler",
+     "Las Vegas,Nevada,United States",
+     "https://careers.newyorklife.com/careers/job/45390180",
+     "title_exclude",
+     "wholesaler"
     ]
    ],
-   "n": 20
+   "n": 18
   },
   "Moody's": {
    "rows": [
@@ -62639,28 +62807,12 @@
      "client associate"
     ],
     [
-     "353658",
-     "Client Associate",
-     "United States - Tennessee",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353658",
-     "title_exclude",
-     "client associate"
-    ],
-    [
      "353684",
      "Client Associate",
      "United States - Ohio",
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353684",
      "title_exclude",
      "client associate"
-    ],
-    [
-     "353686",
-     "Registered Client Associate",
-     "United States - Massachusetts",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353686",
-     "title_exclude",
-     "registered client associate"
     ],
     [
      "353495",
@@ -62671,12 +62823,20 @@
      "registered client associate"
     ],
     [
-     "353611",
+     "353658",
      "Client Associate",
-     "United States - Michigan",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353611",
+     "United States - Tennessee",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353658",
      "title_exclude",
      "client associate"
+    ],
+    [
+     "353686",
+     "Registered Client Associate",
+     "United States - Massachusetts",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353686",
+     "title_exclude",
+     "registered client associate"
     ],
     [
      "353624",
@@ -62707,6 +62867,14 @@
      "Client Associate",
      "United States - North Carolina",
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353261",
+     "title_exclude",
+     "client associate"
+    ],
+    [
+     "353611",
+     "Client Associate",
+     "United States - Michigan",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353611",
      "title_exclude",
      "client associate"
     ],
@@ -62839,6 +63007,14 @@
      "wealth strategy associate"
     ],
     [
+     "353065",
+     "Client Associate",
+     "United States - Texas",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353065",
+     "title_exclude",
+     "client associate"
+    ],
+    [
      "353020",
      "Client Associate",
      "United States - Texas",
@@ -62861,14 +63037,6 @@
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353016",
      "title_exclude",
      "registered client associate"
-    ],
-    [
-     "353065",
-     "Client Associate",
-     "United States - Texas",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353065",
-     "title_exclude",
-     "client associate"
     ],
     [
      "347286",
@@ -62911,6 +63079,14 @@
      "registered client associate"
     ],
     [
+     "351680",
+     "Client Associate",
+     "United States - California",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=351680",
+     "title_exclude",
+     "client associate"
+    ],
+    [
      "350293",
      "Registered Client Associate",
      "United States - Arizona",
@@ -62935,26 +63111,10 @@
      "client associate"
     ],
     [
-     "351680",
-     "Client Associate",
-     "United States - California",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=351680",
-     "title_exclude",
-     "client associate"
-    ],
-    [
-     "352760",
-     "Wealth Strategy Associate",
-     "United States - Texas",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352760",
-     "title_exclude",
-     "wealth strategy associate"
-    ],
-    [
-     "352822",
-     "Client Associate",
-     "United States - Tennessee",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352822",
+     "352821",
+     "Registered, Client Associate",
+     "United States - Minnesota",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352821",
      "title_exclude",
      "client associate"
     ],
@@ -62975,10 +63135,18 @@
      "client associate"
     ],
     [
-     "352821",
-     "Registered, Client Associate",
-     "United States - Minnesota",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352821",
+     "352760",
+     "Wealth Strategy Associate",
+     "United States - Texas",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352760",
+     "title_exclude",
+     "wealth strategy associate"
+    ],
+    [
+     "352822",
+     "Client Associate",
+     "United States - Tennessee",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=352822",
      "title_exclude",
      "client associate"
     ],
@@ -67477,7 +67645,7 @@
      "3525",
      "Associate \u2013 Human Capital Group, Performance Reviews & People Analytics - New York",
      "New York, Americas",
-     "https://evercore.tal.net/vx/mobile-0/appcentre-ext/brand-4/spa-1/candidate/so/pm/1/pl/3/opp/3525-Associate-Human-Capital-Group-Performance-Reviews-People-Analytics-New-York/en-GB",
+     "https://evercore.tal.net/vx/mobile-0/appcentre-ext/brand-4/candidate/so/pm/1/pl/3/opp/3525-Associate-Human-Capital-Group-Performance-Reviews-People-Analytics-New-York/en-GB",
      "title_exclude",
      "people analytics"
     ],
@@ -67485,7 +67653,7 @@
      "3470",
      "Executive Assistant - Private Capital Advisory - New York",
      "New York, Americas",
-     "https://evercore.tal.net/vx/mobile-0/appcentre-ext/brand-4/spa-1/candidate/so/pm/1/pl/3/opp/3470-Executive-Assistant-Private-Capital-Advisory-New-York/en-GB",
+     "https://evercore.tal.net/vx/mobile-0/appcentre-ext/brand-4/candidate/so/pm/1/pl/3/opp/3470-Executive-Assistant-Private-Capital-Advisory-New-York/en-GB",
      "title_exclude",
      "executive assistant"
     ],
@@ -67493,7 +67661,7 @@
      "3380",
      "EWM - Managing Director, Portfolio Management - Minneapolis, MN",
      "Minneapolis, Americas",
-     "https://evercore.tal.net/vx/mobile-0/appcentre-ext/brand-4/spa-1/candidate/so/pm/1/pl/3/opp/3380-EWM-Managing-Director-Portfolio-Management-Minneapolis-MN/en-GB",
+     "https://evercore.tal.net/vx/mobile-0/appcentre-ext/brand-4/candidate/so/pm/1/pl/3/opp/3380-EWM-Managing-Director-Portfolio-Management-Minneapolis-MN/en-GB",
      "title_exclude",
      "managing director"
     ]
@@ -68251,20 +68419,20 @@
      "account manager"
     ],
     [
-     "MAMCGLOBALR372752EXTERNALENGLOBAL",
-     "Workforce and Rewards Summer Associate (MBA or Masters Track)- New York- MBA Program 2027",
-     "1166 Avenue of the Americas, New York, NY 10036-2708, United States of America",
-     "https://careers.marsh.com/global/en/job/MAMCGLOBALR372752EXTERNALENGLOBAL/Workforce-and-Rewards-Summer-Associate-MBA-or-Masters-Track-New-York-MBA-Program-2027",
-     "title_exclude",
-     "summer"
-    ],
-    [
      "MAMCGLOBALR372879EXTERNALENGLOBAL",
      "Business Insurance Production Associate",
      "4401 Northside Parkway, One Riverside, Atlanta, GA 30327, United States of America",
      "https://careers.marsh.com/global/en/job/MAMCGLOBALR372879EXTERNALENGLOBAL/Business-Insurance-Production-Associate",
      "title_exclude",
      "production associate"
+    ],
+    [
+     "MAMCGLOBALR372752EXTERNALENGLOBAL",
+     "Workforce and Rewards Summer Associate (MBA or Masters Track)- New York- MBA Program 2027",
+     "1166 Avenue of the Americas, New York, NY 10036-2708, United States of America",
+     "https://careers.marsh.com/global/en/job/MAMCGLOBALR372752EXTERNALENGLOBAL/Workforce-and-Rewards-Summer-Associate-MBA-or-Masters-Track-New-York-MBA-Program-2027",
+     "title_exclude",
+     "summer"
     ],
     [
      "MAMCGLOBALR372679EXTERNALENGLOBAL",
@@ -68291,20 +68459,20 @@
      "cyber"
     ],
     [
-     "MAMCGLOBALR368602EXTERNALENGLOBAL",
-     "Environmental Consulting and Risk Management Intern",
-     "5605 Carnegie Boulevard, Carnegie X, Charlotte, NC 28209, United States of America",
-     "https://careers.marsh.com/global/en/job/MAMCGLOBALR368602EXTERNALENGLOBAL/Environmental-Consulting-and-Risk-Management-Intern",
-     "title_exclude",
-     "intern"
-    ],
-    [
      "MAMCGLOBALR372018EXTERNALENGLOBAL",
      "Senior Account Manager - Complex Risk Management Book",
      "20 North Martingale Road, Woodfield Preserve Office Center, Schaumburg, IL 60173, United States of America",
      "https://careers.marsh.com/global/en/job/MAMCGLOBALR372018EXTERNALENGLOBAL/Senior-Account-Manager-Complex-Risk-Management-Book",
      "title_exclude",
      "account manager"
+    ],
+    [
+     "MAMCGLOBALR368602EXTERNALENGLOBAL",
+     "Environmental Consulting and Risk Management Intern",
+     "5605 Carnegie Boulevard, Carnegie X, Charlotte, NC 28209, United States of America",
+     "https://careers.marsh.com/global/en/job/MAMCGLOBALR368602EXTERNALENGLOBAL/Environmental-Consulting-and-Risk-Management-Intern",
+     "title_exclude",
+     "intern"
     ],
     [
      "MAMCGLOBALR372025EXTERNALENGLOBAL",
@@ -68315,20 +68483,20 @@
      "account manager"
     ],
     [
-     "MAMCGLOBALR367778EXTERNALENGLOBAL",
-     "Associate Client Manager, Business Insurance Select",
-     "3625 North Elm Street, Greensboro, NC 27455, United States of America",
-     "https://careers.marsh.com/global/en/job/MAMCGLOBALR367778EXTERNALENGLOBAL/Associate-Client-Manager-Business-Insurance-Select",
-     "title_exclude",
-     "associate client manager, business insurance select"
-    ],
-    [
      "MAMCGLOBALR372068EXTERNALENGLOBAL",
      "Associate Client Manager - Employee Health & Benefits",
      "2925 Palmer Street, Gateway Professional Plaza, Missoula, MT 59808, United States of America",
      "https://careers.marsh.com/global/en/job/MAMCGLOBALR372068EXTERNALENGLOBAL/Associate-Client-Manager-Employee-Health-Benefits",
      "title_exclude",
      "associate client manager - employee health & benefits"
+    ],
+    [
+     "MAMCGLOBALR367778EXTERNALENGLOBAL",
+     "Associate Client Manager, Business Insurance Select",
+     "3625 North Elm Street, Greensboro, NC 27455, United States of America",
+     "https://careers.marsh.com/global/en/job/MAMCGLOBALR367778EXTERNALENGLOBAL/Associate-Client-Manager-Business-Insurance-Select",
+     "title_exclude",
+     "associate client manager, business insurance select"
     ],
     [
      "MAMCGLOBALR323911EXTERNALENGLOBAL",
@@ -69253,12 +69421,20 @@
   "EY": {
    "rows": [
     [
-     "1459850533",
-     "EY-Parthenon - Strategy and Execution - Strategy - Life Sciences - Senior Associate/Consultant",
-     "New York, NY, US, 10001-8604",
-     "https://careers.ey.com/ey/job/New-York-EY-Parthenon-Strategy-and-Execution-Strategy-Life-Sciences-Senior-AssociateConsultant-NY-10001-8604/1459850533/",
+     "1451449733",
+     "Government and Infrastructure\u00a0- Assurance - Technology Risk- Manager - TS SCI Clearance Required",
+     "McLean, VA, US, 22102",
+     "https://careers.ey.com/ey/job/McLean-Government-and-Infrastructure%C2%A0-Assurance-Technology-Risk-Manager-TS-SCI-Clearance-Required-VA-22102/1451449733/",
      "title_exclude",
-     "life sciences"
+     "technology risk"
+    ],
+    [
+     "1451449933",
+     "Government and Infrastructure\u00a0- Assurance - Technology Risk- Senior- TS SCI Clearance Required",
+     "McLean, VA, US, 22102",
+     "https://careers.ey.com/ey/job/McLean-Government-and-Infrastructure%C2%A0-Assurance-Technology-Risk-Senior-TS-SCI-Clearance-Required-VA-22102/1451449933/",
+     "title_exclude",
+     "technology risk"
     ],
     [
      "1408954433",
@@ -69285,7 +69461,7 @@
      "life sciences"
     ]
    ],
-   "n": 4
+   "n": 5
   },
   "KPMG": {
    "rows": [
@@ -75318,195 +75494,6 @@
    ],
    "n": 3
   },
-  "Qualcomm": {
-   "rows": [
-    [
-     "446722198935",
-     "Senior Near-Memory Compute System Validation Engineer",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446722198935",
-     "title_exclude",
-     "system validation"
-    ],
-    [
-     "446721491121",
-     "Multimedia-System HW Validation and Integration Engineer",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721491121",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
-     "446719655199",
-     "Power Delivery and Voltage Regulator Validation Engineer \u2013 Datacenter",
-     "Santa Clara, California, United States of America | Austin, Texas, United States of America",
-     "https://careers.qualcomm.com/careers/job/446719655199",
-     "title_exclude",
-     "validation engineer"
-    ],
-    [
-     "446722062213",
-     "Associate Creative Director, Campaign Creative",
-     "Santa Clara, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446722062213",
-     "title_exclude",
-     "creative director"
-    ],
-    [
-     "446722004999",
-     "Marketing Communications Specialist, Associate - Strategic Planning & Integration",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446722004999",
-     "title_exclude",
-     "marketing"
-    ],
-    [
-     "446722040241",
-     "SoC Power Validation Engineer",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446722040241",
-     "title_exclude",
-     "validation engineer"
-    ],
-    [
-     "446717827966",
-     "Associate Attorney, Senior",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446717827966",
-     "title_exclude",
-     "attorney"
-    ],
-    [
-     "446721831785",
-     "Calibration Engineer, Associate",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721831785",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
-     "446721831795",
-     "Technical Support Engineer, Associate",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721831795",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
-     "446720269361",
-     "Associate Creative Director, Campaign Creative",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446720269361",
-     "title_exclude",
-     "creative director"
-    ],
-    [
-     "446721409165",
-     "Marketing Specialist, Associate - Integrated Marketing (Snapdragon & Qualcomm)",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721409165",
-     "title_exclude",
-     "marketing"
-    ],
-    [
-     "446721346865",
-     "High-Bandwidth Memory (HBM) System Validation Lead (AI Accelerator Platform)",
-     "San Diego, California, United States of America | Austin, Texas, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721346865",
-     "title_exclude",
-     "system validation"
-    ],
-    [
-     "446721331002",
-     "Graphics System/Silicon Validation Engineer",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721331002",
-     "title_exclude",
-     "silicon"
-    ],
-    [
-     "446721217312",
-     "Sr. Staff Engineer - Verification & Validation Lead",
-     "Novi, Michigan, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721217312",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
-     "446720361954",
-     "SoC Systems & Infrastructure Engineer (Design \u2022 Validation \u2022 Debug \u2022 FPGA \u2022 Emulation \u2022 Software)",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446720361954",
-     "title_exclude",
-     "infrastructure engineer"
-    ],
-    [
-     "446721160053",
-     "Post-Silicon Validation Technical Program Manager",
-     "Santa Clara, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446721160053",
-     "title_exclude",
-     "silicon"
-    ],
-    [
-     "446718428747",
-     "Lead CPU Firmware Verification and Validation Engineer/ Manager",
-     "Santa Clara, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446718428747",
-     "title_exclude",
-     "firmware"
-    ],
-    [
-     "446717673112",
-     "Director, Product Management - Ethernet Portfolio (PHY, NIC, & Switching)",
-     "Santa Clara, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446717673112",
-     "title_exclude",
-     "director, product management - ethernet portfolio (phy, nic, & switching)"
-    ],
-    [
-     "446719364252",
-     "DDRSS Validation Engineer (RTL + Silicon Debug)",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446719364252",
-     "title_exclude",
-     "validation engineer"
-    ],
-    [
-     "446720177120",
-     "Senior System and Hardware Validation Engineer",
-     "San Diego, California, United States of America | Austin, Texas, United States of America",
-     "https://careers.qualcomm.com/careers/job/446720177120",
-     "title_exclude",
-     "hardware validation"
-    ],
-    [
-     "446720710088",
-     "Sr. Post-Silicon Validation Engineer, RF/Mixed-Signal",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446720710088",
-     "title_exclude",
-     "silicon"
-    ],
-    [
-     "446715485482",
-     "GPU Validation and Emulation Engineer, Senior",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446715485482",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
-     "446717307122",
-     "CPU Post-Silicon Validation Engineer - Multiple Levels",
-     "Santa Clara, California, United States of America | Austin, Texas, United States of America | San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446717307122",
-     "title_exclude",
-     "silicon"
-    ]
-   ],
-   "n": 23
-  },
   "Beth Israel Lahey Health": {
    "rows": [
     [
@@ -80599,20 +80586,20 @@
   "RLI Corp": {
    "rows": [
     [
-     "/job/Peoria-IL/Sr-Technology-Risk-Analyst_R1911-1",
-     "Sr. Technology Risk Analyst",
-     "Peoria, IL",
-     "https://rlicorp.wd1.myworkdayjobs.com/RLI_Corp_Careers/job/Peoria-IL/Sr-Technology-Risk-Analyst_R1911-1",
-     "title_exclude",
-     "technology risk"
-    ],
-    [
      "/job/Peoria-IL/Internal-Audit-Intern---Spring---Summer-2027--Peoria--IL-_R1895",
      "Internal Audit Intern - Spring & Summer 2027 (Peoria, IL)",
      "Peoria, IL",
      "https://rlicorp.wd1.myworkdayjobs.com/RLI_Corp_Careers/job/Peoria-IL/Internal-Audit-Intern---Spring---Summer-2027--Peoria--IL-_R1895",
      "title_exclude",
      "intern"
+    ],
+    [
+     "/job/Peoria-IL/Sr-Technology-Risk-Analyst_R1911-1",
+     "Sr. Technology Risk Analyst",
+     "Peoria, IL",
+     "https://rlicorp.wd1.myworkdayjobs.com/RLI_Corp_Careers/job/Peoria-IL/Sr-Technology-Risk-Analyst_R1911-1",
+     "title_exclude",
+     "technology risk"
     ]
    ],
    "n": 2
@@ -81272,6 +81259,19 @@
   "Best Egg": {
    "rows": [],
    "n": 0
+  },
+  "State of Michigan": {
+   "rows": [
+    [
+     "5548223",
+     "Toxicologist 10-P11, Chemical Hazards & Assessment of Risk Unit",
+     "Health And Human Services - Central Office",
+     "https://www.governmentjobs.com/careers/michigan/jobs/5548223/toxicologist-10-p11-chemical-hazards-assessment-of-risk-unit",
+     "title_exclude",
+     "toxicologist"
+    ]
+   ],
+   "n": 1
   },
   "AgCarolina Farm Credit": {
    "rows": [],
@@ -82326,18 +82326,18 @@
      "summer"
     ],
     [
-     "8636745002",
-     "Pricing Strategy Lead - Vice President / Senior Vice President",
-     "New York, New York, United States",
-     "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8636745002",
-     "title_exclude_unless",
-     "senior vice president"
-    ],
-    [
      "8703557002",
      "Pricing Strategy Lead - Vice President / Senior Vice President",
      "Greenwich, Connecticut, United States",
      "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8703557002",
+     "title_exclude_unless",
+     "senior vice president"
+    ],
+    [
+     "8636745002",
+     "Pricing Strategy Lead - Vice President / Senior Vice President",
+     "New York, New York, United States",
+     "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8636745002",
      "title_exclude_unless",
      "senior vice president"
     ],
@@ -82374,18 +82374,18 @@
      "engineer"
     ],
     [
-     "8930899002",
-     "Software Integration Engineer - Associate",
-     "Salt Lake City, Utah, United States",
-     "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8930899002",
-     "title_exclude",
-     "software"
-    ],
-    [
      "8919341002",
      "Software Integration Engineer - Associate",
      "Colorado Springs, Colorado, United States",
      "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8919341002",
+     "title_exclude",
+     "software"
+    ],
+    [
+     "8930899002",
+     "Software Integration Engineer - Associate",
+     "Salt Lake City, Utah, United States",
+     "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8930899002",
      "title_exclude",
      "software"
     ],
