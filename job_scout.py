@@ -3128,8 +3128,38 @@ def phenom(c):
     return out, False
 
 
+def uncareers(c):
+    """UN Secretariat careers.un.org (Inspira successor) - unofficial public JSON, found in the site bundle 2026-11-24 (not in any doc).
+    One POST returns every open job with its description (423 on 2026-11-24, covers PD staff, CON, INT, GS, YPP exam rows).
+    Needs host=careers.un.org. Agency graduate programmes (UNDP etc.) are separate boards."""
+    host, page = c["host"], int(c.get("page_size", 200))
+    out, seen, number, total = [], set(), 0, None
+    while True:
+        d = http(f"https://{host}/api/public/opening/jo/list/filteredV2/en", timeout=60, data={
+            "filterConfig": {"jle": [], "jc": []},
+            "pagination": {"page": number, "itemPerPage": page, "sortBy": "startDate", "sortDirection": -1}})
+        body = d.get("data") or {}
+        rows = body.get("list") or []
+        total = body.get("count") if isinstance(body.get("count"), int) else total
+        for j in rows:
+            jid = str(j.get("jobId") or "")
+            if not jid or jid in seen:
+                continue
+            seen.add(jid)
+            where = " | ".join(x.get("description", "") for x in (j.get("dutyStation") or []) if x.get("description"))
+            dept = (j.get("dept") or {}).get("name", "")
+            out.append(dict(id=jid, title=j.get("postingTitle") or j.get("jobTitle") or "", location=where,
+                            url=f"https://{host}/jobSearchDescription/{jid}", posted=str(j.get("startDate") or "")[:10],
+                            desc=strip_html(f"{dept}. {j.get('jobDescription') or ''}")))
+        number += 1
+        if len(rows) < page or (total is not None and len(seen) >= total):
+            return out, total is None or len(seen) >= total
+        if number > 20:
+            return out, False
+
+
 FETCH = dict(greenhouse=greenhouse, lever=lever, ashby=ashby, smartrecruiters=smartrecruiters, workday=workday,
-             oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, ukg_ready=ukg_ready, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
+             uncareers=uncareers, oracle=oracle, personio=personio, goldman=goldman, successfactors=successfactors, icims=icims, eightfold=eightfold, talentbrew=talentbrew, avature=avature, kpmg=kpmg, adp_rm=adp_rm, adp_wfn=adp_wfn, ukg=ukg, ukg_ready=ukg_ready, taleo_be=taleo_be, taleo_cws=taleo_cws, csod=csod, peoplesoft_hrs=peoplesoft_hrs, talentsoft=talentsoft, bpce=bpce, paylocity=paylocity, deshaw=deshaw, brassring=brassring, jibe=jibe, taleo=taleo, hrmdirect=hrmdirect, commerzbank=commerzbank, dzbank=dzbank, marketaxess=marketaxess, phenom=phenom,
              balyasny=balyasny, tal=tal, amazon=amazon,
              dayforce=dayforce, rippling=rippling, careerpuck=careerpuck, sitecore_search=sitecore_search, bamboohr=bamboohr,
              jazzhr=jazzhr, workable=workable, nas_recruitment=nas_recruitment,

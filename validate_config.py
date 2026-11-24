@@ -13,7 +13,7 @@ REQUIRED_FIELDS = {
     "jazzhr": ("host",), "workable": ("slug",), "nas_recruitment": ("host",),
     "teamtailor": ("host",), "comeet": ("host",), "kula": ("slug",), "breezy": ("slug",), "jobvite": ("company",), "isolvedhire": ("host",), "silkroad": ("portal",), "jobaps": ("agency",), "applicantstack": ("host",), "yc": ("slug",), "neogov": ("agency",), "trakstar": ("slug",), "pinpoint": ("slug",), "sitemap": ("sitemap",),
     "smartrecruiters": ("slug",), "personio": ("slug",),
-    "workday": ("host", "tenant", "site"), "oracle": ("host", "site"),
+    "workday": ("host", "tenant", "site"), "oracle": ("host", "site"), "uncareers": ("host",),
     "successfactors": ("host",), "icims": (),
     "eightfold": ("host", "domain"), "talentbrew": ("host",),
     "avature": ("host", "list_path"),

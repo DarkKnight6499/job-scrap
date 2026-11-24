@@ -16685,8 +16685,9 @@
  },
  "unitednations": {
   "name": "United Nations",
-  "date": "2026-11-20",
-  "found": null
+  "date": "2026-11-24",
+  "found": "uncareers careers.un.org",
+  "note": "careers.un.org JSON API from site bundle 2026-11-24"
  },
  "universityofkentucky": {
   "name": "University Of Kentucky",
@@ -17800,5 +17801,11 @@
   "name": "Mondelez International",
   "date": "2026-11-23",
   "found": null
+ },
+ "unsecretariat": {
+  "name": "UN Secretariat",
+  "date": "2026-11-24",
+  "found": "uncareers careers.un.org",
+  "note": "careers.un.org JSON API from site bundle 2026-11-24"
  }
 }
