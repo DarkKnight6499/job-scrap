@@ -23773,6 +23773,36 @@
    "tenant": "bonadio",
    "site": "Bonadio_Careers",
    "search": ""
+  },
+  {
+   "name": "Squire",
+   "ats": "adp_wfn",
+   "cid": "ec3aaeb0-4105-4821-8351-4ab5d56d0067",
+   "ccId": "19000101_000003"
+  },
+  {
+   "name": "Alliant Insurance Services",
+   "ats": "dayforce",
+   "namespace": "allianthcm",
+   "board": "Alliant"
+  },
+  {
+   "name": "Cornerstone Research",
+   "ats": "icims",
+   "hosts": [
+    "exp-chire.icims.com",
+    "grad-chire.icims.com",
+    "corpadmin-chire.icims.com",
+    "ug-chire.icims.com"
+   ]
+  },
+  {
+   "name": "Cornerstone Research Corporate",
+   "ats": "workday",
+   "host": "cornerstone.wd501.myworkdayjobs.com",
+   "tenant": "cornerstone",
+   "site": "CornerstoneResearch_Careers",
+   "search": ""
   }
  ],
  "keywords": [

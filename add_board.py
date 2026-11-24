@@ -3,7 +3,7 @@
 For companies discover_boards.py cannot detect (bot-checked career page, ATS link read from a job post): the board is fetched through
 the same fetcher the scout uses, must return jobs, and only then is it appended (config keeps indent=1, UTF-8) and written to the tried-log.
 
-Run: py -3 -X utf8 add_board.py "Company Name" --ats adp_rm --set domain=constellationinsurancecareers [--set key=value ...] [--alias "Other Name"] [--note "how it was found"] [--dry-run]
+Run: py -3 -X utf8 add_board.py "Company Name" --ats adp_rm --set domain=constellationinsurancecareers [--set key=value | --set 'hosts=["a.icims.com"]' ...] [--alias "Other Name"] [--note "how it was found"] [--dry-run]
 Needs the fields the ats' adapter reads (see config_entry in discover_boards.py and the adapter docstring in job_scout.py). Read the printed titles: they must belong to the company.
 After a real add run validate_config.py (done here) and commit config.json plus board_discovery_log.json together.
 """
@@ -72,7 +72,7 @@ def main():
     ap.add_argument("--note", default="")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    fields = dict(kv.split("=", 1) for kv in a.set)
+    fields = {k: (json.loads(v) if v.startswith("[") else v) for k, v in (kv.split("=", 1) for kv in a.set)}  # a [..] value is a JSON list (icims hosts)
     sys.path.insert(0, str(HERE))
     import job_scout  # noqa: E402
     if a.ats not in job_scout.FETCH:

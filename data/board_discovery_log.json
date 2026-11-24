@@ -10770,8 +10770,9 @@
  },
  "alliant": {
   "name": "Alliant",
-  "date": "2026-11-20",
-  "found": null
+  "date": "2026-11-24",
+  "found": "dayforce allianthcm",
+  "note": "alliant.com careers Dayforce 2026-11-24"
  },
  "allsouth": {
   "name": "Allsouth",
@@ -17831,5 +17832,41 @@
   "date": "2026-11-24",
   "found": "workday bonadio.wd503.myworkdayjobs.com",
   "note": "careers page bonadio.com/careers links Workday 2026-11-24"
+ },
+ "squire": {
+  "name": "Squire",
+  "date": "2026-11-24",
+  "found": "adp_wfn ec3aaeb0-4105-4821-8351-4ab5d56d0067",
+  "note": "squire.com current-openings page ADP WFN widget 2026-11-24"
+ },
+ "squirecompany": {
+  "name": "Squire & Company",
+  "date": "2026-11-24",
+  "found": "adp_wfn ec3aaeb0-4105-4821-8351-4ab5d56d0067",
+  "note": "squire.com current-openings page ADP WFN widget 2026-11-24"
+ },
+ "cornerstoneresearch": {
+  "name": "Cornerstone Research",
+  "date": "2026-11-24",
+  "found": "icims ['exp-chire.icims.com', 'grad-chire.icims.com', 'corpadmin-chire.icims.com', 'ug-chire.icims.com']",
+  "note": "cornerstone.com/careers iCIMS 2026-11-24"
+ },
+ "alliantinsuranceservices": {
+  "name": "Alliant Insurance Services",
+  "date": "2026-11-24",
+  "found": "dayforce allianthcm",
+  "note": "alliant.com careers Dayforce 2026-11-24"
+ },
+ "cornerstone": {
+  "name": "Cornerstone",
+  "date": "2026-11-24",
+  "found": "icims ['exp-chire.icims.com', 'grad-chire.icims.com', 'corpadmin-chire.icims.com', 'ug-chire.icims.com']",
+  "note": "cornerstone.com/careers iCIMS 2026-11-24"
+ },
+ "cornerstoneresearchcorporate": {
+  "name": "Cornerstone Research Corporate",
+  "date": "2026-11-24",
+  "found": "workday cornerstone.wd501.myworkdayjobs.com",
+  "note": "cornerstone.com/careers Workday corporate roles 2026-11-24"
  }
 }
