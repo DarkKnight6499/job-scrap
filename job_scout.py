@@ -357,6 +357,22 @@ def _jsonld_pay(raw):
     return out
 
 
+def iso_date(text, ref_year=None):
+    """ISO YYYY-MM-DD from an ISO prefix or 'Nov 19, 2026' / 'November 19, 2026' / 'MM/DD/YYYY'; '' when unparseable.
+    ref_year completes a year cut off by an old [:10] slice ('Nov 19, 20'). The page and sorts need ISO or the row ranks wrong."""
+    s = str(text or "").strip()
+    if re.match(r"^\d{4}-\d{2}-\d{2}", s):
+        return s[:10]
+    if ref_year and re.match(r"^[A-Za-z]{3,9} \d{1,2}, \d{2}$", s):
+        s = s[:-2] + str(ref_year)
+    for fmt in ("%b %d, %Y", "%B %d, %Y", "%m/%d/%Y"):
+        try:
+            return datetime.strptime(s, fmt).date().isoformat()
+        except ValueError:
+            pass
+    return ""
+
+
 def strip_html(text):
     text = html.unescape(text or "")
     text = html.unescape(text)  # Greenhouse double-escapes
@@ -786,7 +802,7 @@ def sitemap(c):
         ident = posting.get("identifier")
         jobs.append(dict(id=str(ident.get("value") if isinstance(ident, dict) else ident or url), title=html.unescape(str(posting.get("title") or "")).strip(),
                          url=url, location=where, desc=strip_html(html.unescape(str(posting.get("description") or ""))),
-                         posted=str(posting.get("datePosted") or mod)[:10]))
+                         posted=iso_date(posting.get("datePosted")) or iso_date(mod)))  # PenFed's JSON-LD says "Nov 19, 2026"
     return jobs, complete
 
 
@@ -4593,6 +4609,9 @@ def cmd_init():
 
 def cmd_queue(args):
     q = load_json(HOME / "queue.json", [])
+    for e in q:  # heal stored non-ISO dates (4 PenFed rows 'Nov 19, 20') that sorted above today's rows
+        if e.get("posted") and not re.match(r"^\d{4}-\d{2}-\d{2}$", e["posted"]):
+            e["posted"] = iso_date(e["posted"], (e.get("first_seen") or "")[:4])
     if not args.all:
         q = [e for e in q if e["state"] == "new" and not e.get("closed_on")]
     if args.days is not None:
