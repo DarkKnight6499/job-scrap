@@ -64,520 +64,377 @@
    "rows": [],
    "n": 0
   },
-  "Target": {
+  "Booz Allen Hamilton": {
    "rows": [
     [
-     "/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
-     "Full Time Hourly Warehouse Associate Openings - $1,000 SIGN ON BONUS (T0579)",
-     "129 North Rd, Wilton,NY 12831-1308",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
+     "/job/Bethesda-MD/Supply-Chain-and-Infectious-Disease-Risk-Modeling-Data-Scientist_R0253731",
+     "Supply Chain and Infectious Disease Risk Modeling Data Scientist",
+     "Bethesda, MD",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Bethesda-MD/Supply-Chain-and-Infectious-Disease-Risk-Modeling-Data-Scientist_R0253731",
      "title_exclude",
-     "warehouse associate"
+     "scientist"
     ],
     [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
-     "Financial Analyst Intern -  Minneapolis, MN (Starting Summer, 2027)",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
+     "/job/Newport-RI/Cybersecurity-Compliance-and-Risk-Manager_R0247123-1",
+     "Cybersecurity Compliance and Risk Manager",
+     "Newport, RI",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Newport-RI/Cybersecurity-Compliance-and-Risk-Manager_R0247123-1",
+     "title_exclude_unless",
+     "cybersecurity"
+    ],
+    [
+     "/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0246498",
+     "Cybersecurity Engineer and Risk Analyst",
+     "San Diego, CA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0246498",
+     "title_exclude",
+     "cybersecurity engineer"
+    ],
+    [
+     "/job/Dahlgren-VA/Advanced-Analytics-Data-Scientist_R0253083",
+     "Advanced Analytics Data Scientist",
+     "Dahlgren, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Dahlgren-VA/Advanced-Analytics-Data-Scientist_R0253083",
+     "title_exclude",
+     "scientist"
+    ],
+    [
+     "/job/Chantilly-VA/Human-Capital-Data-Analyst_R0244767",
+     "Human Capital Data Analyst",
+     "Chantilly, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Chantilly-VA/Human-Capital-Data-Analyst_R0244767",
+     "title_exclude",
+     "human capital data"
+    ],
+    [
+     "/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0253862",
+     "Information Security Risk Specialist",
+     "2 Locations (Albuquerque NM)",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0253862",
+     "title_exclude",
+     "information security risk specialist"
+    ],
+    [
+     "/job/McLean-VA/Marketing-Analytics-and-Insights-Data-Visualization-Specialist_R0253187",
+     "Marketing Analytics and Insights Data Visualization Specialist",
+     "2 Locations (McLean VA)",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Marketing-Analytics-and-Insights-Data-Visualization-Specialist_R0253187",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0252888",
+     "Cybersecurity Engineer and Risk Analyst",
+     "San Diego, CA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0252888",
+     "title_exclude",
+     "cybersecurity engineer"
+    ],
+    [
+     "/job/McLean-VA/Equity-Compensation---Administration-Senior-Manager_R0245786",
+     "Equity Compensation & Administration Senior Manager",
+     "McLean, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Equity-Compensation---Administration-Senior-Manager_R0245786",
+     "title_exclude",
+     "equity compensation"
+    ],
+    [
+     "/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0247513",
+     "Information Security Risk Specialist",
+     "St Inigoes, MD",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0247513",
+     "title_exclude",
+     "information security risk specialist"
+    ],
+    [
+     "/job/Arlington-VA/Human-Capital-Analyst_R0252239-1",
+     "Human Capital Analyst",
+     "Arlington, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Arlington-VA/Human-Capital-Analyst_R0252239-1",
+     "title_exclude",
+     "human capital analyst"
+    ],
+    [
+     "/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251688",
+     "Information Security Risk Specialist",
+     "2 Locations (Albuquerque NM)",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251688",
+     "title_exclude",
+     "information security risk specialist"
+    ],
+    [
+     "/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251926",
+     "Information Security Risk Specialist",
+     "St Inigoes, MD",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251926",
+     "title_exclude",
+     "information security risk specialist"
+    ],
+    [
+     "/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251924-1",
+     "Information Security Risk Specialist",
+     "St Inigoes, MD",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251924-1",
+     "title_exclude",
+     "information security risk specialist"
+    ],
+    [
+     "/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251414",
+     "Information Security Risk Specialist",
+     "2 Locations (Albuquerque NM)",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251414",
+     "title_exclude",
+     "information security risk specialist"
+    ],
+    [
+     "/job/North-Las-Vegas-NV/Cyber-Technology-Portfolio-Manager_R0250723",
+     "Cyber Technology Portfolio Manager",
+     "North Las Vegas, NV",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/North-Las-Vegas-NV/Cyber-Technology-Portfolio-Manager_R0250723",
+     "title_exclude",
+     "cyber"
+    ],
+    [
+     "/job/McLean-VA/University---Summer-27--Pricing-Intern_R0250410",
+     "University - Summer 27, Pricing Intern",
+     "McLean, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Pricing-Intern_R0250410",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Honolulu-HI/Information-Security-Risk-Specialist--Mid_R0250315",
+     "Information Security Risk Specialist, Mid",
+     "Honolulu, HI",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Honolulu-HI/Information-Security-Risk-Specialist--Mid_R0250315",
+     "title_exclude",
+     "information security risk specialist"
+    ],
+    [
+     "/job/Springfield-VA/Human-Resources-and-Human-Capital-Program-Manager_R0250491",
+     "Human Resources and Human Capital Program Manager",
+     "Springfield, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Springfield-VA/Human-Resources-and-Human-Capital-Program-Manager_R0250491",
+     "title_exclude",
+     "human resources"
+    ],
+    [
+     "/job/McLean-VA/University--Summer-2027---Corporate-Development-Intern_R0250270",
+     "University, Summer 2027 - Corporate Development Intern",
+     "McLean, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University--Summer-2027---Corporate-Development-Intern_R0250270",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/McLean-VA/University---Corporate-Finance-Intern_R0246500",
+     "University - Corporate Finance Intern",
+     "McLean, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Corporate-Finance-Intern_R0246500",
      "title_exclude",
      "intern"
     ],
     [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
-     "Associate Buyer - Bedding Essentials, Mattresses, Sheets & Blankets",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
-     "Associate Technical Developer, Owned Brands - Intimates/Sleep",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
-     "title_exclude_unless",
-     "developer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
-     "Associate Buyer, Collection Bedding",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
-     "Associate Buyer - Women's Swim",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
-     "Associate Buyer - Lunchbox",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
-     "title_exclude",
-     "associate buyer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
-     "Associate Sourcing Manager, Western Hemisphere - Home",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
-     "title_exclude",
-     "sourcing manager"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
-     "Associate Product Designer- Furniture and Lighting",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
-     "title_exclude",
-     "designer"
-    ],
-    [
-     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
-     "Associate Designer - Menswear",
-     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
-     "title_exclude",
-     "designer"
-    ],
-    [
-     "/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
-     "Seasonal Part Time Hourly Warehouse Associate Openings Only (T3863)",
-     "900 River Rd, King of Prussia,PA 19406",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
-     "title_exclude",
-     "warehouse associate"
-    ],
-    [
-     "/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
-     "Seasonal Full Time Hourly Warehouse Associate Openings (T3863)",
-     "900 River Rd, King of Prussia,PA 19406",
-     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
-     "title_exclude",
-     "warehouse associate"
-    ]
-   ],
-   "n": 12
-  },
-  "HSBC": {
-   "rows": [
-    [
-     "563774612523302",
-     "Client Experience Associate",
-     "Buffalo, New York, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774612523302",
-     "title_exclude",
-     "client experience associate"
-    ],
-    [
-     "563774612511651",
-     "Vice President, Corporate Sales (Foreign Exchange & Rates) - Technology, Media & Telecom",
-     "New York, New York, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774612511651",
-     "title_exclude",
-     "corporate sales"
-    ],
-    [
-     "563774612457928",
-     "Client Experience Associate",
-     "Houston, Texas, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774612457928",
-     "title_exclude",
-     "client experience associate"
-    ],
-    [
-     "563774612241411",
-     "Director, Corporate Sales (FX & Rates)",
-     "New York, New York, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774612241411",
-     "title_exclude",
-     "corporate sales"
-    ],
-    [
-     "563774612200831",
-     "Vice President, Corporate Sales (Foreign Exchange & Rates)",
-     "New York, New York, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774612200831",
-     "title_exclude",
-     "corporate sales"
-    ],
-    [
-     "563774612124385",
-     "Analyst, Corporate Sales (FX & Rates)",
-     "New York, New York, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774612124385",
-     "title_exclude",
-     "corporate sales"
-    ],
-    [
-     "563774610858332",
-     "Asian Equity Sales",
-     "New York, New York, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774610858332",
-     "title_exclude",
-     "equity sales"
-    ],
-    [
-     "563774610513561",
-     "Associate, Chief Commercial Office",
-     "New York, New York, United States",
-     "https://portal.careers.hsbc.com/careers/job/563774610513561",
-     "title_exclude",
-     "chief"
-    ]
-   ],
-   "n": 8
-  },
-  "JLL": {
-   "rows": [
-    [
-     "/job/Devens-MA/GMP-Lab-Support-Associate_REQ550348",
-     "GMP Lab Support Associate",
-     "Devens, MA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Devens-MA/GMP-Lab-Support-Associate_REQ550348",
-     "title_exclude",
-     "gmp"
-    ],
-    [
-     "/job/Raleigh-NC/Building-Operations--Facilities-Services_REQ529685",
-     "Facilities and Events Support Associate",
-     "Raleigh, NC",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Raleigh-NC/Building-Operations--Facilities-Services_REQ529685",
-     "title_exclude",
-     "facilities and events support associate"
-    ],
-    [
-     "/job/Santa-Clara-CA/Associate-Construction-Project-Manager_REQ548097",
-     "Associate Construction Project Manager",
-     "Santa Clara, CA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Santa-Clara-CA/Associate-Construction-Project-Manager_REQ548097",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/New-York-NY/Associate-Capital-Director--Construction_REQ547472",
-     "Senior Project Manager, Capital Associate",
-     "New York, NY",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/New-York-NY/Associate-Capital-Director--Construction_REQ547472",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Charlotte-NC/Associate-Project-Manager--Retail-Construction_REQ550179",
-     "Associate Project Manager, Retail Construction",
-     "Charlotte, NC",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Charlotte-NC/Associate-Project-Manager--Retail-Construction_REQ550179",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Stamford-CT/Associate-Project-Manager--Construction_REQ547057",
-     "Associate Project Manager, Construction",
-     "Stamford, CT",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Stamford-CT/Associate-Project-Manager--Construction_REQ547057",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Menlo-Park-CA/Associate-Project-Manager--PDS-Projects_REQ545875",
-     "Associate Project Manager, PDS Projects",
-     "2 Locations (Menlo Park CA)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Menlo-Park-CA/Associate-Project-Manager--PDS-Projects_REQ545875",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Columbus-OH/Associate-Project-Manager--Construction_REQ546838",
-     "Associate Project Manager, Construction",
-     "Columbus, OH",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Columbus-OH/Associate-Project-Manager--Construction_REQ546838",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/McLean-VA/Associate-Project-Manager_REQ539565",
-     "Associate Project Manager",
+     "/job/McLean-VA/University---Summer-27--Pricing-Intern_R0249254",
+     "University - Summer 27, Pricing Intern",
      "McLean, VA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/McLean-VA/Associate-Project-Manager_REQ539565",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Boston-MA/Associate-Project-Manager_REQ535089-1",
-     "Associate Project Manager",
-     "Boston, MA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Boston-MA/Associate-Project-Manager_REQ535089-1",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Atlanta-GA/Property-Associate_REQ549461",
-     "Property Associate",
-     "Atlanta, GA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Atlanta-GA/Property-Associate_REQ549461",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Portland-OR/Property-Associate_REQ548583",
-     "Property Associate",
-     "Portland, OR",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Portland-OR/Property-Associate_REQ548583",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Ontario-CA/Industrial-Property-Associate_REQ547845",
-     "Industrial Property Associate",
-     "Ontario, CA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Ontario-CA/Industrial-Property-Associate_REQ547845",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Tucker-GA/Property-Associate_REQ548042",
-     "Property Associate",
-     "2 Locations (Tucker GA)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Tucker-GA/Property-Associate_REQ548042",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Chicago-IL/Property-Associate_REQ548078",
-     "Property Associate",
-     "Chicago, IL",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Property-Associate_REQ548078",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Seattle-WA/Property-Associate--commercial-_REQ547763",
-     "Property Associate (commercial)",
-     "Seattle, WA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Seattle-WA/Property-Associate--commercial-_REQ547763",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Campbell-CA/Property-Associate_REQ547115",
-     "Property Associate",
-     "Campbell, CA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Campbell-CA/Property-Associate_REQ547115",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Dallas-TX/Industrial-Property-Associate_REQ547795",
-     "Industrial Property Associate",
-     "Dallas, TX",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Dallas-TX/Industrial-Property-Associate_REQ547795",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Chicago-IL/Industrial-Property-Associate_REQ547722",
-     "Industrial Property Associate",
-     "Chicago, IL",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Industrial-Property-Associate_REQ547722",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Memphis-TN/Property-Associate_REQ547401",
-     "Property Associate",
-     "Memphis, TN",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Memphis-TN/Property-Associate_REQ547401",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Washington-DC/Administrative-Assistant_REQ532374",
-     "Property Associate",
-     "Washington, DC",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Washington-DC/Administrative-Assistant_REQ532374",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Memphis-TN/Property-Associate_REQ545497",
-     "Property Associate",
-     "Memphis, TN",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Memphis-TN/Property-Associate_REQ545497",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/New-York-NY/Senior-Property-Associate_REQ542872",
-     "Senior Property Associate",
-     "New York, NY",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/New-York-NY/Senior-Property-Associate_REQ542872",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Charlotte-NC/Property-Associate-_REQ542029-1",
-     "Property Associate\u00a0",
-     "Charlotte, NC",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Charlotte-NC/Property-Associate-_REQ542029-1",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Atlanta-GA/Property-Associate_REQ534686",
-     "Property Associate",
-     "Atlanta, GA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Atlanta-GA/Property-Associate_REQ534686",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Coral-Gables-FL/Property-Associate_REQ541135",
-     "Property Associate",
-     "Coral Gables, FL",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Coral-Gables-FL/Property-Associate_REQ541135",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/Jacksonville-FL/Property-Associate_REQ537694",
-     "Property Associate",
-     "Jacksonville, FL",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Jacksonville-FL/Property-Associate_REQ537694",
-     "title_exclude",
-     "property associate"
-    ],
-    [
-     "/job/New-York-NY/Associate-Project-Manager--Data-Centers_REQ548856",
-     "Associate Project Manager, Data Centers",
-     "4 Locations (New York NY)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/New-York-NY/Associate-Project-Manager--Data-Centers_REQ548856",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Hartford-CT/Associate-Project-Manager_REQ542647",
-     "Associate Project Manager",
-     "Hartford, CT",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Hartford-CT/Associate-Project-Manager_REQ542647",
-     "title_exclude",
-     "project manager"
-    ],
-    [
-     "/job/Washington-DC/Capital-Markets-Summer-2027-Internship---Washington--DC_REQ530230",
-     "Capital Markets Summer 2027 Internship - Washington, DC",
-     "Washington, DC",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Washington-DC/Capital-Markets-Summer-2027-Internship---Washington--DC_REQ530230",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Pricing-Intern_R0249254",
      "title_exclude",
      "summer"
     ],
     [
-     "/job/Salt-Lake-City-UT/Capital-Markets-Analyst-Summer-2027-Internship---Salt-Lake-City--UT_REQ530571",
-     "Capital Markets Analyst Summer 2027 Internship - Salt Lake City, UT",
-     "Salt Lake City, UT",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Salt-Lake-City-UT/Capital-Markets-Analyst-Summer-2027-Internship---Salt-Lake-City--UT_REQ530571",
+     "/job/McLean-VA/Employment-Law-Associate-General-Counsel_R0249108",
+     "Employment Law Associate General Counsel",
+     "McLean, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Employment-Law-Associate-General-Counsel_R0249108",
      "title_exclude",
-     "summer"
+     "counsel"
     ],
     [
-     "/job/Los-Angeles-CA/Capital-Markets-Summer-2027-Internship---Century-City--LA_REQ530570",
-     "Capital Markets Summer 2027 Internship - Century City, LA",
-     "Los Angeles, CA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Los-Angeles-CA/Capital-Markets-Summer-2027-Internship---Century-City--LA_REQ530570",
+     "/job/McLean-VA/Associate-General-Counsel--Products_R0249047",
+     "Associate General Counsel, Products",
+     "McLean, VA",
+     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Associate-General-Counsel--Products_R0249047",
      "title_exclude",
-     "summer"
-    ],
-    [
-     "/job/Jacksonville-FL/Capital-Markets-Summer-2027-Internship---Jacksonville--FL_REQ532423",
-     "Capital Markets Summer 2027 Internship - Jacksonville, FL",
-     "Jacksonville, FL",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Jacksonville-FL/Capital-Markets-Summer-2027-Internship---Jacksonville--FL_REQ532423",
-     "title_exclude",
-     "summer"
-    ],
-    [
-     "/job/Orlando-FL/Capital-Markets-Summer-2027-Internship---Orlando--FL_REQ530581",
-     "Capital Markets Summer 2027 Internship - Orlando, FL",
-     "Orlando, FL",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Orlando-FL/Capital-Markets-Summer-2027-Internship---Orlando--FL_REQ530581",
-     "title_exclude",
-     "summer"
-    ],
-    [
-     "/job/Chicago-IL/Director--Data-Center-Capital-Markets_REQ547444",
-     "Senior Director, Data Center Capital Markets",
-     "8 Locations (Chicago IL)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Director--Data-Center-Capital-Markets_REQ547444",
-     "title_exclude",
-     "senior director"
-    ],
-    [
-     "/job/Dallas-TX/Director--Analytics-Client-Success_REQ537617",
-     "Director, Analytics Client Success",
-     "5 Locations (Dallas TX)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Dallas-TX/Director--Analytics-Client-Success_REQ537617",
-     "title_exclude",
-     "client success"
-    ],
-    [
-     "/job/Los-Angeles-CA/Senior-Production-Associate--Capital-Markets_REQ549800",
-     "Senior Production Associate, Capital Markets",
-     "Los Angeles, CA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Los-Angeles-CA/Senior-Production-Associate--Capital-Markets_REQ549800",
-     "title_exclude",
-     "production associate"
-    ],
-    [
-     "/job/Los-Angeles-CA/Executive-Assistant--Capital-Markets_REQ534485-1",
-     "Executive Assistant, Capital Markets",
-     "Los Angeles, CA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Los-Angeles-CA/Executive-Assistant--Capital-Markets_REQ534485-1",
-     "title_exclude",
-     "executive assistant"
-    ],
-    [
-     "/job/Irvine-CA/Senior-Administrative-Assistant--Capital-Markets_REQ514718",
-     "Business Development Coordinator, Capital Markets",
-     "Irvine, CA",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Irvine-CA/Senior-Administrative-Assistant--Capital-Markets_REQ514718",
-     "title_exclude",
-     "business development"
-    ],
-    [
-     "/job/Chicago-IL/Business-Development-Analyst_REQ547981",
-     "Business Development Associate",
-     "3 Locations (Chicago IL)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Business-Development-Analyst_REQ547981",
-     "title_exclude",
-     "business development"
-    ],
-    [
-     "/job/Chicago-IL/Sales-Lead-Integrated-Portfolio-Services--Leasing-Advisory_REQ531680",
-     "Sales Lead Portfolio Advisory, Mid-Market Solutions",
-     "10 Locations (Chicago IL)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Sales-Lead-Integrated-Portfolio-Services--Leasing-Advisory_REQ531680",
-     "title_exclude",
-     "sales lead portfolio advisory, mid-market solutions"
-    ],
-    [
-     "/job/Dallas-TX/Senior-Director--Value-and-Risk-Advisory_REQ479792",
-     "Senior Director, Institutional Valuation Practice",
-     "7 Locations (Dallas TX)",
-     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Dallas-TX/Senior-Director--Value-and-Risk-Advisory_REQ479792",
-     "title_exclude",
-     "senior director"
+     "counsel"
     ]
    ],
-   "n": 42
+   "n": 24
   },
-  "Celtic Bank": {
-   "rows": [],
-   "n": 0
+  "Entegris": {
+   "rows": [
+    [
+     "/job/Aurora-IL/Nanoparticle-Research-Associate-Co-Op_REQ-14493",
+     "Nanoparticle Research Associate Co-Op",
+     "Aurora, IL",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Nanoparticle-Research-Associate-Co-Op_REQ-14493",
+     "title_exclude",
+     "co-op"
+    ],
+    [
+     "/job/Chaska-MN/Cyber-Threat-Analyst-Co-Op_REQ-14505",
+     "Cyber Threat Analyst Co-Op - Spring 2027",
+     "Chaska, MN",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/Cyber-Threat-Analyst-Co-Op_REQ-14505",
+     "title_exclude",
+     "cyber"
+    ],
+    [
+     "/job/Billerica-MA/Lead-Scientist--Analytics---Metrology_REQ-16059",
+     "Lead Scientist, Analytics & Metrology",
+     "Billerica, MA",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Lead-Scientist--Analytics---Metrology_REQ-16059",
+     "title_exclude",
+     "scientist"
+    ],
+    [
+     "/job/Billerica-MA/Scientist-I--Analytics---Metrology_REQ-16109",
+     "Scientist I, Analytics & Metrology",
+     "Billerica, MA",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Scientist-I--Analytics---Metrology_REQ-16109",
+     "title_exclude",
+     "scientist"
+    ],
+    [
+     "/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15898",
+     "Scientist I, Research Associate",
+     "Aurora, IL",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15898",
+     "title_exclude",
+     "scientist"
+    ],
+    [
+     "/job/Chaska-MN/Associate-Product-Manager-Intern_REQ-15844",
+     "Associate Product Manager Intern",
+     "Chaska, MN",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/Associate-Product-Manager-Intern_REQ-15844",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/Billerica-MA/Senior-Specialist--Finance-Business-Partner--Global-Supply-Chain-_REQ-14209",
+     "Lead Finance Business Partner (Global Supply Chain)",
+     "3 Locations (Billerica MA)",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Senior-Specialist--Finance-Business-Partner--Global-Supply-Chain-_REQ-14209",
+     "title_exclude_unless",
+     "supply chain"
+    ],
+    [
+     "/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15864",
+     "Research Associate Intern - Summer 2027",
+     "Aurora, IL",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15864",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15849",
+     "Research Associate Intern - Summer 2027",
+     "Aurora, IL",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15849",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/Billerica-MA/Filtration-Portfolio-Automation-Intern_REQ-15840",
+     "Filtration Portfolio Automation Intern",
+     "Billerica, MA",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Filtration-Portfolio-Automation-Intern_REQ-15840",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/Billerica-MA/Internal-Audit-Intern_REQ-15845",
+     "Internal Audit Intern",
+     "Billerica, MA",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Internal-Audit-Intern_REQ-15845",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/Aurora-IL/Research-Associate-Co-Op---ICPS_REQ-14482",
+     "Research Associate Co-Op - ICPS",
+     "Aurora, IL",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Research-Associate-Co-Op---ICPS_REQ-14482",
+     "title_exclude",
+     "co-op"
+    ],
+    [
+     "/job/Billerica-MA/Internal-Audit-Co-Op_REQ-14475",
+     "Internal Audit Co-Op",
+     "Billerica, MA",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Internal-Audit-Co-Op_REQ-14475",
+     "title_exclude",
+     "co-op"
+    ],
+    [
+     "/job/Chaska-MN/IT-Senior-SAP-Business-Analyst--Global-Labeling-Solutions_REQ-14681",
+     "IT Senior SAP Business Analyst, Global Labeling Solutions",
+     "3 Locations (Chaska MN)",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/IT-Senior-SAP-Business-Analyst--Global-Labeling-Solutions_REQ-14681",
+     "title_exclude",
+     "it senior sap business analyst, global labeling solutions"
+    ],
+    [
+     "/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15140",
+     "Scientist I, Research Associate",
+     "Aurora, IL",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15140",
+     "title_exclude",
+     "scientist"
+    ],
+    [
+     "/job/Chaska-MN/Senior-Director--Enterprise-Portfolio-Manamagement_REQ-14680",
+     "Senior Director, Enterprise Portfolio Management",
+     "3 Locations (Chaska MN)",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/Senior-Director--Enterprise-Portfolio-Manamagement_REQ-14680",
+     "title_exclude",
+     "senior director"
+    ],
+    [
+     "/job/Hillsboro-OR/Operations-Associate-II---Back-Half-Day-Shift_REQ-14222",
+     "Operations Associate II - Back Half Day Shift",
+     "Hillsboro, OR",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Hillsboro-OR/Operations-Associate-II---Back-Half-Day-Shift_REQ-14222",
+     "title_exclude",
+     "shift"
+    ],
+    [
+     "/job/Billerica-MA/Senior-Scientist--Analytics---Metrology_REQ-14623",
+     "Senior Scientist, Analytics & Metrology",
+     "Billerica, MA",
+     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Senior-Scientist--Analytics---Metrology_REQ-14623",
+     "title_exclude",
+     "scientist"
+    ]
+   ],
+   "n": 18
+  },
+  "LACERA": {
+   "rows": [
+    [
+     "5410445",
+     "Staff Counsel, LACERA (Investments - Private Funds and Institutional Transactions)",
+     "Legal Services",
+     "https://www.governmentjobs.com/careers/lacera/jobs/5410445/staff-counsel-lacera-investments-private-funds-and-institutional-transactions",
+     "title_exclude",
+     "counsel"
+    ]
+   ],
+   "n": 1
+  },
+  "State of Michigan": {
+   "rows": [
+    [
+     "5548223",
+     "Toxicologist 10-P11, Chemical Hazards & Assessment of Risk Unit",
+     "Health And Human Services - Central Office",
+     "https://www.governmentjobs.com/careers/michigan/jobs/5548223/toxicologist-10-p11-chemical-hazards-assessment-of-risk-unit",
+     "title_exclude",
+     "toxicologist"
+    ]
+   ],
+   "n": 1
   },
   "Point72": {
    "rows": [
@@ -848,14 +705,6 @@
      "intern"
     ],
     [
-     "8304315",
-     "Customer Experience Associate",
-     "Denver, CO; Westlake, TX",
-     "https://boards.greenhouse.io/robinhood/jobs/8304315?t=gh_src=&gh_jid=8304315",
-     "title_exclude",
-     "customer experience associate"
-    ],
-    [
      "8327450",
      "Customer Experience Associate, Money",
      "Denver, CO; Westlake, TX",
@@ -868,14 +717,6 @@
      "Customer Experience Associate, Pathway",
      "Denver, CO; Westlake, TX",
      "https://boards.greenhouse.io/robinhood/jobs/8329280?t=gh_src=&gh_jid=8329280",
-     "title_exclude",
-     "customer experience associate"
-    ],
-    [
-     "8356278",
-     "Customer Experience Associate, Prediction Markets",
-     "Westlake, TX",
-     "https://boards.greenhouse.io/robinhood/jobs/8356278?t=gh_src=&gh_jid=8356278",
      "title_exclude",
      "customer experience associate"
     ],
@@ -928,7 +769,7 @@
      "scientist"
     ]
    ],
-   "n": 12
+   "n": 10
   },
   "Coinbase": {
    "rows": [
@@ -1381,6 +1222,14 @@
   },
   "Capital One": {
    "rows": [
+    [
+     "/job/Richmond-VA/Senior-Associate---Global-Operations--HR-Services_R1006473",
+     "Senior Associate - Global Operations -HR Services",
+     "Richmond, VA",
+     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/Richmond-VA/Senior-Associate---Global-Operations--HR-Services_R1006473",
+     "title_exclude",
+     "hr"
+    ],
     [
      "/job/McLean-VA/Senior-Associate--Compensation-Analyst_R1006479-1",
      "Senior Associate, Compensation Analyst",
@@ -1980,14 +1829,6 @@
      "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/McLean-VA/Principal-Associate--Data-Scientist---SBB-Marketing---Deposit-Strategy_R1005195-1",
      "title_exclude",
      "scientist"
-    ],
-    [
-     "/job/McLean-VA/Senior-Associate--Project-Manager-Campaign-Delivery---Retail-Bank_R1005128-1",
-     "Senior Associate, Project Manager Campaign Delivery | Retail Bank",
-     "2 Locations (McLean VA)",
-     "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/McLean-VA/Senior-Associate--Project-Manager-Campaign-Delivery---Retail-Bank_R1005128-1",
-     "title_exclude",
-     "project manager"
     ],
     [
      "/job/McLean-VA/Principal-Associate--Sentry-Shift-Supervisor-Global-Security-Operations-Center_R1005147-1",
@@ -3211,12 +3052,12 @@
      "ad sales"
     ],
     [
-     "/job/Beijing/Contracting-Counsel-Associate-Manager_R00344040",
-     "Contracting Counsel Associate Manager",
+     "/job/Chennai-CDC5B/S-C-Global-Network---AI---Supply-Chain-Analytics---Manager_R00207154",
+     "S&C Global Network - AI - Supply Chain Analytics - Manager",
      "",
-     "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Beijing/Contracting-Counsel-Associate-Manager_R00344040",
-     "title_exclude",
-     "counsel"
+     "https://accenture.wd103.myworkdayjobs.com/AccentureCareers/job/Chennai-CDC5B/S-C-Global-Network---AI---Supply-Chain-Analytics---Manager_R00207154",
+     "title_exclude_unless",
+     "supply chain"
     ]
    ],
    "n": 21
@@ -4258,14 +4099,6 @@
      "relationship support associate"
     ],
     [
-     "/job/HUNTINGTON-STATION-NY/Associate-Bank-Financial-Advisor_R-587751",
-     "Associate Bank Financial Advisor",
-     "HUNTINGTON STATION, NY",
-     "https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/HUNTINGTON-STATION-NY/Associate-Bank-Financial-Advisor_R-587751",
-     "title_exclude",
-     "financial advisor"
-    ],
-    [
      "/job/CHARLOTTE-NC/Associate-Customer-Service-Representative-Everyday-Banking_R-584446",
      "Associate Customer Service Representative Everyday Banking",
      "CHARLOTTE, NC",
@@ -4650,14 +4483,6 @@
      "personal banker"
     ],
     [
-     "/job/ARLINGTON-VA/Associate-Roving-Personal-Banker--SAFE----Arlington-District_R-585688",
-     "Associate Roving Personal Banker (SAFE) - Arlington District",
-     "2 Locations (ARLINGTON VA)",
-     "https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/ARLINGTON-VA/Associate-Roving-Personal-Banker--SAFE----Arlington-District_R-585688",
-     "title_exclude",
-     "personal banker"
-    ],
-    [
      "/job/ONTARIO-CA/Mortgage-Retail-Sales-Associate-Manager_R-586094",
      "Mortgage Retail Sales Associate Manager",
      "ONTARIO, CA",
@@ -4730,10 +4555,18 @@
      "summer"
     ]
    ],
-   "n": 60
+   "n": 58
   },
   "RBC": {
    "rows": [
+    [
+     "/job/90-WESTERN-PKYBEDFORD/Associate-Director---AI-Engineer--QTS-Architecture_R-0000187001-1",
+     "Associate Director, AI Engineer",
+     "90 WESTERN PKY:BEDFORD",
+     "https://rbc.wd3.myworkdayjobs.com/RBCGLOBAL1/job/90-WESTERN-PKYBEDFORD/Associate-Director---AI-Engineer--QTS-Architecture_R-0000187001-1",
+     "title_exclude",
+     "ai engineer"
+    ],
     [
      "/job/Minneapolis-Minnesota-United-States-of-America/Client-Associate_R-0000192833-1",
      "Client Associate/Registered Client Associate",
@@ -4869,14 +4702,6 @@
      "https://rbc.wd3.myworkdayjobs.com/RBCGLOBAL1/job/Wayzata-Minnesota-United-States-of-America/Client-Associate-Registered-Client-Associate_R-0000192542",
      "title_exclude",
      "client associate"
-    ],
-    [
-     "/job/2308-56TH-AVENUE-WESTBETTENDORF/Branch-Service-Manager--Client-Associate_R-0000192504",
-     "Branch Service Manager/ Client Associate",
-     "2308 56TH AVENUE WEST:BETTENDORF",
-     "https://rbc.wd3.myworkdayjobs.com/RBCGLOBAL1/job/2308-56TH-AVENUE-WESTBETTENDORF/Branch-Service-Manager--Client-Associate_R-0000192504",
-     "title_exclude",
-     "branch service manager"
     ],
     [
      "/job/New-York-New-York-United-States-of-America/Analyst--Central-Funding-Group-Sales_R-0000192508",
@@ -5878,6 +5703,30 @@
      "fund accounting"
     ],
     [
+     "/job/Princeton-New-Jersey/Fund-Accounting---Administration--Associate-2_R-799885",
+     "Fund Accounting & Administration, Associate 2",
+     "Princeton, New Jersey",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Princeton-New-Jersey/Fund-Accounting---Administration--Associate-2_R-799885",
+     "title_exclude",
+     "fund accounting"
+    ],
+    [
+     "/job/Boston-Massachusetts/Agentic-AI-Builder--Officer---State-Street-Investment-Management_R-796978",
+     "Agentic AI Builder, Officer - State Street Investment Management",
+     "Boston, Massachusetts",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/Agentic-AI-Builder--Officer---State-Street-Investment-Management_R-796978",
+     "title_exclude",
+     "agentic ai builder, officer - state street investment management"
+    ],
+    [
+     "/job/Quincy-Massachusetts/VP--Program-Manager---Senior-Business-Analyst_R-800050-2",
+     "VP, Program Manager / Senior Business Analyst",
+     "Quincy, Massachusetts",
+     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/VP--Program-Manager---Senior-Business-Analyst_R-800050-2",
+     "title_exclude",
+     "program manager"
+    ],
+    [
      "/job/Sacramento-California/ETF-Settlements--Senior-Associate_R-797631-2",
      "ETF Settlements, Senior Associate",
      "Sacramento, California",
@@ -6228,36 +6077,28 @@
      "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/Head-of-US-Defined-Contribution--Managing-Director---State-Street-Investment-Management_R-797273",
      "title_exclude",
      "head of"
-    ],
-    [
-     "/job/Princeton-New-Jersey/Fund-Accounting---Administration--Associate-2_R-799885",
-     "Fund Accounting & Administration, Associate 2",
-     "Princeton, New Jersey",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Princeton-New-Jersey/Fund-Accounting---Administration--Associate-2_R-799885",
-     "title_exclude",
-     "fund accounting"
-    ],
-    [
-     "/job/Boston-Massachusetts/Agentic-AI-Builder--Officer---State-Street-Investment-Management_R-796978",
-     "Agentic AI Builder, Officer - State Street Investment Management",
-     "Boston, Massachusetts",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/Agentic-AI-Builder--Officer---State-Street-Investment-Management_R-796978",
-     "title_exclude",
-     "agentic ai builder, officer - state street investment management"
-    ],
-    [
-     "/job/Quincy-Massachusetts/VP--Program-Manager---Senior-Business-Analyst_R-800050-2",
-     "VP, Program Manager / Senior Business Analyst",
-     "Quincy, Massachusetts",
-     "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/VP--Program-Manager---Senior-Business-Analyst_R-800050-2",
-     "title_exclude",
-     "program manager"
     ]
    ],
    "n": 111
   },
   "PNC": {
    "rows": [
+    [
+     "/job/OH---Cleveland-44114/Client-Service-Associate_R240656-1",
+     "Client Service Associate",
+     "OH - Cleveland (44114)",
+     "https://pnc.wd5.myworkdayjobs.com/External/job/OH---Cleveland-44114/Client-Service-Associate_R240656-1",
+     "title_exclude",
+     "client service associate"
+    ],
+    [
+     "/job/DE---Wilmington-19801/Senior-Digital-Product-Manager-Lead_R238139-1",
+     "Senior Digital Product Manager Lead - Marketing Data & Analytics",
+     "3 Locations (DE   Wilmington 19801)",
+     "https://pnc.wd5.myworkdayjobs.com/External/job/DE---Wilmington-19801/Senior-Digital-Product-Manager-Lead_R238139-1",
+     "title_exclude",
+     "marketing"
+    ],
     [
      "/job/PA---Pittsburgh-15222/Tax-Associate--Payroll-Tax_R241239-1",
      "Tax Associate--Payroll Tax",
@@ -6547,14 +6388,6 @@
      "cyber"
     ],
     [
-     "/job/PA---Pittsburgh-15222/Technology-Risk-Specialist-Sr_R236361-1",
-     "Technology Risk Specialist Sr",
-     "5 Locations (PA   Pittsburgh 15222)",
-     "https://pnc.wd5.myworkdayjobs.com/External/job/PA---Pittsburgh-15222/Technology-Risk-Specialist-Sr_R236361-1",
-     "title_exclude",
-     "technology risk"
-    ],
-    [
      "/job/PA---Pittsburgh/Data-Scientist-Lead---Data---Automation---Evaluation---Certification--Validation-_R237095-1",
      "Data Scientist Lead - Data & Automation - Evaluation & Certification (Validation)",
      "4 Locations (PA   Pittsburgh)",
@@ -6643,7 +6476,7 @@
      "relationship manager"
     ]
    ],
-   "n": 48
+   "n": 49
   },
   "Northern Trust": {
    "rows": [
@@ -6670,14 +6503,6 @@
      "https://ntrs.wd1.myworkdayjobs.com/northerntrust/job/Chicago-IL/Market-Associate--Internal-Wholesaler-_R163526-1",
      "title_exclude",
      "wholesaler"
-    ],
-    [
-     "/job/Chicago-IL/Asset-Servicing-Americas--Risk-and-Control-Execution-Lead_R156784-1",
-     "Asset Servicing Americas, Risk and Control Execution Lead",
-     "4 Locations (Chicago IL)",
-     "https://ntrs.wd1.myworkdayjobs.com/northerntrust/job/Chicago-IL/Asset-Servicing-Americas--Risk-and-Control-Execution-Lead_R156784-1",
-     "title_exclude",
-     "asset servicing"
     ],
     [
      "/job/Chicago-IL/Consultant--Capital-Markets-Operations_R162524",
@@ -6768,7 +6593,7 @@
      "client servicing"
     ]
    ],
-   "n": 15
+   "n": 14
   },
   "T. Rowe Price": {
    "rows": [
@@ -7736,20 +7561,20 @@
      "administrative assistant"
     ],
     [
-     "/job/Ft-Lauderdale-FL/Treasury-Sales-Consultant---Commercial_R0115954",
-     "Treasury Sales Consultant - Commercial",
-     "3 Locations (Ft Lauderdale FL)",
-     "https://truist.wd1.myworkdayjobs.com/Careers/job/Ft-Lauderdale-FL/Treasury-Sales-Consultant---Commercial_R0115954",
-     "title_exclude",
-     "treasury sales"
-    ],
-    [
      "/job/New-York-NY/Equity-Sales-Trading-Director_R0119254-1",
      "Equity Sales Trading Director",
      "New York, NY",
      "https://truist.wd1.myworkdayjobs.com/Careers/job/New-York-NY/Equity-Sales-Trading-Director_R0119254-1",
      "title_exclude",
      "equity sales"
+    ],
+    [
+     "/job/Ft-Lauderdale-FL/Treasury-Sales-Consultant---Commercial_R0115954",
+     "Treasury Sales Consultant - Commercial",
+     "3 Locations (Ft Lauderdale FL)",
+     "https://truist.wd1.myworkdayjobs.com/Careers/job/Ft-Lauderdale-FL/Treasury-Sales-Consultant---Commercial_R0115954",
+     "title_exclude",
+     "treasury sales"
     ]
    ],
    "n": 45
@@ -8264,6 +8089,14 @@
      "tech risk"
     ],
     [
+     "210792836",
+     "Part Time (30 Hours) Associate Banker, Prince Frederick Branch, Prince Frederick, Maryland",
+     "Prince Frederick, MD, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210792836",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
      "210794150",
      "Chief Data and Analytics Office (CDAO) - Analytics Solutions Senior Associate",
      "Plano, TX, United States",
@@ -8296,6 +8129,14 @@
      "tech risk"
     ],
     [
+     "210802306",
+     "Associate Banker 30 hours, Bountiful Branch, Bountiful, UT",
+     "Bountiful, UT, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210802306",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
      "210802568",
      "Associate Banker, 20 Hours, Benbrook, TX - Benbrook Branch",
      "Fort Worth, TX, United States",
@@ -8318,6 +8159,14 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210805349",
      "title_exclude",
      "associate banker"
+    ],
+    [
+     "210806088",
+     "Associate Relationship Banker - Indianapolis/Greenwood Areas - Indy Southeast",
+     "Greenwood, IN, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210806088",
+     "title_exclude",
+     "relationship banker"
     ],
     [
      "210806453",
@@ -8424,6 +8273,14 @@
      "scientist"
     ],
     [
+     "210809713",
+     "Associate Banker, 30 Hours, Annapolis, Maryland - Annapolis Bay Ridge Road Branch",
+     "Annapolis, MD, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210809713",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
      "210810023",
      "Part Time (20 Hours) Associate Banker, Uptown Minneapolis Branch, Minneapolis, MN",
      "Minneapolis, MN, United States",
@@ -8516,6 +8373,14 @@
      "Associate Banker, 40 Hours, Warren, OH - Champion Branch",
      "Warren, OH, United States",
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210810763",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "210810872",
+     "Associate Banker, 30 Hours, Chester, VA - West Hundred Rd Branch",
+     "Chester, VA, United States",
+     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210810872",
      "title_exclude",
      "associate banker"
     ],
@@ -11358,52 +11223,20 @@
      "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770822",
      "title_exclude",
      "associate banker"
-    ],
-    [
-     "210770862",
-     "Hiring Event - Part Time Associate Banker Contra Costa South (30 Hours)",
-     "Martinez, CA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770862",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210770887",
-     "Hiring Event - Part Time Associate Banker Sacramento East (30 Hours)",
-     "Sacramento, CA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770887",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210770938",
-     "Hiring Event - Part Time Associate Banker Sierra Mountain (30 Hours)",
-     "Citrus Heights, CA, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210770938",
-     "title_exclude",
-     "associate banker"
-    ],
-    [
-     "210771120",
-     "Financial Analysis - Marketing Expense Finance - Senior Associate",
-     "Wilmington, DE, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771120",
-     "title_exclude",
-     "marketing"
-    ],
-    [
-     "210771286",
-     "AI/ML - Technology & Cybersecurity Risk Management - Compliance -  Vice President",
-     "New York, NY, United States",
-     "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210771286",
-     "title_exclude_unless",
-     "cybersecurity"
     ]
    ],
-   "n": 1086
+   "n": 1087
   },
   "Bank of America": {
    "rows": [
+    [
+     "/job/Pennington/OTC-Derivatives-Operations-Analyst_26031980",
+     "OTC Derivatives Operations Analyst",
+     "3 Locations (Pennington)",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Pennington/OTC-Derivatives-Operations-Analyst_26031980",
+     "title_exclude",
+     "derivatives operations"
+    ],
     [
      "/job/Canton/Wealth-Management-Client-Associate_26043530-2",
      "Wealth Management Client Associate",
@@ -12477,22 +12310,6 @@
      "wealth management client associate"
     ],
     [
-     "/job/Ann-Arbor/Registered-Wealth-Management-Client-Associate_26037729",
-     "Registered Wealth Management Client Associate",
-     "Ann Arbor",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Ann-Arbor/Registered-Wealth-Management-Client-Associate_26037729",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/Pittsburgh/Wealth-Management-Client-Associate_26037871",
-     "Wealth Management Client Associate",
-     "Pittsburgh",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Pittsburgh/Wealth-Management-Client-Associate_26037871",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
      "/job/New-York/Registered-Wealth-Management-Client-Associate_26037805",
      "Registered Wealth Management Client Associate",
      "New York",
@@ -12505,54 +12322,6 @@
      "Merrill Wealth Management Client Associate\u2013Advisor Development Program: Central Florida",
      "Rockledge",
      "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Rockledge/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Central-Florida_26037796",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/Palm-Beach/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Palm-Beach_26037590",
-     "Merrill Wealth Management Client Associate\u2013Advisor Development Program: Palm Beach",
-     "Palm Beach",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Palm-Beach/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Palm-Beach_26037590",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/RALEIGH/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Carolina-East_26037082-2",
-     "Merrill Wealth Management Client Associate\u2013Advisor Development Program: Carolina East",
-     "RALEIGH",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/RALEIGH/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Carolina-East_26037082-2",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/Baltimore/Wealth-Management-Client-Associate_26037533",
-     "Wealth Management Client Associate",
-     "Baltimore",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Baltimore/Wealth-Management-Client-Associate_26037533",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/Fort-Smith/Wealth-Management-Client-Associate_26037164",
-     "Wealth Management Client Associate",
-     "Fort Smith",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Fort-Smith/Wealth-Management-Client-Associate_26037164",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/Baton-Rouge/Wealth-Management-Client-Associate_26037191",
-     "Wealth Management Client Associate",
-     "Baton Rouge",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Baton-Rouge/Wealth-Management-Client-Associate_26037191",
-     "title_exclude",
-     "wealth management client associate"
-    ],
-    [
-     "/job/Tulsa/Wealth-Management-Client-Associate_26036834",
-     "Wealth Management Client Associate",
-     "Tulsa",
-     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Tulsa/Wealth-Management-Client-Associate_26036834",
      "title_exclude",
      "wealth management client associate"
     ],
@@ -12907,9 +12676,73 @@
      "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Kingsport/Wealth-Management-Client-Associate_23012647",
      "title_exclude",
      "wealth management client associate"
+    ],
+    [
+     "/job/Ann-Arbor/Registered-Wealth-Management-Client-Associate_26037729",
+     "Registered Wealth Management Client Associate",
+     "Ann Arbor",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Ann-Arbor/Registered-Wealth-Management-Client-Associate_26037729",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
+     "/job/Pittsburgh/Wealth-Management-Client-Associate_26037871",
+     "Wealth Management Client Associate",
+     "Pittsburgh",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Pittsburgh/Wealth-Management-Client-Associate_26037871",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
+     "/job/Palm-Beach/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Palm-Beach_26037590",
+     "Merrill Wealth Management Client Associate\u2013Advisor Development Program: Palm Beach",
+     "Palm Beach",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Palm-Beach/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Palm-Beach_26037590",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
+     "/job/RALEIGH/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Carolina-East_26037082-2",
+     "Merrill Wealth Management Client Associate\u2013Advisor Development Program: Carolina East",
+     "RALEIGH",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/RALEIGH/Merrill-Wealth-Management-Client-Associate-Advisor-Development-Program--Carolina-East_26037082-2",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
+     "/job/Baltimore/Wealth-Management-Client-Associate_26037533",
+     "Wealth Management Client Associate",
+     "Baltimore",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Baltimore/Wealth-Management-Client-Associate_26037533",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
+     "/job/Fort-Smith/Wealth-Management-Client-Associate_26037164",
+     "Wealth Management Client Associate",
+     "Fort Smith",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Fort-Smith/Wealth-Management-Client-Associate_26037164",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
+     "/job/Baton-Rouge/Wealth-Management-Client-Associate_26037191",
+     "Wealth Management Client Associate",
+     "Baton Rouge",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Baton-Rouge/Wealth-Management-Client-Associate_26037191",
+     "title_exclude",
+     "wealth management client associate"
+    ],
+    [
+     "/job/Tulsa/Wealth-Management-Client-Associate_26036834",
+     "Wealth Management Client Associate",
+     "Tulsa",
+     "https://ghr.wd1.myworkdayjobs.com/Lateral-US/job/Tulsa/Wealth-Management-Client-Associate_26036834",
+     "title_exclude",
+     "wealth management client associate"
     ]
    ],
-   "n": 188
+   "n": 189
   },
   "Morgan Stanley": {
    "rows": [
@@ -14050,14 +13883,6 @@
      "wealth management associate"
     ],
     [
-     "/job/Private-Wealth-Management-Portfolio-Management-Associate_JR038867-1",
-     "Private Wealth Management Wealth Management Associate",
-     "",
-     "https://ms.wd5.myworkdayjobs.com/External/job/Private-Wealth-Management-Portfolio-Management-Associate_JR038867-1",
-     "title_exclude",
-     "wealth management associate"
-    ],
-    [
      "/job/New-York-New-York-United-States-of-America/Institutional-Equity-Division---Director--Fund-Services-Investor-Experience--New-York-Purchase-_JR045260",
      "Institutional Equity Division \u2013 Director, Fund Services Investor Experience (New York/Purchase)",
      "2 Locations (New York New York United States of America)",
@@ -14618,7 +14443,7 @@
      "client service"
     ]
    ],
-   "n": 213
+   "n": 212
   },
   "KeyBank": {
    "rows": [
@@ -15945,6 +15770,22 @@
   "BMO Financial Group": {
    "rows": [
     [
+     "/job/Vancouver-WA-USA/Associate-Banker_R260029282",
+     "Associate Banker",
+     "Vancouver, WA, USA",
+     "https://bmo.wd3.myworkdayjobs.com/External/job/Vancouver-WA-USA/Associate-Banker_R260029282",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
+     "/job/Tampa-FL-USA/Associate-Banker_R260032346-1",
+     "Associate Banker",
+     "Tampa, FL, USA",
+     "https://bmo.wd3.myworkdayjobs.com/External/job/Tampa-FL-USA/Associate-Banker_R260032346-1",
+     "title_exclude",
+     "associate banker"
+    ],
+    [
      "/job/Rosemead-CA-USA/Associate-Banker_R260032309",
      "Associate Banker",
      "Rosemead, CA, USA",
@@ -16665,7 +16506,7 @@
      "associate banker"
     ]
    ],
-   "n": 90
+   "n": 92
   },
   "Morningstar": {
    "rows": [],
@@ -16835,14 +16676,6 @@
      "engineer"
     ],
     [
-     "/job/New-York-NY/Equities-Sales-Specialist--Associate-Director_332303-1",
-     "Equities Sales Specialist, Associate Director",
-     "New York, NY",
-     "https://spgi.wd5.myworkdayjobs.com/SPGI_Careers/job/New-York-NY/Equities-Sales-Specialist--Associate-Director_332303-1",
-     "title_exclude",
-     "sales specialist"
-    ],
-    [
      "/job/New-York-NY/Associate-Director--Business-Development_331999-1",
      "Associate Director- Business Development",
      "New York, NY",
@@ -16883,7 +16716,7 @@
      "sales specialist"
     ]
    ],
-   "n": 15
+   "n": 14
   },
   "AQR Capital Management": {
    "rows": [
@@ -16946,7 +16779,7 @@
     ],
     [
      "50601",
-     "Liquidity Relationship Manager (Tile & Escrow)",
+     "Liquidity Relationship Manager (Title & Escrow)",
      "United States",
      "https://hcgn.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/50601",
      "title_exclude",
@@ -17254,14 +17087,6 @@
      "latin america"
     ],
     [
-     "/job/Conshohocken/Associate--Financial-Advisor--Conshohocken--PA_Req1591866",
-     "Associate, Financial Advisor, Conshohocken, PA",
-     "Conshohocken",
-     "https://santander.wd3.myworkdayjobs.com/SantanderCareers/job/Conshohocken/Associate--Financial-Advisor--Conshohocken--PA_Req1591866",
-     "title_exclude",
-     "associate, financial advisor"
-    ],
-    [
      "/job/Madison-Ave-Corp/Corporate---I-Banking-Senior-Vice-President--Latin-America-Private-Credit---Structured-Finance_Req1628489",
      "Corporate & I-Banking Vice President, Latin America Private Credit & Structured Finance",
      "Madison Ave Corp",
@@ -17294,7 +17119,7 @@
      "banco de talentos - especialista business banking 1 - sp capital e litoral"
     ]
    ],
-   "n": 28
+   "n": 27
   },
   "CIBC Capital Markets": {
    "rows": [
@@ -18272,6 +18097,14 @@
   "Travelers": {
    "rows": [
     [
+     "/job/MN---St-Paul/Senior-Associate-Data-Engineer_R-52854-1",
+     "Senior Associate Data Engineer",
+     "2 Locations (MN   St Paul)",
+     "https://travelers.wd5.myworkdayjobs.com/External/job/MN---St-Paul/Senior-Associate-Data-Engineer_R-52854-1",
+     "title_exclude",
+     "data engineer"
+    ],
+    [
      "/job/GA---Alpharetta/Associate-Sr-Counsel---Insurance-Defense_R-53513",
      "Associate Sr. Counsel - Insurance Defense",
      "GA - Alpharetta",
@@ -18772,14 +18605,6 @@
      "Bond and Specialty Insurance Intern: Underwriting Professional Development Program (UPDP)",
      "MN - St. Paul",
      "https://travelers.wd5.myworkdayjobs.com/External/job/MN---St-Paul/Bond-and-Specialty-Insurance-Intern--Underwriting-Professional-Development-Program--UPDP-_R-53091",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/IL---Chicago/Bond-and-Specialty-Insurance-Intern--Underwriting-Professional-Development-Program_R-53090",
-     "Bond and Specialty Insurance Intern: Underwriting Professional Development Program",
-     "IL - Chicago",
-     "https://travelers.wd5.myworkdayjobs.com/External/job/IL---Chicago/Bond-and-Specialty-Insurance-Intern--Underwriting-Professional-Development-Program_R-53090",
      "title_exclude",
      "intern"
     ],
@@ -20511,20 +20336,20 @@
      "sales associate"
     ],
     [
-     "FTGFTMUS870166EXTERNALENUS",
-     "Equity Research Analyst (Software and AI) - Clearbridge",
-     "New York, New York, United States of America",
-     "https://careers.franklintempleton.com/us/en/job/FTGFTMUS870166EXTERNALENUS/Equity-Research-Analyst-Software-and-AI-Clearbridge",
-     "title_exclude",
-     "software"
-    ],
-    [
      "FTGFTMUS869180EXTERNALENUS",
      "Sales Associate/ Vice President, Insurance General Account Solutions",
      "New York, New York, United States of America",
      "https://careers.franklintempleton.com/us/en/job/FTGFTMUS869180EXTERNALENUS/Sales-Associate-Vice-President-Insurance-General-Account-Solutions",
      "title_exclude",
      "sales associate"
+    ],
+    [
+     "FTGFTMUS870166EXTERNALENUS",
+     "Equity Research Analyst (Software and AI) - Clearbridge",
+     "New York, New York, United States of America",
+     "https://careers.franklintempleton.com/us/en/job/FTGFTMUS870166EXTERNALENUS/Equity-Research-Analyst-Software-and-AI-Clearbridge",
+     "title_exclude",
+     "software"
     ],
     [
      "FTGFTMUS868724EXTERNALENUS",
@@ -21424,17 +21249,9 @@
      "https://job-boards.eu.greenhouse.io/imc/jobs/4823946101",
      "title_exclude",
      "intern"
-    ],
-    [
-     "4908708101",
-     "Software Engineer - Risk Technology ",
-     "Chicago, United States",
-     "https://job-boards.eu.greenhouse.io/imc/jobs/4908708101",
-     "title_exclude",
-     "software"
     ]
    ],
-   "n": 7
+   "n": 6
   },
   "DRW": {
    "rows": [
@@ -21481,7 +21298,7 @@
     [
      "8095481",
      "Senior Software Engineer, Treasury (Java/Ruby/Python)",
-     "Chicago",
+     "Chicago, New York",
      "https://job-boards.greenhouse.io/drweng/jobs/8095481",
      "title_exclude",
      "software"
@@ -23112,6 +22929,22 @@
      "sample processing"
     ],
     [
+     "/job/United-States---California---Alameda/Associate-Director--Product-Marketing_31165480-1",
+     "Associate Director, Product Marketing",
+     "United States - California - Alameda",
+     "https://abbott.wd5.myworkdayjobs.com/abbottcareers/job/United-States---California---Alameda/Associate-Director--Product-Marketing_31165480-1",
+     "title_exclude",
+     "marketing"
+    ],
+    [
+     "/job/United-States---Ohio---Columbus/Associate-Brand-Manager--Similac-Delivery---Performance---Nutrition---Columbus--OH_31165326-2",
+     "Associate Brand Manager, Similac Delivery & Performance - Nutrition - Columbus, OH",
+     "United States - Ohio - Columbus",
+     "https://abbott.wd5.myworkdayjobs.com/abbottcareers/job/United-States---Ohio---Columbus/Associate-Brand-Manager--Similac-Delivery---Performance---Nutrition---Columbus--OH_31165326-2",
+     "title_exclude",
+     "brand manager"
+    ],
+    [
      "/job/United-States---Minnesota---Plymouth/Staff-R-D-Engineer-Predictive-Engineering---Validation---Electrophysiology_31162663-1",
      "Staff R&D Engineer-Predictive Engineering & Validation \u2013 Electrophysiology",
      "United States - Minnesota - Plymouth",
@@ -23142,22 +22975,6 @@
      "https://abbott.wd5.myworkdayjobs.com/abbottcareers/job/United-States---California---San-Diego/Associate-Principal-Bioinformatics-Scientist_35000071-1",
      "title_exclude",
      "scientist"
-    ],
-    [
-     "/job/United-States---California---Alameda/Associate-Director--Product-Marketing_31165480-1",
-     "Associate Director, Product Marketing",
-     "United States - California - Alameda",
-     "https://abbott.wd5.myworkdayjobs.com/abbottcareers/job/United-States---California---Alameda/Associate-Director--Product-Marketing_31165480-1",
-     "title_exclude",
-     "marketing"
-    ],
-    [
-     "/job/United-States---Ohio---Columbus/Associate-Brand-Manager--Similac-Delivery---Performance---Nutrition---Columbus--OH_31165326-2",
-     "Associate Brand Manager, Similac Delivery & Performance - Nutrition - Columbus, OH",
-     "United States - Ohio - Columbus",
-     "https://abbott.wd5.myworkdayjobs.com/abbottcareers/job/United-States---Ohio---Columbus/Associate-Brand-Manager--Similac-Delivery---Performance---Nutrition---Columbus--OH_31165326-2",
-     "title_exclude",
-     "brand manager"
     ],
     [
      "/job/United-States---Ohio---Columbus/Associate-Project-Manager--R-D----PPMO---Nutrition---Columbus--OH_31167118-1",
@@ -23851,6 +23668,14 @@
      "electrical engineer"
     ],
     [
+     "/job/AustinTX/XMLNAME-2027-Data-Analytics---Business-Operations-Spring-Co-Op-or-Summer-Intern--Bachelor-s-Master-s--Austin--TX-_R2626381",
+     "2027 Data Analytics & Business Operations Spring Co-Op or Summer Intern- Bachelor's/Master's (Austin, TX)",
+     "Austin,TX",
+     "https://amat.wd1.myworkdayjobs.com/External/job/AustinTX/XMLNAME-2027-Data-Analytics---Business-Operations-Spring-Co-Op-or-Summer-Intern--Bachelor-s-Master-s--Austin--TX-_R2626381",
+     "title_exclude",
+     "co-op"
+    ],
+    [
      "/job/Santa-ClaraCA/Cleaning--Contamination-Control---Validation-Engineer-E4_R2629488-1",
      "Cleaning, Contamination Control & Validation Engineer E4",
      "Santa Clara,CA",
@@ -23881,14 +23706,6 @@
      "https://amat.wd1.myworkdayjobs.com/External/job/Santa-ClaraCA/AI-Business-Analyst---HR-Technology_R2623413",
      "title_exclude",
      "hr"
-    ],
-    [
-     "/job/AustinTX/XMLNAME-2027-Data-Analytics---Business-Operations-Spring-Co-Op-or-Summer-Intern--Bachelor-s-Master-s--Austin--TX-_R2626381",
-     "2027 Data Analytics & Business Operations Spring Co-Op or Summer Intern- Bachelor's/Master's (Austin, TX)",
-     "Austin,TX",
-     "https://amat.wd1.myworkdayjobs.com/External/job/AustinTX/XMLNAME-2027-Data-Analytics---Business-Operations-Spring-Co-Op-or-Summer-Intern--Bachelor-s-Master-s--Austin--TX-_R2626381",
-     "title_exclude",
-     "co-op"
     ],
     [
      "/job/GloucesterMA/XMLNAME-2027-Spring-Mechanical-Engineer-Co-op--Gloucester-MA-_R2628290",
@@ -24355,6 +24172,14 @@
   },
   "Cardinal Health": {
    "rows": [
+    [
+     "/job/TX---Fort-Worth---CAH-Home-Solutions-DC---Mark-IV/Warehouse-Associate-II_20191415-1",
+     "Warehouse Associate II",
+     "TX - Fort Worth - CAH-Home Solutions DC - Mark IV",
+     "https://cardinalhealth.wd1.myworkdayjobs.com/EXT/job/TX---Fort-Worth---CAH-Home-Solutions-DC---Mark-IV/Warehouse-Associate-II_20191415-1",
+     "title_exclude",
+     "warehouse associate"
+    ],
     [
      "/job/US-Nationwide-FIELD/Manager--Cyber-Risk_20191143",
      "Manager, Cyber Risk",
@@ -25652,14 +25477,6 @@
      "warehouse associate"
     ],
     [
-     "/job/MS-Madison-PHARM-DIST/Warehouse-Associate--FT--Nights-_20188409",
-     "Warehouse Associate (FT, Nights)",
-     "MS-Madison-(PHARM DIST)",
-     "https://cardinalhealth.wd1.myworkdayjobs.com/EXT/job/MS-Madison-PHARM-DIST/Warehouse-Associate--FT--Nights-_20188409",
-     "title_exclude",
-     "warehouse associate"
-    ],
-    [
      "/job/US-Nationwide-FIELD/Clinical-Operations-and-Analytics-Consultant_20189172",
      "Clinical Operations and Analytics Consultant",
      "US-Nationwide-FIELD",
@@ -25910,6 +25727,22 @@
      "personal banker"
     ],
     [
+     "/job/Orlando-FL/Personal-Banker-Associate-I---Kissimmee--FL_R74971",
+     "Personal Banker Associate I - Kissimmee, FL",
+     "Orlando, FL",
+     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Orlando-FL/Personal-Banker-Associate-I---Kissimmee--FL_R74971",
+     "title_exclude",
+     "personal banker"
+    ],
+    [
+     "/job/Plano-TX/Personal-Banker-Associate-I---Parker-Premier_R73072",
+     "Personal Banker Associate I - Plano, TX (Parker-Premier FC)",
+     "Plano, TX",
+     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Plano-TX/Personal-Banker-Associate-I---Parker-Premier_R73072",
+     "title_exclude",
+     "personal banker"
+    ],
+    [
      "/job/Itasca-IL/Float-Personal-Banker-Associate-I---Midwest-Chicago-Region_R75477",
      "Float Personal Banker Associate I - Midwest Chicago Region",
      "Itasca, IL",
@@ -25924,6 +25757,22 @@
      "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Kennesaw-GA/Personal-Banker-Associate-I---Kennesaw_R75464",
      "title_exclude",
      "personal banker"
+    ],
+    [
+     "/job/Holland-MI/Personal-Banker-Associate-1---Southside_R73453",
+     "Personal Banker Associate 1 - Southside",
+     "Holland, MI",
+     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Holland-MI/Personal-Banker-Associate-1---Southside_R73453",
+     "title_exclude",
+     "personal banker"
+    ],
+    [
+     "/job/East-Lansing-MI/Financial-Center-Manager-Associate---Lansing_R72632",
+     "Financial Center Manager Associate - Lansing",
+     "East Lansing, MI",
+     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/East-Lansing-MI/Financial-Center-Manager-Associate---Lansing_R72632",
+     "title_exclude",
+     "financial center manager"
     ],
     [
      "/job/Kalamazoo-MI/Personal-Banker-Associate-II---West-Main_R73370-1",
@@ -26338,14 +26187,6 @@
      "Personal Banker Associate I",
      "Fort Lauderdale, FL",
      "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Fort-Lauderdale-FL/Personal-Banker-Associate-I_R75364",
-     "title_exclude",
-     "personal banker"
-    ],
-    [
-     "/job/Dallas-TX/Personal-Banker-Associate-I---Dallas--TX--Mockingbird-Abrams-FC-_R74261",
-     "Personal Banker Associate I - Dallas, TX (Mockingbird-Abrams FC)",
-     "Dallas, TX",
-     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Dallas-TX/Personal-Banker-Associate-I---Dallas--TX--Mockingbird-Abrams-FC-_R74261",
      "title_exclude",
      "personal banker"
     ],
@@ -29076,33 +28917,9 @@
      "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Jupiter-FL/Personal-Banker-Associate-I--Jupiter-_R73332",
      "title_exclude",
      "personal banker"
-    ],
-    [
-     "/job/Naples-FL/Financial-Center-Manager-Associate_R73328",
-     "Financial Center Manager Associate",
-     "Naples, FL",
-     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Naples-FL/Financial-Center-Manager-Associate_R73328",
-     "title_exclude",
-     "financial center manager"
-    ],
-    [
-     "/job/Fort-Myers-FL/Personal-Banker-Associate-I_R73114",
-     "Personal Banker Associate I",
-     "Fort Myers, FL",
-     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Fort-Myers-FL/Personal-Banker-Associate-I_R73114",
-     "title_exclude",
-     "personal banker"
-    ],
-    [
-     "/job/Estero-FL/Personal-Banker-Associate-I_R73110",
-     "Personal Banker Associate I",
-     "Estero, FL",
-     "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Estero-FL/Personal-Banker-Associate-I_R73110",
-     "title_exclude",
-     "personal banker"
     ]
    ],
-   "n": 415
+   "n": 418
   },
   "First Hawaiian Bank": {
    "rows": [
@@ -30244,6 +30061,14 @@
   "Regions Bank": {
    "rows": [
     [
+     "/job/Indianapolis-IN---One-Indiana-Square-Office/Treasury-Management-Relationship-Manager_R107894",
+     "Treasury Management Relationship Manager",
+     "Indianapolis, IN - One Indiana Square Office",
+     "https://regions.wd5.myworkdayjobs.com/Regions_Careers/job/Indianapolis-IN---One-Indiana-Square-Office/Treasury-Management-Relationship-Manager_R107894",
+     "title_exclude",
+     "relationship manager"
+    ],
+    [
      "/job/Charlotte-NC---Blackarch-Office/XMLNAME-2027-BlackArch-Investment-Banking-Summer-Analyst--Associate_R107461",
      "2027 BlackArch Investment Banking Summer Analyst/ Associate",
      "Charlotte, NC - Blackarch Office",
@@ -30332,7 +30157,7 @@
      "home equity"
     ]
    ],
-   "n": 11
+   "n": 12
   },
   "Relay (relayfi.com)": {
    "rows": [],
@@ -30348,6 +30173,14 @@
   },
   "SECU Credit Union (NC)": {
    "rows": [
+    [
+     "/job/Durham-Duke-St/Associate-Member-Services-Officer_JR-16640",
+     "Associate Member Services Officer",
+     "Durham-Duke St",
+     "https://ncsecu.wd1.myworkdayjobs.com/SECU/job/Durham-Duke-St/Associate-Member-Services-Officer_JR-16640",
+     "title_exclude",
+     "member services officer"
+    ],
     [
      "/job/Fayetteville-Ramsey-St/Associate-Member-Service-Representative_JR-16983",
      "Associate Member Service Representative",
@@ -30691,14 +30524,6 @@
      "https://ncsecu.wd1.myworkdayjobs.com/SECU/job/Charlotte-Albemarle-Rd/Associate-Member-Services-Representative_JR-16656",
      "title_exclude",
      "services representative"
-    ],
-    [
-     "/job/Raleigh---Clark-Ave/Associate-Member-Service-Representative_JR-16646",
-     "Associate Member Service Representative",
-     "Raleigh - Clark Ave",
-     "https://ncsecu.wd1.myworkdayjobs.com/SECU/job/Raleigh---Clark-Ave/Associate-Member-Service-Representative_JR-16646",
-     "title_exclude",
-     "service representative"
     ],
     [
      "/job/Wilmington-Randall-Pkwy/Associate-Member-Services-Officer_JR-16619",
@@ -31988,18 +31813,18 @@
      "production associate"
     ],
     [
-     "6116686004",
-     "Production Associate",
-     "McCarran, NV",
-     "https://boards.greenhouse.io/redwoodmaterials/jobs/6116686004?gh_jid=6116686004",
-     "title_exclude",
-     "production associate"
-    ],
-    [
      "6123020004",
      "Production Associate",
      "Ridgeville, South Carolina, United States",
      "https://boards.greenhouse.io/redwoodmaterials/jobs/6123020004?gh_jid=6123020004",
+     "title_exclude",
+     "production associate"
+    ],
+    [
+     "6116686004",
+     "Production Associate",
+     "McCarran, NV",
+     "https://boards.greenhouse.io/redwoodmaterials/jobs/6116686004?gh_jid=6116686004",
      "title_exclude",
      "production associate"
     ],
@@ -32559,18 +32384,18 @@
      "customer success"
     ],
     [
-     "8792016002",
-     "Customer Success Associate",
-     "Charlotte, NC",
-     "https://job-boards.greenhouse.io/figure/jobs/8792016002",
-     "title_exclude",
-     "customer success"
-    ],
-    [
      "8791969002",
      "Customer Success Associate",
      "Reno, NV",
      "https://job-boards.greenhouse.io/figure/jobs/8791969002",
+     "title_exclude",
+     "customer success"
+    ],
+    [
+     "8792016002",
+     "Customer Success Associate",
+     "Charlotte, NC",
+     "https://job-boards.greenhouse.io/figure/jobs/8792016002",
      "title_exclude",
      "customer success"
     ],
@@ -32946,22 +32771,6 @@
      "payment integrity"
     ],
     [
-     "8329391",
-     "Associate, Service Transformation",
-     "Dallas, Texas, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8329391",
-     "title_exclude_unless",
-     "transformation"
-    ],
-    [
-     "8349798",
-     "Associate, Service Transformation",
-     "Tempe, Arizona, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8349798",
-     "title_exclude_unless",
-     "transformation"
-    ],
-    [
      "8349789",
      "Associate, Service Transformation",
      "New York, New York, United States",
@@ -32974,6 +32783,22 @@
      "Associate, Service Transformation",
      "Atlanta, Georgia, United States",
      "https://oscarhealth.com/careers/jobs?gh_jid=8319428",
+     "title_exclude_unless",
+     "transformation"
+    ],
+    [
+     "8329391",
+     "Associate, Service Transformation",
+     "Dallas, Texas, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8329391",
+     "title_exclude_unless",
+     "transformation"
+    ],
+    [
+     "8349798",
+     "Associate, Service Transformation",
+     "Tempe, Arizona, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8349798",
      "title_exclude_unless",
      "transformation"
     ],
@@ -33018,6 +32843,14 @@
      "senior director"
     ],
     [
+     "8232867",
+     "Senior Director, Strategic Finance & Enterprise Planning",
+     "Dallas, Texas, United States",
+     "https://oscarhealth.com/careers/jobs?gh_jid=8232867",
+     "title_exclude",
+     "senior director"
+    ],
+    [
      "8224484",
      "Senior Director, Strategic Finance & Enterprise Planning",
      "New York, New York, United States",
@@ -33030,14 +32863,6 @@
      "Senior Director, Strategic Finance & Enterprise Planning",
      "Atlanta, Georgia, United States",
      "https://oscarhealth.com/careers/jobs?gh_jid=8232870",
-     "title_exclude",
-     "senior director"
-    ],
-    [
-     "8232867",
-     "Senior Director, Strategic Finance & Enterprise Planning",
-     "Dallas, Texas, United States",
-     "https://oscarhealth.com/careers/jobs?gh_jid=8232867",
      "title_exclude",
      "senior director"
     ],
@@ -33352,17 +33177,8 @@
    "n": 0
   },
   "Databricks": {
-   "rows": [
-    [
-     "8910846002",
-     "Associate Forward Deployed Engineer",
-     "Mountain View, California",
-     "https://databricks.com/company/careers/open-positions/job?gh_jid=8910846002",
-     "title_exclude",
-     "forward deployed engineer"
-    ]
-   ],
-   "n": 1
+   "rows": [],
+   "n": 0
   },
   "MongoDB": {
    "rows": [
@@ -37019,203 +36835,6 @@
     ]
    ],
    "n": 28
-  },
-  "Booz Allen Hamilton": {
-   "rows": [
-    [
-     "/job/Bethesda-MD/Supply-Chain-and-Infectious-Disease-Risk-Modeling-Data-Scientist_R0253731",
-     "Supply Chain and Infectious Disease Risk Modeling Data Scientist",
-     "Bethesda, MD",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Bethesda-MD/Supply-Chain-and-Infectious-Disease-Risk-Modeling-Data-Scientist_R0253731",
-     "title_exclude",
-     "scientist"
-    ],
-    [
-     "/job/Newport-RI/Cybersecurity-Compliance-and-Risk-Manager_R0247123-1",
-     "Cybersecurity Compliance and Risk Manager",
-     "Newport, RI",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Newport-RI/Cybersecurity-Compliance-and-Risk-Manager_R0247123-1",
-     "title_exclude_unless",
-     "cybersecurity"
-    ],
-    [
-     "/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0246498",
-     "Cybersecurity Engineer and Risk Analyst",
-     "San Diego, CA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0246498",
-     "title_exclude",
-     "cybersecurity engineer"
-    ],
-    [
-     "/job/Dahlgren-VA/Advanced-Analytics-Data-Scientist_R0253083",
-     "Advanced Analytics Data Scientist",
-     "Dahlgren, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Dahlgren-VA/Advanced-Analytics-Data-Scientist_R0253083",
-     "title_exclude",
-     "scientist"
-    ],
-    [
-     "/job/Chantilly-VA/Human-Capital-Data-Analyst_R0244767",
-     "Human Capital Data Analyst",
-     "Chantilly, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Chantilly-VA/Human-Capital-Data-Analyst_R0244767",
-     "title_exclude",
-     "human capital data"
-    ],
-    [
-     "/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0253862",
-     "Information Security Risk Specialist",
-     "2 Locations (Albuquerque NM)",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0253862",
-     "title_exclude",
-     "information security risk specialist"
-    ],
-    [
-     "/job/McLean-VA/Marketing-Analytics-and-Insights-Data-Visualization-Specialist_R0253187",
-     "Marketing Analytics and Insights Data Visualization Specialist",
-     "2 Locations (McLean VA)",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Marketing-Analytics-and-Insights-Data-Visualization-Specialist_R0253187",
-     "title_exclude",
-     "marketing"
-    ],
-    [
-     "/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0252888",
-     "Cybersecurity Engineer and Risk Analyst",
-     "San Diego, CA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/San-Diego-CA/Cybersecurity-Engineer-and-Risk-Analyst_R0252888",
-     "title_exclude",
-     "cybersecurity engineer"
-    ],
-    [
-     "/job/McLean-VA/Equity-Compensation---Administration-Senior-Manager_R0245786",
-     "Equity Compensation & Administration Senior Manager",
-     "McLean, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Equity-Compensation---Administration-Senior-Manager_R0245786",
-     "title_exclude",
-     "equity compensation"
-    ],
-    [
-     "/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0247513",
-     "Information Security Risk Specialist",
-     "St Inigoes, MD",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0247513",
-     "title_exclude",
-     "information security risk specialist"
-    ],
-    [
-     "/job/Arlington-VA/Human-Capital-Analyst_R0252239-1",
-     "Human Capital Analyst",
-     "Arlington, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Arlington-VA/Human-Capital-Analyst_R0252239-1",
-     "title_exclude",
-     "human capital analyst"
-    ],
-    [
-     "/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251688",
-     "Information Security Risk Specialist",
-     "2 Locations (Albuquerque NM)",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251688",
-     "title_exclude",
-     "information security risk specialist"
-    ],
-    [
-     "/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251926",
-     "Information Security Risk Specialist",
-     "St Inigoes, MD",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251926",
-     "title_exclude",
-     "information security risk specialist"
-    ],
-    [
-     "/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251924-1",
-     "Information Security Risk Specialist",
-     "St Inigoes, MD",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/St-Inigoes-MD/Information-Security-Risk-Specialist_R0251924-1",
-     "title_exclude",
-     "information security risk specialist"
-    ],
-    [
-     "/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251414",
-     "Information Security Risk Specialist",
-     "2 Locations (Albuquerque NM)",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Albuquerque-NM/Information-Security-Risk-Specialist_R0251414",
-     "title_exclude",
-     "information security risk specialist"
-    ],
-    [
-     "/job/North-Las-Vegas-NV/Cyber-Technology-Portfolio-Manager_R0250723",
-     "Cyber Technology Portfolio Manager",
-     "North Las Vegas, NV",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/North-Las-Vegas-NV/Cyber-Technology-Portfolio-Manager_R0250723",
-     "title_exclude",
-     "cyber"
-    ],
-    [
-     "/job/McLean-VA/University---Summer-27--Pricing-Intern_R0250410",
-     "University - Summer 27, Pricing Intern",
-     "McLean, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Pricing-Intern_R0250410",
-     "title_exclude",
-     "summer"
-    ],
-    [
-     "/job/Honolulu-HI/Information-Security-Risk-Specialist--Mid_R0250315",
-     "Information Security Risk Specialist, Mid",
-     "Honolulu, HI",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Honolulu-HI/Information-Security-Risk-Specialist--Mid_R0250315",
-     "title_exclude",
-     "information security risk specialist"
-    ],
-    [
-     "/job/Springfield-VA/Human-Resources-and-Human-Capital-Program-Manager_R0250491",
-     "Human Resources and Human Capital Program Manager",
-     "Springfield, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Springfield-VA/Human-Resources-and-Human-Capital-Program-Manager_R0250491",
-     "title_exclude",
-     "human resources"
-    ],
-    [
-     "/job/McLean-VA/University--Summer-2027---Corporate-Development-Intern_R0250270",
-     "University, Summer 2027 - Corporate Development Intern",
-     "McLean, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University--Summer-2027---Corporate-Development-Intern_R0250270",
-     "title_exclude",
-     "summer"
-    ],
-    [
-     "/job/McLean-VA/University---Corporate-Finance-Intern_R0246500",
-     "University - Corporate Finance Intern",
-     "McLean, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Corporate-Finance-Intern_R0246500",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/McLean-VA/University---Summer-27--Pricing-Intern_R0249254",
-     "University - Summer 27, Pricing Intern",
-     "McLean, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Pricing-Intern_R0249254",
-     "title_exclude",
-     "summer"
-    ],
-    [
-     "/job/McLean-VA/Employment-Law-Associate-General-Counsel_R0249108",
-     "Employment Law Associate General Counsel",
-     "McLean, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Employment-Law-Associate-General-Counsel_R0249108",
-     "title_exclude",
-     "counsel"
-    ],
-    [
-     "/job/McLean-VA/Associate-General-Counsel--Products_R0249047",
-     "Associate General Counsel, Products",
-     "McLean, VA",
-     "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/Associate-General-Counsel--Products_R0249047",
-     "title_exclude",
-     "counsel"
-    ]
-   ],
-   "n": 24
   },
   "AIA Group": {
    "rows": [],
@@ -41377,6 +40996,14 @@
   "Highmark Health": {
    "rows": [
     [
+     "/job/Pittsburgh-PA-15222-FAP-5th-Avenue-Place/Associate-Strategy-Partner---Strategy-and-Transformation-Office--STO-_J287646",
+     "Associate Strategy Partner - Strategy and Transformation Office (STO)",
+     "2 Locations (Pittsburgh PA 15222 FAP 5th Avenue Place)",
+     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Pittsburgh-PA-15222-FAP-5th-Avenue-Place/Associate-Strategy-Partner---Strategy-and-Transformation-Office--STO-_J287646",
+     "title_exclude_unless",
+     "transformation"
+    ],
+    [
      "/job/Jefferson-Hills-PA-15025-565-Coal-Valley-Road/Environmental-Service-Associate---Teamsters-JH--Housekeeping-FT-Evening--Jefferson-Hospital_J291590",
      "Environmental Service Associate / Teamsters JH (Housekeeping-FT Evening) Jefferson Hospital",
      "Jefferson Hills PA, 15025, 565 Coal Valley Road",
@@ -41463,14 +41090,6 @@
      "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Pittsburgh-PA-15222-FAP-5th-Avenue-Place/Associate-Community-Affairs-Specialist_J286839",
      "title_exclude",
      "associate community affairs specialist"
-    ],
-    [
-     "/job/Pittsburgh-PA-15222-FAP-5th-Avenue-Place/Associate-Strategy-Partner---Strategy-and-Transformation-Office--STO-_J287646",
-     "Associate Strategy Partner - Strategy and Transformation Office (STO)",
-     "2 Locations (Pittsburgh PA 15222 FAP 5th Avenue Place)",
-     "https://highmarkhealth.wd1.myworkdayjobs.com/highmark/job/Pittsburgh-PA-15222-FAP-5th-Avenue-Place/Associate-Strategy-Partner---Strategy-and-Transformation-Office--STO-_J287646",
-     "title_exclude_unless",
-     "transformation"
     ],
     [
      "/job/Erie-PA-16502-232-West-25th-St/Sterile-Processing-Technician-Associate_J291564",
@@ -42560,14 +42179,6 @@
      "stem cell"
     ],
     [
-     "/job/Boston-MA/Associate-Director--GxP-Operations-Support-Manufacturing-Systems_REQ-29989",
-     "Associate Director, GxP Operations Support Manufacturing Systems",
-     "Boston, MA",
-     "https://vrtx.wd501.myworkdayjobs.com/Vertex_Careers/job/Boston-MA/Associate-Director--GxP-Operations-Support-Manufacturing-Systems_REQ-29989",
-     "title_exclude",
-     "gxp"
-    ],
-    [
      "/job/Seattle-WA/Senior-Administrative-Associate_REQ-30012",
      "Senior Administrative Associate",
      "Seattle, WA",
@@ -42592,7 +42203,7 @@
      "medical writing"
     ]
    ],
-   "n": 52
+   "n": 51
   },
   "Pacific Life": {
    "rows": [
@@ -42677,6 +42288,14 @@
      "https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers/job/Cambridge-Massachusetts-USA/Associate-Scientist--Organic-Chemistry_R-01376483",
      "title_exclude",
      "scientist"
+    ],
+    [
+     "/job/Austin-Texas-USA/Associate-Clinical-Research-Manager--Early-Phase--_R-01373724-1",
+     "Associate Clinical Research Manager (Early Phase))",
+     "Austin, Texas, USA",
+     "https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers/job/Austin-Texas-USA/Associate-Clinical-Research-Manager--Early-Phase--_R-01373724-1",
+     "title_exclude",
+     "clinical"
     ],
     [
      "/job/Boston-Massachusetts-USA/Sr-Research-Scientist---Protein-Biologics-Analytics_R-01376699",
@@ -43067,14 +42686,6 @@
      "Finance Analyst III \u2013 Clinical Sequencing Division",
      "Carlsbad, California, USA",
      "https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers/job/Carlsbad-California-USA/Finance-Analyst-III---Clinical-Sequencing-Division_R-01362148",
-     "title_exclude",
-     "clinical"
-    ],
-    [
-     "/job/Austin-Texas-USA/Associate-Clinical-Research-Manager--Early-Phase--_R-01373724-1",
-     "Associate Clinical Research Manager (Early Phase))",
-     "Austin, Texas, USA",
-     "https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers/job/Austin-Texas-USA/Associate-Clinical-Research-Manager--Early-Phase--_R-01373724-1",
      "title_exclude",
      "clinical"
     ]
@@ -43968,14 +43579,6 @@
      "process development associate"
     ],
     [
-     "/job/US---California---Thousand-Oaks/Scientific-Associate-Director---Safety-Pharmacology_R-256418",
-     "Scientific Associate Director - Safety Pharmacology",
-     "US - California - Thousand Oaks",
-     "https://amgen.wd1.myworkdayjobs.com/Careers/job/US---California---Thousand-Oaks/Scientific-Associate-Director---Safety-Pharmacology_R-256418",
-     "title_exclude",
-     "pharmacology"
-    ],
-    [
      "/job/US---Rhode-Island---West-Greenwich/Associate-Manufacturing---Nights--D-shift-_R-255137-1",
      "Associate Manufacturing - Nights (D shift)",
      "US - Rhode Island - West Greenwich",
@@ -44038,6 +43641,14 @@
      "https://amgen.wd1.myworkdayjobs.com/Careers/job/US---North-Carolina---Holly-Springs/Specialist---Manufacturing-Investigations_R-245982",
      "title_exclude",
      "associate manufacturing"
+    ],
+    [
+     "/job/US---California---Thousand-Oaks/Scientific-Associate-Director---Safety-Pharmacology_R-256418",
+     "Scientific Associate Director - Safety Pharmacology",
+     "US - California - Thousand Oaks",
+     "https://amgen.wd1.myworkdayjobs.com/Careers/job/US---California---Thousand-Oaks/Scientific-Associate-Director---Safety-Pharmacology_R-256418",
+     "title_exclude",
+     "pharmacology"
     ]
    ],
    "n": 70
@@ -44861,6 +44472,14 @@
      "sales associate"
     ],
     [
+     "/job/Missouri-St-Louis-1854-Lackland-Hill-Parkway/Associate-Sales-Representative---Joint-Replacement---Cape-Girardeau--MO_R575899",
+     "Associate Sales Representative - Joint Replacement - Cape Girardeau, MO",
+     "4 Locations (Missouri St Louis 1854 Lackland Hill Parkway)",
+     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Missouri-St-Louis-1854-Lackland-Hill-Parkway/Associate-Sales-Representative---Joint-Replacement---Cape-Girardeau--MO_R575899",
+     "title_exclude",
+     "sales representative"
+    ],
+    [
      "/job/New-York-New-York/Service-Associate--New-York-City--NY_R574512",
      "Service Associate- New York City, NY",
      "New York, New York",
@@ -45379,14 +44998,6 @@
      "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Seattle-Washington/Sales-Associate---Seattle--WA---Sports-Medicine_R567413",
      "title_exclude",
      "sales associate"
-    ],
-    [
-     "/job/Missouri-St-Louis-1854-Lackland-Hill-Parkway/Associate-Sales-Representative---Joint-Replacement---Cape-Girardeau--MO_R575899",
-     "Associate Sales Representative - Joint Replacement - Cape Girardeau, MO",
-     "4 Locations (Missouri St Louis 1854 Lackland Hill Parkway)",
-     "https://stryker.wd1.myworkdayjobs.com/StrykerCareers/job/Missouri-St-Louis-1854-Lackland-Hill-Parkway/Associate-Sales-Representative---Joint-Replacement---Cape-Girardeau--MO_R575899",
-     "title_exclude",
-     "sales representative"
     ]
    ],
    "n": 168
@@ -47121,18 +46732,18 @@
   "Equifax": {
    "rows": [
     [
-     "/job/USA---Georgia---Alpharetta---30005/Sales-Rotational-Development-Associate_J00178815-1",
-     "Sales Rotational Development Associate",
-     "USA - Georgia - Alpharetta - 30005",
-     "https://equifax.wd5.myworkdayjobs.com/External/job/USA---Georgia---Alpharetta---30005/Sales-Rotational-Development-Associate_J00178815-1",
+     "/job/USA-ID-Boise/Sales-Rotational-Development-Associate_J00178839-1",
+     "Sales Rotational Development Associate ID&F",
+     "USA-ID-Boise",
+     "https://equifax.wd5.myworkdayjobs.com/External/job/USA-ID-Boise/Sales-Rotational-Development-Associate_J00178839-1",
      "title_exclude_unless",
      "sales"
     ],
     [
-     "/job/USA-ID-Boise/Sales-Rotational-Development-Associate_J00178839-1",
+     "/job/USA---Georgia---Alpharetta---30005/Sales-Rotational-Development-Associate_J00178815-1",
      "Sales Rotational Development Associate",
-     "USA-ID-Boise",
-     "https://equifax.wd5.myworkdayjobs.com/External/job/USA-ID-Boise/Sales-Rotational-Development-Associate_J00178839-1",
+     "USA - Georgia - Alpharetta - 30005",
+     "https://equifax.wd5.myworkdayjobs.com/External/job/USA---Georgia---Alpharetta---30005/Sales-Rotational-Development-Associate_J00178815-1",
      "title_exclude_unless",
      "sales"
     ],
@@ -48315,6 +47926,22 @@
   "Micron": {
    "rows": [
     [
+     "/job/Boise-ID---Main-Site/Intern---Corporate-Development_JR115817",
+     "Intern - Corporate Development",
+     "2 Locations (Boise ID   Main Site)",
+     "https://micron.wd1.myworkdayjobs.com/External/job/Boise-ID---Main-Site/Intern---Corporate-Development_JR115817",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/Longmont-MAX--Office-CO/Staff-Engineer--SSD-Validation_JR92821",
+     "Staff Engineer, SSD Validation",
+     "Longmont-MAX- Office, CO",
+     "https://micron.wd1.myworkdayjobs.com/External/job/Longmont-MAX--Office-CO/Staff-Engineer--SSD-Validation_JR92821",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
      "/job/Boise-ID---Main-Site/Sales-Operations-Systems---Business-Analyst_JR117483",
      "Sales Operations Systems & Business Analyst",
      "Boise, ID - Main Site",
@@ -48337,14 +47964,6 @@
      "https://micron.wd1.myworkdayjobs.com/External/job/Longmont-MAX--Office-CO/Staff-Engineer--SSD-Validation_JR92820-1",
      "title_exclude_unless",
      "engineer"
-    ],
-    [
-     "/job/Boise-ID---Main-Site/Intern---Corporate-Development_JR115817",
-     "Intern - Corporate Development",
-     "Boise, ID - Main Site",
-     "https://micron.wd1.myworkdayjobs.com/External/job/Boise-ID---Main-Site/Intern---Corporate-Development_JR115817",
-     "title_exclude",
-     "intern"
     ],
     [
      "/job/Boise-ID---Main-Site/Principal-Engineer---HIG-Component-Validation_JR112182-1",
@@ -48425,14 +48044,6 @@
      "https://micron.wd1.myworkdayjobs.com/External/job/Boise-ID---Main-Site/Associate-Technician---Reticle-MFG_JR107762",
      "title_exclude",
      "associate technician"
-    ],
-    [
-     "/job/Longmont-MAX--Office-CO/Staff-Engineer--SSD-Validation_JR92821",
-     "Staff Engineer, SSD Validation",
-     "Longmont-MAX- Office, CO",
-     "https://micron.wd1.myworkdayjobs.com/External/job/Longmont-MAX--Office-CO/Staff-Engineer--SSD-Validation_JR92821",
-     "title_exclude_unless",
-     "engineer"
     ],
     [
      "/job/Boise-ID---Main-Site/Senior-Engineer---HIG-HBM-PSE---Design-Validation_JR110622",
@@ -49131,6 +48742,38 @@
   "Lowe's": {
    "rows": [
     [
+     "/job/Petoskey-MI-2585/Full-Time---Sales-Associate---Paint---Closing_JR-02711776",
+     "Full Time - Sales Associate - Paint - Closing",
+     "Petoskey, MI 2585",
+     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Petoskey-MI-2585/Full-Time---Sales-Associate---Paint---Closing_JR-02711776",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
+     "/job/Petoskey-MI-2585/Full-Time---Sales-Associate---Paint---Closing_JR-02711772",
+     "Full Time - Sales Associate - Paint - Closing",
+     "Petoskey, MI 2585",
+     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Petoskey-MI-2585/Full-Time---Sales-Associate---Paint---Closing_JR-02711772",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
+     "/job/Yuma-AZ-1082/Full-Time---Sales-Associate---Outside-Lawn---Garden---Day_JR-02711771",
+     "Full Time - Sales Associate - Outside Lawn & Garden - Day",
+     "Yuma, AZ 1082",
+     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Yuma-AZ-1082/Full-Time---Sales-Associate---Outside-Lawn---Garden---Day_JR-02711771",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
+     "/job/Petoskey-MI-2585/Full-Time---Sales-Associate---Paint---Closing_JR-02711762",
+     "Full Time - Sales Associate - Paint - Closing",
+     "Petoskey, MI 2585",
+     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Petoskey-MI-2585/Full-Time---Sales-Associate---Paint---Closing_JR-02711762",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
      "/job/Charlotte-NC-Central-Charlotte-2348/Full-Time---Sales-Associate---Building-Materials---Day_JR-02711738",
      "Full Time - Sales Associate - Building Materials - Day",
      "Charlotte, NC (Central Charlotte) 2348",
@@ -49233,14 +48876,6 @@
      "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/North-Dartmouth-MA-1832/Part-Time---Fulfillment-Associate---Flexible_JR-02711696",
      "title_exclude",
      "fulfillment associate"
-    ],
-    [
-     "/job/Sevierville-TN-0693/Part-Time---Loader-Cart-Associate---Flexible_JR-02711674",
-     "Part Time - Loader/Cart Associate - Flexible",
-     "Sevierville, TN 0693",
-     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Sevierville-TN-0693/Part-Time---Loader-Cart-Associate---Flexible_JR-02711674",
-     "title_exclude",
-     "loader/cart"
     ],
     [
      "/job/Wheelersburg-OH-0477/Full-Time---Fulfillment-Associate---Day_JR-02711672",
@@ -51555,14 +51190,6 @@
      "merchandising service"
     ],
     [
-     "/job/Michigan-City-IN-0195/Full-Time---Loader-Cart-Associate---Opening_JR-02697061-1",
-     "Full Time - Loader/Cart Associate - Opening",
-     "Michigan City, IN 0195",
-     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Michigan-City-IN-0195/Full-Time---Loader-Cart-Associate---Opening_JR-02697061-1",
-     "title_exclude",
-     "loader/cart"
-    ],
-    [
      "/job/Birmingham-AL-Inverness-1726/Full-Time---Sales-Associate---Building-Materials---Day_JR-02709470",
      "Full Time - Sales Associate - Building Materials - Day",
      "Birmingham, AL (Inverness) 1726",
@@ -52313,25 +51940,9 @@
      "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Jacksonville-NC-S-Jacksonville-2737/Part-Time---Loader-Cart-Associate---Flexible_JR-02708793",
      "title_exclude",
      "loader/cart"
-    ],
-    [
-     "/job/Philadelphia-PA-S-Philadelphia-1849/Full-Time---Sales-Associate---ProServices---Day_JR-02708789",
-     "Full Time - Sales Associate - ProServices - Day",
-     "Philadelphia, PA (S Philadelphia) 1849",
-     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Philadelphia-PA-S-Philadelphia-1849/Full-Time---Sales-Associate---ProServices---Day_JR-02708789",
-     "title_exclude",
-     "sales associate"
-    ],
-    [
-     "/job/Richmond-VA-S-Richmond-0676/Full-Time---Sales-Associate---Inside-Lawn---Garden---Day_JR-02708772",
-     "Full Time - Sales Associate - Inside Lawn & Garden - Day",
-     "Richmond, VA (S Richmond) 0676",
-     "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS/job/Richmond-VA-S-Richmond-0676/Full-Time---Sales-Associate---Inside-Lawn---Garden---Day_JR-02708772",
-     "title_exclude",
-     "sales associate"
     ]
    ],
-   "n": 2365
+   "n": 2362
   },
   "Sonoco": {
    "rows": [
@@ -52802,6 +52413,22 @@
   },
   "CarMax": {
    "rows": [
+    [
+     "/job/MD---Frederick/Frederick-Production-Center-Flow-Inventory-Associate_JR-190342",
+     "Frederick Production Center Flow Inventory Associate",
+     "MD - Frederick",
+     "https://carmax.wd1.myworkdayjobs.com/External/job/MD---Frederick/Frederick-Production-Center-Flow-Inventory-Associate_JR-190342",
+     "title_exclude",
+     "inventory associate"
+    ],
+    [
+     "/job/MA---Boston---Norwood/Sales-Consultant--Bilingual-Portuguese-or-Spanish---English-Preferred_JR-128561",
+     "Sales Consultant: Full Time (Sales Associate) Norwood Location",
+     "MA - Boston - Norwood",
+     "https://carmax.wd1.myworkdayjobs.com/External/job/MA---Boston---Norwood/Sales-Consultant--Bilingual-Portuguese-or-Spanish---English-Preferred_JR-128561",
+     "title_exclude",
+     "sales consultant"
+    ],
     [
      "/job/FL---Clearwater/Business-Operations-Associate_JR-189957",
      "Business Operations Associate",
@@ -54275,14 +53902,6 @@
      "inventory associate"
     ],
     [
-     "/job/NJ---Philadelphia-Area---Maple-Shade-Twp/nventory-Reconditioning-Associate---Part-Time_JR-180423",
-     "Inventory/Reconditioning Associate",
-     "NJ - Philadelphia Area - Maple Shade Twp",
-     "https://carmax.wd1.myworkdayjobs.com/External/job/NJ---Philadelphia-Area---Maple-Shade-Twp/nventory-Reconditioning-Associate---Part-Time_JR-180423",
-     "title_exclude",
-     "reconditioning associate"
-    ],
-    [
      "/job/FL---Jacksonville/Business-Operations-Associate_JR-182757",
      "Business Operations Associate",
      "FL - Jacksonville",
@@ -54995,30 +54614,6 @@
      "supply chain"
     ],
     [
-     "/job/NC---Greensboro/Inventory-Associate_JR-188698",
-     "Inventory Associate",
-     "NC - Greensboro",
-     "https://carmax.wd1.myworkdayjobs.com/External/job/NC---Greensboro/Inventory-Associate_JR-188698",
-     "title_exclude",
-     "inventory associate"
-    ],
-    [
-     "/job/OR---Portland---Milwaukie/Flow-Inventory-Associate_JR-134278",
-     "Flow Inventory Associate",
-     "OR - Portland - Milwaukie",
-     "https://carmax.wd1.myworkdayjobs.com/External/job/OR---Portland---Milwaukie/Flow-Inventory-Associate_JR-134278",
-     "title_exclude",
-     "inventory associate"
-    ],
-    [
-     "/job/CO---Denver---Parker/Flow-Inventory-Associate_JR-139265",
-     "Flow Inventory Associate",
-     "CO - Denver - Parker",
-     "https://carmax.wd1.myworkdayjobs.com/External/job/CO---Denver---Parker/Flow-Inventory-Associate_JR-139265",
-     "title_exclude",
-     "inventory associate"
-    ],
-    [
      "/job/TX---Houston---Houston-North/Automotive-Technician---Mechanical-Associate---2nd-Shift_JR-105838",
      "Automotive Technician / Mechanical Associate",
      "TX - Houston - Houston North",
@@ -55721,9 +55316,33 @@
      "https://carmax.wd1.myworkdayjobs.com/External/job/TX---Houston---Houston-North/Business-Office-Associate_JR-148749",
      "title_exclude",
      "business office associate"
+    ],
+    [
+     "/job/NC---Greensboro/Inventory-Associate_JR-188698",
+     "Inventory Associate",
+     "NC - Greensboro",
+     "https://carmax.wd1.myworkdayjobs.com/External/job/NC---Greensboro/Inventory-Associate_JR-188698",
+     "title_exclude",
+     "inventory associate"
+    ],
+    [
+     "/job/OR---Portland---Milwaukie/Flow-Inventory-Associate_JR-134278",
+     "Flow Inventory Associate",
+     "OR - Portland - Milwaukie",
+     "https://carmax.wd1.myworkdayjobs.com/External/job/OR---Portland---Milwaukie/Flow-Inventory-Associate_JR-134278",
+     "title_exclude",
+     "inventory associate"
+    ],
+    [
+     "/job/CO---Denver---Parker/Flow-Inventory-Associate_JR-139265",
+     "Flow Inventory Associate",
+     "CO - Denver - Parker",
+     "https://carmax.wd1.myworkdayjobs.com/External/job/CO---Denver---Parker/Flow-Inventory-Associate_JR-139265",
+     "title_exclude",
+     "inventory associate"
     ]
    ],
-   "n": 365
+   "n": 366
   },
   "Western Union": {
    "rows": [
@@ -56084,155 +55703,6 @@
     ]
    ],
    "n": 5
-  },
-  "Entegris": {
-   "rows": [
-    [
-     "/job/Aurora-IL/Nanoparticle-Research-Associate-Co-Op_REQ-14493",
-     "Nanoparticle Research Associate Co-Op",
-     "Aurora, IL",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Nanoparticle-Research-Associate-Co-Op_REQ-14493",
-     "title_exclude",
-     "co-op"
-    ],
-    [
-     "/job/Chaska-MN/Cyber-Threat-Analyst-Co-Op_REQ-14505",
-     "Cyber Threat Analyst Co-Op - Spring 2027",
-     "Chaska, MN",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/Cyber-Threat-Analyst-Co-Op_REQ-14505",
-     "title_exclude",
-     "cyber"
-    ],
-    [
-     "/job/Billerica-MA/Lead-Scientist--Analytics---Metrology_REQ-16059",
-     "Lead Scientist, Analytics & Metrology",
-     "Billerica, MA",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Lead-Scientist--Analytics---Metrology_REQ-16059",
-     "title_exclude",
-     "scientist"
-    ],
-    [
-     "/job/Billerica-MA/Scientist-I--Analytics---Metrology_REQ-16109",
-     "Scientist I, Analytics & Metrology",
-     "Billerica, MA",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Scientist-I--Analytics---Metrology_REQ-16109",
-     "title_exclude",
-     "scientist"
-    ],
-    [
-     "/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15898",
-     "Scientist I, Research Associate",
-     "Aurora, IL",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15898",
-     "title_exclude",
-     "scientist"
-    ],
-    [
-     "/job/Chaska-MN/Associate-Product-Manager-Intern_REQ-15844",
-     "Associate Product Manager Intern",
-     "Chaska, MN",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/Associate-Product-Manager-Intern_REQ-15844",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/Billerica-MA/Senior-Specialist--Finance-Business-Partner--Global-Supply-Chain-_REQ-14209",
-     "Lead Finance Business Partner (Global Supply Chain)",
-     "3 Locations (Billerica MA)",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Senior-Specialist--Finance-Business-Partner--Global-Supply-Chain-_REQ-14209",
-     "title_exclude_unless",
-     "supply chain"
-    ],
-    [
-     "/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15864",
-     "Research Associate Intern - Summer 2027",
-     "Aurora, IL",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15864",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15849",
-     "Research Associate Intern - Summer 2027",
-     "Aurora, IL",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Research-Associate-Intern---Summer-2027_REQ-15849",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/Billerica-MA/Filtration-Portfolio-Automation-Intern_REQ-15840",
-     "Filtration Portfolio Automation Intern",
-     "Billerica, MA",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Filtration-Portfolio-Automation-Intern_REQ-15840",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/Billerica-MA/Internal-Audit-Intern_REQ-15845",
-     "Internal Audit Intern",
-     "Billerica, MA",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Internal-Audit-Intern_REQ-15845",
-     "title_exclude",
-     "intern"
-    ],
-    [
-     "/job/Aurora-IL/Research-Associate-Co-Op---ICPS_REQ-14482",
-     "Research Associate Co-Op - ICPS",
-     "Aurora, IL",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Research-Associate-Co-Op---ICPS_REQ-14482",
-     "title_exclude",
-     "co-op"
-    ],
-    [
-     "/job/Billerica-MA/Internal-Audit-Co-Op_REQ-14475",
-     "Internal Audit Co-Op",
-     "Billerica, MA",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Internal-Audit-Co-Op_REQ-14475",
-     "title_exclude",
-     "co-op"
-    ],
-    [
-     "/job/Chaska-MN/IT-Senior-SAP-Business-Analyst--Global-Labeling-Solutions_REQ-14681",
-     "IT Senior SAP Business Analyst, Global Labeling Solutions",
-     "3 Locations (Chaska MN)",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/IT-Senior-SAP-Business-Analyst--Global-Labeling-Solutions_REQ-14681",
-     "title_exclude",
-     "it senior sap business analyst, global labeling solutions"
-    ],
-    [
-     "/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15140",
-     "Scientist I, Research Associate",
-     "Aurora, IL",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Aurora-IL/Scientist-I--Research-Associate_REQ-15140",
-     "title_exclude",
-     "scientist"
-    ],
-    [
-     "/job/Chaska-MN/Senior-Director--Enterprise-Portfolio-Manamagement_REQ-14680",
-     "Senior Director, Enterprise Portfolio Management",
-     "3 Locations (Chaska MN)",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Chaska-MN/Senior-Director--Enterprise-Portfolio-Manamagement_REQ-14680",
-     "title_exclude",
-     "senior director"
-    ],
-    [
-     "/job/Hillsboro-OR/Operations-Associate-II---Back-Half-Day-Shift_REQ-14222",
-     "Operations Associate II - Back Half Day Shift",
-     "Hillsboro, OR",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Hillsboro-OR/Operations-Associate-II---Back-Half-Day-Shift_REQ-14222",
-     "title_exclude",
-     "shift"
-    ],
-    [
-     "/job/Billerica-MA/Senior-Scientist--Analytics---Metrology_REQ-14623",
-     "Senior Scientist, Analytics & Metrology",
-     "Billerica, MA",
-     "https://entegris.wd1.myworkdayjobs.com/EntegrisCareers/job/Billerica-MA/Senior-Scientist--Analytics---Metrology_REQ-14623",
-     "title_exclude",
-     "scientist"
-    ]
-   ],
-   "n": 18
   },
   "Venerable": {
    "rows": [],
@@ -56879,6 +56349,107 @@
    ],
    "n": 54
   },
+  "Target": {
+   "rows": [
+    [
+     "/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
+     "Full Time Hourly Warehouse Associate Openings - $1,000 SIGN ON BONUS (T0579)",
+     "129 North Rd, Wilton,NY 12831-1308",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/129-North-Rd-WiltonNY-12831-1308/Full-Time-Hourly-Warehouse-Operations-Openings----1-000-SIGN-ON-BONUS--T0579-_R0000453977-1",
+     "title_exclude",
+     "warehouse associate"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
+     "Financial Analyst Intern -  Minneapolis, MN (Starting Summer, 2027)",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Financial-Analyst-Intern----Minneapolis--MN--Starting-Summer--2027-_R0000450574",
+     "title_exclude",
+     "intern"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
+     "Associate Buyer - Bedding Essentials, Mattresses, Sheets & Blankets",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Bedding-Essentials--Mattresses--Sheets---Blankets_R0000481469",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
+     "Associate Technical Developer, Owned Brands - Intimates/Sleep",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Technical-Developer--Owned-Brands---Intimates-Sleep_R0000481357",
+     "title_exclude_unless",
+     "developer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
+     "Associate Buyer, Collection Bedding",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer--Collection-Bedding_R0000481366",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
+     "Associate Buyer - Women's Swim",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Women-s-Swim_R0000481247",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
+     "Associate Buyer - Lunchbox",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Buyer---Lunchbox_R0000481279-1",
+     "title_exclude",
+     "associate buyer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
+     "Associate Sourcing Manager, Western Hemisphere - Home",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Sourcing-Manager--Western-Hemisphere---Home_R0000481044",
+     "title_exclude",
+     "sourcing manager"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
+     "Associate Product Designer- Furniture and Lighting",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Product-Designer--Furniture-and-Lighting_R0000480769",
+     "title_exclude",
+     "designer"
+    ],
+    [
+     "/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
+     "Associate Designer - Menswear",
+     "1000 Nicollet Mall, Minneapolis,MN 55403-2542",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/1000-Nicollet-Mall-MinneapolisMN-55403-2542/Associate-Designer---Menswear_R0000480961",
+     "title_exclude",
+     "designer"
+    ],
+    [
+     "/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
+     "Seasonal Part Time Hourly Warehouse Associate Openings Only (T3863)",
+     "900 River Rd, King of Prussia,PA 19406",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Part-Time-Hourly-Warehouse-Associate-Openings-Only--T3863-_R0000447665",
+     "title_exclude",
+     "warehouse associate"
+    ],
+    [
+     "/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
+     "Seasonal Full Time Hourly Warehouse Associate Openings (T3863)",
+     "900 River Rd, King of Prussia,PA 19406",
+     "https://target.wd5.myworkdayjobs.com/targetcareers/job/900-River-Rd-King-of-PrussiaPA-19406/Seasonal-Full-Time-Hourly-Warehouse-Associate-Openings--T3863-_R0000447667",
+     "title_exclude",
+     "warehouse associate"
+    ]
+   ],
+   "n": 12
+  },
   "FTI Consulting": {
    "rows": [
     [
@@ -56938,14 +56509,6 @@
      "service associate"
     ],
     [
-     "/job/Washington-DC/Research-Analyst--Digital---Insights_JR261813",
-     "Research Analyst, Digital & Insights",
-     "3 Locations (Washington DC)",
-     "https://fticonsulting.wd108.myworkdayjobs.com/FTIConsultingCareers/job/Washington-DC/Research-Analyst--Digital---Insights_JR261813",
-     "title_exclude",
-     "research analyst, digital & insights"
-    ],
-    [
      "/job/Washington-DC/Director--Power--Renewables---Energy-Transition---Corporate-Finance_JR260CD-TEE",
      "Senior Director, Power, Renewables & Energy Transition | Corporate Finance",
      "2 Locations (Washington DC)",
@@ -56994,7 +56557,7 @@
      "senior research analyst, digital & insights"
     ]
    ],
-   "n": 14
+   "n": 13
   },
   "WEX": {
    "rows": [],
@@ -57958,6 +57521,14 @@
      "engineer"
     ],
     [
+     "/job/Pt-Pleasant-WV/Customer-Design-Technician-Associate_R20829",
+     "Customer Design Technician Associate",
+     "Pt. Pleasant, WV",
+     "https://aep.wd1.myworkdayjobs.com/AEPCareerSite/job/Pt-Pleasant-WV/Customer-Design-Technician-Associate_R20829",
+     "title_exclude_unless",
+     "technician"
+    ],
+    [
      "/job/South-Bend-IN/Customer-Design-Technician-Associate---Technician_R18139",
      "Customer Design Technician Associate - Technician",
      "2 Locations (South Bend IN)",
@@ -57990,7 +57561,7 @@
      "project manager"
     ]
    ],
-   "n": 8
+   "n": 9
   },
   "Walt Disney Company": {
    "rows": [],
@@ -57998,6 +57569,30 @@
   },
   "Centene": {
    "rows": [
+    [
+     "/job/Remote-MO/Graduate-Summer-Intern_1667776",
+     "Business Analyst Graduate Summer Intern",
+     "Remote-MO",
+     "https://centene.wd5.myworkdayjobs.com/Centene_External/job/Remote-MO/Graduate-Summer-Intern_1667776",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Remote-MO/Data-and-Analytics-Summer-2027-Intern--Undergraduate-_1660515",
+     "Data and Analytics Summer 2027 Intern (Undergraduate)",
+     "Remote-MO",
+     "https://centene.wd5.myworkdayjobs.com/Centene_External/job/Remote-MO/Data-and-Analytics-Summer-2027-Intern--Undergraduate-_1660515",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Remote-MO/Business-Analyst-Undergraduate-Summer-Intern_1667828",
+     "Business Analyst Undergraduate Summer Intern",
+     "Remote-MO",
+     "https://centene.wd5.myworkdayjobs.com/Centene_External/job/Remote-MO/Business-Analyst-Undergraduate-Summer-Intern_1667828",
+     "title_exclude",
+     "summer"
+    ],
     [
      "/job/Remote-AZ/Manager--Risk-Adjustment_1673073",
      "Manager, Risk Adjustment",
@@ -58039,7 +57634,7 @@
      "clinical"
     ]
    ],
-   "n": 5
+   "n": 8
   },
   "Procter & Gamble": {
    "rows": [
@@ -59220,14 +58815,6 @@
      "latam"
     ],
     [
-     "/job/Westchester-IL/Financial-Planning-and-Analysis-Intern--F-II-_Req-40224-1",
-     "Financial Planning and Analysis Intern (F&II)",
-     "Westchester, IL",
-     "https://ingredion.wd1.myworkdayjobs.com/IngredionCareers/job/Westchester-IL/Financial-Planning-and-Analysis-Intern--F-II-_Req-40224-1",
-     "title_exclude",
-     "intern"
-    ],
-    [
      "/job/Westchester-IL/Commodities-Pricing---Risk-Management-Intern_Req-39972-1",
      "Commodities Pricing & Risk Management Intern",
      "Westchester, IL",
@@ -59236,7 +58823,7 @@
      "intern"
     ]
    ],
-   "n": 3
+   "n": 2
   },
   "Pfizer": {
    "rows": [
@@ -60522,6 +60109,14 @@
   "Polaris": {
    "rows": [
     [
+     "/job/Plymouth-MN-USA/Marketing-Leadership-Development-Program-Associate_R30700",
+     "Marketing Leadership Development Program Associate",
+     "2 Locations (Plymouth MN USA)",
+     "https://polaris.wd5.myworkdayjobs.com/PolarisJobs/job/Plymouth-MN-USA/Marketing-Leadership-Development-Program-Associate_R30700",
+     "title_exclude",
+     "marketing"
+    ],
+    [
      "/job/Tempe-AZ-USA/Sr-Digital-Associate-Marketing-Manager_R31921",
      "Sr. Digital Associate Marketing Manager",
      "Tempe, AZ, USA",
@@ -60610,7 +60205,7 @@
      "digital & it leadership development program associate - digital product development"
     ]
    ],
-   "n": 11
+   "n": 12
   },
   "Allegion": {
    "rows": [
@@ -60644,6 +60239,30 @@
   "DraftKings": {
    "rows": [
     [
+     "/job/Boston-MA/Talent-Advisory---Delivery-Associate_JR15282-3",
+     "Talent Acquisition Associate",
+     "Boston, MA",
+     "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/Boston-MA/Talent-Advisory---Delivery-Associate_JR15282-3",
+     "title_exclude",
+     "talent acquisition"
+    ],
+    [
+     "/job/New-York-NY/Communications-Associate_JR15428-1",
+     "Communications Associate",
+     "New York, NY",
+     "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/New-York-NY/Communications-Associate_JR15428-1",
+     "title_exclude",
+     "communications associate"
+    ],
+    [
+     "/job/Hoboken-NJ/iGaming-Marketing-and-Operations-Associate_JR15441-1",
+     "iGaming Marketing and Operations Associate",
+     "2 Locations (Hoboken NJ)",
+     "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/Hoboken-NJ/iGaming-Marketing-and-Operations-Associate_JR15441-1",
+     "title_exclude",
+     "marketing"
+    ],
+    [
      "/job/Remote---US/Associate-Corporate-Counsel--General-Litigation_JR14986-1",
      "Associate Corporate Counsel, General Litigation",
      "Remote - US",
@@ -60656,22 +60275,6 @@
      "Senior Associate, Marketing Technology & Enablement",
      "Boston, MA",
      "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/Boston-MA/Senior-Associate--Marketing-Technology---Enablement_JR15299-1",
-     "title_exclude",
-     "marketing"
-    ],
-    [
-     "/job/Manchester-NH/Operations-Associate--Jackpocket_JR13423-1",
-     "Operations Associate, Jackpocket",
-     "Manchester, NH",
-     "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/Manchester-NH/Operations-Associate--Jackpocket_JR13423-1",
-     "title_exclude",
-     "jackpocket"
-    ],
-    [
-     "/job/Hoboken-NJ/iGaming-Marketing-and-Operations-Associate_JR15441-1",
-     "iGaming Marketing and Operations Associate",
-     "2 Locations (Hoboken NJ)",
-     "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/Hoboken-NJ/iGaming-Marketing-and-Operations-Associate_JR15441-1",
      "title_exclude",
      "marketing"
     ],
@@ -60716,14 +60319,6 @@
      "jackpocket"
     ],
     [
-     "/job/New-York-NY/Communications-Associate_JR15428-1",
-     "Communications Associate",
-     "New York, NY",
-     "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/New-York-NY/Communications-Associate_JR15428-1",
-     "title_exclude",
-     "communications associate"
-    ],
-    [
      "/job/Hewitt-NJ/Operations-Associate--Jackpocket_JR13405-2",
      "Operations Associate, Jackpocket",
      "Hewitt, NJ",
@@ -60738,14 +60333,6 @@
      "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/Newburgh-NY/Operations-Associate--Jackpocket_JR13430-3",
      "title_exclude",
      "jackpocket"
-    ],
-    [
-     "/job/Boston-MA/Talent-Advisory---Delivery-Associate_JR15282-3",
-     "Talent Acquisition Associate",
-     "Boston, MA",
-     "https://draftkings.wd1.myworkdayjobs.com/DraftKings/job/Boston-MA/Talent-Advisory---Delivery-Associate_JR15282-3",
-     "title_exclude",
-     "talent acquisition"
     ],
     [
      "/job/Raleigh-NC/Data-Coordinator-Associate_JR13387-3",
@@ -60780,7 +60367,7 @@
      "jackpocket"
     ]
    ],
-   "n": 17
+   "n": 16
   },
   "American Homes 4 Rent": {
    "rows": [],
@@ -62092,6 +61679,75 @@
    ],
    "n": 7
   },
+  "HSBC": {
+   "rows": [
+    [
+     "563774612523302",
+     "Client Experience Associate",
+     "Buffalo, New York, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774612523302",
+     "title_exclude",
+     "client experience associate"
+    ],
+    [
+     "563774612511651",
+     "Vice President, Corporate Sales (Foreign Exchange & Rates) - Technology, Media & Telecom",
+     "New York, New York, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774612511651",
+     "title_exclude",
+     "corporate sales"
+    ],
+    [
+     "563774612457928",
+     "Client Experience Associate",
+     "Houston, Texas, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774612457928",
+     "title_exclude",
+     "client experience associate"
+    ],
+    [
+     "563774612241411",
+     "Director, Corporate Sales (FX & Rates)",
+     "New York, New York, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774612241411",
+     "title_exclude",
+     "corporate sales"
+    ],
+    [
+     "563774612200831",
+     "Vice President, Corporate Sales (Foreign Exchange & Rates)",
+     "New York, New York, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774612200831",
+     "title_exclude",
+     "corporate sales"
+    ],
+    [
+     "563774612124385",
+     "Analyst, Corporate Sales (FX & Rates)",
+     "New York, New York, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774612124385",
+     "title_exclude",
+     "corporate sales"
+    ],
+    [
+     "563774610858332",
+     "Asian Equity Sales",
+     "New York, New York, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774610858332",
+     "title_exclude",
+     "equity sales"
+    ],
+    [
+     "563774610513561",
+     "Associate, Chief Commercial Office",
+     "New York, New York, United States",
+     "https://portal.careers.hsbc.com/careers/job/563774610513561",
+     "title_exclude",
+     "chief"
+    ]
+   ],
+   "n": 8
+  },
   "Two Sigma": {
    "rows": [
     [
@@ -62507,30 +62163,6 @@
      "service associate"
     ],
     [
-     "345963",
-     "Client Associate Registered",
-     "United States - Colorado",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=345963",
-     "title_exclude",
-     "client associate"
-    ],
-    [
-     "350931",
-     "Client Associate",
-     "United States - Colorado",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=350931",
-     "title_exclude",
-     "client associate"
-    ],
-    [
-     "351781",
-     "Registered Client Associate",
-     "United States - Colorado",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=351781",
-     "title_exclude",
-     "registered client associate"
-    ],
-    [
      "349588",
      "Client Associate",
      "United States - New York",
@@ -62569,6 +62201,30 @@
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=354306",
      "title_exclude",
      "client associate"
+    ],
+    [
+     "345963",
+     "Client Associate Registered",
+     "United States - Colorado",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=345963",
+     "title_exclude",
+     "client associate"
+    ],
+    [
+     "350931",
+     "Client Associate",
+     "United States - Colorado",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=350931",
+     "title_exclude",
+     "client associate"
+    ],
+    [
+     "351781",
+     "Registered Client Associate",
+     "United States - Colorado",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=351781",
+     "title_exclude",
+     "registered client associate"
     ],
     [
      "354238",
@@ -62715,28 +62371,12 @@
      "client associate"
     ],
     [
-     "353658",
-     "Client Associate",
-     "United States - Tennessee",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353658",
-     "title_exclude",
-     "client associate"
-    ],
-    [
      "353684",
      "Client Associate",
      "United States - Ohio",
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353684",
      "title_exclude",
      "client associate"
-    ],
-    [
-     "353686",
-     "Registered Client Associate",
-     "United States - Massachusetts",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353686",
-     "title_exclude",
-     "registered client associate"
     ],
     [
      "353495",
@@ -62747,12 +62387,20 @@
      "registered client associate"
     ],
     [
-     "353611",
+     "353658",
      "Client Associate",
-     "United States - Michigan",
-     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353611",
+     "United States - Tennessee",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353658",
      "title_exclude",
      "client associate"
+    ],
+    [
+     "353686",
+     "Registered Client Associate",
+     "United States - Massachusetts",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353686",
+     "title_exclude",
+     "registered client associate"
     ],
     [
      "353624",
@@ -62767,6 +62415,14 @@
      "Client Associate / Executive Assistant",
      "United States - Florida",
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=344742",
+     "title_exclude",
+     "client associate"
+    ],
+    [
+     "353611",
+     "Client Associate",
+     "United States - Michigan",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353611",
      "title_exclude",
      "client associate"
     ],
@@ -62897,6 +62553,14 @@
      "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=353013",
      "title_exclude",
      "wealth strategy associate"
+    ],
+    [
+     "350628",
+     "Client Service Associate",
+     "United States - Ohio",
+     "https://jobs.ubs.com/TGnewUI/Search/home/HomeWithPreLoad?partnerid=25008&siteid=5012&PageType=JobDetails&jobid=350628",
+     "title_exclude",
+     "client service associate"
     ],
     [
      "349456",
@@ -63299,7 +62963,7 @@
      "registered client associate"
     ]
    ],
-   "n": 104
+   "n": 105
   },
   "Charles Schwab": {
    "rows": [
@@ -63368,6 +63032,14 @@
      "equity compensation"
     ],
     [
+     "127148",
+     "Banking Operations Associate",
+     "Phoenix, AZ, US",
+     "https://career-schwab.icims.com/jobs/127148/banking-operations-associate/job",
+     "title_exclude_unless",
+     "banking operations"
+    ],
+    [
      "126963",
      "Quantitative Software Engineer - Research Platform",
      "San Francisco | US-IL-Chicago | US-TX-Southlake | US-TX-Austin, CA, US",
@@ -63384,7 +63056,7 @@
      "equity compensation"
     ]
    ],
-   "n": 10
+   "n": 11
   },
   "TD Bank": {
    "rows": [
@@ -67415,6 +67087,14 @@
   "Balyasny": {
    "rows": [
     [
+     "a0DUN00000Go2F72AJ",
+     "Associate, Back Office",
+     "New York",
+     "https://bambusdev.my.site.com/s/details?jobReq=Associate--Back-Office_REQ8824",
+     "title_exclude",
+     "back office"
+    ],
+    [
      "a0DUN00000GL7i12AD",
      "Catalyst Equities Associate Summer Intern Program (Summer 2028 Internship)",
      "New York",
@@ -67437,14 +67117,6 @@
      "https://bambusdev.my.site.com/s/details?jobReq=Quantitative-Developer---Systematic-Research-Technology_REQ8621",
      "title_exclude",
      "quantitative developer"
-    ],
-    [
-     "a0DUN00000Fdiuz2AB",
-     "Quantitative Researcher - Systematic Strategies (Summer Internship - PhD)",
-     "New York",
-     "https://bambusdev.my.site.com/s/details?jobReq=Quantitative-Researcher---Systematic-Strategies--Summer-Internship---PhD-_REQ8460",
-     "title_exclude",
-     "summer"
     ],
     [
      "a0DUN00000FciNZ2AZ",
@@ -67471,6 +67143,14 @@
      "summer"
     ],
     [
+     "a0DUN00000Fdiuz2AB",
+     "Quantitative Researcher - Systematic Strategies (Summer Internship - PhD)",
+     "New York",
+     "https://bambusdev.my.site.com/s/details?jobReq=Quantitative-Researcher---Systematic-Strategies--Summer-Internship---PhD-_REQ8460",
+     "title_exclude",
+     "summer"
+    ],
+    [
      "a0DUN00000F6nzt2AB",
      "Senior Software Engineer \u2013 Equity Technology",
      "New York",
@@ -67479,7 +67159,7 @@
      "software"
     ]
    ],
-   "n": 8
+   "n": 9
   },
   "Interactive Brokers": {
    "rows": [
@@ -67875,14 +67555,6 @@
   "Aon": {
    "rows": [
     [
-     "112357",
-     "Associate Account Manager",
-     "Virtual, Georgia",
-     "https://jobs.aon.com/jobs/112357",
-     "title_exclude",
-     "account manager"
-    ],
-    [
      "108798",
      "Tax and Treasury Technology Leader",
      "Virtual, Texas; Virtual, Illinois; Virtual, North Carolina; Virtual, Ohio; Virtual, New York; Virtual, New Jersey",
@@ -68179,7 +67851,7 @@
      "summer"
     ]
    ],
-   "n": 38
+   "n": 37
   },
   "Addepar": {
    "rows": [
@@ -69409,14 +69081,6 @@
      "technology risk"
     ],
     [
-     "1460377533",
-     "FSO - Business Consulting Finance Transformation Regulatory Reporting Manager",
-     "New York, NY, US, 10001-8604",
-     "https://careers.ey.com/ey/job/New-York-FSO-Business-Consulting-Finance-Transformation-Regulatory-Reporting-Manager-NY-10001-8604/1460377533/",
-     "title_exclude_unless",
-     "transformation"
-    ],
-    [
      "1460288733",
      "Partnership Tax Research and Planning Associate Director",
      "Atlanta, GA, US, 30309",
@@ -69449,7 +69113,7 @@
      "life sciences"
     ]
    ],
-   "n": 7
+   "n": 6
   },
   "KPMG": {
    "rows": [
@@ -70094,10 +69758,10 @@
      "tax"
     ],
     [
-     "139649",
+     "140213",
      "Senior Associate, Business Tax Services",
-     "Sacramento, CA; Salt Lake City, UT; San Francisco, CA; Santa Clara, CA; Seattle, WA",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139649",
+     "Tampa, FL",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=140213",
      "title_exclude",
      "tax"
     ],
@@ -70206,10 +69870,10 @@
      "tax"
     ],
     [
-     "135597",
+     "139649",
      "Senior Associate, Business Tax Services",
-     "Indianapolis, IN",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=135597",
+     "Sacramento, CA; Salt Lake City, UT; San Francisco, CA; Santa Clara, CA; Seattle, WA",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139649",
      "title_exclude",
      "tax"
     ],
@@ -70302,10 +69966,10 @@
      "tax"
     ],
     [
-     "140132",
-     "Senior Associate, Business Tax Services Banking",
-     "Charlotte, NC",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=140132",
+     "135597",
+     "Senior Associate, Business Tax Services",
+     "Indianapolis, IN",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=135597",
      "title_exclude",
      "tax"
     ],
@@ -70390,10 +70054,10 @@
      "transformation"
     ],
     [
-     "137943",
-     "Senior Associate, Business Tax Services",
-     "Melville, NY; Morristown, NJ; New York, NY; Stamford, CT",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=137943",
+     "140132",
+     "Senior Associate, Business Tax Services Banking",
+     "Charlotte, NC",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=140132",
      "title_exclude",
      "tax"
     ],
@@ -70446,18 +70110,18 @@
      "tax"
     ],
     [
-     "139669",
-     "Senior Associate, M&A Tax",
-     "Boston, MA; Charlotte, NC; McLean, VA; New York, NY; Raleigh, NC",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139669",
+     "137943",
+     "Senior Associate, Business Tax Services",
+     "Melville, NY; Morristown, NJ; New York, NY; Stamford, CT",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=137943",
      "title_exclude",
      "tax"
     ],
     [
-     "132980",
-     "Senior Associate, Business Tax Services - Asset Management",
-     "Chicago, IL",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=132980",
+     "139669",
+     "Senior Associate, M&A Tax",
+     "Boston, MA; Charlotte, NC; McLean, VA; New York, NY; Raleigh, NC",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139669",
      "title_exclude",
      "tax"
     ],
@@ -70494,12 +70158,28 @@
      "tax"
     ],
     [
+     "132980",
+     "Senior Associate, Business Tax Services - Asset Management",
+     "Chicago, IL",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=132980",
+     "title_exclude",
+     "tax"
+    ],
+    [
      "134225",
      "Manager, Business Valuation (Intangible Assets) - Japanese Speaking (NYM)",
      "New York, NY",
      "https://www.kpmguscareers.com/jobdetail/?jobId=134225",
      "title_exclude",
      "japanese speaking"
+    ],
+    [
+     "138901",
+     "Tax Senior Associate, Asset Management",
+     "McLean, VA",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=138901",
+     "title_exclude",
+     "tax"
     ],
     [
      "137165",
@@ -70518,10 +70198,10 @@
      "cyber"
     ],
     [
-     "138901",
-     "Tax Senior Associate, Asset Management",
-     "McLean, VA",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=138901",
+     "139618",
+     "Tax Senior Associate - Exempt Organizations",
+     "Boston, MA",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139618",
      "title_exclude",
      "tax"
     ],
@@ -70534,10 +70214,10 @@
      "tax"
     ],
     [
-     "139618",
-     "Tax Senior Associate - Exempt Organizations",
-     "Boston, MA",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139618",
+     "139252",
+     "Associate, Tax Business Enablement Team",
+     "St Louis, MO",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139252",
      "title_exclude",
      "tax"
     ],
@@ -70550,10 +70230,10 @@
      "tax"
     ],
     [
-     "139252",
-     "Associate, Tax Business Enablement Team",
-     "St Louis, MO",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139252",
+     "136145",
+     "Tax Senior Associate, Asset Management",
+     "Irvine, CA; Los Angeles, CA; San Diego, CA",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=136145",
      "title_exclude",
      "tax"
     ],
@@ -70566,10 +70246,10 @@
      "tax"
     ],
     [
-     "136145",
-     "Tax Senior Associate, Asset Management",
-     "Irvine, CA; Los Angeles, CA; San Diego, CA",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=136145",
+     "135979",
+     "Associate, Tax Business Enablement Team",
+     "Atlanta, GA; Boston, MA; Chicago, IL; Denver, CO; Detroit, MI; Los Angeles, CA; Minneapolis, MN",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=135979",
      "title_exclude",
      "tax"
     ],
@@ -70582,10 +70262,10 @@
      "tax"
     ],
     [
-     "135979",
-     "Associate, Tax Business Enablement Team",
-     "Atlanta, GA; Boston, MA; Chicago, IL; Denver, CO; Detroit, MI; Los Angeles, CA; Minneapolis, MN",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=135979",
+     "140194",
+     "Tax Senior Associate, Private Equity",
+     "Albany, NY; Albuquerque, NM; Atlanta, GA; Austin, TX; Baltimore, MD; Baton Rouge, LA; Buffalo, NY; Cincinnati, OH; Cleveland, OH; Des Moines, IA; Fort Worth, TX; Ft Lauderdale, FL; Indianapolis, IN; Jackson, MS; Jacksonville, FL; Kansas City, MO; McLean, VA; Miami, FL; Milwaukee, WI; Minneapolis, MN; Nashville, TN; New Orleans, LA; Oklahoma City, OK; Omaha, NE; Orlando, FL; Richmond, VA; San Antonio, TX; Tampa, FL",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=140194",
      "title_exclude",
      "tax"
     ],
@@ -70598,10 +70278,10 @@
      "tax"
     ],
     [
-     "140194",
-     "Tax Senior Associate, Private Equity",
-     "Albany, NY; Albuquerque, NM; Atlanta, GA; Austin, TX; Baltimore, MD; Baton Rouge, LA; Buffalo, NY; Cincinnati, OH; Cleveland, OH; Des Moines, IA; Fort Worth, TX; Ft Lauderdale, FL; Indianapolis, IN; Jackson, MS; Jacksonville, FL; Kansas City, MO; McLean, VA; Miami, FL; Milwaukee, WI; Minneapolis, MN; Nashville, TN; New Orleans, LA; Oklahoma City, OK; Omaha, NE; Orlando, FL; Richmond, VA; San Antonio, TX; Tampa, FL",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=140194",
+     "139989",
+     "Tax Associate/Tax Senior Associate, Asset Management",
+     "Boston, MA",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139989",
      "title_exclude",
      "tax"
     ],
@@ -70614,10 +70294,10 @@
      "tax"
     ],
     [
-     "139989",
-     "Tax Associate/Tax Senior Associate, Asset Management",
-     "Boston, MA",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139989",
+     "139593",
+     "Associate, Tax Business Enablement Team",
+     "Charlotte, NC",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139593",
      "title_exclude",
      "tax"
     ],
@@ -70626,14 +70306,6 @@
      "Senior Associate, Strategic Corporate Tax",
      "Charlotte, NC",
      "https://www.kpmguscareers.com/jobdetail/?jobId=140145",
-     "title_exclude",
-     "tax"
-    ],
-    [
-     "139593",
-     "Associate, Tax Business Enablement Team",
-     "Charlotte, NC",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139593",
      "title_exclude",
      "tax"
     ],
@@ -70654,20 +70326,20 @@
      "tax"
     ],
     [
-     "139151",
-     "Senior Associate, Federal Finance Transformation",
-     "St Louis, MO",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139151",
-     "title_exclude_unless",
-     "transformation"
-    ],
-    [
      "137131",
      "Associate, Tax Business Enablement Team",
      "Minneapolis, MN",
      "https://www.kpmguscareers.com/jobdetail/?jobId=137131",
      "title_exclude",
      "tax"
+    ],
+    [
+     "139151",
+     "Senior Associate, Federal Finance Transformation",
+     "St Louis, MO",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139151",
+     "title_exclude_unless",
+     "transformation"
     ],
     [
      "140173",
@@ -70678,20 +70350,20 @@
      "tax"
     ],
     [
-     "139237",
-     "Senior Associate, Federal Finance Transformation",
-     "Virginia Beach, VA",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=139237",
-     "title_exclude_unless",
-     "transformation"
-    ],
-    [
      "139411",
      "Associate, Tax Business Enablement Team",
      "Sacramento, CA; Salt Lake City, UT; San Francisco, CA; Santa Clara, CA; Seattle, WA",
      "https://www.kpmguscareers.com/jobdetail/?jobId=139411",
      "title_exclude",
      "tax"
+    ],
+    [
+     "139237",
+     "Senior Associate, Federal Finance Transformation",
+     "Virginia Beach, VA",
+     "https://www.kpmguscareers.com/jobdetail/?jobId=139237",
+     "title_exclude_unless",
+     "transformation"
     ],
     [
      "137571",
@@ -70722,14 +70394,6 @@
      "Tax Senior Manager, Asset Management (Private Equity)",
      "Atlanta, GA; Dallas, TX",
      "https://www.kpmguscareers.com/jobdetail/?jobId=139472",
-     "title_exclude",
-     "tax"
-    ],
-    [
-     "140213",
-     "Senior Associate, Business Tax Services",
-     "Tampa, FL",
-     "https://www.kpmguscareers.com/jobdetail/?jobId=140213",
      "title_exclude",
      "tax"
     ]
@@ -71195,6 +70859,14 @@
   "Synovus": {
    "rows": [
     [
+     "SYNOUS27180EXTERNALENUS",
+     "Treasury Management Sales Analyst",
+     "Savannah, Georgia, 31406",
+     "https://careers.synovus.com/us/en/job/SYNOUS27180EXTERNALENUS/Treasury-Management-Sales-Analyst",
+     "title_exclude",
+     "treasury management sales"
+    ],
+    [
      "SYNOUS27179EXTERNALENUS",
      "Treasury Management Sales Analyst",
      "Roanoke, Virginia, 24013",
@@ -71283,7 +70955,7 @@
      "financial advisor"
     ]
    ],
-   "n": 11
+   "n": 12
   },
   "Lincoln Financial": {
    "rows": [
@@ -72126,7 +71798,7 @@
      "5164",
      "Treasury Relationship Manager",
      "Dallas, TX, US",
-     "https://careers-wafd.icims.com/jobs/5164/treasury-relationship-manager/job",
+     "https://careers-wafd.icims.com/jobs/5164/2026-5164/job",
      "title_exclude",
      "relationship manager"
     ]
@@ -75613,14 +75285,6 @@
      "silicon"
     ],
     [
-     "446715485482",
-     "GPU Validation and Emulation Engineer, Senior",
-     "San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446715485482",
-     "title_exclude_unless",
-     "engineer"
-    ],
-    [
      "446717673112",
      "Director, Product Management - Ethernet Portfolio (PHY, NIC, & Switching)",
      "Santa Clara, California, United States of America",
@@ -75645,20 +75309,28 @@
      "validation engineer"
     ],
     [
-     "446717307122",
-     "CPU Post-Silicon Validation Engineer - Multiple Levels",
-     "Santa Clara, California, United States of America | Austin, Texas, United States of America | San Diego, California, United States of America",
-     "https://careers.qualcomm.com/careers/job/446717307122",
-     "title_exclude",
-     "silicon"
-    ],
-    [
      "446720177120",
      "Senior System and Hardware Validation Engineer",
      "San Diego, California, United States of America | Austin, Texas, United States of America",
      "https://careers.qualcomm.com/careers/job/446720177120",
      "title_exclude",
      "hardware validation"
+    ],
+    [
+     "446715485482",
+     "GPU Validation and Emulation Engineer, Senior",
+     "San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446715485482",
+     "title_exclude_unless",
+     "engineer"
+    ],
+    [
+     "446717307122",
+     "CPU Post-Silicon Validation Engineer - Multiple Levels",
+     "Santa Clara, California, United States of America | Austin, Texas, United States of America | San Diego, California, United States of America",
+     "https://careers.qualcomm.com/careers/job/446717307122",
+     "title_exclude",
+     "silicon"
     ]
    ],
    "n": 23
@@ -76564,6 +76236,14 @@
   "GLG": {
    "rows": [
     [
+     "8195903003",
+     "Associate, Business Development - Enterprise Technology",
+     "New York",
+     "https://glginsights.com/careers/jobs/8195903003?gh_jid=8195903003",
+     "title_exclude",
+     "business development"
+    ],
+    [
      "8195902003",
      "Associate, Business Development - Enterprise Technology",
      "Austin",
@@ -76576,14 +76256,6 @@
      "Associate, Business Development - Enterprise Technology",
      "San Francisco",
      "https://glginsights.com/careers/jobs/8195893003?gh_jid=8195893003",
-     "title_exclude",
-     "business development"
-    ],
-    [
-     "8195903003",
-     "Associate, Business Development - Enterprise Technology",
-     "New York",
-     "https://glginsights.com/careers/jobs/8195903003?gh_jid=8195903003",
      "title_exclude",
      "business development"
     ],
@@ -76604,10 +76276,10 @@
      "counsel"
     ],
     [
-     "8196675003",
+     "8196673003",
      "Associate, Service (Healthcare Degree) - April 2027 Start   ",
-     "Austin",
-     "https://glginsights.com/careers/jobs/8196675003?gh_jid=8196675003",
+     "San Francisco",
+     "https://glginsights.com/careers/jobs/8196673003?gh_jid=8196673003",
      "title_exclude",
      "associate, service (healthcare degree) - april 2027 start"
     ],
@@ -76628,10 +76300,10 @@
      "associate, service (healthcare degree) - april 2027 start"
     ],
     [
-     "8196673003",
+     "8196675003",
      "Associate, Service (Healthcare Degree) - April 2027 Start   ",
-     "San Francisco",
-     "https://glginsights.com/careers/jobs/8196673003?gh_jid=8196673003",
+     "Austin",
+     "https://glginsights.com/careers/jobs/8196675003?gh_jid=8196675003",
      "title_exclude",
      "associate, service (healthcare degree) - april 2027 start"
     ],
@@ -78736,6 +78408,14 @@
   "Wolters Kluwer": {
    "rows": [
     [
+     "/job/USA---Dallas-TX/Customer-Success-Associate_R0058209",
+     "Customer Success Associate",
+     "USA - Dallas, TX",
+     "https://wk.wd3.myworkdayjobs.com/External/job/USA---Dallas-TX/Customer-Success-Associate_R0058209",
+     "title_exclude",
+     "customer success"
+    ],
+    [
      "/job/USA---Waltham-MA/Senior-Contract-Administration-Specialist_R0055936",
      "Senior Contract Administration Specialist - Business Associate Agreements / Contracts",
      "3 Locations (USA   Waltham MA)",
@@ -78974,14 +78654,6 @@
      "https://wk.wd3.myworkdayjobs.com/External/job/USA---White-Plains-NY/Customer-Service-Operations-Associate_R0060896",
      "title_exclude",
      "service operations associate"
-    ],
-    [
-     "/job/USA---Dallas-TX/Customer-Success-Associate_R0058209",
-     "Customer Success Associate",
-     "USA - Dallas, TX",
-     "https://wk.wd3.myworkdayjobs.com/External/job/USA---Dallas-TX/Customer-Success-Associate_R0058209",
-     "title_exclude",
-     "customer success"
     ],
     [
      "/job/USA---Madison-WI-Junction-Rd/Customer-Success-Associate_R0058043-1",
@@ -79973,6 +79645,355 @@
    ],
    "n": 1
   },
+  "JLL": {
+   "rows": [
+    [
+     "/job/Devens-MA/GMP-Lab-Support-Associate_REQ550348",
+     "GMP Lab Support Associate",
+     "Devens, MA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Devens-MA/GMP-Lab-Support-Associate_REQ550348",
+     "title_exclude",
+     "gmp"
+    ],
+    [
+     "/job/Raleigh-NC/Building-Operations--Facilities-Services_REQ529685",
+     "Facilities and Events Support Associate",
+     "Raleigh, NC",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Raleigh-NC/Building-Operations--Facilities-Services_REQ529685",
+     "title_exclude",
+     "facilities and events support associate"
+    ],
+    [
+     "/job/New-York-NY/Associate-Capital-Director--Construction_REQ547472",
+     "Senior Project Manager, Capital Associate",
+     "New York, NY",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/New-York-NY/Associate-Capital-Director--Construction_REQ547472",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Charlotte-NC/Associate-Project-Manager--Retail-Construction_REQ550179",
+     "Associate Project Manager, Retail Construction",
+     "Charlotte, NC",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Charlotte-NC/Associate-Project-Manager--Retail-Construction_REQ550179",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Stamford-CT/Associate-Project-Manager--Construction_REQ547057",
+     "Associate Project Manager, Construction",
+     "Stamford, CT",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Stamford-CT/Associate-Project-Manager--Construction_REQ547057",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Menlo-Park-CA/Associate-Project-Manager--PDS-Projects_REQ545875",
+     "Associate Project Manager, PDS Projects",
+     "2 Locations (Menlo Park CA)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Menlo-Park-CA/Associate-Project-Manager--PDS-Projects_REQ545875",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Columbus-OH/Associate-Project-Manager--Construction_REQ546838",
+     "Associate Project Manager, Construction",
+     "Columbus, OH",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Columbus-OH/Associate-Project-Manager--Construction_REQ546838",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/McLean-VA/Associate-Project-Manager_REQ539565",
+     "Associate Project Manager",
+     "McLean, VA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/McLean-VA/Associate-Project-Manager_REQ539565",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Boston-MA/Associate-Project-Manager_REQ535089-1",
+     "Associate Project Manager",
+     "Boston, MA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Boston-MA/Associate-Project-Manager_REQ535089-1",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Atlanta-GA/Property-Associate_REQ549461",
+     "Property Associate",
+     "Atlanta, GA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Atlanta-GA/Property-Associate_REQ549461",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Portland-OR/Property-Associate_REQ548583",
+     "Property Associate",
+     "Portland, OR",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Portland-OR/Property-Associate_REQ548583",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Ontario-CA/Industrial-Property-Associate_REQ547845",
+     "Industrial Property Associate",
+     "Ontario, CA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Ontario-CA/Industrial-Property-Associate_REQ547845",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Tucker-GA/Property-Associate_REQ548042",
+     "Property Associate",
+     "2 Locations (Tucker GA)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Tucker-GA/Property-Associate_REQ548042",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Chicago-IL/Property-Associate_REQ548078",
+     "Property Associate",
+     "Chicago, IL",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Property-Associate_REQ548078",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Seattle-WA/Property-Associate--commercial-_REQ547763",
+     "Property Associate (commercial)",
+     "Seattle, WA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Seattle-WA/Property-Associate--commercial-_REQ547763",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Campbell-CA/Property-Associate_REQ547115",
+     "Property Associate",
+     "Campbell, CA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Campbell-CA/Property-Associate_REQ547115",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Dallas-TX/Industrial-Property-Associate_REQ547795",
+     "Industrial Property Associate",
+     "Dallas, TX",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Dallas-TX/Industrial-Property-Associate_REQ547795",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Chicago-IL/Industrial-Property-Associate_REQ547722",
+     "Industrial Property Associate",
+     "Chicago, IL",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Industrial-Property-Associate_REQ547722",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Memphis-TN/Property-Associate_REQ547401",
+     "Property Associate",
+     "Memphis, TN",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Memphis-TN/Property-Associate_REQ547401",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Washington-DC/Administrative-Assistant_REQ532374",
+     "Property Associate",
+     "Washington, DC",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Washington-DC/Administrative-Assistant_REQ532374",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Memphis-TN/Property-Associate_REQ545497",
+     "Property Associate",
+     "Memphis, TN",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Memphis-TN/Property-Associate_REQ545497",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/New-York-NY/Senior-Property-Associate_REQ542872",
+     "Senior Property Associate",
+     "New York, NY",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/New-York-NY/Senior-Property-Associate_REQ542872",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Charlotte-NC/Property-Associate-_REQ542029-1",
+     "Property Associate\u00a0",
+     "Charlotte, NC",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Charlotte-NC/Property-Associate-_REQ542029-1",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Atlanta-GA/Property-Associate_REQ534686",
+     "Property Associate",
+     "Atlanta, GA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Atlanta-GA/Property-Associate_REQ534686",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Coral-Gables-FL/Property-Associate_REQ541135",
+     "Property Associate",
+     "Coral Gables, FL",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Coral-Gables-FL/Property-Associate_REQ541135",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/Jacksonville-FL/Property-Associate_REQ537694",
+     "Property Associate",
+     "Jacksonville, FL",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Jacksonville-FL/Property-Associate_REQ537694",
+     "title_exclude",
+     "property associate"
+    ],
+    [
+     "/job/New-York-NY/Associate-Project-Manager--Data-Centers_REQ548856",
+     "Associate Project Manager, Data Centers",
+     "4 Locations (New York NY)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/New-York-NY/Associate-Project-Manager--Data-Centers_REQ548856",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Hartford-CT/Associate-Project-Manager_REQ542647",
+     "Associate Project Manager",
+     "Hartford, CT",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Hartford-CT/Associate-Project-Manager_REQ542647",
+     "title_exclude",
+     "project manager"
+    ],
+    [
+     "/job/Tampa-FL/Capital-Markets-Summer-2027-Internship---Tampa--FL_REQ532419",
+     "Capital Markets Summer 2027 Internship - Tampa, FL",
+     "Tampa, FL",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Tampa-FL/Capital-Markets-Summer-2027-Internship---Tampa--FL_REQ532419",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Washington-DC/Capital-Markets-Summer-2027-Internship---Washington--DC_REQ530230",
+     "Capital Markets Summer 2027 Internship - Washington, DC",
+     "Washington, DC",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Washington-DC/Capital-Markets-Summer-2027-Internship---Washington--DC_REQ530230",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Salt-Lake-City-UT/Capital-Markets-Analyst-Summer-2027-Internship---Salt-Lake-City--UT_REQ530571",
+     "Capital Markets Analyst Summer 2027 Internship - Salt Lake City, UT",
+     "Salt Lake City, UT",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Salt-Lake-City-UT/Capital-Markets-Analyst-Summer-2027-Internship---Salt-Lake-City--UT_REQ530571",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Los-Angeles-CA/Capital-Markets-Summer-2027-Internship---Century-City--LA_REQ530570",
+     "Capital Markets Summer 2027 Internship - Century City, LA",
+     "Los Angeles, CA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Los-Angeles-CA/Capital-Markets-Summer-2027-Internship---Century-City--LA_REQ530570",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Jacksonville-FL/Capital-Markets-Summer-2027-Internship---Jacksonville--FL_REQ532423",
+     "Capital Markets Summer 2027 Internship - Jacksonville, FL",
+     "Jacksonville, FL",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Jacksonville-FL/Capital-Markets-Summer-2027-Internship---Jacksonville--FL_REQ532423",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Orlando-FL/Capital-Markets-Summer-2027-Internship---Orlando--FL_REQ530581",
+     "Capital Markets Summer 2027 Internship - Orlando, FL",
+     "Orlando, FL",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Orlando-FL/Capital-Markets-Summer-2027-Internship---Orlando--FL_REQ530581",
+     "title_exclude",
+     "summer"
+    ],
+    [
+     "/job/Chicago-IL/Director--Data-Center-Capital-Markets_REQ547444",
+     "Senior Director, Data Center Capital Markets",
+     "8 Locations (Chicago IL)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Director--Data-Center-Capital-Markets_REQ547444",
+     "title_exclude",
+     "senior director"
+    ],
+    [
+     "/job/Dallas-TX/Director--Analytics-Client-Success_REQ537617",
+     "Director, Analytics Client Success",
+     "5 Locations (Dallas TX)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Dallas-TX/Director--Analytics-Client-Success_REQ537617",
+     "title_exclude",
+     "client success"
+    ],
+    [
+     "/job/Los-Angeles-CA/Senior-Production-Associate--Capital-Markets_REQ549800",
+     "Senior Production Associate, Capital Markets",
+     "Los Angeles, CA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Los-Angeles-CA/Senior-Production-Associate--Capital-Markets_REQ549800",
+     "title_exclude",
+     "production associate"
+    ],
+    [
+     "/job/Los-Angeles-CA/Executive-Assistant--Capital-Markets_REQ534485-1",
+     "Executive Assistant, Capital Markets",
+     "Los Angeles, CA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Los-Angeles-CA/Executive-Assistant--Capital-Markets_REQ534485-1",
+     "title_exclude",
+     "executive assistant"
+    ],
+    [
+     "/job/Irvine-CA/Senior-Administrative-Assistant--Capital-Markets_REQ514718",
+     "Business Development Coordinator, Capital Markets",
+     "Irvine, CA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Irvine-CA/Senior-Administrative-Assistant--Capital-Markets_REQ514718",
+     "title_exclude",
+     "business development"
+    ],
+    [
+     "/job/Chicago-IL/Business-Development-Analyst_REQ547981",
+     "Business Development Associate",
+     "3 Locations (Chicago IL)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Business-Development-Analyst_REQ547981",
+     "title_exclude",
+     "business development"
+    ],
+    [
+     "/job/Chicago-IL/Sales-Lead-Integrated-Portfolio-Services--Leasing-Advisory_REQ531680",
+     "Sales Lead Portfolio Advisory, Mid-Market Solutions",
+     "10 Locations (Chicago IL)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Chicago-IL/Sales-Lead-Integrated-Portfolio-Services--Leasing-Advisory_REQ531680",
+     "title_exclude",
+     "sales lead portfolio advisory, mid-market solutions"
+    ],
+    [
+     "/job/Dallas-TX/Senior-Director--Value-and-Risk-Advisory_REQ479792",
+     "Senior Director, Institutional Valuation Practice",
+     "7 Locations (Dallas TX)",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Dallas-TX/Senior-Director--Value-and-Risk-Advisory_REQ479792",
+     "title_exclude",
+     "senior director"
+    ],
+    [
+     "/job/Santa-Clara-CA/Associate-Construction-Project-Manager_REQ548097",
+     "Associate Construction Project Manager",
+     "Santa Clara, CA",
+     "https://jll.wd1.myworkdayjobs.com/jllcareers/job/Santa-Clara-CA/Associate-Construction-Project-Manager_REQ548097",
+     "title_exclude",
+     "project manager"
+    ]
+   ],
+   "n": 43
+  },
   "Banner Life": {
    "rows": [
     [
@@ -80542,6 +80563,14 @@
   "IBC Bank": {
    "rows": [
     [
+     "/job/Rockport-TX/Sales-Associate--Full-Time-_R15735",
+     "Sales Associate (Full Time)",
+     "Rockport, TX",
+     "https://ibc.wd5.myworkdayjobs.com/ibc_careers/job/Rockport-TX/Sales-Associate--Full-Time-_R15735",
+     "title_exclude",
+     "sales associate"
+    ],
+    [
      "/job/Eagle-Pass-TX/Sales-Associate--Part-Time-_R15678",
      "Sales Associate (Part Time)",
      "Eagle Pass, TX",
@@ -80586,14 +80615,6 @@
      "Sales Associate (Part Time)",
      "Rio Grande City, TX",
      "https://ibc.wd5.myworkdayjobs.com/ibc_careers/job/Rio-Grande-City-TX/Sales-Associate--Part-Time-_R15663",
-     "title_exclude",
-     "sales associate"
-    ],
-    [
-     "/job/Rockport-TX/Sales-Associate--Full-Time-_R15735",
-     "Sales Associate (Full Time)",
-     "Rockport, TX",
-     "https://ibc.wd5.myworkdayjobs.com/ibc_careers/job/Rockport-TX/Sales-Associate--Full-Time-_R15735",
      "title_exclude",
      "sales associate"
     ],
@@ -80699,17 +80720,8 @@
    "n": 1
   },
   "Crum & Forster": {
-   "rows": [
-    [
-     "5053",
-     "Associate Data Engineer (Remote)",
-     "MORRISTOWN, NJ, US",
-     "https://careers-cfins.icims.com/jobs/5053/associate-data-engineer-%28remote%29/job",
-     "title_exclude",
-     "data engineer"
-    ]
-   ],
-   "n": 1
+   "rows": [],
+   "n": 0
   },
   "Utah Retirement Systems": {
    "rows": [],
@@ -80951,19 +80963,6 @@
    "rows": [],
    "n": 0
   },
-  "LACERA": {
-   "rows": [
-    [
-     "5410445",
-     "Staff Counsel, LACERA (Investments - Private Funds and Institutional Transactions)",
-     "Legal Services",
-     "https://www.governmentjobs.com/careers/lacera/jobs/5410445/staff-counsel-lacera-investments-private-funds-and-institutional-transactions",
-     "title_exclude",
-     "counsel"
-    ]
-   ],
-   "n": 1
-  },
   "Wings Financial Credit Union": {
    "rows": [],
    "n": 0
@@ -81077,19 +81076,6 @@
   "Best Egg": {
    "rows": [],
    "n": 0
-  },
-  "State of Michigan": {
-   "rows": [
-    [
-     "5548223",
-     "Toxicologist 10-P11, Chemical Hazards & Assessment of Risk Unit",
-     "Health And Human Services - Central Office",
-     "https://www.governmentjobs.com/careers/michigan/jobs/5548223/toxicologist-10-p11-chemical-hazards-assessment-of-risk-unit",
-     "title_exclude",
-     "toxicologist"
-    ]
-   ],
-   "n": 1
   },
   "AgCarolina Farm Credit": {
    "rows": [],
@@ -81431,8 +81417,17 @@
    "n": 0
   },
   "New Jersey Housing and Mortgage Finance Agency": {
-   "rows": [],
-   "n": 0
+   "rows": [
+    [
+     "5361621",
+     "Tax Credit Analyst I (Allocations)",
+     "Multifamily/Supported Housing And Lending",
+     "https://www.governmentjobs.com/careers/njhmfa/jobs/5361621/tax-credit-analyst-i-allocations",
+     "title_exclude",
+     "tax"
+    ]
+   ],
+   "n": 1
   },
   "Visions Federal Credit Union": {
    "rows": [],
@@ -82080,18 +82075,18 @@
      "client success"
     ],
     [
-     "8889716002",
-     "Corporate Finance, Revenue Operations - Associate",
-     "New York, New York, United States",
-     "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8889716002",
-     "title_exclude",
-     "revenue operations"
-    ],
-    [
      "8889724002",
      "Corporate Finance, Revenue Operations - Associate",
      "Greenwich, Connecticut, United States",
      "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8889724002",
+     "title_exclude",
+     "revenue operations"
+    ],
+    [
+     "8889716002",
+     "Corporate Finance, Revenue Operations - Associate",
+     "New York, New York, United States",
+     "https://job-boards.greenhouse.io/icapitalnetwork/jobs/8889716002",
      "title_exclude",
      "revenue operations"
     ],
@@ -82332,14 +82327,6 @@
   "Standish Management": {
    "rows": [
     [
-     "4751671005",
-     "Client Onboarding Senior Associate ",
-     "Denver, Colorado, United States; Los Angeles, California, United States; Portland, Oregon, United States; San Francisco, California, United States; Seattle, Washington, United States; Walnut Creek, California, United States",
-     "https://job-boards.greenhouse.io/standishmanagement/jobs/4751671005",
-     "title_exclude",
-     "client onboarding"
-    ],
-    [
      "4751927005",
      "Client Onboarding Senior Associate ",
      "Boston, Massachusetts, United States; Chicago, Illinois, United States; Dallas, Texas, United States; Raleigh, North Carolina, United States",
@@ -82348,12 +82335,12 @@
      "client onboarding"
     ],
     [
-     "4740656005",
-     "Fund Accounting Associate ",
-     "Dallas, Texas, United States",
-     "https://job-boards.greenhouse.io/standishmanagement/jobs/4740656005",
+     "4751671005",
+     "Client Onboarding Senior Associate ",
+     "Denver, Colorado, United States; Los Angeles, California, United States; Portland, Oregon, United States; San Francisco, California, United States; Seattle, Washington, United States; Walnut Creek, California, United States",
+     "https://job-boards.greenhouse.io/standishmanagement/jobs/4751671005",
      "title_exclude",
-     "fund accounting"
+     "client onboarding"
     ],
     [
      "4737380005",
@@ -82364,10 +82351,10 @@
      "fund accounting"
     ],
     [
-     "4758287005",
-     "Fund Accounting Senior Associate",
-     "Denver, Colorado, United States; Seattle, Washington, United States; Walnut Creek, California, United States",
-     "https://job-boards.greenhouse.io/standishmanagement/jobs/4758287005",
+     "4740656005",
+     "Fund Accounting Associate ",
+     "Dallas, Texas, United States",
+     "https://job-boards.greenhouse.io/standishmanagement/jobs/4740656005",
      "title_exclude",
      "fund accounting"
     ],
@@ -82380,18 +82367,26 @@
      "fund accounting"
     ],
     [
-     "4732232005",
-     "Fund Accounting Senior Associate ",
-     "Dallas, Texas, United States; Raleigh, North Carolina, United States",
-     "https://job-boards.greenhouse.io/standishmanagement/jobs/4732232005",
+     "4758287005",
+     "Fund Accounting Senior Associate",
+     "Denver, Colorado, United States; Seattle, Washington, United States; Walnut Creek, California, United States",
+     "https://job-boards.greenhouse.io/standishmanagement/jobs/4758287005",
      "title_exclude",
      "fund accounting"
     ],
     [
-     "4740644005",
+     "4737438005",
      "Fund Accounting Senior Associate ",
-     "Portland, Oregon, United States; Seattle, Washington, United States",
-     "https://job-boards.greenhouse.io/standishmanagement/jobs/4740644005",
+     "Denver, Colorado, United States; Portland, Oregon, United States",
+     "https://job-boards.greenhouse.io/standishmanagement/jobs/4737438005",
+     "title_exclude",
+     "fund accounting"
+    ],
+    [
+     "4732232005",
+     "Fund Accounting Senior Associate ",
+     "Dallas, Texas, United States; Raleigh, North Carolina, United States",
+     "https://job-boards.greenhouse.io/standishmanagement/jobs/4732232005",
      "title_exclude",
      "fund accounting"
     ],
@@ -82404,10 +82399,10 @@
      "fund accounting"
     ],
     [
-     "4737438005",
+     "4740644005",
      "Fund Accounting Senior Associate ",
-     "Denver, Colorado, United States; Portland, Oregon, United States",
-     "https://job-boards.greenhouse.io/standishmanagement/jobs/4737438005",
+     "Portland, Oregon, United States; Seattle, Washington, United States",
+     "https://job-boards.greenhouse.io/standishmanagement/jobs/4740644005",
      "title_exclude",
      "fund accounting"
     ]
@@ -82445,6 +82440,14 @@
   },
   "Workiva": {
    "rows": [
+    [
+     "/job/USA---Remote/Senior-Solution-Sales-Executive---Capital-Markets_R12866-1",
+     "Senior Solution Sales Executive - Capital Markets",
+     "USA - Remote",
+     "https://workiva.wd503.myworkdayjobs.com/careers/job/USA---Remote/Senior-Solution-Sales-Executive---Capital-Markets_R12866-1",
+     "title_exclude",
+     "sales executive"
+    ],
     [
      "/job/USA---Remote/Senior-Solution-Sales-Executive---Capital-Markets---Law-Firms_R12854",
      "Senior Solution Sales Executive - Capital Markets - Law Firms",
@@ -82494,7 +82497,7 @@
      "sales manager"
     ]
    ],
-   "n": 6
+   "n": 7
   },
   "YipitData": {
    "rows": [
@@ -82817,6 +82820,10 @@
    "rows": [],
    "n": 0
   },
+  "Celtic Bank": {
+   "rows": [],
+   "n": 0
+  },
   "Headway": {
    "rows": [
     [
@@ -83049,8 +83056,17 @@
    "n": 0
   },
   "Johnson Financial Group": {
-   "rows": [],
-   "n": 0
+   "rows": [
+    [
+     "3497",
+     "Information Security Risk & Vulnerability Management Analyst (Flex work schedule consideration)",
+     "Racine, Wisconsin",
+     "https://careers.johnsonfinancialgroup.com/jobs/3497",
+     "title_exclude",
+     "security"
+    ]
+   ],
+   "n": 1
   },
   "Trexquant": {
    "rows": [
