@@ -1978,6 +1978,38 @@ def avature(c):
                     pass
         except Exception:  # noqa: BLE001  the feed is a bonus; the list pages are the source of truth
             pass
+    if c.get("variant") == "table":
+        # National Bank of Canada: <tr> rows (title link, then location and attendance cells), 20 per page, whole board
+        # about 400 jobs (verified live 2026-11-25); offsets step by the page size.
+        page = int(c.get("page_size", 20))
+        for off in range(0, int(c.get("max_jobs", 1000)), page):
+            raw = http(f"https://{c['host']}/{c['list_path']}/?jobOffset={off}", raw=True, timeout=40,
+                       headers={"Accept": "text/html, */*"}).decode("utf-8", "ignore")
+            rows = raw.split('data-map="job-detail-link"')[1:]
+            for r in rows:
+                m = re.search(r'href="([^"]+/JobDetail/[^"]+/(\d+))"[^>]*title="([^"]*)"', r)
+                if not m or m.group(2) in seen:
+                    continue
+                seen.add(m.group(2))
+                loc = re.search(r"<td>\s*(.*?)\s*</td>", r, re.S)
+                out.append(dict(id=m.group(2), title=strip_html(html.unescape(m.group(3))), url=html.unescape(m.group(1)),
+                                location=strip_html(loc.group(1)) if loc else "", posted=""))
+            if len(rows) < page:
+                break
+        else:
+            return out, False
+
+        def sites(j):  # "N possible locations" hides the cities; the detail page lists them (verified live 2026-11-25)
+            try:
+                m = re.search(r"<strong>Location\(s\):</strong>\s*(.*?)\s*</div>",
+                              http(j["url"], raw=True, timeout=40).decode("utf-8", "ignore"), re.S)
+                return strip_html(m.group(1)) if m else j["location"]
+            except Exception:  # noqa: BLE001  keep the vague label; the scout still sees the job
+                return j["location"]
+        multi = [j for j in out if "possible locations" in j["location"]]
+        for j, loc in zip(multi, _pool_map(sites, multi, c.get("page_workers", 4))):
+            j["location"] = loc
+        return out, True
     if c.get("variant") == "results":
         # Deloitte-style: <article class="article--result "> cards (title link, then Org | Entity | Location spans),
         # 10 per page, about 1000 jobs firm-wide, so each search term is paged separately (verified live 2026-10-11).

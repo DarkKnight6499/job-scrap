@@ -77,6 +77,23 @@ def test_avature_details_variant():
                          location="Sydney Office", posted="2026-10-02")]
 
 
+def test_avature_table_variant():
+    row = ('<tr><th scope="row"><a class="link fw--500" data-map="job-detail-link" '
+           'href="https://r.example/en_CA/careers/JobDetail/X1-VP/55" title="IRRBB Analyst &amp; Modeler"> x </a></th>'
+           '<td> New York, New York </td><td> Hybrid </td></tr>')
+    with mock.patch.object(js, "http", fake_http({"SearchJobs": ("<html>" + row + "</html>").encode()})):
+        jobs, complete = js.avature(dict(host="r.example", list_path="en_CA/careers/SearchJobs", variant="table", page_size=20))
+    assert complete
+    assert jobs == [dict(id="55", title="IRRBB Analyst & Modeler", url="https://r.example/en_CA/careers/JobDetail/X1-VP/55",
+                         location="New York, New York", posted="")]
+    multi = row.replace("New York, New York", "2 possible locations").replace("/55", "/56")
+    detail = "<div><strong>Location(s):</strong> Montreal, New York\n</div>"
+    pages = {"SearchJobs": ("<html>" + multi + "</html>").encode(), "JobDetail": detail.encode()}
+    with mock.patch.object(js, "http", fake_http(pages)):
+        jobs, _ = js.avature(dict(host="r.example", list_path="en_CA/careers/SearchJobs", variant="table", page_size=20))
+    assert jobs[0]["location"] == "Montreal, New York"
+
+
 def test_successfactors_pages_past_a_page_that_only_repeats_earlier_searches():
     def item(i):
         return f"<item><title>Job {i} (NY)</title><link>https://h/job/x/{i}/</link><pubDate>Fri, 02 Oct 2026 10:00:00 GMT</pubDate><description>d</description></item>"
