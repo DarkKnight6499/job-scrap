@@ -5,7 +5,7 @@ Searches each query for the last N days, keeps new cards (not in queue.json or A
 company+title), and writes data/linkedin_candidates.json for manual triage. LinkedIn 429s fast and blocks
 shared runner IPs, so run this locally and never from the hourly job.
 
-    py -3 linkedin_guest_search.py [--days 14] [--pages 2] [--dry-run]
+    py -3 linkedin_guest_search.py [--days 14] [--pages 2] [--companies priority|all|none] [--companies-only] [--dry-run]
 """
 import argparse
 import html
@@ -33,6 +33,16 @@ INTERN_QUERIES = [
     "spring 2027 intern finance", "spring 2027 internship risk", "spring 2027 treasury intern",
     "spring 2027 quantitative intern", "spring 2027 investment intern", "spring 2027 co-op finance",
 ]
+# Employers the hosted scout cannot poll (data/unsupported.json); LinkedIn is the only feed for them. Searched by name, cards kept only if the company matches.
+PRIORITY_COMPANIES = [
+    "Citadel", "Citadel Securities", "BNP Paribas", "NatWest", "Rabobank", "Tower Research", "SS&C", "Annaly", "Rithm Capital",
+    "Elliott Management", "Global Atlantic", "Munich Re", "Talcott", "Jackson Financial", "FactSet", "Mercer", "Guy Carpenter",
+    "Euroclear", "Quantifi", "Beacon Platform", "OpenGamma", "Cassini Systems", "Intex Solutions", "Instinet", "Wedbush Securities",
+    "TradeStation", "Western Asset Management", "DoubleLine", "GoldenTree Asset Management", "The Baupost Group", "Centerbridge Partners",
+    "New York Stock Exchange", "Envestnet", "Comerica Bank", "Zions Bank", "Eaton Vance", "Putnam Investments", "ClearBridge Investments",
+    "Dynex Capital", "Two Harbors", "MFA Financial", "Mutual of Omaha", "Symetra", "F&G Annuities & Life", "Security Benefit", "PartnerRe",
+]
+COMPANY_PAGES = 1
 LOCATION = "United States"
 PAGE_SIZE = 10          # guest endpoint returns 10 cards per call here
 PAUSE_S = 5
@@ -41,6 +51,7 @@ MAX_429_STREAK = 2
 TRACKER = Path(r"D:\Code\Resume\Applications.xlsx")
 QUEUE = Path(__file__).resolve().parent / "data" / "queue.json"
 CONFIG = Path(__file__).resolve().parent / "data" / "config.json"
+UNSUPPORTED = Path(__file__).resolve().parent / "data" / "unsupported.json"
 OUT = Path(__file__).resolve().parent / "data" / "linkedin_candidates.json"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
       "Accept-Language": "en-US,en;q=0.9"}
@@ -91,6 +102,21 @@ def covered(company, boards):
     return any(n == b or (len(b) > 4 and (n.startswith(b) or b.startswith(n))) for b in boards)
 
 
+def company_targets(mode):
+    """Names to search by company: none, the curated priority list, or every entry in unsupported.json."""
+    if mode == "none":
+        return []
+    if mode == "priority":
+        return list(PRIORITY_COMPANIES)
+    names = [c["name"] for c in json.loads(UNSUPPORTED.read_text(encoding="utf-8"))["companies"]]
+    return list(dict.fromkeys(PRIORITY_COMPANIES + names))
+
+
+def name_match(card_company, target):
+    n, t = norm(card_company), norm(target)
+    return bool(t) and (n == t or n.startswith(t) or t.startswith(n))
+
+
 def known_keys():
     keys = set()
     try:
@@ -117,13 +143,20 @@ def main():
     ap.add_argument("--days", type=int, default=14)
     ap.add_argument("--pages", type=int, default=2)
     ap.add_argument("--all", action="store_true", help="keep roles at companies the scout already polls")
+    ap.add_argument("--companies", choices=["priority", "all", "none"], default="priority",
+                    help="also search unpollable employers by name (priority list, every unsupported.json entry, or none)")
+    ap.add_argument("--companies-only", action="store_true", help="skip the role queries; search only the unpollable employers by name")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
     seen_ids, found, streak = set(), [], 0
     known = known_keys()
-    for q, jt in [(q, "F") for q in QUERIES] + [(q, "I") for q in INTERN_QUERIES]:  # I = LinkedIn internship type
-        for p in range(a.pages):
-            params = {"keywords": q, "location": LOCATION, "f_TPR": f"r{a.days * 86400}", "f_JT": jt, "start": p * PAGE_SIZE}
+    jobs = [] if a.companies_only else [(q, "F", None) for q in QUERIES] + [(q, "I", None) for q in INTERN_QUERIES]  # I = LinkedIn internship type
+    jobs += [(t, None, t) for t in company_targets(a.companies)]  # no job-type filter: roles and internships
+    for q, jt, target in jobs:
+        for p in range(a.pages if target is None else COMPANY_PAGES):
+            params = {"keywords": q, "location": LOCATION, "f_TPR": f"r{a.days * 86400}", "start": p * PAGE_SIZE}
+            if jt:
+                params["f_JT"] = jt
             try:
                 cards = parse_cards(fetch(SEARCH + "?" + urllib.parse.urlencode(params)))
                 streak = 0
@@ -141,10 +174,11 @@ def main():
             if not cards:
                 break
             for c in cards:
-                if c["id"] in seen_ids:
+                if c["id"] in seen_ids or (target and not name_match(c["company"], target)):
                     continue
                 seen_ids.add(c["id"])
                 c["query"] = q
+                c["company_query"] = bool(target)
                 c["tracked"] = (norm(c["company"]), norm(c["title"])) in known
                 found.append(c)
             time.sleep(PAUSE_S)
