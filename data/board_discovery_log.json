@@ -1926,8 +1926,9 @@
  },
  "rothesay": {
   "name": "Rothesay",
-  "date": "2026-11-15",
-  "found": null
+  "date": "2026-11-27",
+  "found": "greenhouse rothesaylife",
+  "note": "title coverage review 2026-11-27"
  },
  "tdsecurities": {
   "name": "TD Securities",
@@ -4005,9 +4006,8 @@
  },
  "optimalblue": {
   "name": "Optimal Blue",
-  "date": "2026-11-20",
-  "found": null,
-  "note": "no_supported_url"
+  "date": "2026-11-27",
+  "found": null
  },
  "truliantfederalcreditunion": {
   "name": "Truliant Federal Credit Union",
@@ -17907,5 +17907,78 @@
   "date": "2026-11-25",
   "found": "avature emplois.bnc.ca",
   "note": "added by hand, 406 jobs verified 2026-11-25"
+ },
+ "cvshealth": {
+  "name": "CVS Health",
+  "date": "2026-11-27",
+  "found": "workday cvshealth.wd1.myworkdayjobs.com",
+  "note": "title coverage review 2026-11-27"
+ },
+ "cornelluniversity": {
+  "name": "Cornell University",
+  "date": "2026-11-27",
+  "found": "workday cornell.wd1.myworkdayjobs.com",
+  "note": "title coverage review 2026-11-27"
+ },
+ "fanduel": {
+  "name": "FanDuel",
+  "date": "2026-11-27",
+  "found": "greenhouse fanduel",
+  "note": "title coverage review 2026-11-27"
+ },
+ "gapinc": {
+  "name": "Gap Inc",
+  "date": "2026-11-27",
+  "found": "workday gapinc.wd1.myworkdayjobs.com",
+  "note": "title coverage review 2026-11-27"
+ },
+ "issstoxx": {
+  "name": "ISS STOXX",
+  "date": "2026-11-27",
+  "found": "workday issgovernance.wd1.myworkdayjobs.com",
+  "note": "title coverage review 2026-11-27"
+ },
+ "modoenergy": {
+  "name": "Modo Energy",
+  "date": "2026-11-27",
+  "found": "greenhouse modoenergy",
+  "note": "title coverage review 2026-11-27"
+ },
+ "rxr": {
+  "name": "RXR",
+  "date": "2026-11-27",
+  "found": "greenhouse rxr",
+  "note": "title coverage review 2026-11-27"
+ },
+ "walmart": {
+  "name": "Walmart",
+  "date": "2026-11-27",
+  "found": "workday walmart.wd504.myworkdayjobs.com",
+  "note": "title coverage review 2026-11-27"
+ },
+ "cifc": {
+  "name": "CIFC",
+  "date": "2026-11-27",
+  "found": null
+ },
+ "orixusa": {
+  "name": "ORIX USA",
+  "date": "2026-11-27",
+  "found": null
+ },
+ "poluscapitalmanagement": {
+  "name": "Polus Capital Management",
+  "date": "2026-11-27",
+  "found": null
+ },
+ "unitedrentals": {
+  "name": "United Rentals",
+  "date": "2026-11-27",
+  "found": null
+ },
+ "ibm": {
+  "name": "IBM",
+  "date": "2026-11-27",
+  "found": null
  }
 }

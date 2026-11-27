@@ -3754,6 +3754,12 @@ _SPRING_2027_RE = re.compile(r"\b(?:spring\s*(?:of\s*|semester\s*|term\s*)?(?:20
 _INTERN_EXCLUDE_TERMS = {"intern", "internship", "summer", "co-op"}
 
 
+def company_title_ok(c, title):
+    """A company's optional title_require list narrows the global filters for a board whose broad matches are mostly noise."""
+    required = c.get("title_require")
+    return not required or contains_any(" ".join((title or "").split()), required)
+
+
 def title_filter_reason(job, f):
     """The title rule that hides a role that has a title_include hit, as (kind, term), else None. Mirrors the title
     checks in matches() in the same order; test_filter_reason.py keeps the two in step. Roles with no include hit are
@@ -5849,6 +5855,7 @@ def run(args):
             hits = [j for j in jobs if matches(j, filters)]
             if not args.check:
                 hits += _rescue_multi_site(c, jobs, hits, filters)
+            hits = [j for j in hits if company_title_ok(c, j["title"])]
             if args.check:
                 warn = "  <- 0 jobs, check slug" if not jobs else ""
                 trunc = "  [truncated - raise max_per_term or narrow search terms]" if not complete else ""
@@ -5904,6 +5911,7 @@ def run(args):
         _prune_stale(queue, counts, unverified, configured={c["name"] for c in cfg["companies"]})
         _write_tombstones(counts.get("pruned_ids", []), "pruned")
         _drop_location_filtered(queue, cfg.get("filters", {}), counts)
+        _drop_company_title_filtered(queue, cfg["companies"], counts)
         HOME.mkdir(parents=True, exist_ok=True)
         # queue first: a crash between the writes must never leave a job marked seen without its queue row
         atomic_json.write(str(HOME / "queue.json"), queue)
@@ -5926,6 +5934,15 @@ def _drop_location_filtered(queue, filters, counts):
                 "locations_exclude": filters.get("locations_exclude", [])}
     keep = [e for e in queue if e.get("state") != "new" or matches({"title": e.get("role", "x"), "location": e.get("location", ""), "link": e.get("link", "")}, loc_only)]
     counts["location_dropped"] = len(queue) - len(keep)
+    queue[:] = keep
+
+
+def _drop_company_title_filtered(queue, companies, counts):
+    """Removes still-new rows a company's title_require list rejects, so a newly added rule also cleans the old queue."""
+    rules = {c["name"]: c for c in companies if c.get("title_require")}
+    keep = [e for e in queue if e.get("state") != "new" or e.get("company") not in rules
+            or company_title_ok(rules[e["company"]], e.get("role", ""))]
+    counts["company_title_dropped"] = len(queue) - len(keep)
     queue[:] = keep
 
 

@@ -135,7 +135,36 @@
    "forecasting",
    "financial modeling",
    "financial modelling",
-   "internal audit"
+   "internal audit",
+   "mrgr",
+   "erm",
+   "hedging",
+   "vcg",
+   "prepayment",
+   "private credit",
+   "model developer",
+   "mortgage modeler",
+   "front office modeling",
+   "structured products",
+   "secured financing",
+   "ficc",
+   "qis",
+   "systematic credit",
+   "strats",
+   "desk strat",
+   "investment strategy",
+   "dcm",
+   "private placements",
+   "fund finance",
+   "middle office",
+   "cre",
+   "global markets",
+   "macro",
+   "fig",
+   "fx trading",
+   "margin",
+   "repo",
+   "evaluator"
   ],
   "title_exclude": [
    "warehouse team",
@@ -23570,7 +23599,29 @@
     "corporate development",
     "finance manager"
    ],
-   "max_per_term": 200
+   "max_per_term": 200,
+   "title_require": [
+    "treasury",
+    "liquidity",
+    "capital markets",
+    "quantitative",
+    "quant",
+    "market risk",
+    "credit risk",
+    "financial risk",
+    "derivatives",
+    "hedging",
+    "foreign exchange",
+    "fx",
+    "fixed income",
+    "investment",
+    "investments",
+    "asset liability",
+    "model risk",
+    "balance sheet",
+    "financial analyst",
+    "finance analyst"
+   ]
   },
   {
    "name": "Brydon Group",
@@ -23851,6 +23902,108 @@
    "host": "emplois.bnc.ca",
    "list_path": "en_CA/careers/SearchJobs",
    "variant": "table"
+  },
+  {
+   "name": "CVS Health",
+   "ats": "workday",
+   "host": "cvshealth.wd1.myworkdayjobs.com",
+   "tenant": "cvshealth",
+   "site": "CVS_Health_Careers",
+   "search": [
+    "treasury",
+    "analyst"
+   ],
+   "max_per_term": "100"
+  },
+  {
+   "name": "Cornell University",
+   "ats": "workday",
+   "host": "cornell.wd1.myworkdayjobs.com",
+   "tenant": "cornell",
+   "site": "CornellCareerPage",
+   "search": [
+    "treasury",
+    "analyst"
+   ]
+  },
+  {
+   "name": "FanDuel",
+   "ats": "greenhouse",
+   "slug": "fanduel"
+  },
+  {
+   "name": "Gap Inc",
+   "ats": "workday",
+   "host": "gapinc.wd1.myworkdayjobs.com",
+   "tenant": "gapinc",
+   "site": "GAPINC",
+   "search": [
+    "treasury",
+    "analyst"
+   ],
+   "max_per_term": "100"
+  },
+  {
+   "name": "ISS STOXX",
+   "ats": "workday",
+   "host": "issgovernance.wd1.myworkdayjobs.com",
+   "tenant": "issgovernance",
+   "site": "ISScareers",
+   "search": [
+    "treasury",
+    "analyst"
+   ]
+  },
+  {
+   "name": "Modo Energy",
+   "ats": "greenhouse",
+   "slug": "modoenergy"
+  },
+  {
+   "name": "RXR",
+   "ats": "greenhouse",
+   "slug": "rxr"
+  },
+  {
+   "name": "Rothesay",
+   "ats": "greenhouse",
+   "slug": "rothesaylife"
+  },
+  {
+   "name": "Walmart",
+   "ats": "workday",
+   "host": "walmart.wd504.myworkdayjobs.com",
+   "tenant": "walmart",
+   "site": "WalmartExternal",
+   "search": [
+    "treasury",
+    "analyst"
+   ],
+   "max_per_term": 40,
+   "board_read_max": 1000,
+   "big_board_ceiling": 100,
+   "title_require": [
+    "treasury",
+    "liquidity",
+    "capital markets",
+    "quantitative",
+    "quant",
+    "market risk",
+    "credit risk",
+    "financial risk",
+    "derivatives",
+    "hedging",
+    "foreign exchange",
+    "fx",
+    "fixed income",
+    "investment",
+    "investments",
+    "asset liability",
+    "model risk",
+    "balance sheet",
+    "financial analyst",
+    "finance analyst"
+   ]
   }
  ],
  "keywords": [
