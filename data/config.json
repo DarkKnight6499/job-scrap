@@ -23904,18 +23904,6 @@
    "variant": "table"
   },
   {
-   "name": "CVS Health",
-   "ats": "workday",
-   "host": "cvshealth.wd1.myworkdayjobs.com",
-   "tenant": "cvshealth",
-   "site": "CVS_Health_Careers",
-   "search": [
-    "treasury",
-    "analyst"
-   ],
-   "max_per_term": "100"
-  },
-  {
    "name": "Cornell University",
    "ats": "workday",
    "host": "cornell.wd1.myworkdayjobs.com",
