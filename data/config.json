@@ -1371,12 +1371,10 @@
    "Vice President, Capital Formation",
    "eCommerce Product & Industry-Based Solutions-Payments-Associate",
    "relationship manager",
-   "banker",
    "quantitative developer",
    "technology risk",
    "tech risk",
    "cyber",
-   "security",
    "associate operations",
    "relationship banking associate",
    "plant controller",
@@ -1399,7 +1397,9 @@
    "engineering intern",
    "paid media",
    "paid social",
-   "collections support"
+   "collections support",
+   "actuary",
+   "representative"
   ],
   "locations_include": [],
   "locations_exclude": [
@@ -2101,6 +2101,22 @@
    "lyon"
   ],
   "title_exclude_unless": [
+   {
+    "terms": [
+     "banker"
+    ],
+    "unless": [
+     "corporate banker"
+    ]
+   },
+   {
+    "terms": [
+     "security"
+    ],
+    "unless": [
+     "information security risk"
+    ]
+   },
    {
     "terms": [
      "client services"

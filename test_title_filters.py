@@ -136,3 +136,20 @@ def test_zero_score_titles_excluded(title):
 ])
 def test_zero_score_terms_keep_neighbours(title):
     assert js.matches(_job(title), dict(FILTERS, title_include=[]))
+
+
+@pytest.mark.parametrize("title", [
+    "Relationship Banker", "Personal Banker II", "Cyber Security Analyst", "Security Officer", "Information Security Risk Specialist",
+])
+def test_banker_and_security_stay_excluded(title):
+    assert not js.matches(_job(title), FILTERS)
+
+
+@pytest.mark.parametrize("title", ["Associate Actuary", "Pricing Representative"])
+def test_actuary_and_representative_excluded(title):
+    assert not js.matches(_job(title), FILTERS)
+
+
+@pytest.mark.parametrize("title", ["Actuarial Analytics Analyst", "Treasury Analyst"])
+def test_actuary_term_keeps_neighbours(title):
+    assert js.matches(_job(title), dict(FILTERS, title_include=[]))

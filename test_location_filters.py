@@ -79,3 +79,10 @@ def test_foreign_cities_without_country_are_excluded_2026_10_20():
                 "Golflinks Software Park Private Limited", "Vikram Monarch",
                 "Liverpool Office Hub (GBLIVROY)", "Genève/ Rue du Rhône 31"):
         assert not js.matches({"title": "Associate", "location": loc, "link": ""}, FILTERS)
+
+
+@pytest.mark.parametrize("location", [
+    "Brisbane", "Brisbane, QLD", "Brisbane, Australia", "Cheshire, UK", "Genoa, Italy", "Brisbane, CA; London, United Kingdom",
+])
+def test_namesake_exception_is_us_only(location):
+    assert not js.matches({"title": "Treasury Analyst", "location": location}, dict(FILTERS, title_include=[]))
