@@ -120,3 +120,19 @@ def test_2026_10_26_trades_and_app_dev_excluded(title):
 def test_2026_10_26_adjacent_kept(title):
     f = dict(FILTERS, title_include=[])
     assert js.matches(_job(title), f)
+
+
+@pytest.mark.parametrize("title", [
+    "Associate Quality Control - Nights", "Underwriting Assistant, Inland Marine", "Postdoctoral Associate", "Engineering Technician",
+    "Part-Time Teller", "POS Support, Associate", "Associate Community Banker", "Lead Java Risk Developer", "Custodial Records Associate",
+    "Paid Social Senior Associate", "Collections Support Associate",
+])
+def test_zero_score_titles_excluded(title):
+    assert not js.matches(_job(title), FILTERS)
+
+
+@pytest.mark.parametrize("title", [
+    "Treasury Analyst, Real Estate", "Quality Assurance Manager, Model Risk", "Underwriting Analyst, Credit Risk", "JavaScript Risk Analytics Lead",
+])
+def test_zero_score_terms_keep_neighbours(title):
+    assert js.matches(_job(title), dict(FILTERS, title_include=[]))
