@@ -12513,8 +12513,10 @@
     "corporate development",
     "finance manager"
    ],
-   "max_per_term": 100,
-   "term_workers": 3
+   "max_per_term": 40,
+   "term_workers": 3,
+   "board_read_max": 1000,
+   "big_board_ceiling": 100
   },
   {
    "name": "FTI Consulting",
